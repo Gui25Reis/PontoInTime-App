@@ -31,7 +31,10 @@ struct CustomViews {
     static func newButton() -> UIButton {
         let but = UIButton()
         but.translatesAutoresizingMaskIntoConstraints = false
+        but.layer.masksToBounds = true
         
+        but.setTitleColor(.systemBlue, for: .normal)
+
         return but
     }
     

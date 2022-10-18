@@ -15,6 +15,12 @@ enum AppColors {
     case endStatus
     
     
+    /* System */
+    
+    /// Cor das safe areas
+    case safeAreaColor
+    
+    
     
     /* MARK: - Nome das cores */
     
@@ -23,6 +29,7 @@ enum AppColors {
         switch self {
         case .startStatus: return "blue_92B1CE"
         case .endStatus: return "green_A9CE92"
+        case .safeAreaColor: return "safeAreaColor"
         }
     }
 }
