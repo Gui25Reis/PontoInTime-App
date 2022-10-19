@@ -4,6 +4,7 @@
 import class UIKit.UITableViewCell
 import class UIKit.NSCoder
 
+import UIKit
 
 /// Célula geral de uma table que utiliza os componentes nativos de uma célula
 class GeneralTableCell: UITableViewCell, CustomTableCell {
@@ -15,7 +16,7 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
     }
     
     required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
-    
+
     
     
     /* MARK: - Protocolo */

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		224C528E28FFDE910080C1C3 /* GeneralTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224C528D28FFDE910080C1C3 /* GeneralTableDelegate.swift */; };
 		2283DCB028FE4F90008EE94F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCAF28FE4F90008EE94F /* AppDelegate.swift */; };
 		2283DCB228FE4F90008EE94F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCB128FE4F90008EE94F /* SceneDelegate.swift */; };
 		2283DCBA28FE4F90008EE94F /* mainDataBase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCB828FE4F90008EE94F /* mainDataBase.xcdatamodeld */; };
@@ -53,9 +54,14 @@
 		2283DD5128FFB17A008EE94F /* CellAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5028FFB17A008EE94F /* CellAction.swift */; };
 		2283DD5328FFB7F0008EE94F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2283DD5228FFB7EF008EE94F /* Localizable.strings */; };
 		2283DD5528FFB824008EE94F /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5428FFB824008EE94F /* String+Localized.swift */; };
+		2283DD5928FFBE44008EE94F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5828FFBE44008EE94F /* SettingsController.swift */; };
+		2283DD5C28FFBE5C008EE94F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5B28FFBE5C008EE94F /* SettingsView.swift */; };
+		2283DD5F28FFBE70008EE94F /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5E28FFBE70008EE94F /* SettingsCell.swift */; };
+		2283DD6228FFBEE0008EE94F /* SettingsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD6128FFBEE0008EE94F /* SettingsDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		224C528D28FFDE910080C1C3 /* GeneralTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralTableDelegate.swift; sourceTree = "<group>"; };
 		2283DCAC28FE4F90008EE94F /* Ponto In Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ponto In Time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2283DCAF28FE4F90008EE94F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2283DCB128FE4F90008EE94F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +110,10 @@
 		2283DD5028FFB17A008EE94F /* CellAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellAction.swift; sourceTree = "<group>"; };
 		2283DD5228FFB7EF008EE94F /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		2283DD5428FFB824008EE94F /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
+		2283DD5828FFBE44008EE94F /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		2283DD5B28FFBE5C008EE94F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		2283DD5E28FFBE70008EE94F /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		2283DD6128FFBEE0008EE94F /* SettingsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				2283DCCA28FE4FC0008EE94F /* System */,
+				224C528D28FFDE910080C1C3 /* GeneralTableDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -189,6 +200,7 @@
 				2283DCCC28FE4FE4008EE94F /* Main */,
 				2283DD1D28FE866F008EE94F /* Menu */,
 				2283DD3928FF7BB9008EE94F /* HIstoric */,
+				2283DD5728FFBE2F008EE94F /* Settings */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -507,6 +519,41 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		2283DD5728FFBE2F008EE94F /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2283DD6028FFBEBA008EE94F /* Data Source */,
+				2283DD5A28FFBE49008EE94F /* View */,
+				2283DD5828FFBE44008EE94F /* SettingsController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		2283DD5A28FFBE49008EE94F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2283DD5D28FFBE60008EE94F /* Cell */,
+				2283DD5B28FFBE5C008EE94F /* SettingsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2283DD5D28FFBE60008EE94F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2283DD5E28FFBE70008EE94F /* SettingsCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2283DD6028FFBEBA008EE94F /* Data Source */ = {
+			isa = PBXGroup;
+			children = (
+				2283DD6128FFBEE0008EE94F /* SettingsDataSource.swift */,
+			);
+			path = "Data Source";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -578,11 +625,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2283DD5F28FFBE70008EE94F /* SettingsCell.swift in Sources */,
 				2283DD0128FE6597008EE94F /* UILabel+FontInfo.swift in Sources */,
 				2283DCF128FE64CD008EE94F /* ScreenSize.swift in Sources */,
 				2283DD2528FEA4FD008EE94F /* MenuCell.swift in Sources */,
 				2283DD4728FF94E3008EE94F /* HistoricDataSource.swift in Sources */,
 				2283DD2E28FF3B5C008EE94F /* ActionType.swift in Sources */,
+				224C528E28FFDE910080C1C3 /* GeneralTableDelegate.swift in Sources */,
 				2283DD0928FE6916008EE94F /* StatusView.swift in Sources */,
 				2283DCE128FE52DA008EE94F /* UIButton+IconInfo.swift in Sources */,
 				2283DCD928FE5297008EE94F /* UIViewController+setupTab.swift in Sources */,
@@ -594,6 +643,7 @@
 				2283DD4F28FFB109008EE94F /* CellData.swift in Sources */,
 				2283DCE328FE52DA008EE94F /* UIImage+AppIcons.swift in Sources */,
 				2283DD3828FF7901008EE94F /* CustomCell.swift in Sources */,
+				2283DD5928FFBE44008EE94F /* SettingsController.swift in Sources */,
 				2283DD3328FF6F60008EE94F /* TableStyles.swift in Sources */,
 				2283DCFA28FE6563008EE94F /* CustomViews.swift in Sources */,
 				2283DCF028FE64CD008EE94F /* Screens.swift in Sources */,
@@ -601,12 +651,14 @@
 				2283DD3028FF4858008EE94F /* CustomTable.swift in Sources */,
 				2283DD3E28FF7C08008EE94F /* HistoricView.swift in Sources */,
 				2283DD0428FE6597008EE94F /* UIButton+FontInfo.swift in Sources */,
+				2283DD6228FFBEE0008EE94F /* SettingsDataSource.swift in Sources */,
 				2283DD1228FE6B9F008EE94F /* AppColors.swift in Sources */,
 				2283DD0628FE65A0008EE94F /* FontInfo.swift in Sources */,
 				2283DD5528FFB824008EE94F /* String+Localized.swift in Sources */,
 				2283DD2828FEA7D9008EE94F /* InfoMenuDataSource.swift in Sources */,
 				2283DD0328FE6597008EE94F /* UIFont+setupFont.swift in Sources */,
 				2283DCD328FE51DB008EE94F /* MainController.swift in Sources */,
+				2283DD5C28FFBE5C008EE94F /* SettingsView.swift in Sources */,
 				2283DD1328FE6B9F008EE94F /* UIColors+AppColors.swift in Sources */,
 				2283DCE228FE52DA008EE94F /* AppIcons.swift in Sources */,
 				2283DD4028FF7D5C008EE94F /* HistoricCell.swift in Sources */,

@@ -47,4 +47,13 @@ struct CustomViews {
         
         return imgV
     }
+    
+    
+    /// Cria uma imagem (view) de acordo com a padronização do projeto
+    static func newSwitch() -> UISwitch {
+        let swit = UISwitch()
+        swit.translatesAutoresizingMaskIntoConstraints = false
+        
+        return swit
+    }
  }

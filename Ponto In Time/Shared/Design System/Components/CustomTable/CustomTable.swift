@@ -67,6 +67,9 @@ class CustomTable: UIView {
         table.tableHeaderView = view
         table.tableFooterView = view
         
+        // TODO: Deletar quando for aplicar o delegate das tabelas
+        table.delegate = GeneralTableDelegate.shared
+        
         return table
     }()
     
@@ -128,7 +131,7 @@ class CustomTable: UIView {
     /// Define o texto de rodapé da table
     /// - Parameter text: texto
     public func setFooterTitle(for text: String) {
-        self.footerLabel.text = text.capitalized
+        self.footerLabel.text = text
     }
     
     
@@ -250,7 +253,7 @@ class CustomTable: UIView {
     private func setupStaticTexts() {
         if self.style != .justTable {
             let fontInfo = FontInfo(
-                fontSize: self.superview?.getEquivalent(12) ?? 12,
+                fontSize: self.superview?.getEquivalent(13) ?? 13,
                 weight: .medium
             )
             
@@ -311,14 +314,13 @@ class CustomTable: UIView {
             self.dynamicConstraints = [
                 self.footerLabel.topAnchor.constraint(equalTo: self.tableView.bottomAnchor, constant: between),
                 self.footerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-                self.footerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: lateral),
-                self.footerLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -between)
+                self.footerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
             ]
             
         case .withHeader:
             self.dynamicConstraints = [
                 self.headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-                self.headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: lateral),
+                self.headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
                 self.headerLabel.heightAnchor.constraint(equalToConstant: headerHeight),
                 
                 
@@ -328,17 +330,16 @@ class CustomTable: UIView {
         case .complete:
             self.dynamicConstraints = [
                 self.headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-                self.headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: lateral),
+                self.headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
                 self.headerLabel.heightAnchor.constraint(equalToConstant: headerHeight),
                 
                 
-                self.tableView.topAnchor.constraint(equalTo: self.headerLabel.topAnchor, constant: between),
+                self.tableView.topAnchor.constraint(equalTo: self.headerLabel.bottomAnchor, constant: between),
                 
                 
                 self.footerLabel.topAnchor.constraint(equalTo: self.tableView.bottomAnchor, constant: between),
                 self.footerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-                self.footerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: lateral),
-                self.footerLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -between)
+                self.footerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
             ]
         }
         

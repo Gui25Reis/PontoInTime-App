@@ -36,6 +36,14 @@ class MenuController: UIViewController {
         self.setupButtonsAction()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    
+    
 
 
     /* MARK: - Protocolo */
@@ -46,7 +54,9 @@ class MenuController: UIViewController {
     
     
     @objc private func openSettingsPage() {
+        let vc = SettingsController()
         
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     
@@ -64,7 +74,7 @@ class MenuController: UIViewController {
     
     /// Definindo as ações dos botões
     private func setupButtonsAction() {
-	  
+        
     }
     
     
