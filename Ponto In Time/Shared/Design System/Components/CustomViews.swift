@@ -31,7 +31,10 @@ struct CustomViews {
     static func newButton() -> UIButton {
         let but = UIButton()
         but.translatesAutoresizingMaskIntoConstraints = false
+        but.layer.masksToBounds = true
         
+        but.setTitleColor(.systemBlue, for: .normal)
+
         return but
     }
     
@@ -43,36 +46,5 @@ struct CustomViews {
         imgV.clipsToBounds = true
         
         return imgV
-    }
-    
-    /// Cria uma table de acordo com a padronização do projeto
-    static func newTable() -> UITableView {
-        let table = UITableView(frame: .zero, style: .grouped)
-        table.translatesAutoresizingMaskIntoConstraints = false
-        
-        table.backgroundColor = .systemGroupedBackground
-        table.isScrollEnabled = false
-        
-        table.clipsToBounds = true
-        table.layer.masksToBounds = true
-//        table.layer.cornerRadius = 7
-        
-//        table.rowHeight = 45
-        
-        // Tirando o espaço do topo
-        var frame = CGRect.zero
-        frame.size.height = .leastNormalMagnitude
-        
-        let view = UIView(frame: frame)
-        table.tableHeaderView = view
-        table.tableFooterView = view
-        
-        // Tirando o espaço entre as seções
-        table.sectionHeaderHeight = .leastNormalMagnitude
-        table.sectionFooterHeight = 20
-        
-        table.contentInset = .zero
-        
-        return table
     }
  }

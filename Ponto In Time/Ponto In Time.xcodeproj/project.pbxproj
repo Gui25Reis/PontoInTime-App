@@ -34,6 +34,16 @@
 		2283DD0C28FE6B23008EE94F /* StatusViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD0B28FE6B23008EE94F /* StatusViewStyle.swift */; };
 		2283DD1228FE6B9F008EE94F /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD0F28FE6B9F008EE94F /* AppColors.swift */; };
 		2283DD1328FE6B9F008EE94F /* UIColors+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD1028FE6B9F008EE94F /* UIColors+AppColors.swift */; };
+		2283DD1F28FE867F008EE94F /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD1E28FE867F008EE94F /* MenuController.swift */; };
+		2283DD2228FE86A4008EE94F /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD2128FE86A4008EE94F /* MenuView.swift */; };
+		2283DD2528FEA4FD008EE94F /* InfosMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD2428FEA4FD008EE94F /* InfosMenuCell.swift */; };
+		2283DD2828FEA7D9008EE94F /* InfoMenuDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD2728FEA7D9008EE94F /* InfoMenuDataSource.swift */; };
+		2283DD2B28FF3195008EE94F /* PointInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD2A28FF3195008EE94F /* PointInfo.swift */; };
+		2283DD2E28FF3B5C008EE94F /* ActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD2D28FF3B5C008EE94F /* ActionType.swift */; };
+		2283DD3028FF4858008EE94F /* CustomTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD2F28FF4858008EE94F /* CustomTable.swift */; };
+		2283DD3328FF6F60008EE94F /* TableStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD3228FF6F60008EE94F /* TableStyles.swift */; };
+		2283DD3628FF6FCA008EE94F /* TableDataCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD3528FF6FCA008EE94F /* TableDataCount.swift */; };
+		2283DD3828FF7901008EE94F /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD3728FF7901008EE94F /* CustomCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +76,16 @@
 		2283DD0B28FE6B23008EE94F /* StatusViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewStyle.swift; sourceTree = "<group>"; };
 		2283DD0F28FE6B9F008EE94F /* AppColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		2283DD1028FE6B9F008EE94F /* UIColors+AppColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColors+AppColors.swift"; sourceTree = "<group>"; };
+		2283DD1E28FE867F008EE94F /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		2283DD2128FE86A4008EE94F /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		2283DD2428FEA4FD008EE94F /* InfosMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfosMenuCell.swift; sourceTree = "<group>"; };
+		2283DD2728FEA7D9008EE94F /* InfoMenuDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoMenuDataSource.swift; sourceTree = "<group>"; };
+		2283DD2A28FF3195008EE94F /* PointInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfo.swift; sourceTree = "<group>"; };
+		2283DD2D28FF3B5C008EE94F /* ActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionType.swift; sourceTree = "<group>"; };
+		2283DD2F28FF4858008EE94F /* CustomTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTable.swift; sourceTree = "<group>"; };
+		2283DD3228FF6F60008EE94F /* TableStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableStyles.swift; sourceTree = "<group>"; };
+		2283DD3528FF6FCA008EE94F /* TableDataCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDataCount.swift; sourceTree = "<group>"; };
+		2283DD3728FF7901008EE94F /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +129,7 @@
 		2283DCC628FE4F98008EE94F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				2283DD2928FF311A008EE94F /* Models */,
 				2283DCCD28FE4FF3008EE94F /* Assets */,
 				2283DCCE28FE4FFC008EE94F /* Storage */,
 				2283DCD028FE502A008EE94F /* Design System */,
@@ -120,6 +141,7 @@
 		2283DCC828FE4FAF008EE94F /* General */ = {
 			isa = PBXGroup;
 			children = (
+				2283DD3428FF6F9C008EE94F /* Protocolo */,
 				2283DCD428FE5287008EE94F /* Extensions */,
 				2283DCC928FE4FBA008EE94F /* Delegate */,
 			);
@@ -147,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				2283DCCC28FE4FE4008EE94F /* Main */,
+				2283DD1D28FE866F008EE94F /* Menu */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -189,7 +212,6 @@
 			children = (
 				2283DCF428FE64D0008EE94F /* Adaptive Layout */,
 				2283DD0728FE68F4008EE94F /* Components */,
-				2283DCF828FE6555008EE94F /* Views */,
 				2283DCFB28FE6585008EE94F /* Font */,
 				2283DCDB28FE52C7008EE94F /* Icons */,
 				2283DD0D28FE6B8C008EE94F /* Color */,
@@ -276,14 +298,6 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
-		2283DCF828FE6555008EE94F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				2283DCF928FE6563008EE94F /* CustomViews.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		2283DCFB28FE6585008EE94F /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,7 +321,9 @@
 		2283DD0728FE68F4008EE94F /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				2283DD3128FF6F40008EE94F /* CustomTable */,
 				2283DD0A28FE6B10008EE94F /* StatusView */,
+				2283DCF928FE6563008EE94F /* CustomViews.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -336,6 +352,68 @@
 				2283DD1028FE6B9F008EE94F /* UIColors+AppColors.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		2283DD1D28FE866F008EE94F /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				2283DD2628FEA7BC008EE94F /* Data Source */,
+				2283DD2028FE8683008EE94F /* View */,
+				2283DD1E28FE867F008EE94F /* MenuController.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		2283DD2028FE8683008EE94F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2283DD2328FEA4DF008EE94F /* Cell */,
+				2283DD2128FE86A4008EE94F /* MenuView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2283DD2328FEA4DF008EE94F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2283DD2428FEA4FD008EE94F /* InfosMenuCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2283DD2628FEA7BC008EE94F /* Data Source */ = {
+			isa = PBXGroup;
+			children = (
+				2283DD2728FEA7D9008EE94F /* InfoMenuDataSource.swift */,
+			);
+			path = "Data Source";
+			sourceTree = "<group>";
+		};
+		2283DD2928FF311A008EE94F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2283DD2A28FF3195008EE94F /* PointInfo.swift */,
+				2283DD2D28FF3B5C008EE94F /* ActionType.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2283DD3128FF6F40008EE94F /* CustomTable */ = {
+			isa = PBXGroup;
+			children = (
+				2283DD3228FF6F60008EE94F /* TableStyles.swift */,
+				2283DD2F28FF4858008EE94F /* CustomTable.swift */,
+			);
+			path = CustomTable;
+			sourceTree = "<group>";
+		};
+		2283DD3428FF6F9C008EE94F /* Protocolo */ = {
+			isa = PBXGroup;
+			children = (
+				2283DD3528FF6FCA008EE94F /* TableDataCount.swift */,
+				2283DD3728FF7901008EE94F /* CustomCell.swift */,
+			);
+			path = Protocolo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -410,19 +488,27 @@
 			files = (
 				2283DD0128FE6597008EE94F /* UILabel+FontInfo.swift in Sources */,
 				2283DCF128FE64CD008EE94F /* ScreenSize.swift in Sources */,
+				2283DD2528FEA4FD008EE94F /* InfosMenuCell.swift in Sources */,
+				2283DD2E28FF3B5C008EE94F /* ActionType.swift in Sources */,
 				2283DD0928FE6916008EE94F /* StatusView.swift in Sources */,
 				2283DCE128FE52DA008EE94F /* UIButton+IconInfo.swift in Sources */,
 				2283DCD928FE5297008EE94F /* UIViewController+setupTab.swift in Sources */,
 				2283DD0C28FE6B23008EE94F /* StatusViewStyle.swift in Sources */,
+				2283DD3628FF6FCA008EE94F /* TableDataCount.swift in Sources */,
+				2283DD2B28FF3195008EE94F /* PointInfo.swift in Sources */,
 				2283DCF328FE64CD008EE94F /* AdaptiveLayout.swift in Sources */,
 				2283DCE328FE52DA008EE94F /* UIImage+AppIcons.swift in Sources */,
+				2283DD3828FF7901008EE94F /* CustomCell.swift in Sources */,
+				2283DD3328FF6F60008EE94F /* TableStyles.swift in Sources */,
 				2283DD0228FE6597008EE94F /* UITextField+FontInfo.swift in Sources */,
 				2283DCFA28FE6563008EE94F /* CustomViews.swift in Sources */,
 				2283DCF028FE64CD008EE94F /* Screens.swift in Sources */,
 				2283DCEF28FE64CD008EE94F /* ScreenInfo.swift in Sources */,
+				2283DD3028FF4858008EE94F /* CustomTable.swift in Sources */,
 				2283DD0428FE6597008EE94F /* UIButton+FontInfo.swift in Sources */,
 				2283DD1228FE6B9F008EE94F /* AppColors.swift in Sources */,
 				2283DD0628FE65A0008EE94F /* FontInfo.swift in Sources */,
+				2283DD2828FEA7D9008EE94F /* InfoMenuDataSource.swift in Sources */,
 				2283DD0328FE6597008EE94F /* UIFont+setupFont.swift in Sources */,
 				2283DCD328FE51DB008EE94F /* MainController.swift in Sources */,
 				2283DD1328FE6B9F008EE94F /* UIColors+AppColors.swift in Sources */,
@@ -430,8 +516,10 @@
 				2283DCF228FE64CD008EE94F /* UIView+AdpativeLayout.swift in Sources */,
 				2283DCE528FE52DA008EE94F /* IconInfo.swift in Sources */,
 				2283DCB028FE4F90008EE94F /* AppDelegate.swift in Sources */,
+				2283DD2228FE86A4008EE94F /* MenuView.swift in Sources */,
 				2283DCBA28FE4F90008EE94F /* mainDataBase.xcdatamodeld in Sources */,
 				2283DCEE28FE64CD008EE94F /* Dimension.swift in Sources */,
+				2283DD1F28FE867F008EE94F /* MenuController.swift in Sources */,
 				2283DCB228FE4F90008EE94F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

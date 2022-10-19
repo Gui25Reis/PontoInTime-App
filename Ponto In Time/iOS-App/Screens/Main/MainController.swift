@@ -4,7 +4,7 @@
 import UIKit
 
 
-/// Controller \principal usada para a criação da tab bar
+/// Controller principal usada para a criação da tab bar
 class MainController: UITabBarController {
     
     /* MARK: - Atributos */
@@ -13,7 +13,7 @@ class MainController: UITabBarController {
     private let menuController = MenuController()
     
     /// Controller da tela 02: Ver o hitórico
-    private let historyicController = HistoricController()
+    private let historyicController = MenuController() //HistoricController()
         
     
     
@@ -33,17 +33,15 @@ class MainController: UITabBarController {
     
     /// Configurações iniciais da Tab Bar
     private func setupTab() {
-//        self.tabBar.backgroundColor = UIColor(.viewBack)
-//        self.tabBar.tintColor = UIColor(.tabSelected)
-//        self.tabBar.unselectedItemTintColor = UIColor(.tabNotSelected)
+        self.tabBar.backgroundColor = UIColor(.safeAreaColor)?.withAlphaComponent(0.95)
     }
     
     
     /// Define as controllers que vão aparecer na Tab Bar
     private func setupControllers() {
         self.viewControllers = [
-            self.menuController,
-            self.historyicController,
+            self.getNavigation(for: self.menuController),
+            self.getNavigation(for: self.historyicController),
         ]
     }
     
@@ -53,13 +51,13 @@ class MainController: UITabBarController {
         self.menuController.setupTab(text: "Seu dia", icon: .menuPage)
         self.historyicController.setupTab(text: "Histórico", icon: .historicPage)
     }
-}
-
-
-class MenuController: UIViewController {
     
-}
-
-class HistoricController: UIViewController {
     
+    private func getNavigation(for controller: UIViewController) -> UINavigationController {
+        let nav = UINavigationController(rootViewController: controller)
+        nav.navigationBar.prefersLargeTitles = true
+//        nav.navigationBar.backgroundColor = UIColor(.safeAreaColor)
+//        nav.navigationBar.tintColor = UIColor(.safeAreaColor)
+        return nav
+    }
 }

@@ -12,6 +12,7 @@ extension UIViewController {
     ///   - text: título na tab bar
     ///   - icon: icone na tab bar
     internal func setupTab(text: String, icon: AppIcons) {
+        self.title = text
         self.tabBarItem.title = text
         self.tabBarItem.image = UIImage(icon)
     }

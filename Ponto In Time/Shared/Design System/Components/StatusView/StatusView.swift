@@ -5,29 +5,23 @@ import UIKit
 
 
 /// Cria o símbolo de estado: Entrada ou Saída
-class StatusView: UIView {
+class StatusView: UILabel {
     
     /* MARK: - Atributos */
-
-    /* Views */
-    
-    /// Letra
-    private lazy var charLabel = CustomViews.newLabel()
-    
-    
-    /* Constraints & Tamanhos */
-    
-    /// Constraints dinâmicas que mudam de acordo com o tamanho da tela
-    private lazy var dynamicConstraints: [NSLayoutConstraint] = []
     
     /// Tamanho do quadrado
-    private lazy var squareSize: CGFloat = 25 {
+    public var squareSize: CGFloat = 25 {
         didSet {
             self.setupDynamicConstraints()
         }
     }
     
-
+    /* Constraints & Tamanhos */
+        
+    /// Constraints dinâmicas que mudam de acordo com o tamanho da tela
+    private lazy var dynamicConstraints: [NSLayoutConstraint] = []
+    
+    
 
     /* MARK: - Construtor */
     
@@ -35,64 +29,28 @@ class StatusView: UIView {
     /// - Parameter status: status
     init(status: StatusViewStyle) {
         super.init(frame: .zero)
+        self.translatesAutoresizingMaskIntoConstraints = false
         
-        self.setupViews()
         self.setupUI(for: status)
-        self.setupStaticConstraints()
-    }
-    
-    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
-    
-    
-
-    /* MARK: - Ciclo de Vida */
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        self.setupStaticTexts()
         self.setupDynamicConstraints()
     }
     
+    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
+
     
-    
+
     /* MARK: - Configurações */
 
     /* Geral */
-    
-    /// Adiciona os elementos (Views) na tela
-    private func setupViews() {
-        self.addSubview(self.charLabel)
-    }
-    
-    
+
     /// Personalização da UI
     private func setupUI(for status: StatusViewStyle) {
+        self.layer.masksToBounds = true
         self.layer.cornerRadius = 5
         self.backgroundColor = UIColor(status.color)
+        self.textAlignment = .center
         
-        self.charLabel.text = status.letter
-    }
-    
-    
-    /// Define os textos que são estáticos (os textos em si que vão sempre ser o mesmo)
-    private func setupStaticTexts() {
-        let size: CGFloat = self.bounds.height * 0.65
-        
-        self.charLabel.setupText(with: FontInfo(
-            fontSize: size, weight: .regular
-        ))
-    }
-	  
-    
-    /// Define as constraints estáticas
-    private func setupStaticConstraints() {
-        NSLayoutConstraint.activate([
-            self.charLabel.topAnchor.constraint(equalTo: self.topAnchor),
-            self.charLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.charLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.charLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        ])
+        self.text = status.letter
     }
     
     
