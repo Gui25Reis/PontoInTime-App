@@ -14,4 +14,26 @@ extension UILabel {
         }
         self.font = UIFont.setupFont(with: config)
     }
+    
+    
+    /// Adiciona um ícone junto com o texto
+    /// - Parameters:
+    ///   - text: informações do texto
+    ///   - icon: informações do ícone
+    internal func setupTextWithIcon(text: FontInfo, icon: IconInfo) {
+        // Texto
+        let space = " "
+        let textString = NSAttributedString(string: "\(space)\(text.text ?? "")")
+        
+        // Ícone
+        let imageString = NSTextAttachment()
+        imageString.image = UIImage.getImage(with: icon)
+
+        let finalString = NSMutableAttributedString(attachment: imageString)
+        finalString.append(textString)
+        
+        // Atribuindo configurações na label
+        self.attributedText = finalString
+        self.setupText(with: FontInfo(fontSize: text.fontSize, weight: text.weight))
+    }
 }

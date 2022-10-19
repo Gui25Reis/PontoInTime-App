@@ -4,26 +4,36 @@
 import UIKit
 
 
-/// Data source das collections da página de menu
+/// Data source das tables da página de menu
 class InfoMenuDataSource: NSObject, TableDataCount {
     
     /* MARK: - Atributos */
 
     /// Dados usados no data source referente as informações do dia
-    public lazy var infosData: [PointInfo] = [
-        PointInfo(title: "Data", description: "16/10/22"),
-        PointInfo(title: "Entrada", description: "09:41"),
-        PointInfo(title: "Saída", description: "18:41")
+    public lazy var infosData: [CellData] = [
+        CellData(primaryText: "Data", secondaryText: "16/10/22"),
+        CellData(primaryText: "Entrada", secondaryText: "09:41"),
+        CellData(primaryText: "Saída", secondaryText: "18:41")
     ]
     
     /// Dados usados no data source referente aos pontos
-    public lazy var pointsData: [PointInfo] = [
-        PointInfo(status: .start, title: "Trabalho", description: "09:41"),
-        PointInfo(status: .start, title: "Almoço", description: "12:12"),
-        PointInfo(status: .end, title: "Almoço", description: "13:10"),
-        PointInfo(status: .start, title: "Trabalho", description: "09:41"),
-        PointInfo(status: .start, title: "Almoço", description: "12:12"),
-        PointInfo(status: .end, title: "Almoço", description: "13:10")
+    public lazy var pointsData: [CellData] = [
+        CellData(
+            primaryText: "Trabalho", secondaryText: "09:41",
+            image: StatusView.getImage(for: .start), rightIcon: .disclosureIndicator
+        ),
+        CellData(
+            primaryText: "Almoço", secondaryText: "12:12",
+            image: StatusView.getImage(for: .start), rightIcon: .disclosureIndicator
+        ),
+        CellData(
+            primaryText: "Almoço", secondaryText: "13:10",
+            image: StatusView.getImage(for: .end), rightIcon: .disclosureIndicator
+        ),
+        CellData(
+            primaryText: "Trabalho", secondaryText: "18:39",
+            image: StatusView.getImage(for: .end), rightIcon: .disclosureIndicator
+        ),
     ]
     
     
@@ -68,34 +78,40 @@ class InfoMenuDataSource: NSObject, TableDataCount {
     
     /// Configura uma célula
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: InfosMenuCell.identifier, for: indexPath) as? InfosMenuCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.identifier, for: indexPath) as? MenuCell else {
             return UITableViewCell()
         }
         
         switch tableView.tag {
         case 0:
-            let data = self.infosData[indexPath.row]
-            cell.setupCell(for: data)
-
+            var data = self.infosData[indexPath.row]
+            if data.primaryText == "Data" {
+                data.image = UIImage(.calendar)?.withTintColor(.label)
+            }
+            
+            cell.setupCellData(with: data)
             return cell
             
         case 1:
             if indexPath.row < self.pointsData.count {
                 let data = self.pointsData[indexPath.row]
-                cell.setupCell(for: data)
-            } else {
-                if indexPath.row == self.actionIndex {
-                    cell.setupCell(for: nil, with: .action)
-                } else {
-                    cell.setupCell(for: nil, with: .destructive)
-                }
+                cell.setupCellData(with: data)
+                return cell
             }
             
+            if indexPath.row == self.actionIndex {
+                cell.setupCellAction(wit: CellAction(
+                    actionType: .action, actionTitle: "Bater novo ponto"
+                ))
+            } else {
+                cell.setupCellAction(wit: CellAction(
+                    actionType: .destructive, actionTitle: "Finalizar o dia"
+                ))
+            }
             return cell
             
             
-        default:
-            return UITableViewCell()
+        default: return UITableViewCell()
         }
     }
 }

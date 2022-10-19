@@ -24,7 +24,7 @@ class MenuView: UIView {
     
     /// Tabela com as informações do ponto do dia
     public lazy var infoTable: CustomTable = {
-        let table = CustomTable(style: .justCollection)
+        let table = CustomTable(style: .justTable)
         table.setTableTag(for: 0)
         return table
     }()
@@ -35,7 +35,7 @@ class MenuView: UIView {
         table.isCustomHeight = true
         table.setTableTag(for: 1)
         
-        table.setHeaderTitle(for: "pontos do dia")
+        table.setHeaderTitle(for: "Pontos do dia")
         return table
     }()
     
@@ -52,7 +52,7 @@ class MenuView: UIView {
     private var lastComponentHeight: CGFloat = 0 {
         didSet {
             var maxSpace = self.frame.size.height - self.safeAreaInsets.bottom
-            maxSpace -= self.infoTable.frame.height + self.infoTable.frame.origin.y
+            maxSpace -= (self.infoTable.frame.height + self.infoTable.frame.origin.y)
             
             let status = self.lastComponentHeight > maxSpace
             self.pointsTable.updateScrollStatus(for: status)
@@ -100,8 +100,8 @@ class MenuView: UIView {
     
     /// Registra as células nas collections/table
     private func registerCell() {
-        self.infoTable.registerCell(for: InfosMenuCell.self)
-        self.pointsTable.registerCell(for: InfosMenuCell.self)
+        self.infoTable.registerCell(for: MenuCell.self)
+        self.pointsTable.registerCell(for: MenuCell.self)
     }
     
 
@@ -190,6 +190,6 @@ class MenuView: UIView {
         
         NSLayoutConstraint.activate(self.dynamicConstraints)
         
-        self.lastComponentHeight = self.pointsTable.frame.height
+        self.lastComponentHeight = self.pointsTable.frame.origin.y
     }
 }

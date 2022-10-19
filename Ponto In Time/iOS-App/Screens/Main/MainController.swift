@@ -12,8 +12,8 @@ class MainController: UITabBarController {
     /// Controller da tela 01: Ver o dia
     private let menuController = MenuController()
     
-    /// Controller da tela 02: Ver o hitórico
-    private let historyicController = MenuController() //HistoricController()
+    /// Controller da tela 02: Ver o histórico
+    private let historicController = HistoricController()
         
     
     
@@ -41,7 +41,7 @@ class MainController: UITabBarController {
     private func setupControllers() {
         self.viewControllers = [
             self.getNavigation(for: self.menuController),
-            self.getNavigation(for: self.historyicController),
+            self.getNavigation(for: self.historicController),
         ]
     }
     
@@ -49,7 +49,7 @@ class MainController: UITabBarController {
     /// Configura os ícones e títulos de cada item da tab bar
     private func setupTabBarItens() {
         self.menuController.setupTab(text: "Seu dia", icon: .menuPage)
-        self.historyicController.setupTab(text: "Histórico", icon: .historicPage)
+        self.historicController.setupTab(text: "Histórico", icon: .historicPage)
     }
     
     

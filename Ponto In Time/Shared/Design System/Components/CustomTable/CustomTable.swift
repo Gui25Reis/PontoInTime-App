@@ -142,6 +142,15 @@ class CustomTable: UIView {
     }
     
     
+    /// Define o tamanho da célula da table
+    /// - Parameter height: tamanho da célula
+    ///
+    /// Por padrão a célula possue o temanho de 44.
+    public func setTableHeight(for height: CGFloat) {
+        self.tableView.rowHeight = height
+    }
+    
+    
     /// Atualiza o status da scroll
     /// - Parameter stauts: vai ou não ser escrolável
     public func updateScrollStatus(for status: Bool) {
@@ -216,7 +225,7 @@ class CustomTable: UIView {
         self.addSubview(self.tableView)
         
         switch self.style {
-        case .justCollection: break
+        case .justTable: break
             
         case .withFooter:
             self.addSubview(self.footerLabel)
@@ -239,14 +248,14 @@ class CustomTable: UIView {
     
     /// Define os textos que são estáticos (os textos em si que vão sempre ser o mesmo)
     private func setupStaticTexts() {
-        if self.style != .justCollection {
+        if self.style != .justTable {
             let fontInfo = FontInfo(
                 fontSize: self.superview?.getEquivalent(12) ?? 12,
                 weight: .medium
             )
             
             switch style {
-            case .justCollection: break
+            case .justTable: break
                 
             case .withFooter:
                 self.footerLabel.setupText(with: fontInfo)
@@ -270,7 +279,7 @@ class CustomTable: UIView {
         ]
         
         switch style {
-        case .justCollection, .withFooter:
+        case .justTable, .withFooter:
             staticConstraints.append(
                 self.tableView.topAnchor.constraint(equalTo: self.topAnchor)
             )
@@ -296,7 +305,7 @@ class CustomTable: UIView {
         self.dynamicConstraints = []
         
         switch style {
-        case .justCollection: break
+        case .justTable: break
             
         case .withFooter:
             self.dynamicConstraints = [

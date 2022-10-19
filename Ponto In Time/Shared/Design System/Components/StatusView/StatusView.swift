@@ -65,4 +65,22 @@ class StatusView: UILabel {
         
         NSLayoutConstraint.activate(self.dynamicConstraints)
     }
+    
+    
+    /// Pega uma imagem a partir do componente de status (UIView -> UIImage)
+    /// - Parameter status: tipo do componente
+    /// - Returns: imagem do componente
+    static func getImage(for status: StatusViewStyle) -> UIImage {
+        let view = StatusView(status: status)
+        
+        let size = view.squareSize
+        view.bounds.size = CGSize(width: size, height: size)
+
+        let renderer = UIGraphicsImageRenderer(bounds: view.bounds)
+        let image = renderer.image { render in
+            view.layer.render(in: render.cgContext)
+        }
+        
+        return image
+    }
 }
