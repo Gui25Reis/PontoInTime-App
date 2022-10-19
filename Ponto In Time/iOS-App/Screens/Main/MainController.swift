@@ -33,7 +33,7 @@ class MainController: UITabBarController {
     
     /// Configurações iniciais da Tab Bar
     private func setupTab() {
-        self.tabBar.backgroundColor = UIColor(.safeAreaColor)?.withAlphaComponent(0.6)
+        self.tabBar.backgroundColor = UIColor(.safeAreaColor)?.withAlphaComponent(0.95)
     }
     
     
