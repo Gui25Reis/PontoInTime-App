@@ -52,7 +52,7 @@ class MenuView: UIView {
     private var lastComponentHeight: CGFloat = 0 {
         didSet {
             var maxSpace = self.frame.size.height - self.safeAreaInsets.bottom
-            maxSpace -= (self.infoTable.frame.height + self.infoTable.frame.origin.y)
+            maxSpace -= self.pointsTable.frame.origin.y
             
             let status = self.lastComponentHeight > maxSpace
             self.pointsTable.updateScrollStatus(for: status)
@@ -185,11 +185,11 @@ class MenuView: UIView {
             self.pointsTable.topAnchor.constraint(equalTo: self.infoTable.bottomAnchor, constant: lblBetween),
             self.pointsTable.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
             self.pointsTable.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
-            self.pointsTable.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -bottomGap)
+            self.pointsTable.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -bottomGap)
         ]
         
         NSLayoutConstraint.activate(self.dynamicConstraints)
         
-        self.lastComponentHeight = self.pointsTable.frame.origin.y
+        self.lastComponentHeight = self.pointsTable.getTableHeight()
     }
 }

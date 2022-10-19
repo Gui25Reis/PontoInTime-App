@@ -211,7 +211,7 @@ class CustomTable: UIView {
     
     /// Pega a altura da table de acordo com a quantidade de dados que ela tem
     /// - Returns: altura da table
-    private func getTableHeight() -> CGFloat {
+    public func getTableHeight() -> CGFloat {
         if let data = self.tableView.dataSource as? TableDataCount {
             let dataCount = data.getDataCount(for: self.tableView.tag)
             let tableHeight = CGFloat(dataCount) * self.tableView.rowHeight
@@ -343,10 +343,16 @@ class CustomTable: UIView {
             ]
         }
         
+        if self.customHeight {
+            self.dynamicConstraints.append(
+                self.tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            )
+        } else {
+            self.dynamicConstraints.append(
+                self.tableView.heightAnchor.constraint(equalToConstant: self.getTableHeight())
+            )
+        }
         
-        self.dynamicConstraints.append(
-            self.tableView.heightAnchor.constraint(equalToConstant: self.getTableHeight())
-        )
         
         NSLayoutConstraint.activate(self.dynamicConstraints)
     }

@@ -31,9 +31,9 @@ class InfoMenuDataSource: NSObject, TableDataCount {
             image: StatusView.getImage(for: .end), rightIcon: .disclosureIndicator
         ),
         CellData(
-            primaryText: "Trabalho", secondaryText: "18:39",
+            primaryText: "Trabalho", secondaryText: "18:35",
             image: StatusView.getImage(for: .end), rightIcon: .disclosureIndicator
-        ),
+        )
     ]
     
     
