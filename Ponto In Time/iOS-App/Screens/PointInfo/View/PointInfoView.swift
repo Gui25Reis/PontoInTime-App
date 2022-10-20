@@ -1,10 +1,10 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    guis.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
 
 
-/// O que essa classe faz?
+/// Elemento de UI da célula das tabelas da tela de informações de um ponto
 class PointInfoView: UIView {
     
     /* MARK: - Atributos */
@@ -72,9 +72,6 @@ class PointInfoView: UIView {
     
     /// Registra as células nas collections/table
     private func registerCells() {
-//        self.infosTable.registerCell(for: SettingsCell.self)
-//        self.fileTable.registerCell(for: SettingsCell.self)
-        
         self.infosTable.registerCell(for: PointInfoCell.self)
         self.fileTable.registerCell(for: PointInfoCell.self)
     }
@@ -99,7 +96,7 @@ class PointInfoView: UIView {
     private func setupDynamicConstraints() { 
         let lateral: CGFloat = self.getEquivalent(16)
         let between: CGFloat = self.getEquivalent(40)
-       
+        
         NSLayoutConstraint.deactivate(self.dynamicConstraints)
         self.dynamicConstraints.removeAll()
         

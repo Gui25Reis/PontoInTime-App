@@ -1,34 +1,20 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    guis.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
 
 
-/// O que essa classe faz?
+/// Elemento de UI da célula das tabelas da tela de informações de um ponto
 class PointInfoCell: GeneralTableCell, CustomCell {
     
     /* MARK: - Atributos */
     
-    /// Tipo de status
-    private let statusView: StatusView = {
-        let status = StatusView()
-        status.isHidden = true
-        return status
-    }()
+    /// Tipo do ponto
+    private lazy var statusView = StatusView()
     
-    /// Escolha de datas
-    private let hourPicker: UIDatePicker = {
-        let picker = CustomViews.newDataPicker(mode: .time)
-        picker.isHidden = true
-        return picker
-    }()
-    
-    
-    // Outros
+    /// Escolha da hora
+    private lazy var hourPicker = CustomViews.newDataPicker(mode: .time)
 
-    /// Constraints que vão mudar de acordo com o tamanho da tela
-    private var dynamicConstraints: [NSLayoutConstraint] = []
-    
     
     
     /* MARK: - Construtor */
@@ -52,61 +38,36 @@ class PointInfoCell: GeneralTableCell, CustomCell {
     
     /* MARK: - Encapsulamento */
     
+    /// Configura a célula para caso tenha um picker
     public var isTimePicker = false {
         didSet {
-            self.hourPicker.isHidden = !self.isTimePicker
-            self.accessoryView = nil
+            self.setupHourPicker()
         }
     }
     
+    /// Configura o tipo de status do ponto
     public var statusCell: StatusViewStyle = .start {
         didSet {
-            self.statusView.status = self.statusCell
-            self.statusView.isHidden = false
+            self.setupStatusView(with: self.statusCell)
         }
     }
     
+    /// Define se vai ter o ícone da direita ou não
     public var hasRightIcon = true {
         didSet {
             self.accessoryView = nil
         }
     }
-    
-    
 
-    /* MARK: - Ciclo de Vida */
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        self.setupViews()
-        self.setupDynamicConstraints()
-    }
-    
     
     
     /* MARK: - Configurações */
-    
-    /// Adiciona os elementos (Views) na tela
-    private func setupViews() {
-        if self.isTimePicker {
-            if self.hourPicker.superview == nil {
-                self.contentView.addSubview(self.hourPicker)
-            }
-        }
-        
-        if !self.statusView.isHidden {
-            if self.statusView.superview == nil {
-                self.contentView.addSubview(self.statusView)
-            }
-        }
-    }
-    
-    
+
     /// Personalização da UI
     private func setupUI() {
         let image = UIImage.getImage(with: IconInfo(
-            icon: .options, size: 13))
+            icon: .options, size: 13
+        ))
         
         let imageView = UIImageView(image: image)
         imageView.tintColor = .systemGray
@@ -115,35 +76,31 @@ class PointInfoCell: GeneralTableCell, CustomCell {
     }
     
     
-    /// Define as constraints que dependem do tamanho da tela
-    private func setupDynamicConstraints() {
-        if !self.dynamicConstraints.isEmpty {
-            NSLayoutConstraint.deactivate(self.dynamicConstraints)
-            self.dynamicConstraints.removeAll()
-        }
+    /// Configura a view de status de um ponto
+    /// - Parameter status: status
+    private func setupStatusView(with status: StatusViewStyle) {
+        self.statusView.status = status
+        self.setupConstraint(for: self.statusView, with: 8)
+    }
+    
+    
+    /// Configura a view de picker
+    private func setupHourPicker() {
+        self.hasRightIcon = false
+        self.setupConstraint(for: self.hourPicker, with: 20)
+    }
+    
+    
+    /// Adiciona o elemento na tela e define as constraints
+    /// - Parameters:
+    ///   - view: view que vai ser configurada
+    ///   - constant: espaço lateral
+    private func setupConstraint(for view: UIView, with constant: CGFloat) {
+        self.addSubview(view)
         
-        
-        if self.isTimePicker {
-            let lateral: CGFloat = 16+4
-            self.dynamicConstraints = [
-                self.hourPicker.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -lateral),
-                self.hourPicker.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
-            ]
-            
-            NSLayoutConstraint.activate(self.dynamicConstraints)
-            return
-        }
-        
-        
-        if !self.statusView.isHidden {
-            let lateral: CGFloat = 8
-            self.dynamicConstraints = [
-                self.statusView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -lateral),
-                self.statusView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
-            ]
-            
-            NSLayoutConstraint.activate(self.dynamicConstraints)
-            return
-        }
+        NSLayoutConstraint.activate([
+            view.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -constant),
+            view.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
+        ])
     }
 }

@@ -12,11 +12,7 @@ class HistoricView: UIView {
     // Views
     
     /// Tabela de histórico
-    public let historicTable: CustomTable = {
-        let table = CustomTable(style: .justTable)
-        table.setTableHeight(for: 65)
-        return table
-    }()
+    public let historicTable = CustomTable(style: .justTable)
     
     
     // Outros
@@ -30,6 +26,7 @@ class HistoricView: UIView {
     
     init() {
         super.init(frame: .zero)
+        self.backgroundColor = .systemGray6
         
         self.setupViews()
         self.registerCells()
@@ -49,7 +46,6 @@ class HistoricView: UIView {
         super.layoutSubviews()
 	      
         self.setupUI()
-        self.setupStaticTexts()
         self.setupDynamicConstraints()
     }
     
@@ -75,17 +71,10 @@ class HistoricView: UIView {
     
     /// Personalização da UI
     private func setupUI() {
-        self.backgroundColor = .systemGray6
         self.historicTable.setTableHeight(for: self.getEquivalent(65))
     }
-    
-    
-    /// Define os textos que são estáticos (os textos em si que vão sempre ser o mesmo)
-    private func setupStaticTexts() {		
-        
-    }
+
 	  
-    
     /// Define as constraints que dependem do tamanho da tela
     private func setupDynamicConstraints() { 
         let lateral: CGFloat = self.getEquivalent(16)

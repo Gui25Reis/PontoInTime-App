@@ -1,10 +1,10 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    guis.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
 
 
-/// O que essa classe faz?
+/// Data source das tabelas de informações de um ponto
 class PointInfoDataSource: NSObject, TableDataCount {
     
     /* MARK: - Atributos */
@@ -50,7 +50,6 @@ class PointInfoDataSource: NSObject, TableDataCount {
             return UITableViewCell()
         }
         
-        print(tableView.tag)
         switch tableView.tag {
             
         case 0:

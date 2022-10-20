@@ -4,25 +4,25 @@
 import UIKit
 
 
-/// Data source das collections da página de menu
+/// Data source das tables da página de ajustes
 class SettingsDataSource: NSObject, TableDataCount {
     
     /* MARK: - Atributos */
 
-    /// Dados usados no data source referente as informações do histórico
+    /// Dados usados no data source referente as informações das informações gerais
     public lazy var infoData: [CellData] = [
         CellData(primaryText: "Horas de trabalho", secondaryText: "8")
     ]
     
     
-    /// Dados usados no data source referente as informações do histórico
+    /// Dados usados no data source referente as informações de compartilhamento
     public lazy var shareData: [CellData] = [
         CellData(primaryText: "Seu ID", secondaryText: "mentor"),
         CellData(primaryText: "Compartilhar saída", secondaryText: "")
     ]
     
     
-    /// Dados usados no data source referente as informações do histórico
+    /// Dados usados no data source referente aos tipos de pontos
     public lazy var pointData: [CellData] = [
         CellData(primaryText: "Trabalho", secondaryText: ""),
         CellData(primaryText: "Almoço", secondaryText: ""),

@@ -1,13 +1,15 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    guis.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
 
 
+/// Elemento de UI da célula das tabelas da tela de configurações
 class SettingsCell: GeneralTableCell, CustomCell {
     
     /* MARK: - Atributos */
     
+    /// Botào de ligado/desligado
     private let switchButton: UISwitch = {
         let but = CustomViews.newSwitch()
         but.isOn = true
@@ -26,7 +28,6 @@ class SettingsCell: GeneralTableCell, CustomCell {
     
     /* MARK: - Construtor */
     
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
@@ -43,6 +44,8 @@ class SettingsCell: GeneralTableCell, CustomCell {
     
     /* MARK: - Encapsulamento */
     
+    /// Define se o switch vai ser mostrado o não
+    /// - Parameter status: visibilidade do switch
     public func updateSwitchVisibility(for status: Bool) {
         self.switchButton.isHidden = !status
     }
@@ -72,8 +75,7 @@ class SettingsCell: GeneralTableCell, CustomCell {
     
     /// Define as constraints que dependem do tamanho da tela
     private func setupDynamicConstraints() {
-        let lateral: CGFloat = 16 //self.superview?.getEquivalent(16) ?? 16
-//        let between: CGFloat =
+        let lateral: CGFloat = 16
        
         NSLayoutConstraint.deactivate(self.dynamicConstraints)
     

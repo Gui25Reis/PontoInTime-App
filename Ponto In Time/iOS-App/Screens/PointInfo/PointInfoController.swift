@@ -1,10 +1,10 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    guis.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
 
 
-/// Controller responsável POR
+/// Controller responsável pela tela de informações de um ponto
 class PointInfoController: UIViewController {
     
     /* MARK: - Atributos */
@@ -17,6 +17,7 @@ class PointInfoController: UIViewController {
     
     /* Delegate & Data Sources */
     
+    /// Data source das tabelas das informações de um ponto
     private let pointInfoDataSource = PointInfoDataSource()
 
 		
@@ -33,25 +34,16 @@ class PointInfoController: UIViewController {
         self.setupNavigation()
         self.setupDelegates()
     }
-    
 
-
-    /* MARK: - Protocolo */
-
-	
-
-    /* MARK: - Ações de botões */
-    
     
     
     /* MARK: - Configurações */
 
     /// Configurações da navigation controller
     private func setupNavigation() {
-        self.title = "Novo ponto"
-        
         self.navigationItem.largeTitleDisplayMode = .never
     }
+    
     
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {

@@ -1,16 +1,17 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    guis.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
 
 
-/// O que essa classe faz?
+/// Elemento de UI da célula da tela de ajustes
 class SettingsView: UIView {
     
     /* MARK: - Atributos */
 
     // Views
     
+    /// Tabela com as informações gerais
     private let infosTable: CustomTable = {
         let table = CustomTable(style: .justTable)
         table.setTableTag(for: 0)
@@ -18,7 +19,7 @@ class SettingsView: UIView {
         return table
     }()
     
-    
+    /// Tabela com as informações de compartilhamento
     private let shareTable: CustomTable = {
         let table = CustomTable(style: .complete)
         table.setTableTag(for: 1)
@@ -26,15 +27,13 @@ class SettingsView: UIView {
         return table
     }()
     
-    
+    /// Tabela com as informações dos tipos de pontos disponíveis
     private let pointTable: CustomTable = {
         let table = CustomTable(style: .withHeader)
         table.setTableTag(for: 2)
         
         return table
     }()
-    
-    
     
     
     // Outros
@@ -60,7 +59,9 @@ class SettingsView: UIView {
     
     
     /* MARK: - Encapsulamento */
-
+    
+    /// Define o data source das tabelas
+    /// - Parameter dataSource: data source das tabelas
     public func setDataSource(with dataSource: SettingsDataSource) {
         self.infosTable.setDataSource(with: dataSource)
         self.shareTable.setDataSource(with: dataSource)
@@ -81,7 +82,7 @@ class SettingsView: UIView {
     
     /* MARK: - Configurações */
 
-    /* Collection */
+    /* Table */
     
     /// Registra as células nas collections/table
     private func registerCells() {
@@ -122,9 +123,11 @@ class SettingsView: UIView {
     private func setupDynamicConstraints() { 
         let lateral: CGFloat = self.getEquivalent(16)
         let between: CGFloat = self.getEquivalent(40)
-       
-        NSLayoutConstraint.deactivate(self.dynamicConstraints)
-        self.dynamicConstraints.removeAll()
+        
+        if !self.dynamicConstraints.isEmpty {
+            NSLayoutConstraint.deactivate(self.dynamicConstraints)
+            self.dynamicConstraints.removeAll()
+        }
         
         self.dynamicConstraints = [
             self.infosTable.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: lateral),

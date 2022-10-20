@@ -1,10 +1,10 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    guis.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
 
 
-/// Controller responsável POR
+/// Controller responsável pela tela de ajustes
 class SettingsController: UIViewController {
     
     /* MARK: - Atributos */
@@ -17,6 +17,7 @@ class SettingsController: UIViewController {
     
     /* Delegate & Data Sources */
     
+    /// Data source da tabela de ajustes
     private let settingsDataSource = SettingsDataSource()
 
 
@@ -33,32 +34,16 @@ class SettingsController: UIViewController {
 
         self.setupNavigation()
         self.setupDelegates()
-        self.setupButtonsAction()
     }
-    
 
 
-    /* MARK: - Protocolo */
-
-	
-
-    /* MARK: - Ações de botões */
-    
-    
     
     /* MARK: - Configurações */
 
     /// Configurções da navigation controller
     private func setupNavigation() {
         self.title = "Ajustes".localized()
-        
         self.navigationItem.largeTitleDisplayMode = .never
-    }
-
-    
-    /// Definindo as ações dos botões
-    private func setupButtonsAction() {
-	  
     }
     
     

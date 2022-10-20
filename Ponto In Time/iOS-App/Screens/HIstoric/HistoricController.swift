@@ -4,7 +4,7 @@
 import UIKit
 
 
-/// Controller responsável POR
+/// Controller responsável pela tela de histórico
 class HistoricController: UIViewController {
     
     /* MARK: - Atributos */
@@ -17,6 +17,7 @@ class HistoricController: UIViewController {
     
     /* Delegate & Data Sources */
     
+    /// Data source da tabela de histórico
     private let historicDataSource = HistoricDataSource()
 
 
@@ -31,35 +32,13 @@ class HistoricController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setupNavigation()
         self.setupDelegates()
-        self.setupButtonsAction()
     }
-    
 
-
-    /* MARK: - Protocolo */
-
-	
-
-    /* MARK: - Ações de botões */
-    
     
     
     /* MARK: - Configurações */
 
-    /// Configurções da navigation controller
-    private func setupNavigation() {
-    
-    }
-
-    
-    /// Definindo as ações dos botões
-    private func setupButtonsAction() {
-	  
-    }
-    
-    
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {
         self.myView.historicTable.setDataSource(with: self.historicDataSource)

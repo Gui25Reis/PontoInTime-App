@@ -5,7 +5,7 @@ import UIKit
 
 
 
-/// Data source das collections da página de menu
+/// Data source das tabelas da tela de histórico
 class HistoricDataSource: NSObject, TableDataCount {
     
     /* MARK: - Atributos */
