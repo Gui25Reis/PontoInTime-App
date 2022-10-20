@@ -56,4 +56,17 @@ struct CustomViews {
         
         return swit
     }
+    
+    
+    /// Cria um picker de data de acordo com a padronização do projeto
+    static func newDataPicker(mode: UIDatePicker.Mode) -> UIDatePicker {
+        let date = UIDatePicker()
+        date.translatesAutoresizingMaskIntoConstraints = false
+        date.preferredDatePickerStyle = .compact
+        date.datePickerMode = mode
+        date.minuteInterval = 1
+        date.locale = .current
+        
+        return date
+    }
  }

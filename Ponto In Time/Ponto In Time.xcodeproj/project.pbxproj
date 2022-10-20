@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2246BEA52900C3DD001FE2C6 /* PointInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEA42900C3DD001FE2C6 /* PointInfoController.swift */; };
+		2246BEA82900C3F6001FE2C6 /* PointInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEA72900C3F6001FE2C6 /* PointInfoView.swift */; };
+		2246BEAA2900C83C001FE2C6 /* PointInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEA92900C83C001FE2C6 /* PointInfoCell.swift */; };
+		2246BEAE2900CCF5001FE2C6 /* PointInfoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEAD2900CCF5001FE2C6 /* PointInfoDataSource.swift */; };
 		224C528E28FFDE910080C1C3 /* GeneralTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224C528D28FFDE910080C1C3 /* GeneralTableDelegate.swift */; };
 		2283DCB028FE4F90008EE94F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCAF28FE4F90008EE94F /* AppDelegate.swift */; };
 		2283DCB228FE4F90008EE94F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCB128FE4F90008EE94F /* SceneDelegate.swift */; };
@@ -61,6 +65,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2246BEA42900C3DD001FE2C6 /* PointInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoController.swift; sourceTree = "<group>"; };
+		2246BEA72900C3F6001FE2C6 /* PointInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoView.swift; sourceTree = "<group>"; };
+		2246BEA92900C83C001FE2C6 /* PointInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoCell.swift; sourceTree = "<group>"; };
+		2246BEAD2900CCF5001FE2C6 /* PointInfoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoDataSource.swift; sourceTree = "<group>"; };
 		224C528D28FFDE910080C1C3 /* GeneralTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralTableDelegate.swift; sourceTree = "<group>"; };
 		2283DCAC28FE4F90008EE94F /* Ponto In Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ponto In Time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2283DCAF28FE4F90008EE94F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +135,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2246BEA32900C3C1001FE2C6 /* PointInfo */ = {
+			isa = PBXGroup;
+			children = (
+				2246BEAC2900CCC7001FE2C6 /* Data Source */,
+				2246BEA62900C3E0001FE2C6 /* View */,
+				2246BEA42900C3DD001FE2C6 /* PointInfoController.swift */,
+			);
+			path = PointInfo;
+			sourceTree = "<group>";
+		};
+		2246BEA62900C3E0001FE2C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2246BEAB2900CCC0001FE2C6 /* Cell */,
+				2246BEA72900C3F6001FE2C6 /* PointInfoView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2246BEAB2900CCC0001FE2C6 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2246BEA92900C83C001FE2C6 /* PointInfoCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2246BEAC2900CCC7001FE2C6 /* Data Source */ = {
+			isa = PBXGroup;
+			children = (
+				2246BEAD2900CCF5001FE2C6 /* PointInfoDataSource.swift */,
+			);
+			path = "Data Source";
+			sourceTree = "<group>";
+		};
 		2283DCA328FE4F90008EE94F = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +244,7 @@
 				2283DD1D28FE866F008EE94F /* Menu */,
 				2283DD3928FF7BB9008EE94F /* HIstoric */,
 				2283DD5728FFBE2F008EE94F /* Settings */,
+				2246BEA32900C3C1001FE2C6 /* PointInfo */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -654,10 +698,13 @@
 				2283DD6228FFBEE0008EE94F /* SettingsDataSource.swift in Sources */,
 				2283DD1228FE6B9F008EE94F /* AppColors.swift in Sources */,
 				2283DD0628FE65A0008EE94F /* FontInfo.swift in Sources */,
+				2246BEAE2900CCF5001FE2C6 /* PointInfoDataSource.swift in Sources */,
+				2246BEAA2900C83C001FE2C6 /* PointInfoCell.swift in Sources */,
 				2283DD5528FFB824008EE94F /* String+Localized.swift in Sources */,
 				2283DD2828FEA7D9008EE94F /* InfoMenuDataSource.swift in Sources */,
 				2283DD0328FE6597008EE94F /* UIFont+setupFont.swift in Sources */,
 				2283DCD328FE51DB008EE94F /* MainController.swift in Sources */,
+				2246BEA52900C3DD001FE2C6 /* PointInfoController.swift in Sources */,
 				2283DD5C28FFBE5C008EE94F /* SettingsView.swift in Sources */,
 				2283DD1328FE6B9F008EE94F /* UIColors+AppColors.swift in Sources */,
 				2283DCE228FE52DA008EE94F /* AppIcons.swift in Sources */,
@@ -667,6 +714,7 @@
 				2283DD5128FFB17A008EE94F /* CellAction.swift in Sources */,
 				2283DD3B28FF7BF5008EE94F /* HistoricController.swift in Sources */,
 				2283DCE528FE52DA008EE94F /* IconInfo.swift in Sources */,
+				2246BEA82900C3F6001FE2C6 /* PointInfoView.swift in Sources */,
 				2283DCB028FE4F90008EE94F /* AppDelegate.swift in Sources */,
 				2283DD2228FE86A4008EE94F /* MenuView.swift in Sources */,
 				2283DCBA28FE4F90008EE94F /* mainDataBase.xcdatamodeld in Sources */,

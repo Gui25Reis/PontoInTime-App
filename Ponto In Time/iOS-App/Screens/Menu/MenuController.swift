@@ -54,7 +54,7 @@ class MenuController: UIViewController {
     
     
     @objc private func openSettingsPage() {
-        let vc = SettingsController()
+        let vc = PointInfoController()//SettingsController()
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
