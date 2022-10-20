@@ -55,9 +55,7 @@ class SettingsCell: GeneralTableCell, CustomCell {
         super.layoutSubviews()
         
         self.setupViews()
-        self.setupStaticTexts()
         self.setupDynamicConstraints()
-        self.setupUI()
     }
     
     
@@ -69,21 +67,6 @@ class SettingsCell: GeneralTableCell, CustomCell {
         if self.switchButton.superview == nil {
             self.contentView.addSubview(self.switchButton)
         }
-    }
-    
-    
-    /// Personalização da UI
-    private func setupUI() {
-
-    }
-    
-    
-    /// Define os textos que são estáticos (os textos em si que vão sempre ser o mesmo)
-    private func setupStaticTexts() {
-        /* Labels */
-        
-
-        /* Botões */
     }
       
     

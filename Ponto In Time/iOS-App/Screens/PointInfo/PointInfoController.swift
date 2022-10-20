@@ -32,7 +32,6 @@ class PointInfoController: UIViewController {
 
         self.setupNavigation()
         self.setupDelegates()
-        self.setupButtonsAction()
     }
     
 
@@ -53,13 +52,6 @@ class PointInfoController: UIViewController {
         
         self.navigationItem.largeTitleDisplayMode = .never
     }
-
-    
-    /// Definindo as ações dos botões
-    private func setupButtonsAction() {
-	  
-    }
-    
     
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {

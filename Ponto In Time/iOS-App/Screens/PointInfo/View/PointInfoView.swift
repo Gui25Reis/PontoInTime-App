@@ -40,6 +40,7 @@ class PointInfoView: UIView {
         
         self.setupViews()
         self.registerCells()
+        self.setupUI()
     }
     
     required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
@@ -59,9 +60,7 @@ class PointInfoView: UIView {
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-	      
-        self.setupUI()
-        self.setupStaticTexts()
+        
         self.setupDynamicConstraints()
     }
     
@@ -73,6 +72,9 @@ class PointInfoView: UIView {
     
     /// Registra as células nas collections/table
     private func registerCells() {
+//        self.infosTable.registerCell(for: SettingsCell.self)
+//        self.fileTable.registerCell(for: SettingsCell.self)
+        
         self.infosTable.registerCell(for: PointInfoCell.self)
         self.fileTable.registerCell(for: PointInfoCell.self)
     }
@@ -90,12 +92,6 @@ class PointInfoView: UIView {
     /// Personalização da UI
     private func setupUI() {
         self.backgroundColor = .systemGray6
-    }
-    
-    
-    /// Define os textos que são estáticos (os textos em si que vão sempre ser o mesmo)
-    private func setupStaticTexts() {		
-        
     }
 	  
     

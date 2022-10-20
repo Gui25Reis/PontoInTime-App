@@ -13,7 +13,7 @@ class PointInfoDataSource: NSObject, TableDataCount {
     public lazy var infoData: [CellData] = [
         CellData(primaryText: "Título", secondaryText: "Nenhum"),
         CellData(primaryText: "Estado", secondaryText: ""),
-        CellData(primaryText: "Horário", secondaryText: ""),
+        CellData(primaryText: "Horário", secondaryText: "")
     ]
     
     
@@ -50,6 +50,7 @@ class PointInfoDataSource: NSObject, TableDataCount {
             return UITableViewCell()
         }
         
+        print(tableView.tag)
         switch tableView.tag {
             
         case 0:
@@ -65,6 +66,7 @@ class PointInfoDataSource: NSObject, TableDataCount {
             }
         
         case 1:
+            cell.hasRightIcon = false
             if indexPath.row < self.fileData.count {
                 let data = self.fileData[indexPath.row]
                 cell.setupCellData(with: data)
