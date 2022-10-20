@@ -67,6 +67,9 @@ class CustomTable: UIView {
         table.tableHeaderView = view
         table.tableFooterView = view
         
+        // TODO: Deletar quando for aplicar o delegate das tabelas
+        table.delegate = GeneralTableDelegate.shared
+        
         return table
     }()
     
@@ -128,7 +131,7 @@ class CustomTable: UIView {
     /// Define o texto de rodapé da table
     /// - Parameter text: texto
     public func setFooterTitle(for text: String) {
-        self.footerLabel.text = text.capitalized
+        self.footerLabel.text = text
     }
     
     
@@ -139,6 +142,15 @@ class CustomTable: UIView {
     /// - Parameter tag: tag
     public func setTableTag(for tag: Int) {
         self.tableView.tag = tag
+    }
+    
+    
+    /// Define o tamanho da célula da table
+    /// - Parameter height: tamanho da célula
+    ///
+    /// Por padrão a célula possue o temanho de 44.
+    public func setTableHeight(for height: CGFloat) {
+        self.tableView.rowHeight = height
     }
     
     
@@ -199,7 +211,7 @@ class CustomTable: UIView {
     
     /// Pega a altura da table de acordo com a quantidade de dados que ela tem
     /// - Returns: altura da table
-    private func getTableHeight() -> CGFloat {
+    public func getTableHeight() -> CGFloat {
         if let data = self.tableView.dataSource as? TableDataCount {
             let dataCount = data.getDataCount(for: self.tableView.tag)
             let tableHeight = CGFloat(dataCount) * self.tableView.rowHeight
@@ -216,7 +228,7 @@ class CustomTable: UIView {
         self.addSubview(self.tableView)
         
         switch self.style {
-        case .justCollection: break
+        case .justTable: break
             
         case .withFooter:
             self.addSubview(self.footerLabel)
@@ -239,14 +251,14 @@ class CustomTable: UIView {
     
     /// Define os textos que são estáticos (os textos em si que vão sempre ser o mesmo)
     private func setupStaticTexts() {
-        if self.style != .justCollection {
+        if self.style != .justTable {
             let fontInfo = FontInfo(
-                fontSize: self.superview?.getEquivalent(12) ?? 12,
+                fontSize: self.superview?.getEquivalent(13) ?? 13,
                 weight: .medium
             )
             
             switch style {
-            case .justCollection: break
+            case .justTable: break
                 
             case .withFooter:
                 self.footerLabel.setupText(with: fontInfo)
@@ -270,7 +282,7 @@ class CustomTable: UIView {
         ]
         
         switch style {
-        case .justCollection, .withFooter:
+        case .justTable, .withFooter:
             staticConstraints.append(
                 self.tableView.topAnchor.constraint(equalTo: self.topAnchor)
             )
@@ -296,20 +308,19 @@ class CustomTable: UIView {
         self.dynamicConstraints = []
         
         switch style {
-        case .justCollection: break
+        case .justTable: break
             
         case .withFooter:
             self.dynamicConstraints = [
                 self.footerLabel.topAnchor.constraint(equalTo: self.tableView.bottomAnchor, constant: between),
                 self.footerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-                self.footerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: lateral),
-                self.footerLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -between)
+                self.footerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
             ]
             
         case .withHeader:
             self.dynamicConstraints = [
                 self.headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-                self.headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: lateral),
+                self.headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
                 self.headerLabel.heightAnchor.constraint(equalToConstant: headerHeight),
                 
                 
@@ -319,24 +330,29 @@ class CustomTable: UIView {
         case .complete:
             self.dynamicConstraints = [
                 self.headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-                self.headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: lateral),
+                self.headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
                 self.headerLabel.heightAnchor.constraint(equalToConstant: headerHeight),
                 
                 
-                self.tableView.topAnchor.constraint(equalTo: self.headerLabel.topAnchor, constant: between),
+                self.tableView.topAnchor.constraint(equalTo: self.headerLabel.bottomAnchor, constant: between),
                 
                 
                 self.footerLabel.topAnchor.constraint(equalTo: self.tableView.bottomAnchor, constant: between),
                 self.footerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-                self.footerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: lateral),
-                self.footerLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -between)
+                self.footerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
             ]
         }
         
+        if self.customHeight {
+            self.dynamicConstraints.append(
+                self.tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            )
+        } else {
+            self.dynamicConstraints.append(
+                self.tableView.heightAnchor.constraint(equalToConstant: self.getTableHeight())
+            )
+        }
         
-        self.dynamicConstraints.append(
-            self.tableView.heightAnchor.constraint(equalToConstant: self.getTableHeight())
-        )
         
         NSLayoutConstraint.activate(self.dynamicConstraints)
     }

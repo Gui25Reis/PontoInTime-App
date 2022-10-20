@@ -6,24 +6,13 @@ import UIKit
 
 /// Controller principal usada para a criação da tab bar
 class MainController: UITabBarController {
-    
-    /* MARK: - Atributos */
-    
-    /// Controller da tela 01: Ver o dia
-    private let menuController = MenuController()
-    
-    /// Controller da tela 02: Ver o hitórico
-    private let historyicController = MenuController() //HistoricController()
-        
-    
-    
+
     /* MARK: - Ciclo de Vida */
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupTab()
-        self.setupTabBarItens()
         self.setupControllers()
     }
     
@@ -40,24 +29,40 @@ class MainController: UITabBarController {
     /// Define as controllers que vão aparecer na Tab Bar
     private func setupControllers() {
         self.viewControllers = [
-            self.getNavigation(for: self.menuController),
-            self.getNavigation(for: self.historyicController),
+            self.getMenuNavigation(),
+            self.getHistoricNavigation()
         ]
     }
+
     
-    
-    /// Configura os ícones e títulos de cada item da tab bar
-    private func setupTabBarItens() {
-        self.menuController.setupTab(text: "Seu dia", icon: .menuPage)
-        self.historyicController.setupTab(text: "Histórico", icon: .historicPage)
+    /// Cria uma navigation controller para a tela 01 (Menu)
+    /// - Returns: nav controller
+    private func getMenuNavigation() -> UINavigationController {
+        let vc = MenuController()
+        vc.setupTab(text: "Seu dia", icon: .menuPage)
+        
+        return self.getNavigation(for: vc)
     }
     
     
-    private func getNavigation(for controller: UIViewController) -> UINavigationController {
-        let nav = UINavigationController(rootViewController: controller)
+    /// Cria uma navigation controller para a tela 02 (Histórico)
+    /// - Returns: nav controller
+    private func getHistoricNavigation() -> UINavigationController {
+        let vc = HistoricController()
+        vc.setupTab(text: "Histórico", icon: .historicPage)
+        
+        return self.getNavigation(for: vc)
+    }
+    
+    
+    /// Cria uma navigation controller para um controller
+    /// - Parameter vc: controller que vai receber a navigation contgroller
+    /// - Returns: nav controller
+    private func getNavigation(for vc: UIViewController) -> UINavigationController {
+        let nav = UINavigationController()
         nav.navigationBar.prefersLargeTitles = true
-//        nav.navigationBar.backgroundColor = UIColor(.safeAreaColor)
-//        nav.navigationBar.tintColor = UIColor(.safeAreaColor)
+        nav.pushViewController(vc, animated: true)
+        
         return nav
     }
 }

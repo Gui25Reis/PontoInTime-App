@@ -11,4 +11,15 @@ extension UIImage {
     convenience init?(_ icon: AppIcons) {
         self.init(systemName: icon.description)
     }
+    
+    
+    static func getImage(with config: IconInfo) -> UIImage? {
+        let configIcon = UIImage.SymbolConfiguration(
+            pointSize: config.size,
+            weight: config.weight,
+            scale: config.scale
+        )
+        
+        return UIImage(systemName: config.icon.description, withConfiguration: configIcon)
+    }
 }

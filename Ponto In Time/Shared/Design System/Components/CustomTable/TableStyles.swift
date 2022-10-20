@@ -4,7 +4,7 @@
 enum TableStyle {
     
     /// Apenas uma table
-    case justCollection
+    case justTable
     
     /// Table + footer
     case withFooter
