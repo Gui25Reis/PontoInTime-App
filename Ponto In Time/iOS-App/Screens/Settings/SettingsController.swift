@@ -5,7 +5,7 @@ import UIKit
 
 
 /// Controller responsável pela tela de ajustes
-class SettingsController: UIViewController {
+class SettingsController: UIViewController, TableReloadData {
     
     /* MARK: - Atributos */
 
@@ -32,12 +32,26 @@ class SettingsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setupNavigation()
         self.setupDelegates()
+        self.setupNavigation()
+        self.setupDataSourceData()
     }
-
-
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.myView.reloadTableData()
+    }
+    
+    
+    
+    /* MARK: - Protocolo */
+    
+    internal func reloadTableData() {
+        self.myView.reloadTableData()
+        self.myView.reloadInputViews()
+    }
+    
+    
+
     /* MARK: - Configurações */
 
     /// Configurções da navigation controller
@@ -49,6 +63,27 @@ class SettingsController: UIViewController {
     
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {
+        self.settingsDataSource.reloadDataProtocol = self
         self.myView.setDataSource(with: self.settingsDataSource)
     }
+    
+    
+    /// Definindo os delegates, data sources e protocolos
+    private func setupDataSourceData() {
+        CDManager.shared.getSettingsData() { result in
+            switch result {
+            case .success(let data):
+                print("\n\nRecebendo dados", data)
+                self.settingsDataSource.mainData = data
+            case .failure(let error):
+                print(error.description)
+            }
+        }
+    }
+}
+
+
+struct SettingsData {
+    var settingsData: ManagedSettings?
+    var pointTypeData: [ManagedPointType]?
 }

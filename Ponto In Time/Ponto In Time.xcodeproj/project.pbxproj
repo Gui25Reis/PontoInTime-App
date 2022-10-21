@@ -62,6 +62,27 @@
 		2283DD5C28FFBE5C008EE94F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5B28FFBE5C008EE94F /* SettingsView.swift */; };
 		2283DD5F28FFBE70008EE94F /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5E28FFBE70008EE94F /* SettingsCell.swift */; };
 		2283DD6228FFBEE0008EE94F /* SettingsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD6128FFBEE0008EE94F /* SettingsDataSource.swift */; };
+		22EE792D29010F9A006E3085 /* DBDayWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE792829010F99006E3085 /* DBDayWork.swift */; };
+		22EE792E29010F9A006E3085 /* DBFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE792929010F9A006E3085 /* DBFiles.swift */; };
+		22EE792F29010F9A006E3085 /* DBSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE792A29010F9A006E3085 /* DBSettings.swift */; };
+		22EE793029010F9A006E3085 /* DBPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE792B29010F9A006E3085 /* DBPointType.swift */; };
+		22EE793129010F9A006E3085 /* DBPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE792C29010F9A006E3085 /* DBPoint.swift */; };
+		22EE7935290110CB006E3085 /* ManagedSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE7934290110CB006E3085 /* ManagedSettings.swift */; };
+		22EE793729011174006E3085 /* ManagedDayWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE793629011174006E3085 /* ManagedDayWork.swift */; };
+		22EE793929011223006E3085 /* ManagedPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE793829011223006E3085 /* ManagedPoint.swift */; };
+		22EE793B2901129E006E3085 /* ManagedPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE793A2901129E006E3085 /* ManagedPointType.swift */; };
+		22EE793D2901131B006E3085 /* ManagedFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE793C2901131B006E3085 /* ManagedFiles.swift */; };
+		22EE794029011390006E3085 /* CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE793F29011390006E3085 /* CoreDataProperties.swift */; };
+		22EE7943290113BF006E3085 /* ErrorCDHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE7942290113BF006E3085 /* ErrorCDHandler.swift */; };
+		22EE794529011434006E3085 /* CDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE794429011434006E3085 /* CDManager.swift */; };
+		22EE794829011533006E3085 /* SettingsCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE794729011533006E3085 /* SettingsCDManager.swift */; };
+		22EE794A290121E2006E3085 /* TableReloadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE7949290121E2006E3085 /* TableReloadData.swift */; };
+		22EE794F29022722006E3085 /* DayWorkCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE794E29022722006E3085 /* DayWorkCDManager.swift */; };
+		22EE795129024CB8006E3085 /* FilesCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE795029024CB8006E3085 /* FilesCDManager.swift */; };
+		22EE795329024CE2006E3085 /* PointTypeCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE795229024CE2006E3085 /* PointTypeCDManager.swift */; };
+		22EE795529024D1B006E3085 /* PointCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE795429024D1B006E3085 /* PointCDManager.swift */; };
+		22EE7958290255EC006E3085 /* TableIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE7957290255EC006E3085 /* TableIcon.swift */; };
+		22EE795A29027235006E3085 /* SeetingsPointsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE795929027235006E3085 /* SeetingsPointsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,6 +143,27 @@
 		2283DD5B28FFBE5C008EE94F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2283DD5E28FFBE70008EE94F /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		2283DD6128FFBEE0008EE94F /* SettingsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDataSource.swift; sourceTree = "<group>"; };
+		22EE792829010F99006E3085 /* DBDayWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBDayWork.swift; sourceTree = "<group>"; };
+		22EE792929010F9A006E3085 /* DBFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBFiles.swift; sourceTree = "<group>"; };
+		22EE792A29010F9A006E3085 /* DBSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBSettings.swift; sourceTree = "<group>"; };
+		22EE792B29010F9A006E3085 /* DBPointType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBPointType.swift; sourceTree = "<group>"; };
+		22EE792C29010F9A006E3085 /* DBPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBPoint.swift; sourceTree = "<group>"; };
+		22EE7934290110CB006E3085 /* ManagedSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedSettings.swift; sourceTree = "<group>"; };
+		22EE793629011174006E3085 /* ManagedDayWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedDayWork.swift; sourceTree = "<group>"; };
+		22EE793829011223006E3085 /* ManagedPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedPoint.swift; sourceTree = "<group>"; };
+		22EE793A2901129E006E3085 /* ManagedPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedPointType.swift; sourceTree = "<group>"; };
+		22EE793C2901131B006E3085 /* ManagedFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedFiles.swift; sourceTree = "<group>"; };
+		22EE793F29011390006E3085 /* CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProperties.swift; sourceTree = "<group>"; };
+		22EE7942290113BF006E3085 /* ErrorCDHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorCDHandler.swift; sourceTree = "<group>"; };
+		22EE794429011434006E3085 /* CDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDManager.swift; sourceTree = "<group>"; };
+		22EE794729011533006E3085 /* SettingsCDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCDManager.swift; sourceTree = "<group>"; };
+		22EE7949290121E2006E3085 /* TableReloadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableReloadData.swift; sourceTree = "<group>"; };
+		22EE794E29022722006E3085 /* DayWorkCDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayWorkCDManager.swift; sourceTree = "<group>"; };
+		22EE795029024CB8006E3085 /* FilesCDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesCDManager.swift; sourceTree = "<group>"; };
+		22EE795229024CE2006E3085 /* PointTypeCDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointTypeCDManager.swift; sourceTree = "<group>"; };
+		22EE795429024D1B006E3085 /* PointCDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointCDManager.swift; sourceTree = "<group>"; };
+		22EE7957290255EC006E3085 /* TableIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableIcon.swift; sourceTree = "<group>"; };
+		22EE795929027235006E3085 /* SeetingsPointsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeetingsPointsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +242,7 @@
 		2283DCC628FE4F98008EE94F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				22EE7941290113A3006E3085 /* Errors Handlers */,
 				2283DD2928FF311A008EE94F /* Models */,
 				2283DCCD28FE4FF3008EE94F /* Assets */,
 				2283DCCE28FE4FFC008EE94F /* Storage */,
@@ -212,7 +255,7 @@
 		2283DCC828FE4FAF008EE94F /* General */ = {
 			isa = PBXGroup;
 			children = (
-				2283DD3428FF6F9C008EE94F /* Protocolo */,
+				2283DD3428FF6F9C008EE94F /* Protocols */,
 				2283DCD428FE5287008EE94F /* Extensions */,
 				2283DCC928FE4FBA008EE94F /* Delegate */,
 			);
@@ -277,6 +320,11 @@
 		2283DCCF28FE5006008EE94F /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				22EE793E29011377006E3085 /* Protocols */,
+				22EE79332901108F006E3085 /* Models */,
+				22EE793229010FC6006E3085 /* Entities */,
+				22EE794629011517006E3085 /* Managers */,
+				22EE794429011434006E3085 /* CDManager.swift */,
 				2283DCB828FE4F90008EE94F /* mainDataBase.xcdatamodeld */,
 			);
 			path = "Core Data";
@@ -478,19 +526,20 @@
 		2283DD3128FF6F40008EE94F /* CustomTable */ = {
 			isa = PBXGroup;
 			children = (
-				2283DD3228FF6F60008EE94F /* TableStyles.swift */,
+				22EE7956290255CB006E3085 /* Models */,
 				2283DD2F28FF4858008EE94F /* CustomTable.swift */,
 			);
 			path = CustomTable;
 			sourceTree = "<group>";
 		};
-		2283DD3428FF6F9C008EE94F /* Protocolo */ = {
+		2283DD3428FF6F9C008EE94F /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				2283DD3528FF6FCA008EE94F /* TableDataCount.swift */,
 				2283DD3728FF7901008EE94F /* CustomCell.swift */,
+				22EE7949290121E2006E3085 /* TableReloadData.swift */,
 			);
-			path = Protocolo;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		2283DD3928FF7BB9008EE94F /* HIstoric */ = {
@@ -586,6 +635,7 @@
 			isa = PBXGroup;
 			children = (
 				2283DD5E28FFBE70008EE94F /* SettingsCell.swift */,
+				22EE795929027235006E3085 /* SeetingsPointsCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -596,6 +646,67 @@
 				2283DD6128FFBEE0008EE94F /* SettingsDataSource.swift */,
 			);
 			path = "Data Source";
+			sourceTree = "<group>";
+		};
+		22EE793229010FC6006E3085 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				22EE792A29010F9A006E3085 /* DBSettings.swift */,
+				22EE792829010F99006E3085 /* DBDayWork.swift */,
+				22EE792C29010F9A006E3085 /* DBPoint.swift */,
+				22EE792929010F9A006E3085 /* DBFiles.swift */,
+				22EE792B29010F9A006E3085 /* DBPointType.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		22EE79332901108F006E3085 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				22EE7934290110CB006E3085 /* ManagedSettings.swift */,
+				22EE793629011174006E3085 /* ManagedDayWork.swift */,
+				22EE793829011223006E3085 /* ManagedPoint.swift */,
+				22EE793A2901129E006E3085 /* ManagedPointType.swift */,
+				22EE793C2901131B006E3085 /* ManagedFiles.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		22EE793E29011377006E3085 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				22EE793F29011390006E3085 /* CoreDataProperties.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		22EE7941290113A3006E3085 /* Errors Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				22EE7942290113BF006E3085 /* ErrorCDHandler.swift */,
+			);
+			path = "Errors Handlers";
+			sourceTree = "<group>";
+		};
+		22EE794629011517006E3085 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				22EE794729011533006E3085 /* SettingsCDManager.swift */,
+				22EE794E29022722006E3085 /* DayWorkCDManager.swift */,
+				22EE795029024CB8006E3085 /* FilesCDManager.swift */,
+				22EE795229024CE2006E3085 /* PointTypeCDManager.swift */,
+				22EE795429024D1B006E3085 /* PointCDManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		22EE7956290255CB006E3085 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2283DD3228FF6F60008EE94F /* TableStyles.swift */,
+				22EE7957290255EC006E3085 /* TableIcon.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -671,26 +782,39 @@
 			files = (
 				2283DD5F28FFBE70008EE94F /* SettingsCell.swift in Sources */,
 				2283DD0128FE6597008EE94F /* UILabel+FontInfo.swift in Sources */,
+				22EE793729011174006E3085 /* ManagedDayWork.swift in Sources */,
 				2283DCF128FE64CD008EE94F /* ScreenSize.swift in Sources */,
+				22EE793129010F9A006E3085 /* DBPoint.swift in Sources */,
+				22EE7935290110CB006E3085 /* ManagedSettings.swift in Sources */,
 				2283DD2528FEA4FD008EE94F /* MenuCell.swift in Sources */,
 				2283DD4728FF94E3008EE94F /* HistoricDataSource.swift in Sources */,
+				22EE794029011390006E3085 /* CoreDataProperties.swift in Sources */,
 				2283DD2E28FF3B5C008EE94F /* ActionType.swift in Sources */,
+				22EE793D2901131B006E3085 /* ManagedFiles.swift in Sources */,
+				22EE7958290255EC006E3085 /* TableIcon.swift in Sources */,
 				224C528E28FFDE910080C1C3 /* GeneralTableDelegate.swift in Sources */,
 				2283DD0928FE6916008EE94F /* StatusView.swift in Sources */,
 				2283DCE128FE52DA008EE94F /* UIButton+IconInfo.swift in Sources */,
 				2283DCD928FE5297008EE94F /* UIViewController+setupTab.swift in Sources */,
 				2283DD0C28FE6B23008EE94F /* StatusViewStyle.swift in Sources */,
 				2283DD4C28FFB088008EE94F /* GeneralTableCell.swift in Sources */,
+				22EE794A290121E2006E3085 /* TableReloadData.swift in Sources */,
+				22EE794829011533006E3085 /* SettingsCDManager.swift in Sources */,
 				2283DD3628FF6FCA008EE94F /* TableDataCount.swift in Sources */,
+				22EE792F29010F9A006E3085 /* DBSettings.swift in Sources */,
 				2283DD4928FFACD9008EE94F /* CustomTableCell.swift in Sources */,
+				22EE793B2901129E006E3085 /* ManagedPointType.swift in Sources */,
 				2283DCF328FE64CD008EE94F /* AdaptiveLayout.swift in Sources */,
 				2283DD4F28FFB109008EE94F /* CellData.swift in Sources */,
+				22EE795529024D1B006E3085 /* PointCDManager.swift in Sources */,
 				2283DCE328FE52DA008EE94F /* UIImage+AppIcons.swift in Sources */,
 				2283DD3828FF7901008EE94F /* CustomCell.swift in Sources */,
+				22EE794F29022722006E3085 /* DayWorkCDManager.swift in Sources */,
 				2283DD5928FFBE44008EE94F /* SettingsController.swift in Sources */,
 				2283DD3328FF6F60008EE94F /* TableStyles.swift in Sources */,
 				2283DCFA28FE6563008EE94F /* CustomViews.swift in Sources */,
 				2283DCF028FE64CD008EE94F /* Screens.swift in Sources */,
+				22EE795A29027235006E3085 /* SeetingsPointsCell.swift in Sources */,
 				2283DCEF28FE64CD008EE94F /* ScreenInfo.swift in Sources */,
 				2283DD3028FF4858008EE94F /* CustomTable.swift in Sources */,
 				2283DD3E28FF7C08008EE94F /* HistoricView.swift in Sources */,
@@ -701,11 +825,15 @@
 				2246BEAE2900CCF5001FE2C6 /* PointInfoDataSource.swift in Sources */,
 				2246BEAA2900C83C001FE2C6 /* PointInfoCell.swift in Sources */,
 				2283DD5528FFB824008EE94F /* String+Localized.swift in Sources */,
+				22EE793929011223006E3085 /* ManagedPoint.swift in Sources */,
 				2283DD2828FEA7D9008EE94F /* InfoMenuDataSource.swift in Sources */,
 				2283DD0328FE6597008EE94F /* UIFont+setupFont.swift in Sources */,
 				2283DCD328FE51DB008EE94F /* MainController.swift in Sources */,
 				2246BEA52900C3DD001FE2C6 /* PointInfoController.swift in Sources */,
 				2283DD5C28FFBE5C008EE94F /* SettingsView.swift in Sources */,
+				22EE792D29010F9A006E3085 /* DBDayWork.swift in Sources */,
+				22EE795329024CE2006E3085 /* PointTypeCDManager.swift in Sources */,
+				22EE794529011434006E3085 /* CDManager.swift in Sources */,
 				2283DD1328FE6B9F008EE94F /* UIColors+AppColors.swift in Sources */,
 				2283DCE228FE52DA008EE94F /* AppIcons.swift in Sources */,
 				2283DD4028FF7D5C008EE94F /* HistoricCell.swift in Sources */,
@@ -714,12 +842,16 @@
 				2283DD5128FFB17A008EE94F /* CellAction.swift in Sources */,
 				2283DD3B28FF7BF5008EE94F /* HistoricController.swift in Sources */,
 				2283DCE528FE52DA008EE94F /* IconInfo.swift in Sources */,
+				22EE795129024CB8006E3085 /* FilesCDManager.swift in Sources */,
 				2246BEA82900C3F6001FE2C6 /* PointInfoView.swift in Sources */,
+				22EE792E29010F9A006E3085 /* DBFiles.swift in Sources */,
 				2283DCB028FE4F90008EE94F /* AppDelegate.swift in Sources */,
 				2283DD2228FE86A4008EE94F /* MenuView.swift in Sources */,
 				2283DCBA28FE4F90008EE94F /* mainDataBase.xcdatamodeld in Sources */,
 				2283DCEE28FE64CD008EE94F /* Dimension.swift in Sources */,
 				2283DD1F28FE867F008EE94F /* MenuController.swift in Sources */,
+				22EE793029010F9A006E3085 /* DBPointType.swift in Sources */,
+				22EE7943290113BF006E3085 /* ErrorCDHandler.swift in Sources */,
 				2283DCB228FE4F90008EE94F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,19 +14,19 @@ struct CellData {
     let primaryText: String
     
     /// Texto secundário, que fica na direita
-    let secondaryText: String
+    let secondaryText: String?
     
     /// Imagem que acompanha o texto principal
     var image: UIImage?
     
     /// Ícone direito (no fim da célula) padrão da célula
-    var rightIcon: UITableViewCell.AccessoryType
+    var rightIcon: TableIcon?
     
     
     
     /* MARK: - Construtor */
     
-    init(primaryText: String, secondaryText: String, image: UIImage? = nil, rightIcon: UITableViewCell.AccessoryType = .none) {
+    init(primaryText: String, secondaryText: String, image: UIImage? = nil, rightIcon: TableIcon? = nil) {
         self.primaryText = primaryText
         self.secondaryText = secondaryText
         self.image = image
@@ -34,10 +34,25 @@ struct CellData {
     }
     
     
-    init(primaryText: String, secondaryText: String, rightIcon: UITableViewCell.AccessoryType) {
+    init(primaryText: String, rightIcon: TableIcon) {
+        self.primaryText = primaryText
+        self.secondaryText = nil
+        self.image = nil
+        self.rightIcon = rightIcon
+    }
+    
+    
+    init(primaryText: String, secondaryText: String, rightIcon: TableIcon) {
         self.primaryText = primaryText
         self.secondaryText = secondaryText
         self.image = nil
+        self.rightIcon = rightIcon
+    }
+    
+    init(primaryText: String, secondaryText: String? = nil, image: UIImage? = nil, rightIcon: TableIcon? = nil) {
+        self.primaryText = primaryText
+        self.secondaryText = secondaryText
+        self.image = image
         self.rightIcon = rightIcon
     }
 }

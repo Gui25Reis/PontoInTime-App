@@ -173,7 +173,8 @@ class CustomTable: UIView {
     /// Atualiza os dados da table
     public func reloadTableData() {
         self.tableView.reloadData()
-        self.tableView.reloadInputViews()
+//        self.tableView.reloadInputViews()
+        self.setupDynamicConstraints()
     }
     
     

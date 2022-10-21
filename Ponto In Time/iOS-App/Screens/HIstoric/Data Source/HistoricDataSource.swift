@@ -7,6 +7,8 @@ import UIKit
 
 /// Data source das tabelas da tela de histórico
 class HistoricDataSource: NSObject, TableDataCount {
+    var reloadDataProtocol: TableReloadData?
+    
     
     /* MARK: - Atributos */
 

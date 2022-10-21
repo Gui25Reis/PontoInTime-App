@@ -17,7 +17,7 @@ class SettingsCell: GeneralTableCell, CustomCell {
         
         return but
     }()
-    
+
     
     // Outros
 
@@ -51,6 +51,13 @@ class SettingsCell: GeneralTableCell, CustomCell {
     }
     
     
+    /// Define se o switch vai ser mostrado o não
+    /// - Parameter status: visibilidade do switch
+    public func updateSwitchStatus(for status: Bool) {
+        self.switchButton.isOn = status
+    }
+
+
 
     /* MARK: - Ciclo de Vida */
     
@@ -81,7 +88,7 @@ class SettingsCell: GeneralTableCell, CustomCell {
     
         self.dynamicConstraints = [
             self.switchButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -lateral),
-            self.switchButton.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
+            self.switchButton.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
         ]
         
         NSLayoutConstraint.activate(self.dynamicConstraints)

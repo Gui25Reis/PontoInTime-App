@@ -15,5 +15,5 @@ protocol CustomTableCell: NSObject {
     
     /// Configura os dados quando for uma célula de ação
     /// - Parameter action: dados da célula
-    func setupCellAction(wit action: CellAction)
+    func setupCellAction(with action: CellAction)
 }

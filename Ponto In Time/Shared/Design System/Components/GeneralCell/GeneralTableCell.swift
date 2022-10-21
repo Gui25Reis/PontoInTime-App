@@ -28,20 +28,59 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
             content.image = img
         }
         
-        content.text = data.primaryText
-        content.secondaryText = data.secondaryText
+        if let secondText = data.secondaryText {
+            content.secondaryText = secondText
+        }
         
-        self.accessoryType = data.rightIcon
+        content.text = data.primaryText
         self.contentConfiguration = content
+        
+        if let icon = data.rightIcon {
+            self.setupRightIcon(for: icon)
+        }
     }
     
     
-    public func setupCellAction(wit action: CellAction) {
+    public func setupCellAction(with action: CellAction) {
         var content = self.defaultContentConfiguration()
         
         content.text = action.actionTitle
         content.textProperties.color = action.actionType.color
         
         self.contentConfiguration = content
+    }
+    
+    
+    
+    private func setupRightIcon(for icon: TableIcon) {
+        var view: UIView?
+        
+        switch icon {
+        case .chevron:
+            self.accessoryType = .disclosureIndicator
+            return
+            
+        case .contextMenu:
+            let image = UIImage.getImage(with: IconInfo(
+                icon: .options, size: 13
+            ))
+            
+            let imageView = UIImageView(image: image)
+            imageView.tintColor = .systemGray
+            
+            view = imageView
+            
+        case .delete:
+            let image = UIImage.getImage(with: IconInfo(
+                icon: .delete, size: 15
+            ))
+            
+            let imageView = UIImageView(image: image)
+            imageView.tintColor = .systemRed
+            
+            view = imageView
+        }
+        
+        self.accessoryView = view
     }
 }

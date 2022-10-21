@@ -23,6 +23,7 @@ class SettingsView: UIView {
     private let shareTable: CustomTable = {
         let table = CustomTable(style: .complete)
         table.setTableTag(for: 1)
+        table.isUserInteractionEnabled = false
         
         return table
     }()
@@ -69,6 +70,25 @@ class SettingsView: UIView {
     }
     
     
+    /// Define o delegate das tabelas
+    /// - Parameter delegate: data source das tabelas
+    public func setDelegate(with delegate: UITableViewDelegate) {
+        self.infosTable.setDelegate(with: delegate)
+        self.shareTable.setDelegate(with: delegate)
+        self.pointTable.setDelegate(with: delegate)
+    }
+    
+    
+    /// Atualiza os dados
+    public func reloadTableData() {
+        self.infosTable.reloadTableData()
+        self.shareTable.reloadTableData()
+        self.pointTable.reloadTableData()
+    }
+    
+    
+    
+    
 
     /* MARK: - Ciclo de Vida */
     
@@ -88,7 +108,7 @@ class SettingsView: UIView {
     private func registerCells() {
         self.infosTable.registerCell(for: SettingsCell.self)
         self.shareTable.registerCell(for: SettingsCell.self)
-        self.pointTable.registerCell(for: SettingsCell.self)
+        self.pointTable.registerCell(for: SeetingsPointsCell.self)
     }
 
 

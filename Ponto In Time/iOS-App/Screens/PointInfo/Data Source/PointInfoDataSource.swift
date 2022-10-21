@@ -6,20 +6,22 @@ import UIKit
 
 /// Data source das tabelas de informações de um ponto
 class PointInfoDataSource: NSObject, TableDataCount {
+    var reloadDataProtocol: TableReloadData?
+    
     
     /* MARK: - Atributos */
 
     /// Dados usados no data source referente as informações do ponto
     public lazy var infoData: [CellData] = [
-        CellData(primaryText: "Título", secondaryText: "Nenhum"),
-        CellData(primaryText: "Estado", secondaryText: ""),
-        CellData(primaryText: "Horário", secondaryText: "")
+        CellData(primaryText: "Título", secondaryText: "Nenhum", rightIcon: .contextMenu),
+        CellData(primaryText: "Estado", rightIcon: .contextMenu),
+        CellData(primaryText: "Horário")
     ]
     
     
     /// Dados usados no data source referente aos arquivos
     public lazy var fileData: [CellData] = [
-        CellData(primaryText: "Anexo_16102022-9_41", secondaryText: ""),
+        CellData(primaryText: "Anexo_16102022-9_41"),
     ]
     
         
@@ -65,14 +67,13 @@ class PointInfoDataSource: NSObject, TableDataCount {
             }
         
         case 1:
-            cell.hasRightIcon = false
             if indexPath.row < self.fileData.count {
                 let data = self.fileData[indexPath.row]
                 cell.setupCellData(with: data)
                 return cell
             }
             
-            cell.setupCellAction(wit: CellAction(
+            cell.setupCellAction(with: CellAction(
                 actionType: .action, actionTitle: "Adicionar arquivo"
             ))
         

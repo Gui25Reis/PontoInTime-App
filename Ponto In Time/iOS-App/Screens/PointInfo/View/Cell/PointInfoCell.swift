@@ -22,8 +22,6 @@ class PointInfoCell: GeneralTableCell, CustomCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        self.setupUI()
     }
     
     required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
@@ -51,31 +49,11 @@ class PointInfoCell: GeneralTableCell, CustomCell {
             self.setupStatusView(with: self.statusCell)
         }
     }
-    
-    /// Define se vai ter o ícone da direita ou não
-    public var hasRightIcon = true {
-        didSet {
-            self.accessoryView = nil
-        }
-    }
 
     
     
     /* MARK: - Configurações */
 
-    /// Personalização da UI
-    private func setupUI() {
-        let image = UIImage.getImage(with: IconInfo(
-            icon: .options, size: 13
-        ))
-        
-        let imageView = UIImageView(image: image)
-        imageView.tintColor = .systemGray
-        
-        self.accessoryView = imageView
-    }
-    
-    
     /// Configura a view de status de um ponto
     /// - Parameter status: status
     private func setupStatusView(with status: StatusViewStyle) {
@@ -86,7 +64,6 @@ class PointInfoCell: GeneralTableCell, CustomCell {
     
     /// Configura a view de picker
     private func setupHourPicker() {
-        self.hasRightIcon = false
         self.setupConstraint(for: self.hourPicker, with: 20)
     }
     

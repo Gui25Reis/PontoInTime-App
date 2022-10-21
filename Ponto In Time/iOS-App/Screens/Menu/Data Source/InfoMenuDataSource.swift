@@ -6,6 +6,8 @@ import UIKit
 
 /// Data source das tables da página de menu
 class InfoMenuDataSource: NSObject, TableDataCount {
+    var reloadDataProtocol: TableReloadData?
+    
     
     /* MARK: - Atributos */
 
@@ -20,19 +22,19 @@ class InfoMenuDataSource: NSObject, TableDataCount {
     public lazy var pointsData: [CellData] = [
         CellData(
             primaryText: "Trabalho", secondaryText: "09:41",
-            image: StatusView.getImage(for: .start), rightIcon: .disclosureIndicator
+            image: StatusView.getImage(for: .start), rightIcon: .chevron
         ),
         CellData(
             primaryText: "Almoço", secondaryText: "12:12",
-            image: StatusView.getImage(for: .start), rightIcon: .disclosureIndicator
+            image: StatusView.getImage(for: .start), rightIcon: .chevron
         ),
         CellData(
             primaryText: "Almoço", secondaryText: "13:10",
-            image: StatusView.getImage(for: .end), rightIcon: .disclosureIndicator
+            image: StatusView.getImage(for: .end), rightIcon: .chevron
         ),
         CellData(
             primaryText: "Trabalho", secondaryText: "18:35",
-            image: StatusView.getImage(for: .end), rightIcon: .disclosureIndicator
+            image: StatusView.getImage(for: .end), rightIcon: .chevron
         )
     ]
     
@@ -100,11 +102,11 @@ class InfoMenuDataSource: NSObject, TableDataCount {
             }
             
             if indexPath.row == self.actionIndex {
-                cell.setupCellAction(wit: CellAction(
+                cell.setupCellAction(with: CellAction(
                     actionType: .action, actionTitle: "Bater novo ponto"
                 ))
             } else {
-                cell.setupCellAction(wit: CellAction(
+                cell.setupCellAction(with: CellAction(
                     actionType: .destructive, actionTitle: "Finalizar o dia"
                 ))
             }

@@ -58,6 +58,15 @@ class MenuView: UIView {
             self.pointsTable.updateScrollStatus(for: status)
         }
     }
+    
+    
+    private var hasData = false {
+        didSet {
+            self.setupContentView()
+        }
+    }
+    
+    // Geral
 
 
     
@@ -69,7 +78,7 @@ class MenuView: UIView {
         self.setupViews()
         self.registerCell()
         
-        self.newDayButton.isHidden = true
+        self.setupContentView()
     }
     
     required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
@@ -77,8 +86,17 @@ class MenuView: UIView {
     
     
     /* MARK: - Encapsulamento */
-
-
+    
+    public func setViewData(for data: String) {
+        self.hasData = true
+    }
+    
+    /* Ações de botões */
+    
+    /// Define a ação do botão de criar um novo dia
+    public func setNewDayAction(target: Any?, action: Selector) -> Void {
+        self.newDayButton.addTarget(target, action: action, for: .touchDown)
+    }
     
     
 
@@ -191,5 +209,15 @@ class MenuView: UIView {
         NSLayoutConstraint.activate(self.dynamicConstraints)
         
         self.lastComponentHeight = self.pointsTable.getTableHeight()
+    }
+    
+    
+    /// Configura a tela pra quanod tem dado
+    private func setupContentView() {
+        self.newDayButton.isHidden = self.hasData
+        
+        self.timerLabel.isHidden = !self.hasData
+        self.infoTable.isHidden = !self.hasData
+        self.pointsTable.isHidden = !self.hasData
     }
 }

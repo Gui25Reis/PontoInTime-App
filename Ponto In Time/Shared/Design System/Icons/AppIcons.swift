@@ -14,6 +14,9 @@ enum AppIcons: CustomStringConvertible {
     /// Símbolo - 􀆏
     case options
     
+    /// Símbolo - 􀈑
+    case delete
+    
     
     
     /* Botões */
@@ -43,6 +46,7 @@ enum AppIcons: CustomStringConvertible {
         switch self {
         case .calendar: return "calendar"
         case .options: return "chevron.up.chevron.down"
+        case .delete: return "trash"
             
         case .settings: return "gearshape.fill"
         case .add: return "plus.circle.fill"

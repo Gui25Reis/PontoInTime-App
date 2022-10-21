@@ -18,5 +18,9 @@ protocol TableDataCount: NSObject, UITableViewDataSource {
     /// O parâmetro `dataType` é em relaçào as tabelas que possuem mais de uma seção
     /// e possivelmente outra lista de dados.
     func getDataCount(for dataType: Int) -> Int
+    
+    
+    
+    var reloadDataProtocol: TableReloadData? {get set}
 }
 
