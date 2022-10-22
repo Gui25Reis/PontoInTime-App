@@ -8,15 +8,12 @@ import UIKit
 class PointInfoDataSource: NSObject, TableDataCount {
     var reloadDataProtocol: TableReloadData?
     
+    var pointInfoProtocol: PointInfoProtocol?
     
     /* MARK: - Atributos */
 
     /// Dados usados no data source referente as informações do ponto
-    public lazy var infoData: [CellData] = [
-        CellData(primaryText: "Título", secondaryText: "Nenhum", rightIcon: .contextMenu),
-        CellData(primaryText: "Estado", rightIcon: .contextMenu),
-        CellData(primaryText: "Horário")
-    ]
+    public lazy var infoTitles: [String] = []
     
     
     /// Dados usados no data source referente aos arquivos
@@ -24,13 +21,22 @@ class PointInfoDataSource: NSObject, TableDataCount {
         CellData(primaryText: "Anexo_16102022-9_41"),
     ]
     
+    
+    public var isInitialData = true
+    
+    public var mainData: ManagedPoint? {
+        didSet {
+            self.setupDatas()
+        }
+    }
+    
         
     
     /* MARK: - Protocolo */
     
     func getDataCount(for dataType: Int) -> Int {
         switch dataType {
-        case 0: return self.infoData.count
+        case 0: return self.infoTitles.count
         case 1: return self.fileData.count+1
         default: return 0
         }
@@ -52,23 +58,58 @@ class PointInfoDataSource: NSObject, TableDataCount {
             return UITableViewCell()
         }
         
+        let row = indexPath.row
+        
         switch tableView.tag {
             
         case 0:
-            let data = self.infoData[indexPath.row]
-            cell.setupCellData(with: data)
+            let title = self.infoTitles[row]
             
-            switch indexPath.row {
+            var cellData = CellData(primaryText: title)
+            
+            switch row {
+            case 0:
+                cellData.secondaryText = self.mainData?.pointType.title ?? "Nenhum"
+                cell.setupCellData(with: cellData)
+                
+                if !self.isInitialData {
+                    cellData.rightIcon = .contextMenu
+                    cell.setupCellData(with: cellData)
+                    
+                    self.pointInfoProtocol?.createMenu(for: row, with: cell)
+                }
+                
+                return cell
+                
             case 1:
-                cell.statusCell = .start
+                if !self.isInitialData {
+                    cellData.rightIcon = .contextMenu
+                    cell.setupCellData(with: cellData)
+                    
+                    self.pointInfoProtocol?.createMenu(for: row, with: cell)
+                }
+                cell.statusCell = StatusView.getCase(for: self.mainData?.status ?? "")
+                
+                return cell
+                
             case 2:
+                cell.setupCellData(with: cellData)
+                
                 cell.isTimePicker = true
-            default: break
+                if let time = self.mainData?.time {
+                    cell.setTimerPicker(time: time)
+                }
+                
+                return cell
+                
+            default:
+                break
             }
+
         
         case 1:
-            if indexPath.row < self.fileData.count {
-                let data = self.fileData[indexPath.row]
+            if row < self.fileData.count {
+                let data = self.fileData[row]
                 cell.setupCellData(with: data)
                 return cell
             }
@@ -77,9 +118,24 @@ class PointInfoDataSource: NSObject, TableDataCount {
                 actionType: .action, actionTitle: "Adicionar arquivo"
             ))
         
-        default: return cell
+        default:
+            break
         }
                 
         return cell
+    }
+    
+    
+    
+    
+    
+    private func setupDatas() {
+        if let mainData {
+            self.infoTitles = ["Título", "Estado", "Horário"]
+            
+            self.fileData = mainData.files.map { item in
+                CellData(primaryText: item.name, image: UIImage(named: item.link))
+            }
+        }
     }
 }

@@ -108,7 +108,7 @@ class SettingsView: UIView {
     private func registerCells() {
         self.infosTable.registerCell(for: SettingsCell.self)
         self.shareTable.registerCell(for: SettingsCell.self)
-        self.pointTable.registerCell(for: SeetingsPointsCell.self)
+        self.pointTable.registerCell(for: SettingsCell.self)
     }
 
 

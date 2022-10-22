@@ -14,7 +14,7 @@ struct CellData {
     let primaryText: String
     
     /// Texto secundário, que fica na direita
-    let secondaryText: String?
+    var secondaryText: String?
     
     /// Imagem que acompanha o texto principal
     var image: UIImage?

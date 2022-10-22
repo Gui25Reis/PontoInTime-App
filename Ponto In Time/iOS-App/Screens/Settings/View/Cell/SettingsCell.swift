@@ -69,6 +69,12 @@ class SettingsCell: GeneralTableCell, CustomCell {
     }
     
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.accessoryType = .none
+    }
+    
     
     /* MARK: - Configurações */
     

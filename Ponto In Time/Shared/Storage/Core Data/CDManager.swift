@@ -4,6 +4,7 @@
 import CoreData
 
 
+/// Core Data Manager: classe principal que lida com o core data
 class CDManager: NSObject, CoreDataProperties {
     
     /* MARK: - Atributos */
@@ -13,11 +14,14 @@ class CDManager: NSObject, CoreDataProperties {
     
     /* Managers */
     
-    private let settingsManager = SettingsCDManager()
+    /// Lida com os dados de configuraçòes/ajustes
+    private lazy var settingsManager = SettingsCDManager()
     
-    private let dayWorkManager = DayWorkCDManager()
+    /// Lida com os dados dos dias trabalhados
+    private lazy var dayWorkManager = DayWorkCDManager()
     
-    private let pointTypeManager = PointTypeCDManager()
+    /// Lida com os dados dos tipos de pontos
+    private lazy var pointTypeManager = PointTypeCDManager()
     
     
     
@@ -64,19 +68,17 @@ class CDManager: NSObject, CoreDataProperties {
     
     /* MARK: - Encapsulamento */
     
+    /* MARK: Ajustes */
+    
+    /// Retorna os dados de ajustes
+    /// - Parameter completionHandler: em caso de sucesso retorna os dados
     public func getSettingsData(_ completionHandler: @escaping (Result<SettingsData, ErrorCDHandler>) -> Void) {
+        if let cache = self.settingsManager.cache {
+            return completionHandler(.success(cache))
+        }
+        
         self.mainContext.perform {
             var settingsData = SettingsData()
-            
-            // Dados de configuração
-            self.settingsManager.getSettingsData() { result in
-                switch result {
-                case .success(let data):
-                    settingsData.settingsData = data
-                case .failure(let failure):
-                    completionHandler(.failure(failure))
-                }
-            }
             
             // Tipos de pontos
             self.pointTypeManager.getAllData() { result in
@@ -88,13 +90,29 @@ class CDManager: NSObject, CoreDataProperties {
                 }
             }
             
+            // Dados de configuração
+            self.settingsManager.getSettingsData() { result in
+                switch result {
+                case .success(let data):
+                    settingsData.settingsData = data
+                case .failure(let failure):
+                    completionHandler(.failure(failure))
+                }
+            }
+            
             completionHandler(.success(settingsData))
+            self.settingsManager.cache = settingsData
+            return
         }
     }
     
     
-    /* Dias trabalhos */
+    /* MARK: Dias trabalhados */
     
+    /// Retorna os dados do dia
+    /// - Parameter completionHandler: em caso de sucesso retorna o dado do dia
+    ///
+    /// Caso não encontre o dado do dia vai ser gerado um erro de `dataNotFound`.
     public func getTodayDayWorkData(_ completionHandler: @escaping (Result<ManagedDayWork, ErrorCDHandler>) -> Void) {
         self.mainContext.perform {
             self.dayWorkManager.getData(for: "") { result in
@@ -109,6 +127,8 @@ class CDManager: NSObject, CoreDataProperties {
     }
     
     
+    /// Retorna todos os dias criados
+    /// - Parameter completionHandler: em caso de sucesso retorna os dados
     public func getAllDayWorkData(_ completionHandler: @escaping (Result<[ManagedDayWork], ErrorCDHandler>) -> Void) {
         self.mainContext.perform {
             self.dayWorkManager.getAllData() { result in
@@ -123,11 +143,38 @@ class CDManager: NSObject, CoreDataProperties {
     }
     
     
-    /* Tipos de ponto */
+    
+    /* MARK: Tipos de pontos */
+    
+    /// Retorna todos os tipos de pontos que existem
+    /// - Parameter completionHandler: em caso de sucesso retorna o dado do dia
+    public func getAllPointType(_ completionHandler: @escaping (Result<[ManagedPointType], ErrorCDHandler>) -> Void) -> [ManagedPointType]? {
+        
+        if let cache = self.settingsManager.cache?.pointTypeData {
+            return cache
+        }
+        
+        self.mainContext.perform {
+            self.pointTypeManager.getAllData() { result in
+                switch result {
+                case .success(let data):
+                    self.settingsManager.cache?.pointTypeData = data
+                    completionHandler(.success(data))
+
+                case .failure(let error):
+                    completionHandler(.failure(error))
+                }
+            }
+        }
+        
+        return nil
+    }
+    
     
     
     /* MARK: - Configurações */
     
+    /// Configura os protocolos dos atributos
     private func setupProtocols() {
         self.settingsManager.coreDataProperties = self
         self.dayWorkManager.coreDataProperties = self

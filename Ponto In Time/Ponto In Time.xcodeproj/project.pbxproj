@@ -82,7 +82,9 @@
 		22EE795329024CE2006E3085 /* PointTypeCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE795229024CE2006E3085 /* PointTypeCDManager.swift */; };
 		22EE795529024D1B006E3085 /* PointCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE795429024D1B006E3085 /* PointCDManager.swift */; };
 		22EE7958290255EC006E3085 /* TableIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE7957290255EC006E3085 /* TableIcon.swift */; };
-		22EE795A29027235006E3085 /* SeetingsPointsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE795929027235006E3085 /* SeetingsPointsCell.swift */; };
+		22EE795D29028D4C006E3085 /* PointInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE795C29028D4C006E3085 /* PointInfoDelegate.swift */; };
+		22EE796029041146006E3085 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE795F29041146006E3085 /* CustomButton.swift */; };
+		22EE796229046590006E3085 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE796129046590006E3085 /* SettingsData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -163,7 +165,9 @@
 		22EE795229024CE2006E3085 /* PointTypeCDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointTypeCDManager.swift; sourceTree = "<group>"; };
 		22EE795429024D1B006E3085 /* PointCDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointCDManager.swift; sourceTree = "<group>"; };
 		22EE7957290255EC006E3085 /* TableIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableIcon.swift; sourceTree = "<group>"; };
-		22EE795929027235006E3085 /* SeetingsPointsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeetingsPointsCell.swift; sourceTree = "<group>"; };
+		22EE795C29028D4C006E3085 /* PointInfoDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoDelegate.swift; sourceTree = "<group>"; };
+		22EE795F29041146006E3085 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		22EE796129046590006E3085 /* SettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +184,7 @@
 		2246BEA32900C3C1001FE2C6 /* PointInfo */ = {
 			isa = PBXGroup;
 			children = (
+				22EE795B29028D2B006E3085 /* Delegate */,
 				2246BEAC2900CCC7001FE2C6 /* Data Source */,
 				2246BEA62900C3E0001FE2C6 /* View */,
 				2246BEA42900C3DD001FE2C6 /* PointInfoController.swift */,
@@ -448,6 +453,7 @@
 				2283DD4A28FFB066008EE94F /* GeneralCell */,
 				2283DD4228FF906C008EE94F /* CustomStack */,
 				2283DD3128FF6F40008EE94F /* CustomTable */,
+				22EE795E2904112B006E3085 /* CustomButton */,
 				2283DD0A28FE6B10008EE94F /* StatusView */,
 				2283DCF928FE6563008EE94F /* CustomViews.swift */,
 			);
@@ -519,6 +525,7 @@
 			isa = PBXGroup;
 			children = (
 				2283DD4D28FFB0F2008EE94F /* Cells */,
+				22EE796129046590006E3085 /* SettingsData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -635,7 +642,6 @@
 			isa = PBXGroup;
 			children = (
 				2283DD5E28FFBE70008EE94F /* SettingsCell.swift */,
-				22EE795929027235006E3085 /* SeetingsPointsCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -707,6 +713,22 @@
 				22EE7957290255EC006E3085 /* TableIcon.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		22EE795B29028D2B006E3085 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				22EE795C29028D4C006E3085 /* PointInfoDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		22EE795E2904112B006E3085 /* CustomButton */ = {
+			isa = PBXGroup;
+			children = (
+				22EE795F29041146006E3085 /* CustomButton.swift */,
+			);
+			path = CustomButton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -788,6 +810,7 @@
 				22EE7935290110CB006E3085 /* ManagedSettings.swift in Sources */,
 				2283DD2528FEA4FD008EE94F /* MenuCell.swift in Sources */,
 				2283DD4728FF94E3008EE94F /* HistoricDataSource.swift in Sources */,
+				22EE796029041146006E3085 /* CustomButton.swift in Sources */,
 				22EE794029011390006E3085 /* CoreDataProperties.swift in Sources */,
 				2283DD2E28FF3B5C008EE94F /* ActionType.swift in Sources */,
 				22EE793D2901131B006E3085 /* ManagedFiles.swift in Sources */,
@@ -796,6 +819,7 @@
 				2283DD0928FE6916008EE94F /* StatusView.swift in Sources */,
 				2283DCE128FE52DA008EE94F /* UIButton+IconInfo.swift in Sources */,
 				2283DCD928FE5297008EE94F /* UIViewController+setupTab.swift in Sources */,
+				22EE796229046590006E3085 /* SettingsData.swift in Sources */,
 				2283DD0C28FE6B23008EE94F /* StatusViewStyle.swift in Sources */,
 				2283DD4C28FFB088008EE94F /* GeneralTableCell.swift in Sources */,
 				22EE794A290121E2006E3085 /* TableReloadData.swift in Sources */,
@@ -814,7 +838,6 @@
 				2283DD3328FF6F60008EE94F /* TableStyles.swift in Sources */,
 				2283DCFA28FE6563008EE94F /* CustomViews.swift in Sources */,
 				2283DCF028FE64CD008EE94F /* Screens.swift in Sources */,
-				22EE795A29027235006E3085 /* SeetingsPointsCell.swift in Sources */,
 				2283DCEF28FE64CD008EE94F /* ScreenInfo.swift in Sources */,
 				2283DD3028FF4858008EE94F /* CustomTable.swift in Sources */,
 				2283DD3E28FF7C08008EE94F /* HistoricView.swift in Sources */,
@@ -825,6 +848,7 @@
 				2246BEAE2900CCF5001FE2C6 /* PointInfoDataSource.swift in Sources */,
 				2246BEAA2900C83C001FE2C6 /* PointInfoCell.swift in Sources */,
 				2283DD5528FFB824008EE94F /* String+Localized.swift in Sources */,
+				22EE795D29028D4C006E3085 /* PointInfoDelegate.swift in Sources */,
 				22EE793929011223006E3085 /* ManagedPoint.swift in Sources */,
 				2283DD2828FEA7D9008EE94F /* InfoMenuDataSource.swift in Sources */,
 				2283DD0328FE6597008EE94F /* UIFont+setupFont.swift in Sources */,

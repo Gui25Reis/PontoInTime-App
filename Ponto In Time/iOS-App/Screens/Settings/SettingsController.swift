@@ -73,17 +73,19 @@ class SettingsController: UIViewController, TableReloadData {
         CDManager.shared.getSettingsData() { result in
             switch result {
             case .success(let data):
-                print("\n\nRecebendo dados", data)
-                self.settingsDataSource.mainData = data
+                self.updateTableData(for: data)
             case .failure(let error):
                 print(error.description)
             }
         }
     }
+    
+    
+    private func updateTableData(for data: SettingsData) {
+        self.settingsDataSource.mainData = data
+        self.myView.reloadTableData()
+    }
 }
 
 
-struct SettingsData {
-    var settingsData: ManagedSettings?
-    var pointTypeData: [ManagedPointType]?
-}
+

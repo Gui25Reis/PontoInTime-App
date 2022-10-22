@@ -2,7 +2,7 @@
 
 
 /// Define o estilo do componente de estado
-enum StatusViewStyle {
+enum StatusViewStyle: CaseIterable {
     
     /* MARK: - Casos */
     
@@ -27,6 +27,15 @@ enum StatusViewStyle {
         switch self {
         case .start: return "E"
         case .end: return "S"
+        }
+    }
+    
+    
+    /// Palavra do estado
+    var word: String {
+        switch self {
+        case .start: return "Entrada".localized()
+        case .end: return "Saída".localized()
         }
     }
 }

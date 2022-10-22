@@ -1,13 +1,23 @@
 /* Gui Reis    -    guis.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import class UIKit.UITableViewCell
 import class UIKit.NSCoder
 
-import UIKit
+import class UIKit.UIImage
+import class UIKit.UIImageView
+import class UIKit.UITableViewCell
+import class UIKit.UIView
+
+
 
 /// Célula geral de uma table que utiliza os componentes nativos de uma célula
 class GeneralTableCell: UITableViewCell, CustomTableCell {
+    
+    /* MARK: - Atributos */
+    
+    internal var hasRightIcon = false
+    
+    
     
     /* MARK: - Construtor */
     
@@ -37,6 +47,7 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
         
         if let icon = data.rightIcon {
             self.setupRightIcon(for: icon)
+            self.hasRightIcon = true
         }
     }
     
@@ -50,6 +61,17 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
         self.contentConfiguration = content
     }
     
+    
+    
+    public func clearCell() {
+        self.hasRightIcon = false
+        
+        let content = self.defaultContentConfiguration()
+        self.contentConfiguration = content
+        
+        self.accessoryView = nil
+        self.accessoryType = .none
+    }
     
     
     private func setupRightIcon(for icon: TableIcon) {

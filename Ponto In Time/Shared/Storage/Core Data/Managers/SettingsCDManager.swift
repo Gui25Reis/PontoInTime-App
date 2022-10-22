@@ -8,7 +8,7 @@ internal class SettingsCDManager {
     
     /* MARK: - Atributos */
     
-    public var isEmpty = true
+    public var cache: SettingsData?
     
     /* Protocolo */
 
@@ -40,7 +40,6 @@ internal class SettingsCDManager {
                     if let error = try? coreDataProperties.saveContext() {
                         return completionHandler(.failure(error))
                     }
-                    self.isEmpty = false
                     return
                 }
                 

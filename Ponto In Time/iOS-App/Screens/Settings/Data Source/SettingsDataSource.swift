@@ -8,17 +8,7 @@ import UIKit
 class SettingsDataSource: NSObject, TableDataCount {
         
     /* MARK: - Atributos */
-    
-    public var mainData: SettingsData? {
-        didSet {
-            self.setupDatas()
-            self.reloadDataProtocol?.reloadTableData()
-        }
-    }
-    
-    
-    
-
+        
     /// Dados usados no data source referente as informações das informações gerais
     private lazy var infoData: [CellData] = []
     
@@ -47,7 +37,18 @@ class SettingsDataSource: NSObject, TableDataCount {
         default: return 0
         }
     }
-
+    
+    
+    
+    /* MARK: - Encapsulamento */
+    
+    /// Dados usados dos ajustes
+    public var mainData: SettingsData? {
+        didSet {
+            self.setupDatas()
+        }
+    }
+    
     
     
     /* MARK: - Data Source */
@@ -60,24 +61,18 @@ class SettingsDataSource: NSObject, TableDataCount {
     
     /// Configura uma célula
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
+            return UITableViewCell()
+        }
+        
         switch tableView.tag {
         
         case 0: // infos gerais
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
-                return UITableViewCell()
-            }
-            
             let data = self.infoData[indexPath.row]
             cell.setupCellData(with: data)
             
-            return cell
-            
-        
+    
         case 1: // compartilhamento
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
-                return UITableViewCell()
-            }
-            
             let data = self.shareData[indexPath.row]
             cell.setupCellData(with: data)
             
@@ -85,19 +80,17 @@ class SettingsDataSource: NSObject, TableDataCount {
                 cell.updateSwitchVisibility(for: true)
                 cell.updateSwitchStatus(for: self.isSharing)
             }
-            
-            return cell
+    
             
         case 2: // pontos
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SeetingsPointsCell.identifier, for: indexPath) as? SeetingsPointsCell else {
-                return UITableViewCell()
-            }
-            
             if indexPath.row < self.pointData.count {
                 let data = self.pointData[indexPath.row]
-                cell.tag = indexPath.row
-                cell.setupCell(for: data)
-                cell.setDeleteAction(target: self, action: #selector(self.deletePointAction(sender:)))
+                
+                var cellData = CellData(primaryText: data.title)
+                if !data.isDefault {
+                    cellData.rightIcon = .chevron
+                }
+                cell.setupCellData(with: cellData)
                 
                 return cell
             }
@@ -105,19 +98,10 @@ class SettingsDataSource: NSObject, TableDataCount {
             cell.setupCellAction(with: CellAction(
                 actionType: .action, actionTitle: "Novo"
             ))
-            
-            return cell
         
-        default:
-            return UITableViewCell()
+        default: break
         }
-    }
-    
-    
-    /* MARK: - Ações de botões */
-    
-    @objc private func deletePointAction(sender: UIButton) {
-        print("Vai deletar na célula: \(sender.tag)")
+        return cell
     }
     
     

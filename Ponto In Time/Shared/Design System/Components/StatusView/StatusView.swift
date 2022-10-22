@@ -42,7 +42,7 @@ class StatusView: UILabel {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         self.setupUI()
-        self.setStatusInfo(for: .start)
+        self.setStatusInfo(for: status)
         self.setupDynamicConstraints()
     }
     
@@ -96,5 +96,32 @@ class StatusView: UILabel {
         }
         
         return image
+    }
+    
+    
+    /// Pega uma imagem a partir do componente de status (UIView -> UIImage)
+    /// - Parameter status: tipo do componente
+    /// - Returns: imagem do componente
+    static func getImage(for status: String) -> UIImage {
+        for item in StatusViewStyle.allCases {
+            if status == item.word {
+                return Self.getImage(for: item)
+            }
+        }
+        
+        return UIImage()
+    }
+    
+    
+    /// Pega uma imagem a partir do componente de status (UIView -> UIImage)
+    /// - Parameter status: tipo do componente
+    /// - Returns: imagem do componente
+    static func getCase(for status: String) -> StatusViewStyle {
+        for item in StatusViewStyle.allCases {
+            if status == item.word {
+                return item
+            }
+        }
+        return .start
     }
 }

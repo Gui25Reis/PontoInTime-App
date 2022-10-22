@@ -55,6 +55,18 @@ class PointInfoView: UIView {
     }
     
     
+    public func setDelegate(with delegate: PointInfoDelegate) {
+        self.infosTable.setDelegate(with: delegate)
+        self.fileTable.setDelegate(with: delegate)
+    }
+    
+    
+    public func reloadTableData() {
+        self.infosTable.reloadTableData()
+        self.fileTable.reloadTableData()
+    }
+    
+    
 
     /* MARK: - Ciclo de Vida */
     

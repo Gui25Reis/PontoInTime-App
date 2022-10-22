@@ -25,20 +25,8 @@ struct CustomViews {
         
         return view
     }
-    
-    
-    /// Cria um botão de acordo com a padronização do projeto
-    static func newButton() -> UIButton {
-        let but = UIButton()
-        but.translatesAutoresizingMaskIntoConstraints = false
-        but.layer.masksToBounds = true
-        
-        but.setTitleColor(.systemBlue, for: .normal)
 
-        return but
-    }
-    
-    
+        
     /// Cria uma imagem (view) de acordo com a padronização do projeto
     static func newImage() -> UIImageView {
         let imgV = UIImageView()

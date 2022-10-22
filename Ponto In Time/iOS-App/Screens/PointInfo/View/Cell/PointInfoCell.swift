@@ -9,16 +9,34 @@ class PointInfoCell: GeneralTableCell, CustomCell {
     
     /* MARK: - Atributos */
     
+    /* Views */
+    
     /// Tipo do ponto
     private lazy var statusView = StatusView()
     
     /// Escolha da hora
     private lazy var hourPicker = CustomViews.newDataPicker(mode: .time)
+    
+    /// Escolha da hora
+    private lazy var menuButton: CustomButton = {
+        let but = CustomButton()
+        but.showsMenuAsPrimaryAction = true
+        return but
+    }()
+    
+    
+    /* Outros */
+    
+    /// Define se vai ter o context menu
+    private var hasMenu = false {
+        didSet {
+            self.setupButtonConstraints()
+        }
+    }
 
     
     
     /* MARK: - Construtor */
-    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -49,7 +67,49 @@ class PointInfoCell: GeneralTableCell, CustomCell {
             self.setupStatusView(with: self.statusCell)
         }
     }
-
+    
+    
+    /// Configura o context menu da célula
+    /// - Parameter menu: context menu
+    public func setMenuCell(for menu: UIMenu) {
+        self.hasMenu = true
+        self.menuButton.menu = menu
+    }
+    
+    
+    /// Define a hora que vai aparecer no timer
+    /// - Parameter time: hora
+    public func setTimerPicker(time: String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        
+        if let date = dateFormatter.date(from: time) {
+            self.hourPicker.date = date
+        }
+    }
+    
+    
+    
+    /* MARK: - Override */
+    
+    override func clearCell() {
+        super.clearCell()
+        
+        self.menuButton.removeFromSuperview()
+        self.statusView.removeFromSuperview()
+        self.hourPicker.removeFromSuperview()
+    }
+    
+    
+    
+    /* MARK: - Ciclo de Vida */
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.clearCell()
+    }
+    
     
     
     /* MARK: - Configurações */
@@ -58,13 +118,18 @@ class PointInfoCell: GeneralTableCell, CustomCell {
     /// - Parameter status: status
     private func setupStatusView(with status: StatusViewStyle) {
         self.statusView.status = status
-        self.setupConstraint(for: self.statusView, with: 8)
+        
+        var lateral: CGFloat = 8
+        if !self.hasRightIcon {
+            lateral *= 2
+        }
+        self.setupConstraint(for: self.statusView, with: lateral)
     }
     
     
     /// Configura a view de picker
     private func setupHourPicker() {
-        self.setupConstraint(for: self.hourPicker, with: 20)
+        self.setupConstraint(for: self.hourPicker, with: 18)
     }
     
     
@@ -73,11 +138,24 @@ class PointInfoCell: GeneralTableCell, CustomCell {
     ///   - view: view que vai ser configurada
     ///   - constant: espaço lateral
     private func setupConstraint(for view: UIView, with constant: CGFloat) {
-        self.addSubview(view)
+        self.contentView.addSubview(view)
         
         NSLayoutConstraint.activate([
             view.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -constant),
             view.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
+        ])
+    }
+    
+    
+    /// Define as contraints do botão do menu
+    private func setupButtonConstraints() {
+        self.contentView.addSubview(self.menuButton)
+        
+        NSLayoutConstraint.activate([
+            self.menuButton.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            self.menuButton.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+            self.menuButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            self.menuButton.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
     }
 }
