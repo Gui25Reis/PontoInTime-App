@@ -48,7 +48,9 @@ class PointInfoView: UIView {
     
     
     /* MARK: - Encapsulamento */
-
+    
+    /* Tabele */
+    
     public func setDataSource(with dataSource: PointInfoDataSource) {
         self.infosTable.setDataSource(with: dataSource)
         self.fileTable.setDataSource(with: dataSource)

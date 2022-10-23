@@ -4,14 +4,14 @@
 import UIKit
 
 
-protocol UpdateSuperviewData: NSObject {
+protocol MenuControllerProtocol: NSObject {
     
-    func updateSuperviewData()
+    func setupInitalData(with data: ManagedPoint)
 }
 
 
 /// Controller responsável pela primeira tela da aplicação
-class MenuController: UIViewController, UpdateSuperviewData {
+class MenuController: UIViewController, MenuControllerProtocol {
     
     /* MARK: - Atributos */
 
@@ -26,7 +26,9 @@ class MenuController: UIViewController, UpdateSuperviewData {
     private let infoDataSource = InfoMenuDataSource()
     
     
-    static var temporary = false
+    /* Outros */
+    
+    private let dateManager = DateManager()
     
     
     
@@ -35,7 +37,6 @@ class MenuController: UIViewController, UpdateSuperviewData {
     init() {
         super.init(nibName: nil, bundle: nil)
         
-        self.setupView()
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -61,16 +62,15 @@ class MenuController: UIViewController, UpdateSuperviewData {
 
     /* MARK: - Protocolo */
     
-    internal func updateSuperviewData() {
-        if Self.temporary {
-            self.myView.setViewData(for: "")
-        }
+    internal func setupInitalData(with data: ManagedPoint) {
+        self.createDayWork(with: data)
     }
-	
-
     
+    
+
     /* MARK: - Ações de botões */
     
+    /// Ação do botão de abrir a tela de ajustes
     @objc private func openSettingsPage() {
         let vc = SettingsController()
         
@@ -78,13 +78,29 @@ class MenuController: UIViewController, UpdateSuperviewData {
     }
     
     
+    /// Ação do botão de abrir a tela de criação de um ponto
     @objc private func createNewWorkPage() {
         let vc = PointInfoController()
-        vc.superviewProtocol = self
+        vc.menuControllerProtocol = self
         
         let navBar = UINavigationController(rootViewController: vc)
         self.navigationController?.present(navBar, animated: true)
     }
+    
+    
+    /// Ação do botão de atualizar o timer
+    @objc func updateTimer() {
+        self.dateManager.updateTimerValue()
+        
+        let actualTime = self.dateManager.getActualCountdown()
+        
+        self.myView.updateTimerText(for: actualTime)
+        
+        if actualTime == "00:00:00" {
+            self.dateManager.stopTimer()
+        }
+    }
+    
     
     
     
@@ -102,18 +118,69 @@ class MenuController: UIViewController, UpdateSuperviewData {
     /// Definindo as ações dos botões
     private func setupButtonsAction() {
         self.myView.setNewDayAction(target: self, action: #selector(self.createNewWorkPage))
+        self.dateManager.setTimerAction(target: self, action: #selector(self.updateTimer))
     }
     
     
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {
-        self.myView.infoTable.setDataSource(with: self.infoDataSource)
-        self.myView.pointsTable.setDataSource(with: self.infoDataSource)
+        self.myView.setDataSource(with: self.infoDataSource)
     }
     
     
+   
+    private func setupTableData(with data: ManagedDayWork) {
+        self.infoDataSource.mainData = data
+        self.myView.reloadTableData()
+    }
+    
+    
+    private func checkForTodayData() {
+        let today = Date().getDateFormatted(with: .hms)
+        
+        CDManager.shared.getTodayDayWorkData() { result in
+            switch result {
+            case .success(let data):
+                self.setupDayWork(with: data)
+            case .failure(let error):
+                print(error.description)
+            }
+        }
+    }
+    
     ///
-    private func setupView() {
-        //self.myView.setViewData(for: "")
+    private func createDayWork(with point: ManagedPoint) {
+        let today = Date()
+        let endDate = self.dateManager.sumTime(in: today, at: .hour, with: 8)
+        
+        let dayWork = ManagedDayWork(
+            id: UUID(),
+            date: today.getDateFormatted(with: .dma),
+            startTime: today.getDateFormatted(with: .hm),
+            endTime: endDate?.getDateFormatted(with: .hm) ?? "",
+            points: [point]
+        )
+        
+        self.setupDayWork(with: dayWork)
+    }
+    
+    
+    private func setupDayWork(with data: ManagedDayWork) {
+        self.myView.hasData = true
+        self.setupTableData(with: data)
+        self.setupDataManager(with: data)
+    }
+    
+    
+    private func setupDataManager(with data: ManagedDayWork) {
+        guard
+            let startDate = Date.getDate(with: data.startTime, formatType: .hm),
+            let endData = Date.getDate(with: data.endTime, formatType: .hm)
+        else { return }
+        
+        self.dateManager.startDate = startDate
+        self.dateManager.endDate = endData
+        
+        self.dateManager.startTimer()
     }
 }

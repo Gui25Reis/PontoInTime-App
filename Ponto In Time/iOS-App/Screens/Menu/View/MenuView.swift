@@ -60,11 +60,7 @@ class MenuView: UIView {
     }
     
     
-    private var hasData = false {
-        didSet {
-            self.setupContentView()
-        }
-    }
+    
     
     // Geral
 
@@ -87,9 +83,32 @@ class MenuView: UIView {
     
     /* MARK: - Encapsulamento */
     
-    public func setViewData(for data: String) {
-        self.hasData = true
+    public var hasData = false {
+        didSet {
+            self.setupContentView()
+            self.updateTimerText(for: "00:00:00")
+        }
     }
+    
+    
+    public func updateTimerText(for text: String) {
+        self.timerLabel.text = text
+    }
+    
+    
+    /* Table */
+    
+    public func setDataSource(with dataSource: InfoMenuDataSource) {
+        self.infoTable.setDataSource(with: dataSource)
+        self.pointsTable.setDataSource(with: dataSource)
+    }
+    
+    
+    public func reloadTableData() {
+        self.infoTable.reloadTableData()
+        self.pointsTable.reloadTableData()
+    }
+    
     
     /* Ações de botões */
     
@@ -148,7 +167,7 @@ class MenuView: UIView {
     private func setupStaticTexts() {		
         /* Labels */
         self.timerLabel.setupText(with: FontInfo(
-            text: "03:46:21", fontSize: self.getEquivalent(70), weight: .light
+            fontSize: self.getEquivalent(70), weight: .light
         ))
         
 

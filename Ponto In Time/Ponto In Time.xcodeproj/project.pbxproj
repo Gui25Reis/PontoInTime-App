@@ -85,6 +85,10 @@
 		22EE795D29028D4C006E3085 /* PointInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE795C29028D4C006E3085 /* PointInfoDelegate.swift */; };
 		22EE796029041146006E3085 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE795F29041146006E3085 /* CustomButton.swift */; };
 		22EE796229046590006E3085 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE796129046590006E3085 /* SettingsData.swift */; };
+		22EE79652904A7E7006E3085 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE79642904A7E7006E3085 /* DateManager.swift */; };
+		22EE79672904A82D006E3085 /* ActionSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE79662904A82D006E3085 /* ActionSetup.swift */; };
+		22EE796A2904AA3D006E3085 /* DateFormatTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE79692904AA3D006E3085 /* DateFormatTypes.swift */; };
+		22EE796C2904AA7D006E3085 /* Date+DateFormatTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE796B2904AA7D006E3085 /* Date+DateFormatTypes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -168,6 +172,10 @@
 		22EE795C29028D4C006E3085 /* PointInfoDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoDelegate.swift; sourceTree = "<group>"; };
 		22EE795F29041146006E3085 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		22EE796129046590006E3085 /* SettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
+		22EE79642904A7E7006E3085 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		22EE79662904A82D006E3085 /* ActionSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSetup.swift; sourceTree = "<group>"; };
+		22EE79692904AA3D006E3085 /* DateFormatTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatTypes.swift; sourceTree = "<group>"; };
+		22EE796B2904AA7D006E3085 /* Date+DateFormatTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+DateFormatTypes.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,6 +351,7 @@
 				2283DCFB28FE6585008EE94F /* Font */,
 				2283DCDB28FE52C7008EE94F /* Icons */,
 				2283DD0D28FE6B8C008EE94F /* Color */,
+				22EE79682904AA23006E3085 /* Date */,
 			);
 			path = "Design System";
 			sourceTree = "<group>";
@@ -526,6 +535,7 @@
 			children = (
 				2283DD4D28FFB0F2008EE94F /* Cells */,
 				22EE796129046590006E3085 /* SettingsData.swift */,
+				22EE79662904A82D006E3085 /* ActionSetup.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -731,6 +741,24 @@
 			path = CustomButton;
 			sourceTree = "<group>";
 		};
+		22EE79682904AA23006E3085 /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				22EE796D2904AAED006E3085 /* Extension */,
+				22EE79692904AA3D006E3085 /* DateFormatTypes.swift */,
+				22EE79642904A7E7006E3085 /* DateManager.swift */,
+			);
+			path = Date;
+			sourceTree = "<group>";
+		};
+		22EE796D2904AAED006E3085 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				22EE796B2904AA7D006E3085 /* Date+DateFormatTypes.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -810,6 +838,8 @@
 				22EE7935290110CB006E3085 /* ManagedSettings.swift in Sources */,
 				2283DD2528FEA4FD008EE94F /* MenuCell.swift in Sources */,
 				2283DD4728FF94E3008EE94F /* HistoricDataSource.swift in Sources */,
+				22EE796A2904AA3D006E3085 /* DateFormatTypes.swift in Sources */,
+				22EE79672904A82D006E3085 /* ActionSetup.swift in Sources */,
 				22EE796029041146006E3085 /* CustomButton.swift in Sources */,
 				22EE794029011390006E3085 /* CoreDataProperties.swift in Sources */,
 				2283DD2E28FF3B5C008EE94F /* ActionType.swift in Sources */,
@@ -834,6 +864,7 @@
 				2283DCE328FE52DA008EE94F /* UIImage+AppIcons.swift in Sources */,
 				2283DD3828FF7901008EE94F /* CustomCell.swift in Sources */,
 				22EE794F29022722006E3085 /* DayWorkCDManager.swift in Sources */,
+				22EE796C2904AA7D006E3085 /* Date+DateFormatTypes.swift in Sources */,
 				2283DD5928FFBE44008EE94F /* SettingsController.swift in Sources */,
 				2283DD3328FF6F60008EE94F /* TableStyles.swift in Sources */,
 				2283DCFA28FE6563008EE94F /* CustomViews.swift in Sources */,
@@ -859,6 +890,7 @@
 				22EE795329024CE2006E3085 /* PointTypeCDManager.swift in Sources */,
 				22EE794529011434006E3085 /* CDManager.swift in Sources */,
 				2283DD1328FE6B9F008EE94F /* UIColors+AppColors.swift in Sources */,
+				22EE79652904A7E7006E3085 /* DateManager.swift in Sources */,
 				2283DCE228FE52DA008EE94F /* AppIcons.swift in Sources */,
 				2283DD4028FF7D5C008EE94F /* HistoricCell.swift in Sources */,
 				2283DCF228FE64CD008EE94F /* UIView+AdpativeLayout.swift in Sources */,

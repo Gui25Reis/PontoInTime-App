@@ -17,7 +17,7 @@ class PointInfoCell: GeneralTableCell, CustomCell {
     /// Escolha da hora
     private lazy var hourPicker = CustomViews.newDataPicker(mode: .time)
     
-    /// Escolha da hora
+    /// Botão que mostra o context menu
     private lazy var menuButton: CustomButton = {
         let but = CustomButton()
         but.showsMenuAsPrimaryAction = true
@@ -54,12 +54,23 @@ class PointInfoCell: GeneralTableCell, CustomCell {
     
     /* MARK: - Encapsulamento */
     
+    /* Picker */
+    
     /// Configura a célula para caso tenha um picker
     public var isTimePicker = false {
         didSet {
             self.setupHourPicker()
         }
     }
+    
+    /// Define a ação picker
+    public func setTimerAction(target: Any?, action: Selector) -> String {
+        self.hourPicker.addTarget(target, action: action, for: .valueChanged)
+        return self.hourPicker.date.getDateFormatted(with: .hm)
+    }
+    
+    
+    /* Status */
     
     /// Configura o tipo de status do ponto
     public var statusCell: StatusViewStyle = .start {
@@ -68,6 +79,8 @@ class PointInfoCell: GeneralTableCell, CustomCell {
         }
     }
     
+    
+    /* Menu */
     
     /// Configura o context menu da célula
     /// - Parameter menu: context menu

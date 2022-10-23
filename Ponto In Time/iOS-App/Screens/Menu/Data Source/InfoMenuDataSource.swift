@@ -10,33 +10,19 @@ class InfoMenuDataSource: NSObject, TableDataCount {
     
     
     /* MARK: - Atributos */
+    
+    public var mainData: ManagedDayWork? {
+        didSet {
+            self.setupDatas()
+        }
+    }
 
+    
     /// Dados usados no data source referente as informações do dia
-    public lazy var infosData: [CellData] = [
-        CellData(primaryText: "Data", secondaryText: "16/10/22"),
-        CellData(primaryText: "Entrada", secondaryText: "09:41"),
-        CellData(primaryText: "Saída", secondaryText: "18:41")
-    ]
+    private lazy var infosData: [CellData] = []
     
     /// Dados usados no data source referente aos pontos
-    public lazy var pointsData: [CellData] = [
-        CellData(
-            primaryText: "Trabalho", secondaryText: "09:41",
-            image: StatusView.getImage(for: .start), rightIcon: .chevron
-        ),
-        CellData(
-            primaryText: "Almoço", secondaryText: "12:12",
-            image: StatusView.getImage(for: .start), rightIcon: .chevron
-        ),
-        CellData(
-            primaryText: "Almoço", secondaryText: "13:10",
-            image: StatusView.getImage(for: .end), rightIcon: .chevron
-        ),
-        CellData(
-            primaryText: "Trabalho", secondaryText: "18:35",
-            image: StatusView.getImage(for: .end), rightIcon: .chevron
-        )
-    ]
+    private lazy var pointsData: [CellData] = []
     
     
     
@@ -114,6 +100,28 @@ class InfoMenuDataSource: NSObject, TableDataCount {
             
             
         default: return UITableViewCell()
+        }
+    }
+    
+    
+    private func setupDatas() {
+        if let data = self.mainData {
+            let calendarIcon = UIImage(.calendar)?.withTintColor(.label)
+            
+            self.infosData = [
+                CellData(primaryText: "Data", secondaryText: "\(data.date)", image: calendarIcon),
+                CellData(primaryText: "Entrada", secondaryText: "\(data.startTime)", rightIcon: .chevron),
+                CellData(primaryText: "Saída", secondaryText: "\(data.endTime)", rightIcon: .chevron)
+            ]
+            
+            self.pointsData = data.points.map() { item in
+                CellData(
+                    primaryText: item.pointType.title,
+                    secondaryText: item.time,
+                    image: StatusView.getImage(for: item.status),
+                    rightIcon: .chevron
+                )
+            }
         }
     }
 }
