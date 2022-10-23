@@ -5,14 +5,14 @@ import UIKit
 
 
 /// Elementos de UI da tela de histórico
-class HistoricView: UIView {
+class HistoricView: UIView, ViewWithTable {
     
     /* MARK: - Atributos */
 
     // Views
     
     /// Tabela de histórico
-    public let historicTable = CustomTable(style: .justTable)
+    private  let historicTable = CustomTable(style: .justTable)
     
     
     // Outros
@@ -36,10 +36,24 @@ class HistoricView: UIView {
     
     
     
-    /* MARK: - Encapsulamento */
-
+    /* MARK: - Protocolo */
     
-
+    internal func setDelegate(with delegate: UITableViewDelegate) {
+        self.historicTable.setDelegate(with: delegate)
+    }
+    
+    
+    internal func setDataSource(with dataSource: TableDataCount) {
+        self.historicTable.setDataSource(with: dataSource)
+    }
+    
+    
+    internal func reloadTableData() {
+        self.historicTable.reloadTableData()
+    }
+    
+        
+    
     /* MARK: - Ciclo de Vida */
     
     public override func layoutSubviews() {

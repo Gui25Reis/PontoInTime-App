@@ -6,21 +6,11 @@ import UIKit
 
 /// Data source das tables da página de menu
 class InfoMenuDataSource: NSObject, TableDataCount {
-    var reloadDataProtocol: TableReloadData?
-    
     
     /* MARK: - Atributos */
-    
-    public var mainData: ManagedDayWork? {
-        didSet {
-            if !self.isPointUpdate {
-                self.setupDatas()
-            }
-        }
-    }
-    
-    private lazy var isPointUpdate = false
-    
+
+    /// Se é apenas uma atualização de um dado específico
+    private lazy var isUniqueUpdate = false
     
     /// Dados usados no data source referente as informações do dia
     private lazy var infosData: [CellData] = []
@@ -32,17 +22,35 @@ class InfoMenuDataSource: NSObject, TableDataCount {
     
     /* MARK: - Encapsulamento */
     
+    /* Variáveis computáveis */
+    
+    /// Dado que a tabela vai consumir
+    public var mainData: ManagedDayWork? {
+        didSet {
+            if !self.isUniqueUpdate {
+                self.setupDatas()
+            } else {
+                self.isUniqueUpdate.toggle()
+            }
+        }
+    }
+    
+    /// Index da célula de adicionar
     public var actionIndex: Int {
         return self.pointsData.count-1 + 1
     }
     
+    /// Index da célula de finalizar
     public var destructiveIndex: Int {
         return self.pointsData.count-1 + 2
     }
     
     
+    /* Métodos */
+    
+    /// Adiciona um novo ponto
+    /// - Parameter points: ponto
     public func updatePointsData(with points: [ManagedPoint]) {
-        print("\n\nPontos recebidos: \(points)")
         self.pointsData = points.map() { item in
             CellData(
                 primaryText: item.pointType.title,
@@ -52,10 +60,10 @@ class InfoMenuDataSource: NSObject, TableDataCount {
             )
         }
         
-        self.isPointUpdate = true
+        self.isUniqueUpdate = true
         self.mainData?.points = points
-        self.isPointUpdate = false
     }
+    
     
     
     /* MARK: - Protocolo */
@@ -124,6 +132,10 @@ class InfoMenuDataSource: NSObject, TableDataCount {
     }
     
     
+    
+    /* MARK: - Configurações */
+    
+    /// Configura os dados da tabela
     private func setupDatas() {
         if let data = self.mainData {
             let calendarIcon = UIImage(.calendar)?.withTintColor(.label)

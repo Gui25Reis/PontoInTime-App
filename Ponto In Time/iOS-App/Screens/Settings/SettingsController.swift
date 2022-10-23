@@ -5,7 +5,7 @@ import UIKit
 
 
 /// Controller responsável pela tela de ajustes
-class SettingsController: UIViewController, TableReloadData {
+class SettingsController: UIViewController {
     
     /* MARK: - Atributos */
 
@@ -37,17 +37,9 @@ class SettingsController: UIViewController, TableReloadData {
         self.setupDataSourceData()
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         self.myView.reloadTableData()
-    }
-    
-    
-    
-    /* MARK: - Protocolo */
-    
-    internal func reloadTableData() {
-        self.myView.reloadTableData()
-        self.myView.reloadInputViews()
     }
     
     
@@ -64,6 +56,7 @@ class SettingsController: UIViewController, TableReloadData {
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {
         self.settingsDataSource.reloadDataProtocol = self
+        
         self.myView.setDataSource(with: self.settingsDataSource)
     }
     
@@ -81,6 +74,8 @@ class SettingsController: UIViewController, TableReloadData {
     }
     
     
+    /// Atualiza os dados da tabela
+    /// - Parameter data: dados atualizados
     private func updateTableData(for data: SettingsData) {
         self.settingsDataSource.mainData = data
         self.myView.reloadTableData()

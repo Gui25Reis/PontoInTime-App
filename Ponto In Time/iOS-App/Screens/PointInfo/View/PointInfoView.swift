@@ -5,7 +5,7 @@ import UIKit
 
 
 /// Elemento de UI da célula das tabelas da tela de informações de um ponto
-class PointInfoView: UIView {
+class PointInfoView: UIView, ViewWithTable {
     
     /* MARK: - Atributos */
 
@@ -47,23 +47,21 @@ class PointInfoView: UIView {
     
     
     
-    /* MARK: - Encapsulamento */
+    /* MARK: - Protocolo */
     
-    /* Tabele */
-    
-    public func setDataSource(with dataSource: PointInfoDataSource) {
+    internal func setDataSource(with dataSource: TableDataCount) {
         self.infosTable.setDataSource(with: dataSource)
         self.fileTable.setDataSource(with: dataSource)
     }
     
     
-    public func setDelegate(with delegate: PointInfoDelegate) {
+    internal func setDelegate(with delegate: UITableViewDelegate) {
         self.infosTable.setDelegate(with: delegate)
         self.fileTable.setDelegate(with: delegate)
     }
     
     
-    public func reloadTableData() {
+    internal func reloadTableData() {
         self.infosTable.reloadTableData()
         self.fileTable.reloadTableData()
     }

@@ -1,10 +1,10 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    guis.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
 
 
-/// O que essa classe faz?
+/// Delegate da table da tela de menu
 class InfoMenuDelegate: NSObject, UITableViewDelegate {
     
     /* MARK: - Atributos */
@@ -14,24 +14,12 @@ class InfoMenuDelegate: NSObject, UITableViewDelegate {
         
 
     
-    /* MARK: - Encapsulamento */
-    
-    /** 
-        Define qual vai ser o protocolo do delegate
-        - Parameter protocol: protocolo de comunicação
-    */
-//    public func setProtocol(with protocol: ) {
-//        self.nomeProtocol = protocol
-//    }
-    
-    
-    
     /* MARK: - Delegate */
     
     /// Ação de quando clica em uma célula
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) -> Void {
         let customIndexPath = IndexPath(row: indexPath.row, section: tableView.tag)
-        self.menuControllerProtocol?.cellClicked(at: customIndexPath)
+        self.menuControllerProtocol?.cellSelected(at: customIndexPath)
 				
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.reloadInputViews()

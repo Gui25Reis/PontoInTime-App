@@ -1,4 +1,4 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    guis.reis25@gmail.com */
 
 
 /// Tipode de formatação de data
@@ -16,6 +16,9 @@ enum DateFormatTypes {
     /// Hora em formato de ISO
     case iso
     
+    /// Dia + hora + minuto
+    case complete
+    
     
     
     var format: String {
@@ -28,6 +31,8 @@ enum DateFormatTypes {
             return "HH:mm:ss"
         case .iso:
             return "dd-MM-yy'T'HH:mm:ssZ"
+        case .complete:
+            return "dd/MM/yy-HH:mm"
         }
     }
     

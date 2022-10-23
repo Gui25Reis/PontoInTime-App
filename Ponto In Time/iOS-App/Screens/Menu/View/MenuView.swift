@@ -5,7 +5,7 @@ import UIKit
 
 
 /// Elementos de UI da tela de menu
-class MenuView: UIView {
+class MenuView: UIView, ViewWithTable {
     
     /* MARK: - Atributos */
 
@@ -22,19 +22,17 @@ class MenuView: UIView {
     private lazy var timerLabel: UILabel = CustomViews.newLabel()
     
     /// Tabela com as informações do ponto do dia
-    public lazy var infoTable: CustomTable = {
+    private lazy var infoTable: CustomTable = {
         let table = CustomTable(style: .justTable)
         table.setTableTag(for: 0)
         return table
     }()
     
     /// Tabela com os pontos feitos durante o dia
-    public lazy var pointsTable: CustomTable = {
+    private lazy var pointsTable: CustomTable = {
         let table = CustomTable(style: .withHeader)
         table.isCustomHeight = true
         table.setTableTag(for: 1)
-        
-        table.setHeaderTitle(for: "Pontos do dia")
         return table
     }()
     
@@ -76,8 +74,30 @@ class MenuView: UIView {
     
     
     
+    /* MARK: - Protocolo */
+    
+    internal func setDelegate(with delegate: UITableViewDelegate) {
+        self.infoTable.setDelegate(with: delegate)
+        self.pointsTable.setDelegate(with: delegate)
+    }
+    
+    
+    internal func setDataSource(with dataSource: TableDataCount) {
+        self.infoTable.setDataSource(with: dataSource)
+        self.pointsTable.setDataSource(with: dataSource)
+    }
+    
+    
+    internal func reloadTableData() {
+        self.infoTable.reloadTableData()
+        self.pointsTable.reloadTableData()
+    }
+    
+    
+    
     /* MARK: - Encapsulamento */
     
+    /// Avisa se tem dados na view
     public var hasData = false {
         didSet {
             self.setupContentView()
@@ -86,30 +106,12 @@ class MenuView: UIView {
     }
     
     
+    /// Atualiza o texto do timer
+    /// - Parameter text: novo texto do timer
     public func updateTimerText(for text: String) {
         self.timerLabel.text = text
     }
-    
-    
-    /* Table */
-    
-    public func setDelegate(with delegate: InfoMenuDelegate) {
-        self.infoTable.setDelegate(with: delegate)
-        self.pointsTable.setDelegate(with: delegate)
-    }
-    
-    
-    public func setDataSource(with dataSource: InfoMenuDataSource) {
-        self.infoTable.setDataSource(with: dataSource)
-        self.pointsTable.setDataSource(with: dataSource)
-    }
-    
-    
-    public func reloadTableData() {
-        self.infoTable.reloadTableData()
-        self.pointsTable.reloadTableData()
-    }
-    
+        
     
     /* Ações de botões */
     
@@ -165,7 +167,11 @@ class MenuView: UIView {
     
     
     /// Define os textos que são estáticos (os textos em si que vão sempre ser o mesmo)
-    private func setupStaticTexts() {		
+    private func setupStaticTexts() {
+        /* Table */
+        self.pointsTable.setHeaderTitle(for: "Pontos do dia")
+        
+        
         /* Labels */
         self.timerLabel.setupText(with: FontInfo(
             fontSize: self.getEquivalent(70), weight: .light

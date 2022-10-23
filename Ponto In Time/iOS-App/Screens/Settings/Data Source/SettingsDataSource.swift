@@ -8,27 +8,28 @@ import UIKit
 class SettingsDataSource: NSObject, TableDataCount {
         
     /* MARK: - Atributos */
-        
+    
+    /* Dados */
+    
     /// Dados usados no data source referente as informações das informações gerais
     private lazy var infoData: [CellData] = []
-    
     
     /// Dados usados no data source referente as informações de compartilhamento
     private lazy var shareData: [CellData] = []
     
-    private var isSharing: Bool = false
-    
-    
     /// Dados usados no data source referente aos tipos de pontos
     private lazy var pointData: [ManagedPointType] = []
+    
+    
+    /* Geral */
+    
+    /// Diz se está compartilhando os dados
+    private var isSharing: Bool = false
     
         
     
     /* MARK: - Protocolo */
-    
-    weak var reloadDataProtocol: TableReloadData?
-    
-    
+
     func getDataCount(for dataType: Int) -> Int {
         switch dataType {
         case 0: return self.infoData.count
@@ -99,7 +100,8 @@ class SettingsDataSource: NSObject, TableDataCount {
                 actionType: .action, actionTitle: "Novo"
             ))
         
-        default: break
+        default:
+            break
         }
         return cell
     }
@@ -108,6 +110,7 @@ class SettingsDataSource: NSObject, TableDataCount {
     
     /* MARK: - Configurações */
     
+    /// Configura os dados da tabela
     private func setupDatas() {
         if let settings = self.mainData?.settingsData {
             self.infoData = [

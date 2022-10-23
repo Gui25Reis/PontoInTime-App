@@ -4,16 +4,6 @@
 import UIKit
 
 
-protocol MenuControllerProtocol: NSObject {
-    
-    func setupInitalData(with data: ManagedPoint)
-    
-    func addNewPoint(with data: ManagedPoint)
-    
-    func cellClicked(at indexPath: IndexPath)
-}
-
-
 /// Controller responsável pela primeira tela da aplicação
 class MenuController: UIViewController, MenuControllerProtocol {
     
@@ -27,16 +17,19 @@ class MenuController: UIViewController, MenuControllerProtocol {
     
     /* Delegate & Data Sources */
     
+    /// Data source da tabela
     private let infoDataSource = InfoMenuDataSource()
     
+    /// Delegate da tabela
     private let infoDelegate = InfoMenuDelegate()
     
     
     /* Outros */
     
+    /// Lida com as datas
     private let dateManager = DateManager()
     
-    
+    /// Diz se já possui dados na tabela
     private var hasData: Bool?
     
     
@@ -73,28 +66,17 @@ class MenuController: UIViewController, MenuControllerProtocol {
     /* MARK: - Protocolo */
     
     internal func setupInitalData(with data: ManagedPoint) {
-        self.createDayWork(with: data)
+        self.createDay(with: data)
     }
     
     
     internal func addNewPoint(with data: ManagedPoint) {
         self.updateTableData(with: data)
-        
-        if let id = self.infoDataSource.mainData?.id {
-            CDManager.shared.addNewPoint(in: id, point: data) { result in
-                switch result {
-                case .success(_):
-                    print("Deu bom")
-                case .failure(let error):
-                    print("Erros:\n\(error)")
-                }
-            }
-        }
-        
+        self.saveIntoCoreData(data: data)
     }
     
-    
-    internal func cellClicked(at indePath: IndexPath) {
+        
+    internal func cellSelected(at indePath: IndexPath) {
         let row = indePath.row
         
         switch indePath.section {
@@ -127,7 +109,6 @@ class MenuController: UIViewController, MenuControllerProtocol {
     /// Ação do botão de abrir a tela de ajustes
     @objc private func openSettingsPage() {
         let vc = SettingsController()
-        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -143,7 +124,6 @@ class MenuController: UIViewController, MenuControllerProtocol {
         self.dateManager.updateTimerValue()
         
         let actualTime = self.dateManager.getActualCountdown()
-        
         self.myView.updateTimerText(for: actualTime)
         
         if actualTime == "00:00:00" {
@@ -152,29 +132,11 @@ class MenuController: UIViewController, MenuControllerProtocol {
     }
     
     
-    private func openPointInfoPage(with data: ManagedPoint?, isNewData: Bool = false) {
-        var vc: PointInfoController
-        
-        if isNewData {
-            vc = PointInfoController(isNewData: true)
-        } else {
-            vc = PointInfoController(with: data)
-        }
-        
-        if data == nil {
-            vc.menuControllerProtocol = self
-            let navBar = UINavigationController(rootViewController: vc)
-            self.navigationController?.present(navBar, animated: true)
-        } else {
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        
-    }
-    
-    
     
     /* MARK: - Configurações */
-
+    
+    /* MARK: Geral */
+    
     /// Configurções da navigation controller
     private func setupNavigation() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -199,13 +161,41 @@ class MenuController: UIViewController, MenuControllerProtocol {
         self.myView.setDelegate(with: self.infoDelegate)
     }
     
+
+    /// Abre a tela de informações de um ponto
+    /// - Parameters:
+    ///   - data: dado que a tela vai receber
+    ///   - isNewData: caso seja para adicionar um novo dado
+    private func openPointInfoPage(with data: ManagedPoint?, isNewData: Bool = false) {
+        var vc: PointInfoController
+        if isNewData {
+            vc = PointInfoController(isNewData: true)
+        } else {
+            vc = PointInfoController(with: data)
+        }
+        
+        if data == nil {
+            vc.menuControllerProtocol = self
+            let navBar = UINavigationController(rootViewController: vc)
+            self.navigationController?.present(navBar, animated: true)
+        } else {
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
+    
+    /* MARK: Dados */
+    
+    /// Define os dados da tabela
+    /// - Parameter data: dados que a tabela vai receber
     private func setupTableData(with data: ManagedDayWork) {
         self.infoDataSource.mainData = data
         self.myView.reloadTableData()
     }
     
     
+    /// Atualiza o dado de pontos da tabela
+    /// - Parameter data: pontos que vão ser adicionados
     private func updateTableData(with data: ManagedPoint) {
         var existData = self.infoDataSource.mainData?.points ?? []
         existData.append(data)
@@ -214,6 +204,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
     }
     
     
+    /// Verifica se possui já possui dado do dia
     private func checkForTodayData() {
         CDManager.shared.getTodayDayWorkData() { result in
             switch result {
@@ -222,46 +213,53 @@ class MenuController: UIViewController, MenuControllerProtocol {
                 self.hasData = true
             case .failure(let error):
                 self.hasData = false
-                
                 print(error.description)
-                CDManager.shared.getAllDayWorkData() { result in
-                    switch result {
-                    case .success(let data):
-                        print("Dados no core data:", data)
-                    case .failure(let error):
-                        print(error.description)
-                    }
-                }
             }
         }
     }
     
-    ///
-    private func createDayWork(with point: ManagedPoint) {
-        let today = Date.getDate(with: point.time, formatType: .hms) ?? Date()
-        let endDate = self.dateManager.sumTime(in: today, at: .hour, with: 8)
-        
-        let dayWork = ManagedDayWork(
-            date: today.getDateFormatted(with: .dma),
-            startTime: today.getDateFormatted(with: .hms),
-            endTime: endDate?.getDateFormatted(with: .hms) ?? "",
-            points: [point]
-        )
-        
-        self.setupDayWork(with: dayWork)
-        
-        // Salva no core data
-        CDManager.shared.createNewDayWork(with: dayWork) { result in
+    
+    /// Pega as informações necessárias para criar um novo dia
+    /// - Parameter point: ponto inicial
+    private func createDay(with point: ManagedPoint) {
+        CDManager.shared.getSettingsData() { result in
             switch result {
-            case .success(_):
-                print("Salvou")
+            case .success(let data):
+                if let settingTimeWork = data.settingsData?.timeWork {
+                    if let timeWork = Int(settingTimeWork) {
+                        self.createDayWork(point: point, timeWork: timeWork)
+                    }
+                }
+                
             case .failure(let error):
                 print(error.description)
             }
         }
     }
     
+    /// Cria os dados do dia
+    /// - Parameter point: ponto inicial
+    /// - Parameter timeWork: tempo de trabalho
+    private func createDayWork(point: ManagedPoint, timeWork: Int) {
+        guard
+            let today = Date.getDate(with: point.time, formatType: .complete),
+            let endDate = self.dateManager.sumTime(in: today, at: .hour, with: timeWork)
+        else { return }
+        
+        let dayWork = ManagedDayWork(
+            date: today.getDateFormatted(with: .dma),
+            startTime: today.getDateFormatted(with: .hms),
+            endTime: endDate.getDateFormatted(with: .hms),
+            points: [point]
+        )
+        
+        self.setupDayWork(with: dayWork)
+        self.saveIntoCoreData(data: dayWork)
+    }
     
+    
+    /// Configura a view para os dados do dia
+    /// - Parameter data: dados do dia
     private func setupDayWork(with data: ManagedDayWork) {
         self.myView.hasData = true
         self.setupTableData(with: data)
@@ -269,6 +267,8 @@ class MenuController: UIViewController, MenuControllerProtocol {
     }
     
     
+    /// Configura as datas
+    /// - Parameter data: dados do dia
     private func setupDataManager(with data: ManagedDayWork) {
         let nowStr = Date().getDateFormatted(with: .hms)
         guard
@@ -280,5 +280,26 @@ class MenuController: UIViewController, MenuControllerProtocol {
         self.dateManager.endDate = endData
         
         self.dateManager.startTimer()
+    }
+    
+    
+    /// Salva um dado no core data
+    /// - Parameter data: dado que vai ser salvo
+    private func saveIntoCoreData(data: Any) {
+        if let point = data as? ManagedPoint, let id = self.infoDataSource.mainData?.id {
+            CDManager.shared.addNewPoint(in: id, point: point) { error in
+                if let error {
+                    print(error.description)
+                }
+            }
+        } else
+            
+        if let dayWork = data as? ManagedDayWork {
+            CDManager.shared.createNewDayWork(with: dayWork) { error in
+                if let error {
+                    print(error.description)
+                }
+            }
+        }
     }
 }

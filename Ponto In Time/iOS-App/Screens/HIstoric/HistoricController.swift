@@ -33,6 +33,7 @@ class HistoricController: UIViewController {
         super.viewDidLoad()
 
         self.setupDelegates()
+        self.setupTableData(with: nil)
     }
 
     
@@ -41,6 +42,14 @@ class HistoricController: UIViewController {
 
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {
-        self.myView.historicTable.setDataSource(with: self.historicDataSource)
+        self.myView.setDataSource(with: self.historicDataSource)
+    }
+    
+    
+    /// Define os dados da tabela
+    /// - Parameter data: dados que a tabela vai receber
+    private func setupTableData(with data: ManagedDayWork?) {
+        self.historicDataSource.mainData = data
+        self.myView.reloadTableData()
     }
 }

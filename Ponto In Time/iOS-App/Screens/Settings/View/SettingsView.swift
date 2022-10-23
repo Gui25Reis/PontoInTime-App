@@ -5,7 +5,7 @@ import UIKit
 
 
 /// Elemento de UI da célula da tela de ajustes
-class SettingsView: UIView {
+class SettingsView: UIView, ViewWithTable {
     
     /* MARK: - Atributos */
 
@@ -23,6 +23,8 @@ class SettingsView: UIView {
     private let shareTable: CustomTable = {
         let table = CustomTable(style: .complete)
         table.setTableTag(for: 1)
+        
+        // TODO: MVP
         table.isUserInteractionEnabled = false
         
         return table
@@ -59,34 +61,27 @@ class SettingsView: UIView {
     
     
     
-    /* MARK: - Encapsulamento */
+    /* MARK: - Protocolo */
     
-    /// Define o data source das tabelas
-    /// - Parameter dataSource: data source das tabelas
-    public func setDataSource(with dataSource: SettingsDataSource) {
+    internal func setDataSource(with dataSource: TableDataCount) {
         self.infosTable.setDataSource(with: dataSource)
         self.shareTable.setDataSource(with: dataSource)
         self.pointTable.setDataSource(with: dataSource)
     }
     
     
-    /// Define o delegate das tabelas
-    /// - Parameter delegate: data source das tabelas
-    public func setDelegate(with delegate: UITableViewDelegate) {
+    internal func setDelegate(with delegate: UITableViewDelegate) {
         self.infosTable.setDelegate(with: delegate)
         self.shareTable.setDelegate(with: delegate)
         self.pointTable.setDelegate(with: delegate)
     }
     
     
-    /// Atualiza os dados
-    public func reloadTableData() {
+    internal func reloadTableData() {
         self.infosTable.reloadTableData()
         self.shareTable.reloadTableData()
         self.pointTable.reloadTableData()
     }
-    
-    
     
     
 

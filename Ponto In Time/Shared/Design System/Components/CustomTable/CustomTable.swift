@@ -19,7 +19,7 @@ import UIKit
 ///
 /// Todas as funções externas estão na área (mark) de encapsulamento.
 ///
-/// **ATENÇÃO**: Não é recomendado fazer uma configuraçào direta nos atributos da view,
+/// **ATENÇÃO**: Não é recomendado fazer uma configuração direta nos atributos da view,
 /// faça o encapsulamento caso precise de alguma configuração que não tenha
 ///
 class CustomTable: UIView {

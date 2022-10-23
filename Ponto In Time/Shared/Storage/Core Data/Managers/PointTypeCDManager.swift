@@ -1,4 +1,4 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    guis.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import class CoreData.NSPredicate

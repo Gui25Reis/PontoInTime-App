@@ -5,7 +5,7 @@ import UIKit
 
 
 /// Elemento de UI da célula das tabelas da tela de menu inicial
-class HistoricCell: UITableViewCell, CustomCell {
+class HistoricCell: GeneralTableCell, CustomCell {
     
     /* MARK: - Atributos */
     
@@ -30,19 +30,8 @@ class HistoricCell: UITableViewCell, CustomCell {
     /// Constraints que vão mudar de acordo com o tamanho da tela
     private var dynamicConstraints: [NSLayoutConstraint] = []
     
-    
-    
-    /* MARK: - Construtor */
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        self.setupViews()
-        self.setupUI()
-    }
-    
-    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
-    
+    /// Diz se as view ja foram adicionadas
+    private var hasViews = false
     
     
     /* MARK: - Protocolo */
@@ -52,11 +41,11 @@ class HistoricCell: UITableViewCell, CustomCell {
     
     
     
-    /* MARK: - Encapsulamento */
-    
-    /// Configura a célula a aprtir dos dados da célula
-    /// - Parameter data: dados da célula
-    public func setupCell(with data: CellData) {
+    /* MARK: - Override */
+        
+    override func setupCellData(with data: CellData) {
+        self.setupViews()
+        
         let fontSize = self.dateLabel.font.pointSize
         
         self.dateLabel.setupTextWithIcon(
@@ -64,7 +53,11 @@ class HistoricCell: UITableViewCell, CustomCell {
             icon: IconInfo(icon: .calendar, size: fontSize)
         )
         
-        self.workTimeLabel.text = "Tempo de trabalho: \(data.secondaryText)"
+        if let timeWork = data.secondaryText {
+            self.workTimeLabel.text = "Tempo de trabalho: \(timeWork)"
+        }
+        
+        self.accessoryType = .disclosureIndicator
     }
     
     
@@ -74,8 +67,10 @@ class HistoricCell: UITableViewCell, CustomCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.setupStaticTexts()
-        self.setupDynamicConstraints()
+        if self.hasViews {
+            self.setupStaticTexts()
+            self.setupDynamicConstraints()
+        }
     }
     
     
@@ -83,19 +78,19 @@ class HistoricCell: UITableViewCell, CustomCell {
     /* MARK: - Configurações */
     
     /// Adiciona os elementos (Views) na tela
-    private func setupViews() {    
-        self.contentView.addSubview(self.stackView)
+    private func setupViews() {
+        if !self.hasViews {
+            self.hasViews.toggle()
+            
+            self.contentView.addSubview(self.stackView)
+            
+            self.stackView.addArrangedSubview(self.dateLabel)
+            self.stackView.addArrangedSubview(self.workTimeLabel)
+            
+            self.layoutSubviews()
+        }
+    }
         
-        self.stackView.addArrangedSubview(self.dateLabel)
-        self.stackView.addArrangedSubview(self.workTimeLabel)
-    }
-    
-    
-    /// Personalização da UI
-    private func setupUI() {
-        self.accessoryType = .disclosureIndicator
-    }
-    
     
     /// Define os textos que são estáticos (os textos em si que vão sempre ser o mesmo)
     private func setupStaticTexts(with dateText: String? = nil) {

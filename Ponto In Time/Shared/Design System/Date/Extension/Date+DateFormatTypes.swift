@@ -1,4 +1,4 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    guis.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import struct Foundation.Date
@@ -33,11 +33,18 @@ extension Date {
     ///   - formatType: tipo do formato
     /// - Returns: data com a string passada
     static func getDate(with format: String, formatType: DateFormatTypes) -> Date? {
+        var dateString: String = format
+        
+        if formatType == .complete {
+            let today = Date().getDateFormatted(with: .dma)
+            dateString = "\(today)-\(dateString)"
+        }
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = formatType.format
         dateFormatter.timeZone = Self.brazilTimeZone
         
-        return dateFormatter.date(from: format)
+        return dateFormatter.date(from: dateString)
     }
     
     

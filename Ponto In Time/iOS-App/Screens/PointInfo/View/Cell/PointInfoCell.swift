@@ -34,17 +34,7 @@ class PointInfoCell: GeneralTableCell, CustomCell {
         }
     }
 
-    
-    
-    /* MARK: - Construtor */
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-    
-    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
-    
-    
+        
     
     /* MARK: - Protocolo */
     
@@ -110,16 +100,6 @@ class PointInfoCell: GeneralTableCell, CustomCell {
         self.menuButton.removeFromSuperview()
         self.statusView.removeFromSuperview()
         self.hourPicker.removeFromSuperview()
-    }
-    
-    
-    
-    /* MARK: - Ciclo de Vida */
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        self.clearCell()
     }
     
     

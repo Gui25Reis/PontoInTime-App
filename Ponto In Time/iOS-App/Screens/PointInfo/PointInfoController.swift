@@ -4,17 +4,9 @@
 import UIKit
 
 
-protocol PointInfoProtocol {
-    
-    func createMenu(for index: Int, with cell: PointInfoCell)
-    
-    func updateTimeFromPicker(for time: String)
-}
-
-
 /// Controller responsável pela tela de informações de um ponto
 class PointInfoController: UIViewController, PointInfoProtocol {
-    
+
     /* MARK: - Atributos */
 
     /* View */
@@ -46,6 +38,7 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     
     /// Hora do picker
     private var pickerHour: String = ""
+    
     
     
     /* MARK: - Construtor */
@@ -85,8 +78,8 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     
     /* MARK: - Protocolo */
     
-    internal func createMenu(for index: Int, with cell: PointInfoCell) {
-        switch index {
+    internal func createMenu(for cell: PointInfoCell) {
+        switch cell.tag {
         case 0:
             self.createPointsTypeMenu(for: cell)
             
@@ -104,15 +97,22 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     }
     
     
+    internal func cellSelected(at indexPath: IndexPath) {
+        
+    }
+    
+    
     
     /* MARK: - Ações de Botões */
     
+    /// Ação do botão de fechar a janela: fecha sem salvar
     @objc private func dismissAction() {
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true)
     }
     
     
+    /// Ação do botão de salvar: salva os dados e fecha a janela
     @objc private func saveAction() {
         if let data = self.pointInfoDataSource.mainData {
             var updateData = data
@@ -128,6 +128,26 @@ class PointInfoController: UIViewController, PointInfoProtocol {
         }
         self.dismissAction()
     }
+    
+    
+    /// Ação do context menu: atualiza o dado selecionado
+    /// - Parameters:
+    ///   - index: index da opção
+    ///   - newData: novo dado
+    private func updateData(at index: Int, newData: String) {
+        if let dataSourceData = self.pointInfoDataSource.mainData {
+            var data = dataSourceData
+            
+            if index == 0 {
+                data.pointType = ManagedPointType(title: newData, isDefault: false)
+            } else {
+                data.status = newData
+            }
+            
+            self.setupTableData(with: data)
+        }
+    }
+    
     
     
     /* MARK: - Configurações */
@@ -199,21 +219,11 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     }
     
     
-    private func updateData(at index: Int, newData: String) {
-        if let dataSourceData = self.pointInfoDataSource.mainData {
-            var data = dataSourceData
-            
-            if index == 0 {
-                data.pointType = ManagedPointType(title: newData, isDefault: false)
-            } else {
-                data.status = newData
-            }
-            
-            self.setupTableData(with: data)
-        }
-    }
     
+    /* Context Menu */
     
+    /// Cria o context menu para a célula de mostrar os pontos disponiveis
+    /// - Parameter cell: célula que vai ser atribuida o menu
     private func createPointsTypeMenu(for cell: PointInfoCell) {
         let group = DispatchGroup()
         var pointsType = CDManager.shared.getAllPointType() { _ in }
@@ -250,6 +260,8 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     }
     
     
+    /// Cria o context menu para a célula de mostrar os estados disponiveis
+    /// - Parameter cell: célula que vai ser atribuida o menu
     private func createStatusViewMenu(for cell: PointInfoCell) {
         var actions: [UIAction] = []
         for item in StatusViewStyle.allCases {

@@ -6,40 +6,50 @@ import UIKit
 
 /// Data source das tabelas de informações de um ponto
 class PointInfoDataSource: NSObject, TableDataCount {
-    var reloadDataProtocol: TableReloadData?
-    
-    var pointInfoProtocol: PointInfoProtocol?
-    
-    /* MARK: - Atributos */
 
-    /// Dados usados no data source referente as informações do ponto
-    public lazy var infoTitles: [String] = []
+    /* MARK: - Atributos */
     
+    // Protocolo de comunicação com a controller
+    public var pointInfoProtocol: PointInfoProtocol?
+
+    
+    /// Dados usados no data source referente as informações do ponto
+    private lazy var infoTitles: [String] = []
     
     /// Dados usados no data source referente aos arquivos
-    public lazy var fileData: [CellData] = [
+    private lazy var fileData: [CellData] = [
         CellData(primaryText: "Anexo_16102022-9_41"),
     ]
     
+        
     
+    /* MARK: - Protocolo */
+    
+    internal func getDataCount(for dataType: Int) -> Int {
+        switch dataType {
+        case 0: return self.infoTitles.count
+        case 1: return self.fileData.count+1
+        default: return 0
+        }
+    }
+    
+    
+    
+    /* MARK: - Encapsulamento */
+    
+    /// Diz se os dados são inicial
     public var isInitialData = true
     
+    /// Dados base da tabela
     public var mainData: ManagedPoint? {
         didSet {
             self.setupDatas()
         }
     }
     
-        
-    
-    /* MARK: - Protocolo */
-    
-    func getDataCount(for dataType: Int) -> Int {
-        switch dataType {
-        case 0: return self.infoTitles.count
-        case 1: return self.fileData.count+1
-        default: return 0
-        }
+    /// Index da célula de adicionar
+    public var actionIndex: Int {
+        return self.fileData.count-1 + 1
     }
     
     
@@ -59,16 +69,16 @@ class PointInfoDataSource: NSObject, TableDataCount {
         }
         
         let row = indexPath.row
-        
+        cell.tag = row
+    
         switch tableView.tag {
-            
-        case 0:
+        case 0: // Infos
             let title = self.infoTitles[row]
             
             var cellData = CellData(primaryText: title)
             
             switch row {
-            case 0:
+            case 0: // Título
                 cellData.secondaryText = self.mainData?.pointType.title ?? "Nenhum"
                 cell.setupCellData(with: cellData)
                 
@@ -76,25 +86,25 @@ class PointInfoDataSource: NSObject, TableDataCount {
                     cellData.rightIcon = .contextMenu
                     cell.setupCellData(with: cellData)
                     
-                    self.pointInfoProtocol?.createMenu(for: row, with: cell)
+                    self.pointInfoProtocol?.createMenu(for: cell)
                 }
                 
                 return cell
                 
-            case 1:
+            case 1: // Status
                 cell.setupCellData(with: cellData)
                 
                 if !self.isInitialData {
                     cellData.rightIcon = .contextMenu
                     cell.setupCellData(with: cellData)
                     
-                    self.pointInfoProtocol?.createMenu(for: row, with: cell)
+                    self.pointInfoProtocol?.createMenu(for: cell)
                 }
                 cell.statusCell = StatusView.getCase(for: self.mainData?.status ?? "")
                 
                 return cell
                 
-            case 2:
+            case 2: // Picker
                 cell.setupCellData(with: cellData)
                 
                 let time = cell.setTimerAction(
@@ -114,7 +124,7 @@ class PointInfoDataSource: NSObject, TableDataCount {
             }
 
         
-        case 1:
+        case 1: // Arquivos
             if row < self.fileData.count {
                 let data = self.fileData[row]
                 cell.setupCellData(with: data)

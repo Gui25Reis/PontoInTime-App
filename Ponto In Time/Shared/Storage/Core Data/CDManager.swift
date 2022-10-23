@@ -1,4 +1,4 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    guis.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import CoreData
@@ -14,7 +14,7 @@ class CDManager: NSObject, CoreDataProperties {
     
     /* Managers */
     
-    /// Lida com os dados de configuraçòes/ajustes
+    /// Lida com os dados de configurações/ajustes
     private lazy var settingsManager = SettingsCDManager()
     
     /// Lida com os dados dos dias trabalhados
@@ -145,28 +145,28 @@ class CDManager: NSObject, CoreDataProperties {
     
     
     
-    public func createNewDayWork(with data: ManagedDayWork, _ completionHandler: @escaping (Result<Bool, ErrorCDHandler>) -> Void) {
+    public func createNewDayWork(with data: ManagedDayWork, _ completionHandler: @escaping (_ error: ErrorCDHandler?) -> Void) {
         self.mainContext.perform {
             self.dayWorkManager.createData(with: data) { result in
                 switch result {
-                case .success(let success):
-                    completionHandler(.success(success))
+                case .success(_):
+                    completionHandler(nil)
                 case .failure(let failure):
-                    completionHandler(.failure(failure))
+                    completionHandler(failure)
                 }
             }
         }
     }
     
     
-    public func addNewPoint(in dataID: UUID, point: ManagedPoint, _ completionHandler: @escaping (Result<Bool, ErrorCDHandler>) -> Void) {
+    public func addNewPoint(in dataID: UUID, point: ManagedPoint, _ completionHandler: @escaping (_ error: ErrorCDHandler?) -> Void) {
         self.mainContext.perform {
             self.dayWorkManager.addNewPoint(in: dataID, point: point) { result in
                 switch result {
-                case .success(let success):
-                    completionHandler(.success(success))
-                case .failure(let failure):
-                    completionHandler(.failure(failure))
+                case .success(_):
+                    completionHandler(nil)
+                case .failure(let error):
+                    completionHandler(error)
                 }
             }
         }

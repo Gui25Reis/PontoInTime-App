@@ -1,7 +1,7 @@
 /* Gui Reis    -    guis.reis25@gmail.com */
 
 
-/// Configurações de uma célula quando possui um comportamento de açào
+/// Configurações de uma célula quando possui um comportamento de ação
 struct CellAction {
     
     /// Tipo de ação

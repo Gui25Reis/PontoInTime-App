@@ -9,7 +9,7 @@ class SettingsCell: GeneralTableCell, CustomCell {
     
     /* MARK: - Atributos */
     
-    /// Botào de ligado/desligado
+    /// Botão de ligado/desligado
     private let switchButton: UISwitch = {
         let but = CustomViews.newSwitch()
         but.isOn = true
@@ -23,16 +23,6 @@ class SettingsCell: GeneralTableCell, CustomCell {
 
     /// Constraints que vão mudar de acordo com o tamanho da tela
     private var dynamicConstraints: [NSLayoutConstraint] = []
-    
-    
-    
-    /* MARK: - Construtor */
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-    
-    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
     
     
     
@@ -68,12 +58,6 @@ class SettingsCell: GeneralTableCell, CustomCell {
         self.setupDynamicConstraints()
     }
     
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        self.accessoryType = .none
-    }
     
     
     /* MARK: - Configurações */

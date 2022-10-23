@@ -4,27 +4,33 @@
 import UIKit
 
 
-
 /// Data source das tabelas da tela de histórico
 class HistoricDataSource: NSObject, TableDataCount {
-    var reloadDataProtocol: TableReloadData?
-    
     
     /* MARK: - Atributos */
 
     /// Dados usados no data source referente as informações do histórico
-    public lazy var data: [CellData] = [
-        CellData(primaryText: "16.10.2022", secondaryText: "7h 57min"),
-        CellData(primaryText: "16.10.2022", secondaryText: "7h 57min"),
-        CellData(primaryText: "16.10.2022", secondaryText: "7h 57min")
-    ]
+    private lazy var data: [CellData] = []
+    
     
         
-    
     /* MARK: - Protocolo */
     
     func getDataCount(for dataType: Int) -> Int {
         return self.data.count
+    }
+    
+    
+    
+    /* MARK: - Encapsulamento */
+        
+    /* Variáveis computáveis */
+    
+    /// Dado que a tabela vai consumir
+    public var mainData: ManagedDayWork? {
+        didSet {
+            self.setupDatas()
+        }
     }
     
     
@@ -44,8 +50,23 @@ class HistoricDataSource: NSObject, TableDataCount {
         }
         
         let data = self.data[indexPath.row]
-        cell.setupCell(with: data)
+        cell.setupCellData(with: data)
         
         return cell
+    }
+    
+    
+    
+    /* MARK: - Configurações */
+    
+    /// Configura os dados da tabela
+    private func setupDatas() {
+        // if let data = self.mainData {
+            self.data = [
+                CellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
+                CellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
+                CellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron)
+            ]
+        // }
     }
 }
