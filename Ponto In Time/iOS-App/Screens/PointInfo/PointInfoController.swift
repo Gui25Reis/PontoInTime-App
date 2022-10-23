@@ -53,12 +53,6 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     init(with data: ManagedPoint? = nil) {
         super.init(nibName: nil, bundle: nil)
         
-        let data1 = ManagedPoint(
-            status: "Saída",
-            time: "11:45",
-            files: [],
-            pointType: ManagedPointType(title: "Almoço", isDefault: true)
-        )
         self.setupCell(for: data)
     }
     
@@ -123,7 +117,14 @@ class PointInfoController: UIViewController, PointInfoProtocol {
         if let data = self.pointInfoDataSource.mainData {
             var updateData = data
             updateData.time = self.pickerHour
-            self.menuControllerProtocol?.setupInitalData(with: updateData)
+            
+            if self.isFirstPoint {
+                self.menuControllerProtocol?.setupInitalData(with: updateData)
+            } else
+
+            if self.isNewPoint {
+                self.menuControllerProtocol?.addNewPoint(with: updateData)
+            }
         }
         self.dismissAction()
     }
@@ -136,7 +137,7 @@ class PointInfoController: UIViewController, PointInfoProtocol {
         self.navigationItem.largeTitleDisplayMode = .never
         self.title = "Informações do ponto".localized()
         
-        if self.isFirstPoint {
+        if self.isFirstPoint || self.isNewPoint {
             self.title = "Novo ponto".localized()
             
             let leftBut = UIBarButtonItem(
@@ -182,7 +183,7 @@ class PointInfoController: UIViewController, PointInfoProtocol {
         
         if self.isNewPoint {
             self.isFirstPoint = false
-            initialData.status = "Nenhum"
+            initialData.pointType = ManagedPointType(title: "Nenhum", isDefault: false)
         }
         
         self.setupTableData(with: initialData)

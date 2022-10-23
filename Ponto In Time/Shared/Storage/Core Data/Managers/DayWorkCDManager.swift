@@ -56,7 +56,6 @@ internal class DayWorkCDManager {
             return completionHandler(.failure(.fetchError))
         }
         return completionHandler(.failure(.protocolNotSetted))
-        
     }
     
     
@@ -68,8 +67,6 @@ internal class DayWorkCDManager {
             newData.date = data.date
             newData.startTime = data.startTime
             newData.endTime = data.endTime
-            
-            print("Salvando o dado: \(newData.date)")
             
             let pointManager = PointCDManager()
             pointManager.coreDataProperties = self.coreDataProperties
@@ -90,6 +87,37 @@ internal class DayWorkCDManager {
     }
     
     
+    public func addNewPoint(in dataID: UUID, point: ManagedPoint, _ completionHandler: @escaping (Result<Bool, ErrorCDHandler>) -> Void) {
+        
+        if let coreDataProperties {
+            let fetch = DBDayWork.fetchRequest()
+            fetch.predicate = NSPredicate(format: "%K == '\(dataID)'", #keyPath(DBDayWork.id))
+            fetch.fetchLimit = 1
+            
+            if let data = try? coreDataProperties.mainContext.fetch(fetch) {
+                if let firstData = data.first {
+                    let pointManager = PointCDManager()
+                    pointManager.coreDataProperties = self.coreDataProperties
+                    
+                    if let pointCreated = pointManager.createIfNeeded(with: point) {
+                        firstData.addToPoints(pointCreated)
+                    }
+                    
+                    // Tenta salvar
+                    if let error = try? coreDataProperties.saveContext() {
+                        return completionHandler(.failure(error))
+                    }
+                    return completionHandler(.success(true))
+                }
+                
+                return completionHandler(.failure(.dataNotFound))
+            }
+            return completionHandler(.failure(.fetchError))
+        }
+        return completionHandler(.failure(.protocolNotSetted))
+    }
+    
+    
     /* MARK: - Configurações */
     
     /// Transforma a entidade do core date para o modelo (struct)
@@ -101,7 +129,9 @@ internal class DayWorkCDManager {
             date: entity.date,
             startTime: entity.startTime,
             endTime: entity.endTime,
-            points: []
+            points: entity.getPoints.map() {
+                PointCDManager.transformToModel(entity: $0)
+            }
         )
     }
 }

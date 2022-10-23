@@ -93,6 +93,12 @@ class MenuView: UIView {
     
     /* Table */
     
+    public func setDelegate(with delegate: InfoMenuDelegate) {
+        self.infoTable.setDelegate(with: delegate)
+        self.pointsTable.setDelegate(with: delegate)
+    }
+    
+    
     public func setDataSource(with dataSource: InfoMenuDataSource) {
         self.infoTable.setDataSource(with: dataSource)
         self.pointsTable.setDataSource(with: dataSource)

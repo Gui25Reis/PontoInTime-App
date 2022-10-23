@@ -40,7 +40,7 @@ class PointTypeCDManager {
                 }
                 
                 var allData = data.map { item in
-                    self.transformToModel(entity: item)
+                    Self.transformToModel(entity: item)
                 }
             
                 allData.sort {
@@ -102,7 +102,7 @@ class PointTypeCDManager {
     /// Transforma a entidade do core date para o modelo (struct)
     /// - Parameter entity: a entidade
     /// - Returns: modelo
-    private func transformToModel(entity: DBPointType) -> ManagedPointType {
+    static func transformToModel(entity: DBPointType) -> ManagedPointType {
         return ManagedPointType(
             title: entity.title,
             isDefault: entity.isDefault

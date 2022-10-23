@@ -14,7 +14,12 @@ public class DBPoint: NSManagedObject, Identifiable {
     @NSManaged public var files: NSSet?
     @NSManaged public var pointType: DBPointType
     @NSManaged public var dayWork: DBDayWork
-
+    
+    
+    public var getFiles: [DBFiles] {
+        let set = self.files as? Set<DBFiles> ?? []
+        return set.map() {$0}
+    }
     
     
     /* MARK: - Métodos */

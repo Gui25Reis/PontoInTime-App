@@ -27,4 +27,15 @@ class FilesCDManager {
         }
         return nil
     }
+    
+    
+    /// Transforma a entidade do core date para o modelo (struct)
+    /// - Parameter entity: a entidade
+    /// - Returns: modelo
+    static func transformToModel(entity: DBFiles) -> ManagedFiles {
+        return ManagedFiles(
+            link: entity.link,
+            name: entity.name
+        )
+    }
 }

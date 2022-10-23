@@ -7,6 +7,10 @@ import UIKit
 protocol MenuControllerProtocol: NSObject {
     
     func setupInitalData(with data: ManagedPoint)
+    
+    func addNewPoint(with data: ManagedPoint)
+    
+    func cellClicked(at indexPath: IndexPath)
 }
 
 
@@ -24,6 +28,8 @@ class MenuController: UIViewController, MenuControllerProtocol {
     /* Delegate & Data Sources */
     
     private let infoDataSource = InfoMenuDataSource()
+    
+    private let infoDelegate = InfoMenuDelegate()
     
     
     /* Outros */
@@ -71,6 +77,50 @@ class MenuController: UIViewController, MenuControllerProtocol {
     }
     
     
+    internal func addNewPoint(with data: ManagedPoint) {
+        self.updateTableData(with: data)
+        
+        if let id = self.infoDataSource.mainData?.id {
+            CDManager.shared.addNewPoint(in: id, point: data) { result in
+                switch result {
+                case .success(_):
+                    print("Deu bom")
+                case .failure(let error):
+                    print("Erros:\n\(error)")
+                }
+            }
+        }
+        
+    }
+    
+    
+    internal func cellClicked(at indePath: IndexPath) {
+        let row = indePath.row
+        
+        switch indePath.section {
+        case 0: // Info
+            return
+            
+        case 1: // Pontos
+            if row < self.infoDataSource.actionIndex {
+                let data = self.infoDataSource.mainData?.points[row]
+                self.openPointInfoPage(with: data)
+                return
+            }
+            
+            if row == self.infoDataSource.actionIndex {
+                self.openPointInfoPage(with: nil, isNewData: true)
+            } else {
+                print("Quer finalizar o dia")
+            }
+            
+            return
+            
+        default:
+            break
+        }
+    }
+    
 
     /* MARK: - Ações de botões */
     
@@ -84,16 +134,12 @@ class MenuController: UIViewController, MenuControllerProtocol {
     
     /// Ação do botão de abrir a tela de criação de um ponto
     @objc private func createNewWorkPage() {
-        let vc = PointInfoController()
-        vc.menuControllerProtocol = self
-        
-        let navBar = UINavigationController(rootViewController: vc)
-        self.navigationController?.present(navBar, animated: true)
+        self.openPointInfoPage(with: nil)
     }
     
     
     /// Ação do botão de atualizar o timer
-    @objc func updateTimer() {
+    @objc private func updateTimer() {
         self.dateManager.updateTimerValue()
         
         let actualTime = self.dateManager.getActualCountdown()
@@ -105,6 +151,25 @@ class MenuController: UIViewController, MenuControllerProtocol {
         }
     }
     
+    
+    private func openPointInfoPage(with data: ManagedPoint?, isNewData: Bool = false) {
+        var vc: PointInfoController
+        
+        if isNewData {
+            vc = PointInfoController(isNewData: true)
+        } else {
+            vc = PointInfoController(with: data)
+        }
+        
+        if data == nil {
+            vc.menuControllerProtocol = self
+            let navBar = UINavigationController(rootViewController: vc)
+            self.navigationController?.present(navBar, animated: true)
+        } else {
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+    }
     
     
     
@@ -128,13 +193,23 @@ class MenuController: UIViewController, MenuControllerProtocol {
     
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {
+        self.infoDelegate.menuControllerProtocol = self
+        
         self.myView.setDataSource(with: self.infoDataSource)
+        self.myView.setDelegate(with: self.infoDelegate)
     }
     
     
-   
     private func setupTableData(with data: ManagedDayWork) {
         self.infoDataSource.mainData = data
+        self.myView.reloadTableData()
+    }
+    
+    
+    private func updateTableData(with data: ManagedPoint) {
+        var existData = self.infoDataSource.mainData?.points ?? []
+        existData.append(data)
+        self.infoDataSource.updatePointsData(with: existData)
         self.myView.reloadTableData()
     }
     
@@ -163,7 +238,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
     
     ///
     private func createDayWork(with point: ManagedPoint) {
-        let today = Date()
+        let today = Date.getDate(with: point.time, formatType: .hms) ?? Date()
         let endDate = self.dateManager.sumTime(in: today, at: .hour, with: 8)
         
         let dayWork = ManagedDayWork(
@@ -175,6 +250,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
         
         self.setupDayWork(with: dayWork)
         
+        // Salva no core data
         CDManager.shared.createNewDayWork(with: dayWork) { result in
             switch result {
             case .success(_):

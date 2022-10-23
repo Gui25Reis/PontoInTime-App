@@ -8,9 +8,9 @@ import struct CoreData.UUID
 struct ManagedDayWork {
     let id: UUID?
     let date: String
-    let startTime: String
-    let endTime: String
-    let points: [ManagedPoint]
+    var startTime: String
+    var endTime: String
+    var points: [ManagedPoint]
     
     init(date: String, startTime: String, endTime: String, points: [ManagedPoint]) {
         self.id = nil

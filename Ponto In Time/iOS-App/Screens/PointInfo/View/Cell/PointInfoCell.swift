@@ -63,6 +63,7 @@ class PointInfoCell: GeneralTableCell, CustomCell {
         }
     }
     
+    
     /// Define a ação picker
     public func setTimerAction(target: Any?, action: Selector) -> String {
         self.hourPicker.addTarget(target, action: action, for: .valueChanged)
@@ -93,10 +94,8 @@ class PointInfoCell: GeneralTableCell, CustomCell {
     /// Define a hora que vai aparecer no timer
     /// - Parameter time: hora
     public func setTimerPicker(time: String) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        
-        if let date = dateFormatter.date(from: time) {
+        if let date = Date.getDate(with: time, formatType: .hm) {
+            self.hourPicker.timeZone = TimeZone(abbreviation: "GMT-3")
             self.hourPicker.date = date
         }
     }

@@ -5,7 +5,7 @@ import CoreData
 
 
 @objc(DBDayWork)
-public class DBDayWork: NSManagedObject, Identifiable {
+public class DBDayWork: NSManagedObject {
     
     /* MARK: - Atributos */
     
@@ -14,6 +14,11 @@ public class DBDayWork: NSManagedObject, Identifiable {
     @NSManaged public var startTime: String
     @NSManaged public var endTime: String
     @NSManaged public var points: NSSet
+    
+    public var getPoints: [DBPoint] {
+        let set = self.points as? Set<DBPoint> ?? []
+        return set.map() {$0}
+    }
     
 
 

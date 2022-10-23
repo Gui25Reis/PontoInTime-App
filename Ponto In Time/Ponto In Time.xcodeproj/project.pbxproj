@@ -89,6 +89,7 @@
 		22EE79672904A82D006E3085 /* ActionSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE79662904A82D006E3085 /* ActionSetup.swift */; };
 		22EE796A2904AA3D006E3085 /* DateFormatTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE79692904AA3D006E3085 /* DateFormatTypes.swift */; };
 		22EE796C2904AA7D006E3085 /* Date+DateFormatTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE796B2904AA7D006E3085 /* Date+DateFormatTypes.swift */; };
+		22EE796F29053C5D006E3085 /* InfoMenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE796E29053C5D006E3085 /* InfoMenuDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -176,6 +177,7 @@
 		22EE79662904A82D006E3085 /* ActionSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSetup.swift; sourceTree = "<group>"; };
 		22EE79692904AA3D006E3085 /* DateFormatTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatTypes.swift; sourceTree = "<group>"; };
 		22EE796B2904AA7D006E3085 /* Date+DateFormatTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+DateFormatTypes.swift"; sourceTree = "<group>"; };
+		22EE796E29053C5D006E3085 /* InfoMenuDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoMenuDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -498,6 +500,7 @@
 		2283DD1D28FE866F008EE94F /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				22EE797029053C61006E3085 /* Delegate */,
 				2283DD2628FEA7BC008EE94F /* Data Source */,
 				2283DD2028FE8683008EE94F /* View */,
 				2283DD1E28FE867F008EE94F /* MenuController.swift */,
@@ -759,6 +762,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		22EE797029053C61006E3085 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				22EE796E29053C5D006E3085 /* InfoMenuDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -859,6 +870,7 @@
 				2283DD4928FFACD9008EE94F /* CustomTableCell.swift in Sources */,
 				22EE793B2901129E006E3085 /* ManagedPointType.swift in Sources */,
 				2283DCF328FE64CD008EE94F /* AdaptiveLayout.swift in Sources */,
+				22EE796F29053C5D006E3085 /* InfoMenuDelegate.swift in Sources */,
 				2283DD4F28FFB109008EE94F /* CellData.swift in Sources */,
 				22EE795529024D1B006E3085 /* PointCDManager.swift in Sources */,
 				2283DCE328FE52DA008EE94F /* UIImage+AppIcons.swift in Sources */,

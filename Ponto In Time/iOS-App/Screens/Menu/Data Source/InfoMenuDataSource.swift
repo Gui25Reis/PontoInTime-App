@@ -13,10 +13,14 @@ class InfoMenuDataSource: NSObject, TableDataCount {
     
     public var mainData: ManagedDayWork? {
         didSet {
-            self.setupDatas()
+            if !self.isPointUpdate {
+                self.setupDatas()
+            }
         }
     }
-
+    
+    private lazy var isPointUpdate = false
+    
     
     /// Dados usados no data source referente as informações do dia
     private lazy var infosData: [CellData] = []
@@ -36,6 +40,22 @@ class InfoMenuDataSource: NSObject, TableDataCount {
         return self.pointsData.count-1 + 2
     }
     
+    
+    public func updatePointsData(with points: [ManagedPoint]) {
+        print("\n\nPontos recebidos: \(points)")
+        self.pointsData = points.map() { item in
+            CellData(
+                primaryText: item.pointType.title,
+                secondaryText: item.time,
+                image: StatusView.getImage(for: item.status),
+                rightIcon: .chevron
+            )
+        }
+        
+        self.isPointUpdate = true
+        self.mainData?.points = points
+        self.isPointUpdate = false
+    }
     
     
     /* MARK: - Protocolo */
@@ -114,14 +134,7 @@ class InfoMenuDataSource: NSObject, TableDataCount {
                 CellData(primaryText: "Saída", secondaryText: "\(data.endTime)", rightIcon: .chevron)
             ]
             
-            self.pointsData = data.points.map() { item in
-                CellData(
-                    primaryText: item.pointType.title,
-                    secondaryText: item.time,
-                    image: StatusView.getImage(for: item.status),
-                    rightIcon: .chevron
-                )
-            }
+            self.updatePointsData(with: data.points)
         }
     }
 }

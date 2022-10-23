@@ -83,10 +83,6 @@ class PointInfoDataSource: NSObject, TableDataCount {
                 
             case 1:
                 cell.setupCellData(with: cellData)
-                let time = cell.setTimerAction(
-                    target: self, action: #selector(self.hourPickerAction(sender:))
-                )
-                self.pointInfoProtocol?.updateTimeFromPicker(for: time)
                 
                 if !self.isInitialData {
                     cellData.rightIcon = .contextMenu
@@ -100,6 +96,11 @@ class PointInfoDataSource: NSObject, TableDataCount {
                 
             case 2:
                 cell.setupCellData(with: cellData)
+                
+                let time = cell.setTimerAction(
+                    target: self, action: #selector(self.hourPickerAction(sender:))
+                )
+                self.pointInfoProtocol?.updateTimeFromPicker(for: time)
                 
                 cell.isTimePicker = true
                 if let time = self.mainData?.time {
@@ -147,7 +148,7 @@ class PointInfoDataSource: NSObject, TableDataCount {
     
     
     @objc private func hourPickerAction(sender: UIDatePicker) {
-        let time = sender.date.getDateFormatted(with: .hm)
+        let time = sender.date.getDateFormatted(with: .hms)
         self.pointInfoProtocol?.updateTimeFromPicker(for: time)
     }
 }

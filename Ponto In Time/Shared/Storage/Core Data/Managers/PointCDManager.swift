@@ -42,7 +42,23 @@ class PointCDManager {
                 }
             }
             
+            return newData
         }
         return nil
+    }
+    
+    
+    /// Transforma a entidade do core date para o modelo (struct)
+    /// - Parameter entity: a entidade
+    /// - Returns: modelo
+    static func transformToModel(entity: DBPoint) -> ManagedPoint {
+        return ManagedPoint(
+            status: entity.status,
+            time: entity.time,
+            files: entity.getFiles.map() {
+                FilesCDManager.transformToModel(entity: $0)
+            },
+            pointType: PointTypeCDManager.transformToModel(entity: entity.pointType)
+        )
     }
 }

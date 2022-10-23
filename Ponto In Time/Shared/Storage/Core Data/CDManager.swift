@@ -159,6 +159,21 @@ class CDManager: NSObject, CoreDataProperties {
     }
     
     
+    public func addNewPoint(in dataID: UUID, point: ManagedPoint, _ completionHandler: @escaping (Result<Bool, ErrorCDHandler>) -> Void) {
+        self.mainContext.perform {
+            self.dayWorkManager.addNewPoint(in: dataID, point: point) { result in
+                switch result {
+                case .success(let success):
+                    completionHandler(.success(success))
+                case .failure(let failure):
+                    completionHandler(.failure(failure))
+                }
+            }
+        }
+    }
+    
+    
+    
     
     /* MARK: Tipos de pontos */
     
