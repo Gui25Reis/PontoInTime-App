@@ -13,6 +13,10 @@ enum DateFormatTypes {
     /// Hora / Minuto / Segundo
     case hms
     
+    /// Hora em formato de ISO
+    case iso
+    
+    
     
     var format: String {
         switch self {
@@ -22,6 +26,8 @@ enum DateFormatTypes {
             return "HH:mm"
         case .hms:
             return "HH:mm:ss"
+        case .iso:
+            return "dd-MM-yy'T'HH:mm:ssZ"
         }
     }
     

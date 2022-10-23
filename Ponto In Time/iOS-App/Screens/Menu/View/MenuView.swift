@@ -14,8 +14,7 @@ class MenuView: UIView {
     /// Botão de criar um novo dia
     private lazy var newDayButton: CustomButton = {
         let bt = CustomButton()
-        bt.backgroundColor = .systemBlue.withAlphaComponent(0.2)
-        
+        bt.mainColor = .systemBlue
         return bt
     }()
     
@@ -60,11 +59,7 @@ class MenuView: UIView {
     }
     
     
-    
-    
     // Geral
-
-
     
     /* MARK: - Construtor */
     

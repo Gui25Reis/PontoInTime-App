@@ -31,12 +31,16 @@ class MenuController: UIViewController, MenuControllerProtocol {
     private let dateManager = DateManager()
     
     
+    private var hasData: Bool?
+    
+    
     
     /* MARK: - Construtor */
     
     init() {
         super.init(nibName: nil, bundle: nil)
         
+        self.checkForTodayData()
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -136,14 +140,23 @@ class MenuController: UIViewController, MenuControllerProtocol {
     
     
     private func checkForTodayData() {
-        let today = Date().getDateFormatted(with: .hms)
-        
         CDManager.shared.getTodayDayWorkData() { result in
             switch result {
             case .success(let data):
                 self.setupDayWork(with: data)
+                self.hasData = true
             case .failure(let error):
+                self.hasData = false
+                
                 print(error.description)
+                CDManager.shared.getAllDayWorkData() { result in
+                    switch result {
+                    case .success(let data):
+                        print("Dados no core data:", data)
+                    case .failure(let error):
+                        print(error.description)
+                    }
+                }
             }
         }
     }
@@ -154,14 +167,22 @@ class MenuController: UIViewController, MenuControllerProtocol {
         let endDate = self.dateManager.sumTime(in: today, at: .hour, with: 8)
         
         let dayWork = ManagedDayWork(
-            id: UUID(),
             date: today.getDateFormatted(with: .dma),
-            startTime: today.getDateFormatted(with: .hm),
-            endTime: endDate?.getDateFormatted(with: .hm) ?? "",
+            startTime: today.getDateFormatted(with: .hms),
+            endTime: endDate?.getDateFormatted(with: .hms) ?? "",
             points: [point]
         )
         
         self.setupDayWork(with: dayWork)
+        
+        CDManager.shared.createNewDayWork(with: dayWork) { result in
+            switch result {
+            case .success(_):
+                print("Salvou")
+            case .failure(let error):
+                print(error.description)
+            }
+        }
     }
     
     
@@ -173,12 +194,13 @@ class MenuController: UIViewController, MenuControllerProtocol {
     
     
     private func setupDataManager(with data: ManagedDayWork) {
+        let nowStr = Date().getDateFormatted(with: .hms)
         guard
-            let startDate = Date.getDate(with: data.startTime, formatType: .hm),
-            let endData = Date.getDate(with: data.endTime, formatType: .hm)
+            let nowDate = Date.getDate(with: nowStr, formatType: .hms),
+            let endData = Date.getDate(with: data.endTime, formatType: .hms)
         else { return }
         
-        self.dateManager.startDate = startDate
+        self.dateManager.startDate = nowDate
         self.dateManager.endDate = endData
         
         self.dateManager.startTimer()

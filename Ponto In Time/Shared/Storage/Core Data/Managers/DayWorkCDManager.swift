@@ -38,14 +38,13 @@ internal class DayWorkCDManager {
     }
     
     
+    
     public func getData(for date: String, _ completionHandler: @escaping (Result<ManagedDayWork, ErrorCDHandler>) -> Void) {
         if let coreDataProperties {
-            
-            // Pega os dados do core data
             let fetch = DBDayWork.fetchRequest()
             fetch.predicate = NSPredicate(format: "%K == '\(date)'", #keyPath(DBDayWork.date))
             fetch.fetchLimit = 1
-
+            
             if let data = try? coreDataProperties.mainContext.fetch(fetch) {
                 if data.isEmpty {
                     return completionHandler(.failure(.dataNotFound))
@@ -68,6 +67,9 @@ internal class DayWorkCDManager {
             newData.id = UUID()
             newData.date = data.date
             newData.startTime = data.startTime
+            newData.endTime = data.endTime
+            
+            print("Salvando o dado: \(newData.date)")
             
             let pointManager = PointCDManager()
             pointManager.coreDataProperties = self.coreDataProperties
@@ -76,6 +78,11 @@ internal class DayWorkCDManager {
                 if let point = pointManager.createIfNeeded(with: item) {
                     newData.addToPoints(point)
                 }
+            }
+            
+            // Tenta salvar
+            if let error = try? coreDataProperties.saveContext() {
+                return completionHandler(.failure(error))
             }
             return completionHandler(.success(true))
         }

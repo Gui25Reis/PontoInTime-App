@@ -25,7 +25,18 @@ class CustomButton: UIButton {
         return CGPoint(x: self.frame.maxX, y: original.y)
     }
     
+    
+    
+    /* MARK: - Encapsulamento */
+    
+    /// Cor principal do botão
+    public var mainColor: UIColor? {
+        didSet {
+            self.setupColor()
+        }
+    }
 
+    
     
     /* MARK: - Configurações */
     
@@ -33,7 +44,15 @@ class CustomButton: UIButton {
     private func setup() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.masksToBounds = true
-        
-        self.setTitleColor(.systemBlue, for: .normal)
+    }
+    
+    
+    /// Configura as cores a partir da cor principal
+    private func setupColor() {
+        if let color = self.mainColor {
+            self.backgroundColor = color.withAlphaComponent(0.2)
+            self.setTitleColor(color, for: .normal)
+            self.tintColor = color
+        }
     }
 }

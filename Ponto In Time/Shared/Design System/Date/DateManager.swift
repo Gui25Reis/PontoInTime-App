@@ -98,14 +98,12 @@ class DateManager {
 
     /* MARK: - Configurações */
     
-    
     /// Pega o tempo que falta entre as duas datas
     /// - Parameter recursion: caso de resursão
     /// - Returns: tempo em horas
     private func getCountdown(recursion: Bool = false) -> String {
         if let date = self.diferenceBetweenDates {
             let timeLeft = self.sumTime(in: date, at: .second, with: self.timerCount)
-            
             return timeLeft?.getDateFormatted(with: .hms) ?? "00:00:00"
         }
         
@@ -113,13 +111,11 @@ class DateManager {
             return "00:00:00"
         }
         
-        let components = Calendar.current.dateComponents(
-            [.hour, .minute, .second],
-            from: self.startDate, to: self.endDate
-        )
+        let difference = self.endDate.timeIntervalSinceReferenceDate - self.startDate.timeIntervalSinceReferenceDate
+        let dateUTC = Date(timeIntervalSinceReferenceDate: difference)
+        let dateGMT = self.sumTime(in: dateUTC, at: .hour, with: 3)     // Add 3 horas por causa da time zone
         
-            
-        self.diferenceBetweenDates = Calendar.current.date(from: components)
+        self.diferenceBetweenDates = dateGMT
         return self.getCountdown(recursion: true)
     }
 }

@@ -38,8 +38,11 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     
     /* Outros */
     
-    /// View principal que a classe vai controlar
-    private var isNewPoint = true
+    /// Se o dado apresentado é o primeiro ponto do dia
+    private var isFirstPoint = true
+    
+    /// Se o dado apresentado é um novo dado
+    private var isNewPoint = false
     
     /// Hora do picker
     private var pickerHour: String = ""
@@ -57,6 +60,13 @@ class PointInfoController: UIViewController, PointInfoProtocol {
             pointType: ManagedPointType(title: "Almoço", isDefault: true)
         )
         self.setupCell(for: data)
+    }
+    
+    init(isNewData: Bool) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.isNewPoint = isNewData
+        self.setupCell(for: nil)
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -126,7 +136,7 @@ class PointInfoController: UIViewController, PointInfoProtocol {
         self.navigationItem.largeTitleDisplayMode = .never
         self.title = "Informações do ponto".localized()
         
-        if self.isNewPoint {
+        if self.isFirstPoint {
             self.title = "Novo ponto".localized()
             
             let leftBut = UIBarButtonItem(
@@ -158,17 +168,23 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     /// Mostra as informações do ponto
     private func setupCell(for data: ManagedPoint?) {
         if let data {
-            self.isNewPoint = false
+            self.isFirstPoint = false
             self.setupTableData(with: data)
             return
         }
         
-        let initialData = ManagedPoint(
+        var initialData = ManagedPoint(
             status: "Entrada",
             time: "",
             files: [],
             pointType: ManagedPointType(title: "Trabalho", isDefault: true)
         )
+        
+        if self.isNewPoint {
+            self.isFirstPoint = false
+            initialData.status = "Nenhum"
+        }
+        
         self.setupTableData(with: initialData)
     }
     
@@ -176,7 +192,7 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     /// Configura os dados da tabela
     /// - Parameter data: dados
     private func setupTableData(with data: ManagedPoint) {
-        self.pointInfoDataSource.isInitialData = self.isNewPoint
+        self.pointInfoDataSource.isInitialData = self.isFirstPoint
         self.pointInfoDataSource.mainData = data
         self.myView.reloadTableData()
     }

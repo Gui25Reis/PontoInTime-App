@@ -115,7 +115,7 @@ class CDManager: NSObject, CoreDataProperties {
     /// Caso não encontre o dado do dia vai ser gerado um erro de `dataNotFound`.
     public func getTodayDayWorkData(_ completionHandler: @escaping (Result<ManagedDayWork, ErrorCDHandler>) -> Void) {
         self.mainContext.perform {
-            let today = Date().getDateFormatted(with: .hms)
+            let today = Date().getDateFormatted(with: .dma)
             self.dayWorkManager.getData(for: today) { result in
                 switch result {
                 case .success(let success):
@@ -133,6 +133,21 @@ class CDManager: NSObject, CoreDataProperties {
     public func getAllDayWorkData(_ completionHandler: @escaping (Result<[ManagedDayWork], ErrorCDHandler>) -> Void) {
         self.mainContext.perform {
             self.dayWorkManager.getAllData() { result in
+                switch result {
+                case .success(let success):
+                    completionHandler(.success(success))
+                case .failure(let failure):
+                    completionHandler(.failure(failure))
+                }
+            }
+        }
+    }
+    
+    
+    
+    public func createNewDayWork(with data: ManagedDayWork, _ completionHandler: @escaping (Result<Bool, ErrorCDHandler>) -> Void) {
+        self.mainContext.perform {
+            self.dayWorkManager.createData(with: data) { result in
                 switch result {
                 case .success(let success):
                     completionHandler(.success(success))
