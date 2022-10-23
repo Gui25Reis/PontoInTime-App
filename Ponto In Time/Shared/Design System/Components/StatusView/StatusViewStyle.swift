@@ -1,4 +1,4 @@
-/* Gui Reis    -    guis.reis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 
 /// Define o estilo do componente de estado

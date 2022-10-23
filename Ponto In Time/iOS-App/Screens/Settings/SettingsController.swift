@@ -1,4 +1,4 @@
-/* Gui Reis    -    guis.reis25@gmail.com */
+/* Gui Reis    -    gui.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
@@ -55,8 +55,6 @@ class SettingsController: UIViewController {
     
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {
-        self.settingsDataSource.reloadDataProtocol = self
-        
         self.myView.setDataSource(with: self.settingsDataSource)
     }
     
