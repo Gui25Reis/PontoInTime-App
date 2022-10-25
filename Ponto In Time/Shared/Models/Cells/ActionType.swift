@@ -8,6 +8,7 @@ import class UIKit.UIColor
 enum ActionType {
     
     /* MARK: - Casos */
+    
     /// Uma ação convencional
     case action
     

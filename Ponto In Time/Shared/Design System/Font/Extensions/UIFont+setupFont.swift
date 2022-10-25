@@ -1,7 +1,7 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import class UIKit.UIFont
 
 
 extension UIFont {

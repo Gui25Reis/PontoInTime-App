@@ -6,7 +6,10 @@ enum StatusViewStyle: CaseIterable {
     
     /* MARK: - Casos */
     
+    /// Entrada
     case start
+    
+    /// Saída
     case end
         
     

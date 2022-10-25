@@ -5,7 +5,7 @@ import struct CoreGraphics.CGSize
 
 
 /// Tipos de telas usadas como referencias para o layout adaptativo
-public enum Screens: ScreenSize {
+enum Screens {
     
     /* MARK: - Casos */
     

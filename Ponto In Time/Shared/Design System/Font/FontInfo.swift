@@ -1,7 +1,8 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import struct CoreGraphics.CGFloat
+import class UIKit.UIFont
 
 
 /// Configurações da fonte de uma View

@@ -9,6 +9,7 @@ class CDManager: NSObject, CoreDataProperties {
     
     /* MARK: - Atributos */
     
+    /// Singleton para uso
     static let shared = CDManager()
     
     
@@ -27,6 +28,7 @@ class CDManager: NSObject, CoreDataProperties {
     
     /* MARK: - Construtor */
     
+    /// Restringe o uso da classe para o singleton
     override private init() {
         super.init()
         
@@ -144,34 +146,31 @@ class CDManager: NSObject, CoreDataProperties {
     }
     
     
-    
+    /// Cria um novo dia
+    /// - Parameters:
+    ///   - data: dados do dia
+    ///   - completionHandler: gera um erro caso tenha algum problema no processo
     public func createNewDayWork(with data: ManagedDayWork, _ completionHandler: @escaping (_ error: ErrorCDHandler?) -> Void) {
         self.mainContext.perform {
-            self.dayWorkManager.createData(with: data) { result in
-                switch result {
-                case .success(_):
-                    completionHandler(nil)
-                case .failure(let failure):
-                    completionHandler(failure)
-                }
+            self.dayWorkManager.createData(with: data) { error in
+                return completionHandler(error)
             }
         }
     }
     
     
+    /// Adiciona um novo ponto no dia
+    /// - Parameters:
+    ///   - dataID: id do dia (que vai ser adicionado)
+    ///   - point: ponto que vai ser adicionado
+    ///   - completionHandler: gera um erro caso tenha algum problema no processo
     public func addNewPoint(in dataID: UUID, point: ManagedPoint, _ completionHandler: @escaping (_ error: ErrorCDHandler?) -> Void) {
         self.mainContext.perform {
-            self.dayWorkManager.addNewPoint(in: dataID, point: point) { result in
-                switch result {
-                case .success(_):
-                    completionHandler(nil)
-                case .failure(let error):
-                    completionHandler(error)
-                }
+            self.dayWorkManager.addNewPoint(in: dataID, point: point){ error in
+                return completionHandler(error)
             }
         }
     }
-    
     
     
     

@@ -12,7 +12,7 @@ class PointInfoCell: GeneralTableCell, CustomCell {
     /* Views */
     
     /// Tipo do ponto
-    private lazy var statusView = StatusView()
+    private var statusView: StatusView?
     
     /// Escolha da hora
     private lazy var hourPicker = CustomViews.newDataPicker(mode: .time)
@@ -98,7 +98,7 @@ class PointInfoCell: GeneralTableCell, CustomCell {
         super.clearCell()
         
         self.menuButton.removeFromSuperview()
-        self.statusView.removeFromSuperview()
+        self.statusView?.removeFromSuperview()
         self.hourPicker.removeFromSuperview()
     }
     
@@ -109,13 +109,13 @@ class PointInfoCell: GeneralTableCell, CustomCell {
     /// Configura a view de status de um ponto
     /// - Parameter status: status
     private func setupStatusView(with status: StatusViewStyle) {
-        self.statusView.status = status
+        self.statusView = StatusView(status: status)
         
         var lateral: CGFloat = 8
         if !self.hasRightIcon {
             lateral *= 2
         }
-        self.setupConstraint(for: self.statusView, with: lateral)
+        self.setupConstraint(for: self.statusView!, with: lateral)
     }
     
     

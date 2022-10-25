@@ -237,7 +237,7 @@ class PointInfoController: UIViewController, PointInfoProtocol {
                 case .success(let data):
                     pointsType = data
                 case .failure(let error):
-                    print(error.description)
+                    print(error.developerWarning)
                 }
             }
         }

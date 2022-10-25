@@ -173,7 +173,7 @@ class CustomTable: UIView {
     /// Atualiza os dados da table
     public func reloadTableData() {
         self.tableView.reloadData()
-//        self.tableView.reloadInputViews()
+        self.tableView.reloadInputViews()
         self.setupDynamicConstraints()
     }
     
@@ -353,7 +353,6 @@ class CustomTable: UIView {
                 self.tableView.heightAnchor.constraint(equalToConstant: self.getTableHeight())
             )
         }
-        
         
         NSLayoutConstraint.activate(self.dynamicConstraints)
     }

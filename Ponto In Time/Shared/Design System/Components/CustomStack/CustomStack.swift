@@ -11,14 +11,14 @@ import UIKit
 /// que a stack
 class CustomStack: UIStackView {
     
-    /* MARK:  Atributos */
+    /* MARK: - Atributos */
     
     /// Deixa a dimensão das views igual a da stack
     private var sameDimensionValue: Dimension
     
     
     
-    /* MARK:  Construtor */
+    /* MARK: - Construtor */
     
     /// Cria uma stack com a distribuição igual para centralizada
     /// - Parameters:
@@ -41,7 +41,7 @@ class CustomStack: UIStackView {
     
     
     
-    /* MARK:  Override */
+    /* MARK: - Override */
     
     override func addArrangedSubview(_ view: UIView) {
         super.addArrangedSubview(view)
@@ -56,7 +56,7 @@ class CustomStack: UIStackView {
     
     
     
-    /* MARK:  Configurações */
+    /* MARK: - Configurações */
     
     /// Pega o espaçamento entre os elementos
     /// - Parameter space: tamanho dos elementos adicionados

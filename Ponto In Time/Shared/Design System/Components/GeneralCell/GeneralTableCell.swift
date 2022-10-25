@@ -2,7 +2,6 @@
 
 /* Bibliotecas necessárias: */
 import class UIKit.NSCoder
-
 import class UIKit.UIImage
 import class UIKit.UIImageView
 import class UIKit.UITableViewCell
@@ -15,6 +14,7 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
     
     /* MARK: - Atributos */
     
+    /// Diz se possui uma imagem no canto direito da célula
     internal var hasRightIcon = false
     
     
@@ -31,18 +31,13 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
     
     /* MARK: - Protocolo */
     
-    public func setupCellData(with data: CellData) {
+    internal func setupCellData(with data: CellData) {
         var content = self.defaultContentConfiguration()
-        
-        if let img = data.image {
-            content.image = img
-        }
-        
-        if let secondText = data.secondaryText {
-            content.secondaryText = secondText
-        }
-        
+    
+        content.image = data.image
         content.text = data.primaryText
+        content.secondaryText = data.secondaryText
+        
         self.contentConfiguration = content
         
         if let icon = data.rightIcon {
@@ -52,7 +47,7 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
     }
     
     
-    public func setupCellAction(with action: CellAction) {
+    internal func setupCellAction(with action: CellAction) {
         var content = self.defaultContentConfiguration()
         
         content.text = action.actionTitle
@@ -62,7 +57,17 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
     }
     
     
+    /* MARK: - Override */
     
+    override func prepareForReuse() {
+        self.clearCell()
+    }
+    
+    
+    
+    /* MARK: - Encapsulamento */
+    
+    /// Limpa as configurações da célula
     public func clearCell() {
         self.hasRightIcon = false
         
@@ -74,6 +79,11 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
     }
     
     
+    
+    /* MARK: - Configurações */
+    
+    /// Configura a imagem da direita da célula de acordo com a configuração passada
+    /// - Parameter icon: tipo de ícone
     private func setupRightIcon(for icon: TableIcon) {
         var view: UIView?
         

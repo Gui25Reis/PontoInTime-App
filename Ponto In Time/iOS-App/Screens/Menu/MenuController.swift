@@ -213,7 +213,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
                 self.hasData = true
             case .failure(let error):
                 self.hasData = false
-                print(error.description)
+                print(error.developerWarning)
             }
         }
     }
@@ -232,7 +232,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
                 }
                 
             case .failure(let error):
-                print(error.description)
+                print(error.developerWarning)
             }
         }
     }
@@ -289,7 +289,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
         if let point = data as? ManagedPoint, let id = self.infoDataSource.mainData?.id {
             CDManager.shared.addNewPoint(in: id, point: point) { error in
                 if let error {
-                    print(error.description)
+                    print(error.developerWarning)
                 }
             }
         } else
@@ -297,7 +297,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
         if let dayWork = data as? ManagedDayWork {
             CDManager.shared.createNewDayWork(with: dayWork) { error in
                 if let error {
-                    print(error.description)
+                    print(error.developerWarning)
                 }
             }
         }

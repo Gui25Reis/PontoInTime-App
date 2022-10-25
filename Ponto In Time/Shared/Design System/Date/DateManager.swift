@@ -47,9 +47,7 @@ class DateManager {
         switch component {
         case .second: components.second = time
         case .hour: components.hour = time
-            
-        default:
-            return nil
+        default: return nil
         }
         
         return Calendar.current.date(byAdding: components, to: date)
@@ -107,13 +105,11 @@ class DateManager {
             return timeLeft?.getDateFormatted(with: .hms) ?? "00:00:00"
         }
         
-        if recursion {
-            return "00:00:00"
-        }
+        if recursion { return "00:00:00" }
         
         let difference = self.endDate.timeIntervalSinceReferenceDate - self.startDate.timeIntervalSinceReferenceDate
         let dateUTC = Date(timeIntervalSinceReferenceDate: difference)
-        let dateGMT = self.sumTime(in: dateUTC, at: .hour, with: 3)     // Add 3 horas por causa da time zone
+        let dateGMT = dateUTC.getTimeZoneDifference()
         
         self.diferenceBetweenDates = dateGMT
         return self.getCountdown(recursion: true)

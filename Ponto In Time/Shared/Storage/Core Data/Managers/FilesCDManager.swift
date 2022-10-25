@@ -1,14 +1,10 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
-/* Bibliotecas necessárias: */
 
-
-
+/// Lida com os arquivos salvos no core data
 class FilesCDManager {
     
     /* MARK: - Atributos */
-    
-    /* Protocolo */
 
     /// Protocolo do core data
     public weak var coreDataProperties: CoreDataProperties?
@@ -17,15 +13,17 @@ class FilesCDManager {
     
     /* MARK: - Métodos (Públicos) */
     
+    /// Cria um novo dado
+    /// - Parameter data: dado que vai ser criado
+    /// - Returns: retorna o modelo criado
     public func createIfNeeded(with data: ManagedFiles) -> DBFiles? {
-        if let coreDataProperties {
-            let newData = DBFiles(context: coreDataProperties.mainContext)
-            newData.link = data.link
-            newData.name = data.name
-            
-            return newData
-        }
-        return nil
+        guard let coreDataProperties else { return nil }
+        
+        let newData = DBFiles(context: coreDataProperties.mainContext)
+        newData.link = data.link
+        newData.name = data.name
+        
+        return newData
     }
     
     

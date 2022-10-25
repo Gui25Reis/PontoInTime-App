@@ -1,30 +1,17 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 
-/// Qual objetivo desse enum?
+/// Possíveis ícones para serem adicionados na célula
 enum TableIcon {
     
-    /// 
+    /* MARK: - Casos */
+    
+    /// Símbolo - 􀆊
     case chevron
     
-    ///
+    /// Símbolo - 􀆏
     case contextMenu
     
-    ///
+    /// Símbolo - 􀈑
     case delete
-    
-        
-    var type: TableIconType {
-        switch self {
-        case .chevron: return .acessory
-        case .contextMenu: return .view
-        case .delete: return .view
-        }
-    }
-}
-
-
-enum TableIconType {
-    case acessory
-    case view
 }

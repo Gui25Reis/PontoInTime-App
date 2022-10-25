@@ -4,6 +4,8 @@
 /// Tipode de formatação de data
 enum DateFormatTypes {
     
+    /* MARK: - Casos */
+    
     /// Dia / Mês / Ano
     case dma
     
@@ -21,6 +23,9 @@ enum DateFormatTypes {
     
     
     
+    /* MARK: - Variáveis */
+    
+    /// Formato da data
     var format: String {
         switch self {
         case .dma:
@@ -35,5 +40,4 @@ enum DateFormatTypes {
             return "dd/MM/yy-HH:mm"
         }
     }
-    
 }

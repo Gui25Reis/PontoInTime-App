@@ -1,7 +1,8 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import class UIKit.UIButton
+import class UIKit.UIImage
 
 
 extension UIButton {

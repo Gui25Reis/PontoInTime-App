@@ -15,7 +15,7 @@ class InfoMenuDataSource: NSObject, TableDataCount {
     /// Dados usados no data source referente as informações do dia
     private lazy var infosData: [CellData] = []
     
-    /// Dados usados no data source referente aos pontos
+    /// Dados usados no data source referente aos pontosmac
     private lazy var pointsData: [CellData] = []
     
     
@@ -103,6 +103,8 @@ class InfoMenuDataSource: NSObject, TableDataCount {
             var data = self.infosData[indexPath.row]
             if data.primaryText == "Data" {
                 data.image = UIImage(.calendar)?.withTintColor(.label)
+            } else {
+                data.secondaryText = self.getHMFormat(for: data.secondaryText)
             }
             
             cell.setupCellData(with: data)
@@ -110,7 +112,9 @@ class InfoMenuDataSource: NSObject, TableDataCount {
             
         case 1:
             if indexPath.row < self.pointsData.count {
-                let data = self.pointsData[indexPath.row]
+                var data = self.pointsData[indexPath.row]
+                data.secondaryText = self.getHMFormat(for: data.secondaryText)
+                
                 cell.setupCellData(with: data)
                 return cell
             }
@@ -127,7 +131,8 @@ class InfoMenuDataSource: NSObject, TableDataCount {
             return cell
             
             
-        default: return UITableViewCell()
+        default:
+            return UITableViewCell()
         }
     }
     
@@ -148,5 +153,18 @@ class InfoMenuDataSource: NSObject, TableDataCount {
             
             self.updatePointsData(with: data.points)
         }
+    }
+    
+    
+    /// Pega o horário no formato HH:mm
+    /// - Parameter time: horário que vai ser formatado
+    /// - Returns: string com o horário
+    private func getHMFormat(for time: String?) -> String {
+        if let time {
+            if time.count >= 5 {
+                return time[0..<5]
+            }
+        }
+        return ""
     }
 }

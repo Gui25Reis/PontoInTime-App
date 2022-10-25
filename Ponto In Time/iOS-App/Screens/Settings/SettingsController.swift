@@ -66,7 +66,7 @@ class SettingsController: UIViewController {
             case .success(let data):
                 self.updateTableData(for: data)
             case .failure(let error):
-                print(error.description)
+                print(error.developerWarning)
             }
         }
     }

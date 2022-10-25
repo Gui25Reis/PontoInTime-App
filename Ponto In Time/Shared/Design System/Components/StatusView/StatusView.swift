@@ -16,6 +16,7 @@ class StatusView: UILabel {
         }
     }
     
+    
     /* Constraints & Tamanhos */
         
     /// Constraints dinâmicas que mudam de acordo com o tamanho da tela
@@ -25,7 +26,7 @@ class StatusView: UILabel {
     /* Outros */
     
     /// Tipo de status
-    public var status: StatusViewStyle = .start {
+    private var status: StatusViewStyle = .start {
         didSet {
             self.setStatusInfo(for: self.status)
         }

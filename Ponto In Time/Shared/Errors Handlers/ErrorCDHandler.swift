@@ -5,23 +5,30 @@ import struct Foundation.URLError
 
 
 /// Erros que podem acontecer durante o uso do Core Data.
-enum ErrorCDHandler: Error, CustomStringConvertible {
+enum ErrorCDHandler: Error, ErrorWarnings {
     
     /* MARK: - Casos */
     
+    /// Dado não encontrado
     case dataNotFound
+    
+    /// Protocolo não foi definido
     case protocolNotSetted
     
+    /// Erro na hora de acessar o banco dados
     case fetchError
+    
+    /// Erro na hora de salvar os dados
     case saveError
+    
+    /// Erro na hora de deletar
     case deleteError
 
     
     
     /* MARK: - Variáveis */
     
-    /// Descrição do erro para o usuário
-    var localizedDescription: String {
+    var userWarning: String {
         switch self {
         case .dataNotFound:
             return "Não existe esse dado."
@@ -37,8 +44,7 @@ enum ErrorCDHandler: Error, CustomStringConvertible {
     }
 
     
-    /// Descrição do erro para o dev
-    var description: String {
+    var developerWarning: String {
         switch self {
         case .dataNotFound:
             return "Não existe esse dado no Core Data."

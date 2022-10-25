@@ -2,7 +2,7 @@
 
 
 /// Tipos de dimensão de uma tela
-public enum Dimension {
+enum Dimension {
     
     /// Largura
     case width

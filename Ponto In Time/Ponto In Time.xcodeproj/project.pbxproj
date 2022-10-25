@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
+		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
+		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
 		2246BEA52900C3DD001FE2C6 /* PointInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEA42900C3DD001FE2C6 /* PointInfoController.swift */; };
 		2246BEA82900C3F6001FE2C6 /* PointInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEA72900C3F6001FE2C6 /* PointInfoView.swift */; };
 		2246BEAA2900C83C001FE2C6 /* PointInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEA92900C83C001FE2C6 /* PointInfoCell.swift */; };
@@ -29,7 +32,6 @@
 		2283DCEE28FE64CD008EE94F /* Dimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCE828FE64CC008EE94F /* Dimension.swift */; };
 		2283DCEF28FE64CD008EE94F /* ScreenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCE928FE64CC008EE94F /* ScreenInfo.swift */; };
 		2283DCF028FE64CD008EE94F /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCEA28FE64CD008EE94F /* Screens.swift */; };
-		2283DCF128FE64CD008EE94F /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCEB28FE64CD008EE94F /* ScreenSize.swift */; };
 		2283DCF228FE64CD008EE94F /* UIView+AdpativeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCEC28FE64CD008EE94F /* UIView+AdpativeLayout.swift */; };
 		2283DCF328FE64CD008EE94F /* AdaptiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCED28FE64CD008EE94F /* AdaptiveLayout.swift */; };
 		2283DCFA28FE6563008EE94F /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCF928FE6563008EE94F /* CustomViews.swift */; };
@@ -95,6 +97,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
+		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
+		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
 		2246BEA42900C3DD001FE2C6 /* PointInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoController.swift; sourceTree = "<group>"; };
 		2246BEA72900C3F6001FE2C6 /* PointInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoView.swift; sourceTree = "<group>"; };
 		2246BEA92900C83C001FE2C6 /* PointInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoCell.swift; sourceTree = "<group>"; };
@@ -119,7 +124,6 @@
 		2283DCE828FE64CC008EE94F /* Dimension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimension.swift; sourceTree = "<group>"; };
 		2283DCE928FE64CC008EE94F /* ScreenInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenInfo.swift; sourceTree = "<group>"; };
 		2283DCEA28FE64CD008EE94F /* Screens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screens.swift; sourceTree = "<group>"; };
-		2283DCEB28FE64CD008EE94F /* ScreenSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
 		2283DCEC28FE64CD008EE94F /* UIView+AdpativeLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+AdpativeLayout.swift"; sourceTree = "<group>"; };
 		2283DCED28FE64CD008EE94F /* AdaptiveLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveLayout.swift; sourceTree = "<group>"; };
 		2283DCF928FE6563008EE94F /* CustomViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
@@ -195,6 +199,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2216895D290795D200D1B208 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				2216895E290795ED00D1B208 /* ErrorWarnings.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		22168960290796D000D1B208 /* Managed */ = {
+			isa = PBXGroup;
+			children = (
+				22EE7934290110CB006E3085 /* ManagedSettings.swift */,
+				22EE793629011174006E3085 /* ManagedDayWork.swift */,
+				22EE793829011223006E3085 /* ManagedPoint.swift */,
+				22EE793A2901129E006E3085 /* ManagedPointType.swift */,
+				22EE793C2901131B006E3085 /* ManagedFiles.swift */,
+			);
+			path = Managed;
+			sourceTree = "<group>";
+		};
 		2246BEA32900C3C1001FE2C6 /* PointInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,7 +381,6 @@
 			isa = PBXGroup;
 			children = (
 				22EE793E29011377006E3085 /* Protocols */,
-				22EE79332901108F006E3085 /* Models */,
 				22EE793229010FC6006E3085 /* Entities */,
 				22EE794629011517006E3085 /* Managers */,
 				22EE794429011434006E3085 /* CDManager.swift */,
@@ -392,6 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				2283DCD628FE5297008EE94F /* UIViewController+setupTab.swift */,
+				221689612907A25900D1B208 /* String+subscripts.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -436,7 +460,6 @@
 		2283DCF528FE64E4008EE94F /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				2283DCEB28FE64CD008EE94F /* ScreenSize.swift */,
 				2283DCED28FE64CD008EE94F /* AdaptiveLayout.swift */,
 			);
 			path = Protocols;
@@ -445,19 +468,10 @@
 		2283DCF628FE64FB008EE94F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2283DCF728FE6504008EE94F /* Enum */,
+				2283DCEA28FE64CD008EE94F /* Screens.swift */,
 				2283DCE928FE64CC008EE94F /* ScreenInfo.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		2283DCF728FE6504008EE94F /* Enum */ = {
-			isa = PBXGroup;
-			children = (
-				2283DCE828FE64CC008EE94F /* Dimension.swift */,
-				2283DCEA28FE64CD008EE94F /* Screens.swift */,
-			);
-			path = Enum;
 			sourceTree = "<group>";
 		};
 		2283DCFB28FE6585008EE94F /* Font */ = {
@@ -558,9 +572,11 @@
 		2283DD2928FF311A008EE94F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				22168960290796D000D1B208 /* Managed */,
 				2283DD4D28FFB0F2008EE94F /* Cells */,
 				22EE796129046590006E3085 /* SettingsData.swift */,
 				22EE79662904A82D006E3085 /* ActionSetup.swift */,
+				2283DCE828FE64CC008EE94F /* Dimension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -701,18 +717,6 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
-		22EE79332901108F006E3085 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				22EE7934290110CB006E3085 /* ManagedSettings.swift */,
-				22EE793629011174006E3085 /* ManagedDayWork.swift */,
-				22EE793829011223006E3085 /* ManagedPoint.swift */,
-				22EE793A2901129E006E3085 /* ManagedPointType.swift */,
-				22EE793C2901131B006E3085 /* ManagedFiles.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		22EE793E29011377006E3085 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -724,6 +728,7 @@
 		22EE7941290113A3006E3085 /* Errors Handlers */ = {
 			isa = PBXGroup;
 			children = (
+				2216895D290795D200D1B208 /* Protocol */,
 				22EE7942290113BF006E3085 /* ErrorCDHandler.swift */,
 			);
 			path = "Errors Handlers";
@@ -780,6 +785,7 @@
 			isa = PBXGroup;
 			children = (
 				22EE796B2904AA7D006E3085 /* Date+DateFormatTypes.swift */,
+				221689632907A3BB00D1B208 /* Date+TimeZone.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -866,7 +872,6 @@
 				2283DD5F28FFBE70008EE94F /* SettingsCell.swift in Sources */,
 				2283DD0128FE6597008EE94F /* UILabel+FontInfo.swift in Sources */,
 				22EE793729011174006E3085 /* ManagedDayWork.swift in Sources */,
-				2283DCF128FE64CD008EE94F /* ScreenSize.swift in Sources */,
 				22EE793129010F9A006E3085 /* DBPoint.swift in Sources */,
 				22EE7935290110CB006E3085 /* ManagedSettings.swift in Sources */,
 				2283DD2528FEA4FD008EE94F /* MenuCell.swift in Sources */,
@@ -891,6 +896,8 @@
 				22EE792F29010F9A006E3085 /* DBSettings.swift in Sources */,
 				2283DD4928FFACD9008EE94F /* CustomTableCell.swift in Sources */,
 				22EE793B2901129E006E3085 /* ManagedPointType.swift in Sources */,
+				221689622907A25900D1B208 /* String+subscripts.swift in Sources */,
+				2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */,
 				2283DCF328FE64CD008EE94F /* AdaptiveLayout.swift in Sources */,
 				22EE796F29053C5D006E3085 /* InfoMenuDelegate.swift in Sources */,
 				2283DD4F28FFB109008EE94F /* CellData.swift in Sources */,
@@ -908,6 +915,7 @@
 				2283DD3E28FF7C08008EE94F /* HistoricView.swift in Sources */,
 				2283DD0428FE6597008EE94F /* UIButton+FontInfo.swift in Sources */,
 				2283DD6228FFBEE0008EE94F /* SettingsDataSource.swift in Sources */,
+				221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */,
 				2283DD1228FE6B9F008EE94F /* AppColors.swift in Sources */,
 				2283DD0628FE65A0008EE94F /* FontInfo.swift in Sources */,
 				2246BEAE2900CCF5001FE2C6 /* PointInfoDataSource.swift in Sources */,
