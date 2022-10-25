@@ -214,8 +214,15 @@ class MenuController: UIViewController, MenuControllerProtocol {
             case .failure(let error):
                 self.hasData = false
                 print(error.developerWarning)
+                self.showWarningPopUp(with: error)
             }
         }
+    }
+    
+    
+    private func showWarningPopUp(with error: ErrorCDHandler) {
+        let alert = CDManager.createPopUpError(error: error)
+        self.present(alert, animated: true)
     }
     
     
@@ -233,9 +240,11 @@ class MenuController: UIViewController, MenuControllerProtocol {
                 
             case .failure(let error):
                 print(error.developerWarning)
+                self.showWarningPopUp(with: error)
             }
         }
     }
+    
     
     /// Cria os dados do dia
     /// - Parameter point: ponto inicial
@@ -289,6 +298,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
         if let point = data as? ManagedPoint, let id = self.infoDataSource.mainData?.id {
             CDManager.shared.addNewPoint(in: id, point: point) { error in
                 if let error {
+                    self.showWarningPopUp(with: error)
                     print(error.developerWarning)
                 }
             }

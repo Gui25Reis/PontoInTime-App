@@ -2,6 +2,7 @@
 
 /* Bibliotecas necessárias: */
 import class UIKit.NSCoder
+import class UIKit.UIColor
 import class UIKit.UIImage
 import class UIKit.UIImageView
 import class UIKit.UITableViewCell
@@ -23,6 +24,8 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
+        
+        self.setupUI()
     }
     
     required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
@@ -81,6 +84,12 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
     
     
     /* MARK: - Configurações */
+    
+    /// Personalização da UI
+    private func setupUI() {
+        self.backgroundColor = UIColor(.tableColor)
+    }
+    
     
     /// Configura a imagem da direita da célula de acordo com a configuração passada
     /// - Parameter icon: tipo de ícone

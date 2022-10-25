@@ -2,6 +2,7 @@
 
 /* Bibliotecas necessárias: */
 import CoreData
+import UIKit
 
 
 /// Core Data Manager: classe principal que lida com o core data
@@ -209,5 +210,27 @@ class CDManager: NSObject, CoreDataProperties {
         self.settingsManager.coreDataProperties = self
         self.dayWorkManager.coreDataProperties = self
         self.pointTypeManager.coreDataProperties = self
+    }
+    
+    
+    
+    /* MARK: - Errors */
+    
+    /// Cria um popup de aviso com o erro que aconteceu
+    /// - Parameter error: erro
+    /// - Returns: pop up com a mensagem do erro
+    ///
+    /// O pop up não é apresentado, apenas criado.
+    static func createPopUpError(error: ErrorCDHandler) -> UIAlertController {
+        let alert = UIAlertController(
+            title: "Eita!",
+            message: error.userWarning,
+            preferredStyle: .alert
+        )
+        
+        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        
+        return alert
     }
 }
