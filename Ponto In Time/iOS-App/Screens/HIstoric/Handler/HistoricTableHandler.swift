@@ -52,13 +52,12 @@ class HistoricTableHandler: NSObject, TableHandler {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoricCell.identifier, for: indexPath) as? HistoricCell
-        else { return UITableViewCell() }
+        let cell = tableView.dequeueReusableCell(withIdentifier: HistoricCell.identifier, for: indexPath) as? HistoricCell
         
         let data = self.data[indexPath.row]
-        cell.setupCellData(with: data)
+        cell?.setupCellData(with: data)
         
-        return cell
+        return cell ?? UITableViewCell()
     }
     
     

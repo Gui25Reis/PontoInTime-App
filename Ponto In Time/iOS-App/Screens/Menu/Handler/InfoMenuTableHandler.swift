@@ -75,6 +75,7 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     
     
     func registerCell(in table: CustomTable) {
+        table.registerCell(for: TimerCell.self)
         table.registerCell(for: MenuCell.self)
     }
     
@@ -84,16 +85,29 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     
     /* MARK: Dados */
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            return tableView.superview?.getEquivalent(75) ?? 75
+            
+        default:
+            return tableView.estimatedRowHeight
+        }
+    }
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return self.infosData.count
+            return 1
         case 1:
+            return self.infosData.count
+        case 2:
             return self.pointsData.count + 2
         default:
             return 0
@@ -102,11 +116,16 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.identifier, for: indexPath) as? MenuCell
-        else { return UITableViewCell()}
+        var mainCell: UITableViewCell? = UITableViewCell()
         
         switch indexPath.section {
         case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: TimerCell.identifier, for: indexPath) as? TimerCell
+            mainCell = cell
+            
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.identifier, for: indexPath) as? MenuCell
+    
             var data = self.infosData[indexPath.row]
             if data.primaryText == "Data" {
                 data.image = UIImage(.calendar)?.withTintColor(.label)
@@ -114,33 +133,37 @@ class InfoMenuTableHandler: NSObject, TableHandler {
                 data.secondaryText = self.getHMFormat(for: data.secondaryText)
             }
             
-            cell.setupCellData(with: data)
-            return cell
+            cell?.setupCellData(with: data)
+            mainCell = cell
             
-        case 1:
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.identifier, for: indexPath) as? MenuCell
+            
             if indexPath.row < self.pointsData.count {
                 var data = self.pointsData[indexPath.row]
                 data.secondaryText = self.getHMFormat(for: data.secondaryText)
                 
-                cell.setupCellData(with: data)
-                return cell
+                cell?.setupCellData(with: data)
+                mainCell = cell
+                break
             }
             
             if indexPath.row == self.actionIndex {
-                cell.setupCellAction(with: TableCellAction(
+                cell?.setupCellAction(with: TableCellAction(
                     actionType: .action, actionTitle: "Bater novo ponto"
                 ))
             } else {
-                cell.setupCellAction(with: TableCellAction(
+                cell?.setupCellAction(with: TableCellAction(
                     actionType: .destructive, actionTitle: "Finalizar o dia"
                 ))
             }
-            return cell
             
+            mainCell = cell
             
-        default:
-            return UITableViewCell()
+        default: break
         }
+        
+        return mainCell!
     }
     
     
@@ -148,7 +171,7 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 1:
+        case 2:
             return "PONTOS DO DIA"
             
         default: return nil
@@ -159,7 +182,7 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case 1:
+        case 2:
             return tableView.estimatedSectionHeaderHeight
             
         default: return 0

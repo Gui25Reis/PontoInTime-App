@@ -13,6 +13,7 @@
 		220020E029655DE6007BB4FC /* UIImageView+hasImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020DF29655DE6007BB4FC /* UIImageView+hasImage.swift */; };
 		220020E2296564EF007BB4FC /* PointInfoTableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020E1296564EF007BB4FC /* PointInfoTableHandler.swift */; };
 		220020E429656BA5007BB4FC /* HistoricTableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020E329656BA5007BB4FC /* HistoricTableHandler.swift */; };
+		220020E62965917A007BB4FC /* TimerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020E52965917A007BB4FC /* TimerCell.swift */; };
 		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
 		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
 		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
@@ -105,6 +106,7 @@
 		220020DF29655DE6007BB4FC /* UIImageView+hasImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+hasImage.swift"; sourceTree = "<group>"; };
 		220020E1296564EF007BB4FC /* PointInfoTableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoTableHandler.swift; sourceTree = "<group>"; };
 		220020E329656BA5007BB4FC /* HistoricTableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricTableHandler.swift; sourceTree = "<group>"; };
+		220020E52965917A007BB4FC /* TimerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCell.swift; sourceTree = "<group>"; };
 		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
 		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
 		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
@@ -592,6 +594,7 @@
 			isa = PBXGroup;
 			children = (
 				2283DD2428FEA4FD008EE94F /* MenuCell.swift */,
+				220020E52965917A007BB4FC /* TimerCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -904,6 +907,7 @@
 				220020E2296564EF007BB4FC /* PointInfoTableHandler.swift in Sources */,
 				2283DD0928FE6916008EE94F /* StatusView.swift in Sources */,
 				2283DCD928FE5297008EE94F /* UIViewController+setupTab.swift in Sources */,
+				220020E62965917A007BB4FC /* TimerCell.swift in Sources */,
 				22EE796229046590006E3085 /* SettingsData.swift in Sources */,
 				2283DD0C28FE6B23008EE94F /* StatusViewStyle.swift in Sources */,
 				2283DD4C28FFB088008EE94F /* GeneralTableCell.swift in Sources */,

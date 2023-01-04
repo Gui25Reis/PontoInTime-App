@@ -1,7 +1,7 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import class UIKit.NSCoder
+import class Foundation.NSCoder
 import class UIKit.UIColor
 import class UIKit.UIImage
 import class UIKit.UIImageView

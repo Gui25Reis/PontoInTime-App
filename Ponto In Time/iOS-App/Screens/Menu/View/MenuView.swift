@@ -18,8 +18,6 @@ class MenuView: UIView, ViewHasTable, ViewCode {
         return bt
     }()
     
-    /// Mostra o timer
-    private lazy var timerLabel: UILabel = CustomViews.newLabel()
     
     
     /* Protocolos */
@@ -27,7 +25,7 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     // ViewHasTable
     
     /// Tabela com as informações do ponto do dia
-    internal var mainTable: CustomTable = CustomTable(style: .justTable)
+    internal var mainTable: CustomTable = CustomTable(style: .complete)
     
     
     // ViewCode
@@ -54,9 +52,7 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     /// Avisa se tem dados na view
     public var hasData = false {
         didSet {
-            
             self.setupHierarchy()
-            self.updateTimerText(for: "00:00:00")
             self.layoutSubviews()
         }
     }
@@ -65,7 +61,8 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     /// Atualiza o texto do timer
     /// - Parameter text: novo texto do timer
     public func updateTimerText(for text: String) {
-        self.timerLabel.text = text
+        let cell = self.mainTable.cellForRow(at: IndexPath(row: 0, section: 0)) as? TimerCell
+        cell?.setupTimer(to: text)
     }
         
     
@@ -108,19 +105,11 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     internal func setupView() {
         self.backgroundColor = .systemGray6
         
-        self.newDayButton.corner = 10 //self.getEquivalent(10)
+        self.newDayButton.corner = 10
     }
     
     
     internal func setupFonts() {
-        /* Labels */
-        self.timerLabel.setupText(with: FontInfo(
-            fontSize: self.getEquivalent(70), weight: .light
-        ))
-        
-
-        /* Botões */
-        
         let newDayBtSize = self.getEquivalent(18)
         
         self.newDayButton.setupText(with: FontInfo(
@@ -137,14 +126,8 @@ class MenuView: UIView, ViewHasTable, ViewCode {
 	  
     
     internal func setupDynamicConstraints() {
-
-        // Content
-//        let lblBetween: CGFloat = 40
-//        let lblHeight = self.getEquivalent(75)
-
         NSLayoutConstraint.deactivate(self.dynamicConstraints)
         self.dynamicConstraints.removeAll()
-        
         
         if self.newDayButton.hasSuperview {
             let lateral: CGFloat = 16

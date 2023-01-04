@@ -93,9 +93,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
                 return
             }
             
-            print("Quer finalizar o dia")
-            
-            return
+            return print("Quer finalizar o dia")
             
         default:
             break
