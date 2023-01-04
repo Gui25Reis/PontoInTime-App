@@ -1,12 +1,18 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import class Foundation.NSCoder
+import class Foundation.DispatchGroup
+
+import class UIKit.UIAction
+import class UIKit.UIBarButtonItem
+import class UIKit.UIMenu
+import class UIKit.UIViewController
 
 
 /// Controller responsável pela tela de informações de um ponto
-class PointInfoController: UIViewController, PointInfoProtocol {
-
+class PointInfoController: UIViewController, ControllerActions, PointInfoProtocol {
+    
     /* MARK: - Atributos */
 
     /* View */
@@ -68,35 +74,63 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setupNavigation()
-        self.setupDelegates()
+        self.setupController()
     }
     
     
     
     /* MARK: - Protocolo */
     
+    /* Controller Actions */
+    
+    internal func setupNavigation() {
+        self.navigationItem.largeTitleDisplayMode = .never
+        self.title = "Informações do ponto".localized()
+        
+        if self.isFirstPoint || self.isNewPoint {
+            self.title = "Novo ponto".localized()
+            
+            let leftBut = UIBarButtonItem(
+                title: "Cancelar", style: .plain,
+                target: self, action: #selector(self.dismissAction)
+            )
+            leftBut.tintColor = .systemRed
+            
+            self.navigationItem.leftBarButtonItem = leftBut
+            
+            
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+                title: "Salvar", style: .plain,
+                target: self, action: #selector(self.saveAction)
+            )
+        }
+    }
+    
+    
+    internal func setupDelegates() {
+        self.pointInfoHanlder.pointInfoProtocol = self
+        self.pointInfoHanlder.link(with: self.myView)
+    }
+    
+    
+    internal func setupButtonsAction() {}
+    
+    
+    /* Point Info Protocol */
+    
     internal func createMenu(for cell: PointInfoCell) {
         switch cell.tag {
         case 0:
             self.createPointsTypeMenu(for: cell)
-            
         case 1:
             self.createStatusViewMenu(for: cell)
-            
-        default:
-            break
+        default: break
         }
     }
     
     
     internal func updateTimeFromPicker(for time: String) {
         self.pickerHour = time
-    }
-    
-    
-    internal func cellSelected(at indexPath: IndexPath) {
-        
     }
     
     
@@ -148,39 +182,6 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     
     /* MARK: - Configurações */
 
-    /// Configurações da navigation controller
-    private func setupNavigation() {
-        self.navigationItem.largeTitleDisplayMode = .never
-        self.title = "Informações do ponto".localized()
-        
-        if self.isFirstPoint || self.isNewPoint {
-            self.title = "Novo ponto".localized()
-            
-            let leftBut = UIBarButtonItem(
-                title: "Cancelar", style: .plain,
-                target: self, action: #selector(self.dismissAction)
-            )
-            leftBut.tintColor = .systemRed
-            
-            self.navigationItem.leftBarButtonItem = leftBut
-            
-            
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-                title: "Salvar", style: .plain,
-                target: self, action: #selector(self.saveAction)
-            )
-        }
-    }
-    
-    
-    /// Definindo os delegates, data sources e protocolos
-    private func setupDelegates() {
-        self.pointInfoHanlder.pointInfoProtocol = self
-        
-        self.pointInfoHanlder.link(with: self.myView)
-    }
-    
-    
     /// Mostra as informações do ponto
     private func setupCell(for data: ManagedPoint?) {
         if let data {

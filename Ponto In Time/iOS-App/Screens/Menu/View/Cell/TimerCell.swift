@@ -76,7 +76,7 @@ class TimerCell: UITableViewCell, CustomCell, ViewCode {
     
     
     internal func setupFonts() {
-        self.label.setupText(with: FontInfo(
+        self.label.setupFont(with: FontInfo(
             fontSize: 70, weight: .light
         ))
     }

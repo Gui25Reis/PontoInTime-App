@@ -96,11 +96,11 @@ class HistoricCell: GeneralTableCell, CustomCell {
     private func setupStaticTexts(with dateText: String? = nil) {
         let fontSize: CGFloat = self.superview?.getEquivalent(18) ?? 18
         
-        self.dateLabel.setupText(with: FontInfo(
+        self.dateLabel.setupFont(with: FontInfo(
             fontSize: fontSize, weight: .medium
         ))
         
-        self.workTimeLabel.setupText(with: FontInfo(
+        self.workTimeLabel.setupFont(with: FontInfo(
             fontSize: fontSize, weight: .regular
         ))
     }

@@ -1,11 +1,17 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import class Foundation.NSCoder
+import struct Foundation.Date
+
+import class UIKit.UIBarButtonItem
+import class UIKit.UIImage
+import class UIKit.UINavigationController
+import class UIKit.UIViewController
 
 
 /// Controller responsável pela primeira tela da aplicação
-class MenuController: UIViewController, MenuControllerProtocol {
+class MenuController: UIViewController, ControllerActions, MenuControllerProtocol {
     
     /* MARK: - Atributos */
 
@@ -53,14 +59,36 @@ class MenuController: UIViewController, MenuControllerProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupNavigation()
-        self.setupDelegates()
-        self.setupButtonsAction()
+        self.setupController()
     }
     
 
 
     /* MARK: - Protocolo */
+    
+    /* Controller Actions */
+    
+    internal func setupNavigation() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(.settings), style: .plain,
+            target: self, action: #selector(self.openSettingsPage)
+        )
+    }
+
+    
+    internal func setupButtonsAction() {
+        self.myView.setNewDayAction(target: self, action: #selector(self.createNewWorkPage))
+        self.dateManager.setTimerAction(target: self, action: #selector(self.updateTimer))
+    }
+    
+    
+    internal func setupDelegates() {
+        self.infosHandler.menuControllerProtocol = self
+        self.infosHandler.link(with: self.myView)
+    }
+    
+    
+    /* MenuControllerProcotocol */
     
     internal func setupInitalData(with data: ManagedPoint) {
         self.createDay(with: data)
@@ -73,7 +101,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
     }
     
     
-    func showPointInfos(for data: ManagedPoint?) {
+    internal func showPointInfos(for data: ManagedPoint?) {
         let isNewData = data == nil
         self.openPointInfoPage(with: data, isNewData: isNewData)
     }
@@ -111,32 +139,6 @@ class MenuController: UIViewController, MenuControllerProtocol {
     
     /* MARK: - Configurações */
     
-    /* MARK: Geral */
-    
-    /// Configurções da navigation controller
-    private func setupNavigation() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(.settings), style: .plain,
-            target: self, action: #selector(self.openSettingsPage)
-        )
-    }
-
-    
-    /// Definindo as ações dos botões
-    private func setupButtonsAction() {
-        self.myView.setNewDayAction(target: self, action: #selector(self.createNewWorkPage))
-        self.dateManager.setTimerAction(target: self, action: #selector(self.updateTimer))
-    }
-    
-    
-    /// Definindo os delegates, data sources e protocolos
-    private func setupDelegates() {
-        self.infosHandler.menuControllerProtocol = self
-        
-        self.infosHandler.link(with: self.myView)
-    }
-    
-
     /// Abre a tela de informações de um ponto
     /// - Parameters:
     ///   - data: dado que a tela vai receber
@@ -196,6 +198,8 @@ class MenuController: UIViewController, MenuControllerProtocol {
     }
     
     
+    /// Mostra o pop up em casos de erro
+    /// - Parameter error: erro pra ser mostrado
     private func showWarningPopUp(with error: ErrorCDHandler) {
         let alert = CDManager.createPopUpError(error: error)
         self.present(alert, animated: true)

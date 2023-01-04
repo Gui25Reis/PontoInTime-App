@@ -335,9 +335,9 @@
 		2283DCC628FE4F98008EE94F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				2283DCCD28FE4FF3008EE94F /* Assets */,
 				22EE7941290113A3006E3085 /* Errors Handlers */,
 				2283DD2928FF311A008EE94F /* Models */,
-				2283DCCD28FE4FF3008EE94F /* Assets */,
 				2283DCCE28FE4FFC008EE94F /* Storage */,
 				2283DCD028FE502A008EE94F /* Design System */,
 				2283DCD128FE50E2008EE94F /* Localization */,
@@ -348,7 +348,6 @@
 		2283DCC828FE4FAF008EE94F /* General */ = {
 			isa = PBXGroup;
 			children = (
-				2283DD3428FF6F9C008EE94F /* Protocols */,
 				2283DCD428FE5287008EE94F /* Extensions */,
 				2283DCC928FE4FBA008EE94F /* Delegate */,
 			);
@@ -615,13 +614,6 @@
 				2283DD2F28FF4858008EE94F /* CustomTable.swift */,
 			);
 			path = CustomTable;
-			sourceTree = "<group>";
-		};
-		2283DD3428FF6F9C008EE94F /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Protocols;
 			sourceTree = "<group>";
 		};
 		2283DD3928FF7BB9008EE94F /* HIstoric */ = {

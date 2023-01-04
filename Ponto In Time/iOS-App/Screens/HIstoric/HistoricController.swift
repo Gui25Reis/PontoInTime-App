@@ -1,11 +1,11 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import class UIKit.UIViewController
 
 
 /// Controller responsável pela tela de histórico
-class HistoricController: UIViewController {
+class HistoricController: UIViewController, ControllerActions {
     
     /* MARK: - Atributos */
 
@@ -32,19 +32,26 @@ class HistoricController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setupDelegates()
+        self.setupController()
         self.setupTableData(with: nil)
     }
 
     
     
-    /* MARK: - Configurações */
+    /* MARK: - Protocolos */
 
-    /// Definindo os delegates, data sources e protocolos
-    private func setupDelegates() {
+    internal func setupDelegates() {
         self.historicHandler.link(with: self.myView)
     }
     
+    
+    internal func setupButtonsAction() {}
+    
+    internal func setupNavigation() {}
+    
+    
+    
+    /* MARK: - Configurações */
     
     /// Define os dados da tabela
     /// - Parameter data: dados que a tabela vai receber

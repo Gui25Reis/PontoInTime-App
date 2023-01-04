@@ -152,9 +152,6 @@ class PointInfoTableHandler: NSObject,TableHandler {
     /* MARK: - Delegate */
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) -> Void {
-        let customIndexPath = IndexPath(row: indexPath.row, section: tableView.tag)
-        self.pointInfoProtocol?.cellSelected(at: customIndexPath)
-                
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.reloadInputViews()
     }
