@@ -5,7 +5,7 @@ import UIKit
 
 
 /// Data source das tables da página de menu
-class InfoMenuDataSource: NSObject, TableDataCount {
+class InfoMenuDataSource: NSObject {
     
     /* MARK: - Atributos */
 
@@ -13,10 +13,10 @@ class InfoMenuDataSource: NSObject, TableDataCount {
     private lazy var isUniqueUpdate = false
     
     /// Dados usados no data source referente as informações do dia
-    private lazy var infosData: [CellData] = []
+    private lazy var infosData: [TableCellData] = []
     
     /// Dados usados no data source referente aos pontosmac
-    private lazy var pointsData: [CellData] = []
+    private lazy var pointsData: [TableCellData] = []
     
     
     
@@ -52,7 +52,7 @@ class InfoMenuDataSource: NSObject, TableDataCount {
     /// - Parameter points: ponto
     public func updatePointsData(with points: [ManagedPoint]) {
         self.pointsData = points.map() { item in
-            CellData(
+            TableCellData(
                 primaryText: item.pointType.title,
                 secondaryText: item.time,
                 image: StatusView.getImage(for: item.status),
@@ -120,11 +120,11 @@ class InfoMenuDataSource: NSObject, TableDataCount {
             }
             
             if indexPath.row == self.actionIndex {
-                cell.setupCellAction(with: CellAction(
+                cell.setupCellAction(with: TableCellAction(
                     actionType: .action, actionTitle: "Bater novo ponto"
                 ))
             } else {
-                cell.setupCellAction(with: CellAction(
+                cell.setupCellAction(with: TableCellAction(
                     actionType: .destructive, actionTitle: "Finalizar o dia"
                 ))
             }
@@ -146,9 +146,9 @@ class InfoMenuDataSource: NSObject, TableDataCount {
             let calendarIcon = UIImage(.calendar)?.withTintColor(.label)
             
             self.infosData = [
-                CellData(primaryText: "Data", secondaryText: "\(data.date)", image: calendarIcon),
-                CellData(primaryText: "Entrada", secondaryText: "\(data.startTime)", rightIcon: .chevron),
-                CellData(primaryText: "Saída", secondaryText: "\(data.endTime)", rightIcon: .chevron)
+                TableCellData(primaryText: "Data", secondaryText: "\(data.date)", image: calendarIcon),
+                TableCellData(primaryText: "Entrada", secondaryText: "\(data.startTime)", rightIcon: .chevron),
+                TableCellData(primaryText: "Saída", secondaryText: "\(data.endTime)", rightIcon: .chevron)
             ]
             
             self.updatePointsData(with: data.points)

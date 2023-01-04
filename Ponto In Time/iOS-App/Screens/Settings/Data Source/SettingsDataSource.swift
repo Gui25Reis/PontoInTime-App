@@ -5,17 +5,17 @@ import UIKit
 
 
 /// Data source das tables da página de ajustes
-class SettingsDataSource: NSObject, TableDataCount {
+class SettingsDataSource: NSObject {
         
     /* MARK: - Atributos */
     
     /* Dados */
     
     /// Dados usados no data source referente as informações das informações gerais
-    private lazy var infoData: [CellData] = []
+    private lazy var infoData: [TableCellData] = []
     
     /// Dados usados no data source referente as informações de compartilhamento
-    private lazy var shareData: [CellData] = []
+    private lazy var shareData: [TableCellData] = []
     
     /// Dados usados no data source referente aos tipos de pontos
     private lazy var pointData: [ManagedPointType] = []
@@ -87,7 +87,7 @@ class SettingsDataSource: NSObject, TableDataCount {
             if indexPath.row < self.pointData.count {
                 let data = self.pointData[indexPath.row]
                 
-                var cellData = CellData(primaryText: data.title)
+                var cellData = TableCellData(primaryText: data.title)
                 if !data.isDefault {
                     cellData.rightIcon = .chevron
                 }
@@ -96,7 +96,7 @@ class SettingsDataSource: NSObject, TableDataCount {
                 return cell
             }
             
-            cell.setupCellAction(with: CellAction(
+            cell.setupCellAction(with: TableCellAction(
                 actionType: .action, actionTitle: "Novo"
             ))
         
@@ -114,12 +114,12 @@ class SettingsDataSource: NSObject, TableDataCount {
     private func setupDatas() {
         if let settings = self.mainData?.settingsData {
             self.infoData = [
-                CellData(primaryText: "Horas de trabalho", secondaryText: settings.timeWork)
+                TableCellData(primaryText: "Horas de trabalho", secondaryText: settings.timeWork)
             ]
             
             self.shareData = [
-                CellData(primaryText: "Seu ID", secondaryText: settings.sharingID),
-                CellData(primaryText: "Compartilhar saída")
+                TableCellData(primaryText: "Seu ID", secondaryText: settings.sharingID),
+                TableCellData(primaryText: "Compartilhar saída")
             ]
             self.isSharing = settings.isSharing
         }

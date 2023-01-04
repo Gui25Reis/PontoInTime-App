@@ -34,7 +34,7 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
     
     /* MARK: - Protocolo */
     
-    internal func setupCellData(with data: CellData) {
+    internal func setupCellData(with data: TableCellData) {
         var content = self.defaultContentConfiguration()
     
         content.image = data.image
@@ -50,7 +50,7 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
     }
     
     
-    internal func setupCellAction(with action: CellAction) {
+    internal func setupCellAction(with action: TableCellAction) {
         var content = self.defaultContentConfiguration()
         
         content.text = action.actionTitle

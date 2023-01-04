@@ -15,13 +15,10 @@ class MenuController: UIViewController, MenuControllerProtocol {
     private let myView = MenuView()
     
     
-    /* Delegate & Data Sources */
-    
-    /// Data source da tabela
-    private let infoDataSource = InfoMenuDataSource()
+    /* Handlers */
     
     /// Delegate da tabela
-    private let infoDelegate = InfoMenuDelegate()
+    private let infosHandler = InfoMenuTableHandler()
     
     
     /* Outros */
@@ -84,13 +81,13 @@ class MenuController: UIViewController, MenuControllerProtocol {
             return
             
         case 1: // Pontos
-            if row < self.infoDataSource.actionIndex {
-                let data = self.infoDataSource.mainData?.points[row]
+            if row < self.infosHandler.actionIndex {
+                let data = self.infosHandler.mainData?.points[row]
                 self.openPointInfoPage(with: data)
                 return
             }
             
-            if row == self.infoDataSource.actionIndex {
+            if row == self.infosHandler.actionIndex {
                 self.openPointInfoPage(with: nil, isNewData: true)
             } else {
                 print("Quer finalizar o dia")
@@ -155,10 +152,9 @@ class MenuController: UIViewController, MenuControllerProtocol {
     
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {
-        self.infoDelegate.menuControllerProtocol = self
+        self.infosHandler.menuControllerProtocol = self
         
-        self.myView.setDataSource(with: self.infoDataSource)
-        self.myView.setDelegate(with: self.infoDelegate)
+        self.infosHandler.link(with: self.myView)
     }
     
 
@@ -189,7 +185,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
     /// Define os dados da tabela
     /// - Parameter data: dados que a tabela vai receber
     private func setupTableData(with data: ManagedDayWork) {
-        self.infoDataSource.mainData = data
+        self.infosHandler.mainData = data
         self.myView.reloadTableData()
     }
     
@@ -197,9 +193,10 @@ class MenuController: UIViewController, MenuControllerProtocol {
     /// Atualiza o dado de pontos da tabela
     /// - Parameter data: pontos que vão ser adicionados
     private func updateTableData(with data: ManagedPoint) {
-        var existData = self.infoDataSource.mainData?.points ?? []
+        var existData = self.infosHandler.mainData?.points ?? []
         existData.append(data)
-        self.infoDataSource.updatePointsData(with: existData)
+        
+        self.infosHandler.updatePointsData(with: existData)
         self.myView.reloadTableData()
     }
     
@@ -295,7 +292,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
     /// Salva um dado no core data
     /// - Parameter data: dado que vai ser salvo
     private func saveIntoCoreData(data: Any) {
-        if let point = data as? ManagedPoint, let id = self.infoDataSource.mainData?.id {
+        if let point = data as? ManagedPoint, let id = self.infosHandler.mainData?.id {
             CDManager.shared.addNewPoint(in: id, point: point) { error in
                 if let error {
                     self.showWarningPopUp(with: error)

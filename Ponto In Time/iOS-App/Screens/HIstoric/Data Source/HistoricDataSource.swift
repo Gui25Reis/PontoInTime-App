@@ -5,12 +5,16 @@ import UIKit
 
 
 /// Data source das tabelas da tela de histórico
-class HistoricDataSource: NSObject, TableDataCount {
+class HistoricDataSource: NSObject {
+    func registerCell(in table: CustomTable) {
+        
+    }
+    
     
     /* MARK: - Atributos */
 
     /// Dados usados no data source referente as informações do histórico
-    private lazy var data: [CellData] = []
+    private lazy var data: [TableCellData] = []
     
     
         
@@ -63,9 +67,9 @@ class HistoricDataSource: NSObject, TableDataCount {
     private func setupDatas() {
         // if let data = self.mainData {
             self.data = [
-                CellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
-                CellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
-                CellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron)
+                TableCellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
+                TableCellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
+                TableCellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron)
             ]
         // }
     }

@@ -2,7 +2,7 @@
 
 
 /// Configurações de uma célula quando possui um comportamento de ação
-struct CellAction {
+struct TableCellAction {
     
     /// Tipo de ação
     let actionType: ActionType

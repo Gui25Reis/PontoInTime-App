@@ -5,7 +5,7 @@ import UIKit
 
 
 /// Data source das tabelas de informações de um ponto
-class PointInfoDataSource: NSObject, TableDataCount {
+class PointInfoDataSource: NSObject {
 
     /* MARK: - Atributos */
     
@@ -17,8 +17,8 @@ class PointInfoDataSource: NSObject, TableDataCount {
     private lazy var infoTitles: [String] = []
     
     /// Dados usados no data source referente aos arquivos
-    private lazy var fileData: [CellData] = [
-        CellData(primaryText: "Anexo_16102022-9_41"),
+    private lazy var fileData: [TableCellData] = [
+        TableCellData(primaryText: "Anexo_16102022-9_41"),
     ]
     
         
@@ -75,7 +75,7 @@ class PointInfoDataSource: NSObject, TableDataCount {
         case 0: // Infos
             let title = self.infoTitles[row]
             
-            var cellData = CellData(primaryText: title)
+            var cellData = TableCellData(primaryText: title)
             
             switch row {
             case 0: // Título
@@ -131,7 +131,7 @@ class PointInfoDataSource: NSObject, TableDataCount {
                 return cell
             }
             
-            cell.setupCellAction(with: CellAction(
+            cell.setupCellAction(with: TableCellAction(
                 actionType: .action, actionTitle: "Adicionar arquivo"
             ))
         
@@ -151,7 +151,7 @@ class PointInfoDataSource: NSObject, TableDataCount {
             self.infoTitles = ["Título", "Estado", "Horário"]
             
             self.fileData = mainData.files.map { item in
-                CellData(primaryText: item.name, image: UIImage(named: item.link))
+                TableCellData(primaryText: item.name, image: UIImage(named: item.link))
             }
         }
     }

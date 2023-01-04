@@ -6,7 +6,7 @@ import class UIKit.UITableViewCell
 
 
 /// Modelos de dados para célula padrão das tebles
-struct CellData {
+struct TableCellData {
     
     /* MARK: - Atributos */
     

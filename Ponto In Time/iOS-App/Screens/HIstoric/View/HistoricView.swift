@@ -5,14 +5,14 @@ import UIKit
 
 
 /// Elementos de UI da tela de histórico
-class HistoricView: UIView, ViewWithTable {
+class HistoricView: UIView, ViewHasTable {
     
     /* MARK: - Atributos */
 
     // Views
     
     /// Tabela de histórico
-    private  let historicTable = CustomTable(style: .justTable)
+    internal var mainTable = CustomTable(style: .justTable)
     
     
     // Outros
@@ -35,25 +35,7 @@ class HistoricView: UIView, ViewWithTable {
     required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
     
     
-    
-    /* MARK: - Protocolo */
-    
-    internal func setDelegate(with delegate: UITableViewDelegate) {
-        self.historicTable.setDelegate(with: delegate)
-    }
-    
-    
-    internal func setDataSource(with dataSource: TableDataCount) {
-        self.historicTable.setDataSource(with: dataSource)
-    }
-    
-    
-    internal func reloadTableData() {
-        self.historicTable.reloadTableData()
-    }
-    
         
-    
     /* MARK: - Ciclo de Vida */
     
     public override func layoutSubviews() {
@@ -71,7 +53,7 @@ class HistoricView: UIView, ViewWithTable {
     
     /// Registra as células nas collections/table
     private func registerCells() {
-        self.historicTable.registerCell(for: HistoricCell.self)
+        self.mainTable.registerCell(for: HistoricCell.self)
     }
 
 
@@ -79,13 +61,13 @@ class HistoricView: UIView, ViewWithTable {
     
     /// Adiciona os elementos (Views) na tela
     private func setupViews() {
-        self.addSubview(self.historicTable)
+        self.addSubview(self.mainTable)
     }
     
     
     /// Personalização da UI
     private func setupUI() {
-        self.historicTable.setTableHeight(for: self.getEquivalent(65))
+        // self.historicTable.setTableHeight(for: self.getEquivalent(65))
     }
 
 	  
@@ -96,9 +78,9 @@ class HistoricView: UIView, ViewWithTable {
         NSLayoutConstraint.deactivate(self.dynamicConstraints)
     
         self.dynamicConstraints = [
-            self.historicTable.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: lateral),
-            self.historicTable.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-            self.historicTable.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
+            self.mainTable.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: lateral),
+            self.mainTable.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
+            self.mainTable.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
         ]
         
         NSLayoutConstraint.activate(self.dynamicConstraints)

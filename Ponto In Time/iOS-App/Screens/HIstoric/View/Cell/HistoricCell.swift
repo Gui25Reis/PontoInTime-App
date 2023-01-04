@@ -43,7 +43,7 @@ class HistoricCell: GeneralTableCell, CustomCell {
     
     /* MARK: - Override */
         
-    override func setupCellData(with data: CellData) {
+    override func setupCellData(with data: TableCellData) {
         self.setupViews()
         
         let fontSize = self.dateLabel.font.pointSize

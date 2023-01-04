@@ -14,11 +14,18 @@ class CustomButton: UIButton {
         self.setup()
     }
     
-    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     
     
     /* MARK: - Override */
+    
+    override var menu: UIMenu? {
+        didSet {
+            self.showsMenuAsPrimaryAction = true
+        }
+    }
+    
     
     // Muda a posição que o UIMenu vai ser apresentado
     override func menuAttachmentPoint(for configuration: UIContextMenuConfiguration) -> CGPoint {
@@ -34,6 +41,14 @@ class CustomButton: UIButton {
     public var mainColor: UIColor? {
         didSet {
             self.setupColor()
+        }
+    }
+    
+    
+    /// Texto do botão
+    public var text: String? {
+        didSet {
+            self.setTitle(self.text, for: .normal)
         }
     }
 

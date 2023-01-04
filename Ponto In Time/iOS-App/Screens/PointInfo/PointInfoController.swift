@@ -181,8 +181,7 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     private func setupDelegates() {
         self.pointInfoDataSource.pointInfoProtocol = self
 
-        self.myView.setDataSource(with: self.pointInfoDataSource)
-        self.myView.setDelegate(with: self.pointInfoDelegate)
+        
     }
     
     

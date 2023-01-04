@@ -55,7 +55,7 @@ class SettingsController: UIViewController {
     
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {
-        self.myView.setDataSource(with: self.settingsDataSource)
+        //self.myView.setDataSource(with: self.settingsDataSource)
     }
     
     

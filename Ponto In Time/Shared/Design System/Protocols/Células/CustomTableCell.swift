@@ -10,10 +10,10 @@ protocol CustomTableCell: NSObject {
     
     /// Configura os dados de uma célula
     /// - Parameter data: dados da célula
-    func setupCellData(with data: CellData)
+    func setupCellData(with data: TableCellData)
     
     
     /// Configura os dados quando for uma célula de ação
     /// - Parameter action: dados da célula
-    func setupCellAction(with action: CellAction)
+    func setupCellAction(with action: TableCellAction)
 }

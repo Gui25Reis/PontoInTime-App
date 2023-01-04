@@ -42,7 +42,7 @@ class HistoricController: UIViewController {
 
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {
-        self.myView.setDataSource(with: self.historicDataSource)
+        
     }
     
     
