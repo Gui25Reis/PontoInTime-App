@@ -70,6 +70,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
     internal func addNewPoint(with data: ManagedPoint) {
         self.updateTableData(with: data)
         self.saveIntoCoreData(data: data)
+        // self.myView.hasData = true
     }
     
         
@@ -89,9 +90,10 @@ class MenuController: UIViewController, MenuControllerProtocol {
             
             if row == self.infosHandler.actionIndex {
                 self.openPointInfoPage(with: nil, isNewData: true)
-            } else {
-                print("Quer finalizar o dia")
+                return
             }
+            
+            print("Quer finalizar o dia")
             
             return
             

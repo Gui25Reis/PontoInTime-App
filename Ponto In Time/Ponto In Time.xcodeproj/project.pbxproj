@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		220020DA296556C4007BB4FC /* InfoMenuTableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020D9296556C4007BB4FC /* InfoMenuTableHandler.swift */; };
+		220020DC29655A26007BB4FC /* UIView+hasSuperview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020DB29655A26007BB4FC /* UIView+hasSuperview.swift */; };
+		220020DE29655C3D007BB4FC /* UIView+strechToBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020DD29655C3D007BB4FC /* UIView+strechToBounds.swift */; };
+		220020E029655DE6007BB4FC /* UIImageView+hasImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020DF29655DE6007BB4FC /* UIImageView+hasImage.swift */; };
 		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
 		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
 		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
@@ -30,7 +34,6 @@
 		2283DCBF28FE4F92008EE94F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2283DCBD28FE4F92008EE94F /* LaunchScreen.storyboard */; };
 		2283DCD328FE51DB008EE94F /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCD228FE51DB008EE94F /* MainController.swift */; };
 		2283DCD928FE5297008EE94F /* UIViewController+setupTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCD628FE5297008EE94F /* UIViewController+setupTab.swift */; };
-		2283DCE128FE52DA008EE94F /* UIButton+IconInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCDC28FE52DA008EE94F /* UIButton+IconInfo.swift */; };
 		2283DCE228FE52DA008EE94F /* AppIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCDD28FE52DA008EE94F /* AppIcons.swift */; };
 		2283DCE328FE52DA008EE94F /* UIImage+AppIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCDE28FE52DA008EE94F /* UIImage+AppIcons.swift */; };
 		2283DCE528FE52DA008EE94F /* IconInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCE028FE52DA008EE94F /* IconInfo.swift */; };
@@ -51,7 +54,6 @@
 		2283DD1F28FE867F008EE94F /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD1E28FE867F008EE94F /* MenuController.swift */; };
 		2283DD2228FE86A4008EE94F /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD2128FE86A4008EE94F /* MenuView.swift */; };
 		2283DD2528FEA4FD008EE94F /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD2428FEA4FD008EE94F /* MenuCell.swift */; };
-		2283DD2828FEA7D9008EE94F /* InfoMenuDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD2728FEA7D9008EE94F /* InfoMenuDataSource.swift */; };
 		2283DD2E28FF3B5C008EE94F /* ActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD2D28FF3B5C008EE94F /* ActionType.swift */; };
 		2283DD3028FF4858008EE94F /* CustomTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD2F28FF4858008EE94F /* CustomTable.swift */; };
 		2283DD3328FF6F60008EE94F /* TableStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD3228FF6F60008EE94F /* TableStyles.swift */; };
@@ -95,10 +97,13 @@
 		22EE79672904A82D006E3085 /* ActionSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE79662904A82D006E3085 /* ActionSetup.swift */; };
 		22EE796A2904AA3D006E3085 /* DateFormatTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE79692904AA3D006E3085 /* DateFormatTypes.swift */; };
 		22EE796C2904AA7D006E3085 /* Date+DateFormatTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE796B2904AA7D006E3085 /* Date+DateFormatTypes.swift */; };
-		22EE796F29053C5D006E3085 /* InfoMenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE796E29053C5D006E3085 /* InfoMenuDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		220020D9296556C4007BB4FC /* InfoMenuTableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoMenuTableHandler.swift; sourceTree = "<group>"; };
+		220020DB29655A26007BB4FC /* UIView+hasSuperview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+hasSuperview.swift"; sourceTree = "<group>"; };
+		220020DD29655C3D007BB4FC /* UIView+strechToBounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+strechToBounds.swift"; sourceTree = "<group>"; };
+		220020DF29655DE6007BB4FC /* UIImageView+hasImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+hasImage.swift"; sourceTree = "<group>"; };
 		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
 		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
 		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
@@ -124,7 +129,6 @@
 		2283DCC028FE4F92008EE94F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2283DCD228FE51DB008EE94F /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		2283DCD628FE5297008EE94F /* UIViewController+setupTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+setupTab.swift"; sourceTree = "<group>"; };
-		2283DCDC28FE52DA008EE94F /* UIButton+IconInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+IconInfo.swift"; sourceTree = "<group>"; };
 		2283DCDD28FE52DA008EE94F /* AppIcons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppIcons.swift; sourceTree = "<group>"; };
 		2283DCDE28FE52DA008EE94F /* UIImage+AppIcons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AppIcons.swift"; sourceTree = "<group>"; };
 		2283DCE028FE52DA008EE94F /* IconInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconInfo.swift; sourceTree = "<group>"; };
@@ -145,7 +149,6 @@
 		2283DD1E28FE867F008EE94F /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		2283DD2128FE86A4008EE94F /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		2283DD2428FEA4FD008EE94F /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
-		2283DD2728FEA7D9008EE94F /* InfoMenuDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoMenuDataSource.swift; sourceTree = "<group>"; };
 		2283DD2D28FF3B5C008EE94F /* ActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionType.swift; sourceTree = "<group>"; };
 		2283DD2F28FF4858008EE94F /* CustomTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTable.swift; sourceTree = "<group>"; };
 		2283DD3228FF6F60008EE94F /* TableStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableStyles.swift; sourceTree = "<group>"; };
@@ -189,7 +192,6 @@
 		22EE79662904A82D006E3085 /* ActionSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSetup.swift; sourceTree = "<group>"; };
 		22EE79692904AA3D006E3085 /* DateFormatTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatTypes.swift; sourceTree = "<group>"; };
 		22EE796B2904AA7D006E3085 /* Date+DateFormatTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+DateFormatTypes.swift"; sourceTree = "<group>"; };
-		22EE796E29053C5D006E3085 /* InfoMenuDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoMenuDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		220020D8296556B8007BB4FC /* Handler */ = {
+			isa = PBXGroup;
+			children = (
+				220020D9296556C4007BB4FC /* InfoMenuTableHandler.swift */,
+			);
+			path = Handler;
+			sourceTree = "<group>";
+		};
 		2216895D290795D200D1B208 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,8 +459,11 @@
 		2283DCD428FE5287008EE94F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				2283DCD628FE5297008EE94F /* UIViewController+setupTab.swift */,
 				221689612907A25900D1B208 /* String+subscripts.swift */,
+				220020DD29655C3D007BB4FC /* UIView+strechToBounds.swift */,
+				220020DB29655A26007BB4FC /* UIView+hasSuperview.swift */,
+				2283DCD628FE5297008EE94F /* UIViewController+setupTab.swift */,
+				220020DF29655DE6007BB4FC /* UIImageView+hasImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -468,7 +481,6 @@
 		2283DCE628FE52FA008EE94F /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				2283DCDC28FE52DA008EE94F /* UIButton+IconInfo.swift */,
 				2283DCDE28FE52DA008EE94F /* UIImage+AppIcons.swift */,
 			);
 			path = Extension;
@@ -571,8 +583,7 @@
 			isa = PBXGroup;
 			children = (
 				2254D4E329056D7400ED18D5 /* Protocol */,
-				22EE797029053C61006E3085 /* Delegate */,
-				2283DD2628FEA7BC008EE94F /* Data Source */,
+				220020D8296556B8007BB4FC /* Handler */,
 				2283DD2028FE8683008EE94F /* View */,
 				2283DD1E28FE867F008EE94F /* MenuController.swift */,
 			);
@@ -594,14 +605,6 @@
 				2283DD2428FEA4FD008EE94F /* MenuCell.swift */,
 			);
 			path = Cell;
-			sourceTree = "<group>";
-		};
-		2283DD2628FEA7BC008EE94F /* Data Source */ = {
-			isa = PBXGroup;
-			children = (
-				2283DD2728FEA7D9008EE94F /* InfoMenuDataSource.swift */,
-			);
-			path = "Data Source";
 			sourceTree = "<group>";
 		};
 		2283DD2928FF311A008EE94F /* Models */ = {
@@ -821,14 +824,6 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		22EE797029053C61006E3085 /* Delegate */ = {
-			isa = PBXGroup;
-			children = (
-				22EE796E29053C5D006E3085 /* InfoMenuDelegate.swift */,
-			);
-			path = Delegate;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -904,6 +899,7 @@
 				2283DD0128FE6597008EE94F /* UILabel+FontInfo.swift in Sources */,
 				22EE793729011174006E3085 /* ManagedDayWork.swift in Sources */,
 				22EE793129010F9A006E3085 /* DBPoint.swift in Sources */,
+				220020DE29655C3D007BB4FC /* UIView+strechToBounds.swift in Sources */,
 				22EE7935290110CB006E3085 /* ManagedSettings.swift in Sources */,
 				2283DD2528FEA4FD008EE94F /* MenuCell.swift in Sources */,
 				2283DD4728FF94E3008EE94F /* HistoricDataSource.swift in Sources */,
@@ -913,11 +909,11 @@
 				22EE794029011390006E3085 /* CoreDataProperties.swift in Sources */,
 				2283DD2E28FF3B5C008EE94F /* ActionType.swift in Sources */,
 				22EE793D2901131B006E3085 /* ManagedFiles.swift in Sources */,
+				220020DA296556C4007BB4FC /* InfoMenuTableHandler.swift in Sources */,
 				22EE7958290255EC006E3085 /* TableIcon.swift in Sources */,
 				224C528E28FFDE910080C1C3 /* GeneralTableDelegate.swift in Sources */,
 				2254D4E529056D8B00ED18D5 /* MenuControllerProtocol.swift in Sources */,
 				2283DD0928FE6916008EE94F /* StatusView.swift in Sources */,
-				2283DCE128FE52DA008EE94F /* UIButton+IconInfo.swift in Sources */,
 				2283DCD928FE5297008EE94F /* UIViewController+setupTab.swift in Sources */,
 				22EE796229046590006E3085 /* SettingsData.swift in Sources */,
 				2283DD0C28FE6B23008EE94F /* StatusViewStyle.swift in Sources */,
@@ -930,12 +926,12 @@
 				221A5112295BBCDA009BEEA9 /* CustomCell.swift in Sources */,
 				221A510B295BBC9F009BEEA9 /* ViewCode.swift in Sources */,
 				2283DCF328FE64CD008EE94F /* AdaptiveLayout.swift in Sources */,
-				22EE796F29053C5D006E3085 /* InfoMenuDelegate.swift in Sources */,
 				2283DD4F28FFB109008EE94F /* TableCellData.swift in Sources */,
 				22EE795529024D1B006E3085 /* PointCDManager.swift in Sources */,
 				2283DCE328FE52DA008EE94F /* UIImage+AppIcons.swift in Sources */,
 				22EE794F29022722006E3085 /* DayWorkCDManager.swift in Sources */,
 				22EE796C2904AA7D006E3085 /* Date+DateFormatTypes.swift in Sources */,
+				220020DC29655A26007BB4FC /* UIView+hasSuperview.swift in Sources */,
 				2283DD5928FFBE44008EE94F /* SettingsController.swift in Sources */,
 				2283DD3328FF6F60008EE94F /* TableStyles.swift in Sources */,
 				2283DCFA28FE6563008EE94F /* CustomViews.swift in Sources */,
@@ -955,9 +951,9 @@
 				2283DD5528FFB824008EE94F /* String+Localized.swift in Sources */,
 				22EE795D29028D4C006E3085 /* PointInfoDelegate.swift in Sources */,
 				22EE793929011223006E3085 /* ManagedPoint.swift in Sources */,
-				2283DD2828FEA7D9008EE94F /* InfoMenuDataSource.swift in Sources */,
 				2254D4E229056D2B00ED18D5 /* ViewHasTable.swift in Sources */,
 				221A5111295BBCDA009BEEA9 /* CustomTableCell.swift in Sources */,
+				220020E029655DE6007BB4FC /* UIImageView+hasImage.swift in Sources */,
 				2283DD0328FE6597008EE94F /* UIFont+setupFont.swift in Sources */,
 				2283DCD328FE51DB008EE94F /* MainController.swift in Sources */,
 				2246BEA52900C3DD001FE2C6 /* PointInfoController.swift in Sources */,

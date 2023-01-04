@@ -18,7 +18,7 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     /* Delegate & Data Sources */
     
     /// Protocolo de comunicação com a tela de menu
-    public var menuControllerProtocol: MenuControllerProtocol?
+    public weak var menuControllerProtocol: MenuControllerProtocol?
     
     
     /// Data source das tabelas das informações de um ponto

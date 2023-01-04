@@ -43,7 +43,6 @@ class MenuView: UIView, ViewHasTable, ViewCode {
         super.init(frame: .zero)
         
         self.createView()
-        self.setupContentView()
     }
     
     required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
@@ -55,8 +54,9 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     /// Avisa se tem dados na view
     public var hasData = false {
         didSet {
-            self.setupContentView()
+            self.setupHierarchy()
             self.updateTimerText(for: "00:00:00")
+            self.layoutSubviews()
         }
     }
     
@@ -92,17 +92,22 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     /* ViewCode */
     
     internal func setupHierarchy() {
-//        self.addSubview(self.newDayButton)
-//
-//        self.addSubview(self.timerLabel)
-        self.addSubview(self.mainTable)
+        switch self.hasData {
+        case true:
+            self.addSubview(self.mainTable)
+            self.newDayButton.removeFromSuperview()
+            
+        case false:
+            self.addSubview(self.newDayButton)
+            self.mainTable.removeFromSuperview()
+        }
     }
     
     
     internal func setupView() {
         self.backgroundColor = .systemGray6
         
-        self.newDayButton.layer.cornerRadius = 10 //self.getEquivalent(10)
+        self.newDayButton.corner = 10 //self.getEquivalent(10)
     }
     
     
@@ -126,47 +131,35 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     
     
     internal func setupStaticTexts() {
-        self.newDayButton.text = "  Novo dia"
+        self.newDayButton.text = "Novo dia"
     }
 	  
     
     internal func setupDynamicConstraints() {
-        let lateral: CGFloat = 16
-        
-        // Botão
-        let btBetween: CGFloat = 20
-        let btHeight = self.getEquivalent(44)
-        
-        // Content
-        let lblBetween: CGFloat = 40
-        let lblHeight = self.getEquivalent(75)
 
-       
-        
-        let tableHeight = self.mainTable.contentSize.height
-        
+        // Content
+//        let lblBetween: CGFloat = 40
+//        let lblHeight = self.getEquivalent(75)
+
         NSLayoutConstraint.deactivate(self.dynamicConstraints)
-    
-        self.dynamicConstraints = [
-//            self.newDayButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: btBetween),
-//            self.newDayButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-//            self.newDayButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
-//            self.newDayButton.heightAnchor.constraint(equalToConstant: btHeight),
-//
-//
-//            self.timerLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: lblBetween),
-//            self.timerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-//            self.timerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
-//            self.timerLabel.heightAnchor.constraint(equalToConstant: lblHeight),
+        
+        if self.newDayButton.hasSuperview {
+            let lateral: CGFloat = 16
+            let btBetween: CGFloat = 20
+            let btHeight = self.getEquivalent(44)
             
-            self.mainTable.topAnchor.constraint(equalTo: self.topAnchor),
-//            self.mainTable.topAnchor.constraint(equalTo: self.timerLabel.bottomAnchor, constant: lblBetween),
-            self.mainTable.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.mainTable.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.mainTable.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            
-//            self.mainTable.heightAnchor.constraint(equalToConstant: tableHeight)
-        ]
+            self.dynamicConstraints += [
+                self.newDayButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: btBetween),
+                self.newDayButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
+                self.newDayButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
+                self.newDayButton.heightAnchor.constraint(equalToConstant: btHeight),
+            ]
+        }
+        
+        if self.mainTable.hasSuperview {
+            let constraintsStreched = self.mainTable.strechToBounds(of: self)
+            self.dynamicConstraints += constraintsStreched
+        }
         
         NSLayoutConstraint.activate(self.dynamicConstraints)
     }
@@ -175,16 +168,4 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     internal func setupStaticConstraints() {}
     
     internal func setupUI() {}
-    
-    
-    
-    /* MARK: - Ciclo de Vida */
-    
-    /// Configura a tela pra quando tem dado
-    private func setupContentView() {
-        self.newDayButton.isHidden = self.hasData
-        
-        self.timerLabel.isHidden = !self.hasData
-        self.mainTable.isHidden = !self.hasData
-    }
 }
