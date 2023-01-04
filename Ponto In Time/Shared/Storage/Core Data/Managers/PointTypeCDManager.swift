@@ -85,7 +85,6 @@ class PointTypeCDManager {
                 newData.title = data.title
                 newData.isDefault = data.isDefault
             }
-            
             return initialData
         }
         return nil

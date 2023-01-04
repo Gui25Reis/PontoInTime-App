@@ -17,7 +17,7 @@ protocol MenuControllerProtocol: NSObject {
     func addNewPoint(with data: ManagedPoint)
     
     
-    /// Recebe a célula da tebela que foi selecionada
-    /// - Parameter indexPath: seção e linha que foi clicada
-    func cellSelected(at indexPath: IndexPath)
+    /// Recebe informações de um ponto para abrir a pa;gina dele
+    /// - Parameter data: infos de um ponto
+    func showPointInfos(for data: ManagedPoint?)
 }

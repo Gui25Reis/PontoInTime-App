@@ -25,7 +25,6 @@
 		2246BEA52900C3DD001FE2C6 /* PointInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEA42900C3DD001FE2C6 /* PointInfoController.swift */; };
 		2246BEA82900C3F6001FE2C6 /* PointInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEA72900C3F6001FE2C6 /* PointInfoView.swift */; };
 		2246BEAA2900C83C001FE2C6 /* PointInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEA92900C83C001FE2C6 /* PointInfoCell.swift */; };
-		224C528E28FFDE910080C1C3 /* GeneralTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224C528D28FFDE910080C1C3 /* GeneralTableDelegate.swift */; };
 		2254D4E229056D2B00ED18D5 /* ViewHasTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254D4E129056D2B00ED18D5 /* ViewHasTable.swift */; };
 		2254D4E529056D8B00ED18D5 /* MenuControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254D4E429056D8B00ED18D5 /* MenuControllerProtocol.swift */; };
 		2254D4E82905849900ED18D5 /* PointInfoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254D4E72905849900ED18D5 /* PointInfoProtocol.swift */; };
@@ -118,7 +117,6 @@
 		2246BEA42900C3DD001FE2C6 /* PointInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoController.swift; sourceTree = "<group>"; };
 		2246BEA72900C3F6001FE2C6 /* PointInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoView.swift; sourceTree = "<group>"; };
 		2246BEA92900C83C001FE2C6 /* PointInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoCell.swift; sourceTree = "<group>"; };
-		224C528D28FFDE910080C1C3 /* GeneralTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralTableDelegate.swift; sourceTree = "<group>"; };
 		2254D4E129056D2B00ED18D5 /* ViewHasTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHasTable.swift; sourceTree = "<group>"; };
 		2254D4E429056D8B00ED18D5 /* MenuControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuControllerProtocol.swift; sourceTree = "<group>"; };
 		2254D4E72905849900ED18D5 /* PointInfoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoProtocol.swift; sourceTree = "<group>"; };
@@ -361,7 +359,6 @@
 			isa = PBXGroup;
 			children = (
 				2283DCCA28FE4FC0008EE94F /* System */,
-				224C528D28FFDE910080C1C3 /* GeneralTableDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -902,7 +899,6 @@
 				22EE793D2901131B006E3085 /* ManagedFiles.swift in Sources */,
 				220020DA296556C4007BB4FC /* InfoMenuTableHandler.swift in Sources */,
 				22EE7958290255EC006E3085 /* TableIcon.swift in Sources */,
-				224C528E28FFDE910080C1C3 /* GeneralTableDelegate.swift in Sources */,
 				2254D4E529056D8B00ED18D5 /* MenuControllerProtocol.swift in Sources */,
 				220020E2296564EF007BB4FC /* PointInfoTableHandler.swift in Sources */,
 				2283DD0928FE6916008EE94F /* StatusView.swift in Sources */,

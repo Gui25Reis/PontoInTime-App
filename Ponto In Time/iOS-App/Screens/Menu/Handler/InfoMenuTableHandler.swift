@@ -200,7 +200,7 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     
     /// Ação de quando clica em uma célula
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) -> Void {
-        self.menuControllerProtocol?.cellSelected(at: indexPath)
+        self.cellSelected(at: indexPath)
                 
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.reloadInputViews()
@@ -236,5 +236,30 @@ class InfoMenuTableHandler: NSObject, TableHandler {
             }
         }
         return ""
+    }
+    
+    
+    /// Lida com a ação de quando a célula é selecionada
+    /// - Parameter indePath: posiçào da célula
+    private func cellSelected(at indePath: IndexPath) {
+        let row = indePath.row
+        
+        switch indePath.section {
+        case 2: // Pontos
+            if row < self.actionIndex {
+                let data = self.mainData?.points[row]
+                self.menuControllerProtocol?.showPointInfos(for: data)
+                return
+            }
+            
+            if row == self.actionIndex {
+                self.menuControllerProtocol?.showPointInfos(for: nil)
+                return
+            }
+            
+            return print("Quer finalizar o dia")
+            
+        default: break
+        }
     }
 }

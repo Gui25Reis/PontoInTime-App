@@ -66,6 +66,7 @@ class SettingsCell: GeneralTableCell, CustomCell {
         
         NSLayoutConstraint.deactivate(self.dynamicConstraints)
         self.dynamicConstraints.removeAll()
+        self.switchButton.isHidden = true
     }
     
     

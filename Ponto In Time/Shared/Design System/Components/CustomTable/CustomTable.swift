@@ -71,9 +71,7 @@ class CustomTable: UITableView {
         self.clipsToBounds = true
         self.layer.masksToBounds = true
         
-        self.delegate = GeneralTableDelegate.shared
-        
-        
+                
         switch style {
         case .justTable:
             self.hasHeader = false

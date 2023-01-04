@@ -70,35 +70,14 @@ class MenuController: UIViewController, MenuControllerProtocol {
     internal func addNewPoint(with data: ManagedPoint) {
         self.updateTableData(with: data)
         self.saveIntoCoreData(data: data)
-        // self.myView.hasData = true
     }
     
-        
-    internal func cellSelected(at indePath: IndexPath) {
-        let row = indePath.row
-        
-        switch indePath.section {
-        case 0: // Info
-            return
-            
-        case 1: // Pontos
-            if row < self.infosHandler.actionIndex {
-                let data = self.infosHandler.mainData?.points[row]
-                self.openPointInfoPage(with: data)
-                return
-            }
-            
-            if row == self.infosHandler.actionIndex {
-                self.openPointInfoPage(with: nil, isNewData: true)
-                return
-            }
-            
-            return print("Quer finalizar o dia")
-            
-        default:
-            break
-        }
+    
+    func showPointInfos(for data: ManagedPoint?) {
+        let isNewData = data == nil
+        self.openPointInfoPage(with: data, isNewData: isNewData)
     }
+    
     
 
     /* MARK: - Ações de botões */
