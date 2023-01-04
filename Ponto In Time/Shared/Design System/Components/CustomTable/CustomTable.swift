@@ -6,7 +6,6 @@ import class UIKit.UIView
 import class UIKit.UITableView
 import struct CoreGraphics.CGRect
 
-import UIKit
 
 
 /// Table costumizada
