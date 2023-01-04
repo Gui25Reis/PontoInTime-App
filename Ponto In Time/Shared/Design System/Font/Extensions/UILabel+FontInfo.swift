@@ -8,7 +8,7 @@ extension UILabel {
     
     /// Configura a fonte e texto da label a partir da configuração passada
     /// - Parameter config: Modelo de informações do texto e fonte
-    internal func setupText(with config: FontInfo) {
+    internal func setupFont(with config: FontInfo) {
         if let text = config.text {
             self.text = text
         }
@@ -34,6 +34,6 @@ extension UILabel {
         
         // Atribuindo configurações na label
         self.attributedText = finalString
-        self.setupText(with: FontInfo(fontSize: text.fontSize, weight: text.weight))
+        self.setupFont(with: FontInfo(fontSize: text.fontSize, weight: text.weight))
     }
 }

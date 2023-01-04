@@ -1,11 +1,17 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import class Foundation.NSCoder
+import struct Foundation.Date
+
+import class UIKit.UIBarButtonItem
+import class UIKit.UIImage
+import class UIKit.UINavigationController
+import class UIKit.UIViewController
 
 
 /// Controller responsável pela primeira tela da aplicação
-class MenuController: UIViewController, MenuControllerProtocol {
+class MenuController: UIViewController, ControllerActions, MenuControllerProtocol {
     
     /* MARK: - Atributos */
 
@@ -15,13 +21,10 @@ class MenuController: UIViewController, MenuControllerProtocol {
     private let myView = MenuView()
     
     
-    /* Delegate & Data Sources */
-    
-    /// Data source da tabela
-    private let infoDataSource = InfoMenuDataSource()
+    /* Handlers */
     
     /// Delegate da tabela
-    private let infoDelegate = InfoMenuDelegate()
+    private let infosHandler = InfoMenuTableHandler()
     
     
     /* Outros */
@@ -56,14 +59,36 @@ class MenuController: UIViewController, MenuControllerProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupNavigation()
-        self.setupDelegates()
-        self.setupButtonsAction()
+        self.setupController()
     }
     
 
 
     /* MARK: - Protocolo */
+    
+    /* Controller Actions */
+    
+    internal func setupNavigation() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(.settings), style: .plain,
+            target: self, action: #selector(self.openSettingsPage)
+        )
+    }
+
+    
+    internal func setupButtonsAction() {
+        self.myView.setNewDayAction(target: self, action: #selector(self.createNewWorkPage))
+        self.dateManager.setTimerAction(target: self, action: #selector(self.updateTimer))
+    }
+    
+    
+    internal func setupDelegates() {
+        self.infosHandler.menuControllerProtocol = self
+        self.infosHandler.link(with: self.myView)
+    }
+    
+    
+    /* MenuControllerProcotocol */
     
     internal func setupInitalData(with data: ManagedPoint) {
         self.createDay(with: data)
@@ -75,33 +100,12 @@ class MenuController: UIViewController, MenuControllerProtocol {
         self.saveIntoCoreData(data: data)
     }
     
-        
-    internal func cellSelected(at indePath: IndexPath) {
-        let row = indePath.row
-        
-        switch indePath.section {
-        case 0: // Info
-            return
-            
-        case 1: // Pontos
-            if row < self.infoDataSource.actionIndex {
-                let data = self.infoDataSource.mainData?.points[row]
-                self.openPointInfoPage(with: data)
-                return
-            }
-            
-            if row == self.infoDataSource.actionIndex {
-                self.openPointInfoPage(with: nil, isNewData: true)
-            } else {
-                print("Quer finalizar o dia")
-            }
-            
-            return
-            
-        default:
-            break
-        }
+    
+    internal func showPointInfos(for data: ManagedPoint?) {
+        let isNewData = data == nil
+        self.openPointInfoPage(with: data, isNewData: isNewData)
     }
+    
     
 
     /* MARK: - Ações de botões */
@@ -135,33 +139,6 @@ class MenuController: UIViewController, MenuControllerProtocol {
     
     /* MARK: - Configurações */
     
-    /* MARK: Geral */
-    
-    /// Configurções da navigation controller
-    private func setupNavigation() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(.settings), style: .plain,
-            target: self, action: #selector(self.openSettingsPage)
-        )
-    }
-
-    
-    /// Definindo as ações dos botões
-    private func setupButtonsAction() {
-        self.myView.setNewDayAction(target: self, action: #selector(self.createNewWorkPage))
-        self.dateManager.setTimerAction(target: self, action: #selector(self.updateTimer))
-    }
-    
-    
-    /// Definindo os delegates, data sources e protocolos
-    private func setupDelegates() {
-        self.infoDelegate.menuControllerProtocol = self
-        
-        self.myView.setDataSource(with: self.infoDataSource)
-        self.myView.setDelegate(with: self.infoDelegate)
-    }
-    
-
     /// Abre a tela de informações de um ponto
     /// - Parameters:
     ///   - data: dado que a tela vai receber
@@ -189,7 +166,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
     /// Define os dados da tabela
     /// - Parameter data: dados que a tabela vai receber
     private func setupTableData(with data: ManagedDayWork) {
-        self.infoDataSource.mainData = data
+        self.infosHandler.mainData = data
         self.myView.reloadTableData()
     }
     
@@ -197,9 +174,10 @@ class MenuController: UIViewController, MenuControllerProtocol {
     /// Atualiza o dado de pontos da tabela
     /// - Parameter data: pontos que vão ser adicionados
     private func updateTableData(with data: ManagedPoint) {
-        var existData = self.infoDataSource.mainData?.points ?? []
+        var existData = self.infosHandler.mainData?.points ?? []
         existData.append(data)
-        self.infoDataSource.updatePointsData(with: existData)
+        
+        self.infosHandler.updatePointsData(with: existData)
         self.myView.reloadTableData()
     }
     
@@ -220,6 +198,8 @@ class MenuController: UIViewController, MenuControllerProtocol {
     }
     
     
+    /// Mostra o pop up em casos de erro
+    /// - Parameter error: erro pra ser mostrado
     private func showWarningPopUp(with error: ErrorCDHandler) {
         let alert = CDManager.createPopUpError(error: error)
         self.present(alert, animated: true)
@@ -295,7 +275,7 @@ class MenuController: UIViewController, MenuControllerProtocol {
     /// Salva um dado no core data
     /// - Parameter data: dado que vai ser salvo
     private func saveIntoCoreData(data: Any) {
-        if let point = data as? ManagedPoint, let id = self.infoDataSource.mainData?.id {
+        if let point = data as? ManagedPoint, let id = self.infosHandler.mainData?.id {
             CDManager.shared.addNewPoint(in: id, point: point) { error in
                 if let error {
                     self.showWarningPopUp(with: error)

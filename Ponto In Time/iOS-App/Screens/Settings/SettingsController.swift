@@ -1,11 +1,11 @@
 /* Gui Reis    -    gui.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import class UIKit.UIViewController
 
 
 /// Controller responsável pela tela de ajustes
-class SettingsController: UIViewController {
+class SettingsController: UIViewController, ControllerActions {
     
     /* MARK: - Atributos */
 
@@ -18,7 +18,7 @@ class SettingsController: UIViewController {
     /* Delegate & Data Sources */
     
     /// Data source da tabela de ajustes
-    private let settingsDataSource = SettingsDataSource()
+    private let settingsHandler = SettingsTableHandler()
 
 
 		
@@ -32,8 +32,7 @@ class SettingsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setupDelegates()
-        self.setupNavigation()
+        self.setupController()
         self.setupDataSourceData()
     }
     
@@ -44,20 +43,24 @@ class SettingsController: UIViewController {
     
     
 
-    /* MARK: - Configurações */
+    /* MARK: - Protocolos */
 
-    /// Configurções da navigation controller
-    private func setupNavigation() {
+    internal func setupNavigation() {
         self.title = "Ajustes".localized()
         self.navigationItem.largeTitleDisplayMode = .never
     }
     
     
-    /// Definindo os delegates, data sources e protocolos
-    private func setupDelegates() {
-        self.myView.setDataSource(with: self.settingsDataSource)
+    internal func setupDelegates() {
+        self.settingsHandler.link(with: self.myView)
     }
     
+    
+    internal func setupButtonsAction() {}
+    
+    
+    
+    /* MARK: - Configurações */
     
     /// Definindo os delegates, data sources e protocolos
     private func setupDataSourceData() {
@@ -75,10 +78,7 @@ class SettingsController: UIViewController {
     /// Atualiza os dados da tabela
     /// - Parameter data: dados atualizados
     private func updateTableData(for data: SettingsData) {
-        self.settingsDataSource.mainData = data
+        self.settingsHandler.mainData = data
         self.myView.reloadTableData()
     }
 }
-
-
-

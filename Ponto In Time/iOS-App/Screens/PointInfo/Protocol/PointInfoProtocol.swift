@@ -18,9 +18,4 @@ protocol PointInfoProtocol: NSObject {
     /// Atualiza a hora que o picker foi definido
     /// - Parameter time: hora do picker
     func updateTimeFromPicker(for time: String)
-    
-    
-    /// Recebe a célula da tebela que foi selecionada
-    /// - Parameter indexPath: seção e linha que foi clicada
-    func cellSelected(at indexPath: IndexPath)
 }

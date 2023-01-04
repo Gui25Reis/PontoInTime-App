@@ -59,6 +59,17 @@ class SettingsCell: GeneralTableCell, CustomCell {
     }
     
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.switchButton.removeFromSuperview()
+        
+        NSLayoutConstraint.deactivate(self.dynamicConstraints)
+        self.dynamicConstraints.removeAll()
+        self.switchButton.isHidden = true
+    }
+    
+    
     
     /* MARK: - Configurações */
     

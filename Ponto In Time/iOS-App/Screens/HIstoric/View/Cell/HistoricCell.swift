@@ -43,7 +43,7 @@ class HistoricCell: GeneralTableCell, CustomCell {
     
     /* MARK: - Override */
         
-    override func setupCellData(with data: CellData) {
+    override func setupCellData(with data: TableCellData) {
         self.setupViews()
         
         let fontSize = self.dateLabel.font.pointSize
@@ -96,11 +96,11 @@ class HistoricCell: GeneralTableCell, CustomCell {
     private func setupStaticTexts(with dateText: String? = nil) {
         let fontSize: CGFloat = self.superview?.getEquivalent(18) ?? 18
         
-        self.dateLabel.setupText(with: FontInfo(
+        self.dateLabel.setupFont(with: FontInfo(
             fontSize: fontSize, weight: .medium
         ))
         
-        self.workTimeLabel.setupText(with: FontInfo(
+        self.workTimeLabel.setupFont(with: FontInfo(
             fontSize: fontSize, weight: .regular
         ))
     }

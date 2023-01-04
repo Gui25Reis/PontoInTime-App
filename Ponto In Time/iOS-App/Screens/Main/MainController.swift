@@ -1,7 +1,10 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import class UIKit.UIColor
+import class UIKit.UINavigationController
+import class UIKit.UITabBarController
+import class UIKit.UIViewController
 
 
 /// Controller principal usada para a criação da tab bar
