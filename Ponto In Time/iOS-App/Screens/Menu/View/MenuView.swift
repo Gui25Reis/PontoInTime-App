@@ -27,7 +27,7 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     // ViewHasTable
     
     /// Tabela com as informações do ponto do dia
-    internal lazy var mainTable: CustomTable = CustomTable(style: .justTable)
+    internal var mainTable: CustomTable = CustomTable(style: .justTable)
     
     
     // ViewCode
@@ -54,6 +54,7 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     /// Avisa se tem dados na view
     public var hasData = false {
         didSet {
+            
             self.setupHierarchy()
             self.updateTimerText(for: "00:00:00")
             self.layoutSubviews()
@@ -142,6 +143,8 @@ class MenuView: UIView, ViewHasTable, ViewCode {
 //        let lblHeight = self.getEquivalent(75)
 
         NSLayoutConstraint.deactivate(self.dynamicConstraints)
+        self.dynamicConstraints.removeAll()
+        
         
         if self.newDayButton.hasSuperview {
             let lateral: CGFloat = 16

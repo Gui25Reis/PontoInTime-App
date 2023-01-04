@@ -67,7 +67,7 @@ class CustomTable: UITableView {
     private func setupView(with style: TableStyle) {
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        self.backgroundColor = .systemGroupedBackground
+        self.backgroundColor = .systemGray6//.systemGroupedBackground
         
         self.clipsToBounds = true
         self.layer.masksToBounds = true

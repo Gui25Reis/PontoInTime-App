@@ -11,6 +11,7 @@
 		220020DC29655A26007BB4FC /* UIView+hasSuperview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020DB29655A26007BB4FC /* UIView+hasSuperview.swift */; };
 		220020DE29655C3D007BB4FC /* UIView+strechToBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020DD29655C3D007BB4FC /* UIView+strechToBounds.swift */; };
 		220020E029655DE6007BB4FC /* UIImageView+hasImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020DF29655DE6007BB4FC /* UIImageView+hasImage.swift */; };
+		220020E2296564EF007BB4FC /* PointInfoTableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020E1296564EF007BB4FC /* PointInfoTableHandler.swift */; };
 		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
 		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
 		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
@@ -104,6 +105,7 @@
 		220020DB29655A26007BB4FC /* UIView+hasSuperview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+hasSuperview.swift"; sourceTree = "<group>"; };
 		220020DD29655C3D007BB4FC /* UIView+strechToBounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+strechToBounds.swift"; sourceTree = "<group>"; };
 		220020DF29655DE6007BB4FC /* UIImageView+hasImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+hasImage.swift"; sourceTree = "<group>"; };
+		220020E1296564EF007BB4FC /* PointInfoTableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoTableHandler.swift; sourceTree = "<group>"; };
 		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
 		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
 		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
@@ -267,8 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				2254D4E62905813600ED18D5 /* Protocol */,
-				22EE795B29028D2B006E3085 /* Delegate */,
-				2246BEAC2900CCC7001FE2C6 /* Data Source */,
+				22EE795B29028D2B006E3085 /* Handler */,
 				2246BEA62900C3E0001FE2C6 /* View */,
 				2246BEA42900C3DD001FE2C6 /* PointInfoController.swift */,
 			);
@@ -290,14 +291,6 @@
 				2246BEA92900C83C001FE2C6 /* PointInfoCell.swift */,
 			);
 			path = Cell;
-			sourceTree = "<group>";
-		};
-		2246BEAC2900CCC7001FE2C6 /* Data Source */ = {
-			isa = PBXGroup;
-			children = (
-				2246BEAD2900CCF5001FE2C6 /* PointInfoDataSource.swift */,
-			);
-			path = "Data Source";
 			sourceTree = "<group>";
 		};
 		2254D4E329056D7400ED18D5 /* Protocol */ = {
@@ -789,12 +782,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		22EE795B29028D2B006E3085 /* Delegate */ = {
+		22EE795B29028D2B006E3085 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				220020E1296564EF007BB4FC /* PointInfoTableHandler.swift */,
 				22EE795C29028D4C006E3085 /* PointInfoDelegate.swift */,
+				2246BEAD2900CCF5001FE2C6 /* PointInfoDataSource.swift */,
 			);
-			path = Delegate;
+			path = Handler;
 			sourceTree = "<group>";
 		};
 		22EE795E2904112B006E3085 /* CustomButton */ = {
@@ -913,6 +908,7 @@
 				22EE7958290255EC006E3085 /* TableIcon.swift in Sources */,
 				224C528E28FFDE910080C1C3 /* GeneralTableDelegate.swift in Sources */,
 				2254D4E529056D8B00ED18D5 /* MenuControllerProtocol.swift in Sources */,
+				220020E2296564EF007BB4FC /* PointInfoTableHandler.swift in Sources */,
 				2283DD0928FE6916008EE94F /* StatusView.swift in Sources */,
 				2283DCD928FE5297008EE94F /* UIViewController+setupTab.swift in Sources */,
 				22EE796229046590006E3085 /* SettingsData.swift in Sources */,

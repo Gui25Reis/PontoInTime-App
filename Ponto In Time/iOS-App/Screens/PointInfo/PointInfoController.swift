@@ -20,12 +20,9 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     /// Protocolo de comunicação com a tela de menu
     public weak var menuControllerProtocol: MenuControllerProtocol?
     
+    /// Handler da tabela de informações de um ponto
+    private let pointInfoHanlder = PointInfoTableHandler()
     
-    /// Data source das tabelas das informações de um ponto
-    private let pointInfoDataSource = PointInfoDataSource()
-    
-    /// Delegate das tabelas das informações de um ponto
-    private let pointInfoDelegate = PointInfoDelegate()
     
     
     /* Outros */
@@ -48,6 +45,7 @@ class PointInfoController: UIViewController, PointInfoProtocol {
         
         self.setupCell(for: data)
     }
+    
     
     init(isNewData: Bool) {
         super.init(nibName: nil, bundle: nil)
@@ -114,7 +112,7 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     
     /// Ação do botão de salvar: salva os dados e fecha a janela
     @objc private func saveAction() {
-        if let data = self.pointInfoDataSource.mainData {
+        if let data = self.pointInfoHanlder.mainData {
             var updateData = data
             updateData.time = self.pickerHour
             
@@ -135,17 +133,15 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     ///   - index: index da opção
     ///   - newData: novo dado
     private func updateData(at index: Int, newData: String) {
-        if let dataSourceData = self.pointInfoDataSource.mainData {
-            var data = dataSourceData
-            
-            if index == 0 {
-                data.pointType = ManagedPointType(title: newData, isDefault: false)
-            } else {
-                data.status = newData
-            }
-            
-            self.setupTableData(with: data)
+        guard var data = self.pointInfoHanlder.mainData else { return }
+        
+        if index == 0 {
+            data.pointType = ManagedPointType(title: newData, isDefault: false)
+        } else {
+            data.status = newData
         }
+        
+        self.setupTableData(with: data)
     }
     
     
@@ -179,9 +175,9 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {
-        self.pointInfoDataSource.pointInfoProtocol = self
-
+        self.pointInfoHanlder.pointInfoProtocol = self
         
+        self.pointInfoHanlder.link(with: self.myView)
     }
     
     
@@ -212,11 +208,10 @@ class PointInfoController: UIViewController, PointInfoProtocol {
     /// Configura os dados da tabela
     /// - Parameter data: dados
     private func setupTableData(with data: ManagedPoint) {
-        self.pointInfoDataSource.isInitialData = self.isFirstPoint
-        self.pointInfoDataSource.mainData = data
+        self.pointInfoHanlder.isInitialData = self.isFirstPoint
+        self.pointInfoHanlder.mainData = data
         self.myView.reloadTableData()
     }
-    
     
     
     /* Context Menu */
