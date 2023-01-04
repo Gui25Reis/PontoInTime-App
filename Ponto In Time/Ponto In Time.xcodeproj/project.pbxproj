@@ -70,7 +70,7 @@
 		2283DD5928FFBE44008EE94F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5828FFBE44008EE94F /* SettingsController.swift */; };
 		2283DD5C28FFBE5C008EE94F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5B28FFBE5C008EE94F /* SettingsView.swift */; };
 		2283DD5F28FFBE70008EE94F /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5E28FFBE70008EE94F /* SettingsCell.swift */; };
-		2283DD6228FFBEE0008EE94F /* SettingsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD6128FFBEE0008EE94F /* SettingsDataSource.swift */; };
+		2283DD6228FFBEE0008EE94F /* SettingsTableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD6128FFBEE0008EE94F /* SettingsTableHandler.swift */; };
 		22EE792D29010F9A006E3085 /* DBDayWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE792829010F99006E3085 /* DBDayWork.swift */; };
 		22EE792E29010F9A006E3085 /* DBFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE792929010F9A006E3085 /* DBFiles.swift */; };
 		22EE792F29010F9A006E3085 /* DBSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE792A29010F9A006E3085 /* DBSettings.swift */; };
@@ -164,7 +164,7 @@
 		2283DD5828FFBE44008EE94F /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		2283DD5B28FFBE5C008EE94F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2283DD5E28FFBE70008EE94F /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
-		2283DD6128FFBEE0008EE94F /* SettingsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDataSource.swift; sourceTree = "<group>"; };
+		2283DD6128FFBEE0008EE94F /* SettingsTableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableHandler.swift; sourceTree = "<group>"; };
 		22EE792829010F99006E3085 /* DBDayWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBDayWork.swift; sourceTree = "<group>"; };
 		22EE792929010F9A006E3085 /* DBFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBFiles.swift; sourceTree = "<group>"; };
 		22EE792A29010F9A006E3085 /* DBSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBSettings.swift; sourceTree = "<group>"; };
@@ -696,7 +696,7 @@
 		2283DD5728FFBE2F008EE94F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				2283DD6028FFBEBA008EE94F /* Data Source */,
+				2283DD6028FFBEBA008EE94F /* Handler */,
 				2283DD5A28FFBE49008EE94F /* View */,
 				2283DD5828FFBE44008EE94F /* SettingsController.swift */,
 			);
@@ -720,12 +720,12 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		2283DD6028FFBEBA008EE94F /* Data Source */ = {
+		2283DD6028FFBEBA008EE94F /* Handler */ = {
 			isa = PBXGroup;
 			children = (
-				2283DD6128FFBEE0008EE94F /* SettingsDataSource.swift */,
+				2283DD6128FFBEE0008EE94F /* SettingsTableHandler.swift */,
 			);
-			path = "Data Source";
+			path = Handler;
 			sourceTree = "<group>";
 		};
 		22EE793229010FC6006E3085 /* Entities */ = {
@@ -931,7 +931,7 @@
 				2283DD3E28FF7C08008EE94F /* HistoricView.swift in Sources */,
 				221A5109295BBC9A009BEEA9 /* TableHandler.swift in Sources */,
 				2283DD0428FE6597008EE94F /* UIButton+FontInfo.swift in Sources */,
-				2283DD6228FFBEE0008EE94F /* SettingsDataSource.swift in Sources */,
+				2283DD6228FFBEE0008EE94F /* SettingsTableHandler.swift in Sources */,
 				221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */,
 				2283DD1228FE6B9F008EE94F /* AppColors.swift in Sources */,
 				2283DD0628FE65A0008EE94F /* FontInfo.swift in Sources */,

@@ -18,7 +18,7 @@ class SettingsController: UIViewController {
     /* Delegate & Data Sources */
     
     /// Data source da tabela de ajustes
-    private let settingsDataSource = SettingsDataSource()
+    private let settingsHandler = SettingsTableHandler()
 
 
 		
@@ -55,7 +55,7 @@ class SettingsController: UIViewController {
     
     /// Definindo os delegates, data sources e protocolos
     private func setupDelegates() {
-        //self.myView.setDataSource(with: self.settingsDataSource)
+        self.settingsHandler.link(with: self.myView)
     }
     
     
@@ -75,10 +75,7 @@ class SettingsController: UIViewController {
     /// Atualiza os dados da tabela
     /// - Parameter data: dados atualizados
     private func updateTableData(for data: SettingsData) {
-        self.settingsDataSource.mainData = data
+        self.settingsHandler.mainData = data
         self.myView.reloadTableData()
     }
 }
-
-
-

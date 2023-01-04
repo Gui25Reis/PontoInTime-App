@@ -4,9 +4,9 @@
 import UIKit
 
 
-/// Data source das tables da página de ajustes
-class SettingsDataSource: NSObject {
-        
+/// Handler da tabela da página de ajustes
+class SettingsTableHandler: NSObject, TableHandler {
+    
     /* MARK: - Atributos */
     
     /* Dados */
@@ -40,6 +40,11 @@ class SettingsDataSource: NSObject {
     }
     
     
+    func registerCell(in table: CustomTable) {
+        table.registerCell(for: SettingsCell.self)
+    }
+    
+    
     
     /* MARK: - Encapsulamento */
     
@@ -54,19 +59,24 @@ class SettingsDataSource: NSObject {
     
     /* MARK: - Data Source */
     
-    /// Mostra quantas células vão ser mostradas
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.getDataCount(for: tableView.tag)
+    /* MARK: Dados */
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
     }
     
     
-    /// Configura uma célula
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.getDataCount(for: section)
+    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
             return UITableViewCell()
         }
         
-        switch tableView.tag {
+        switch indexPath.section {
         
         case 0: // infos gerais
             let data = self.infoData[indexPath.row]
@@ -104,6 +114,60 @@ class SettingsDataSource: NSObject {
             break
         }
         return cell
+    }
+    
+    
+    
+    /* MARK: Header & Footer */
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 1:
+            return "Compartilhamento"
+        case 2:
+            return "Pontos"
+        default: return nil
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 1, 2:
+            return tableView.estimatedSectionHeaderHeight
+        default: return 0
+        }
+    }
+    
+    
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        switch section {
+        case 1:
+            return "Compartilha apenas o seu horário, podendo ver no site do app através do seu id"
+        default: return nil
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        switch section {
+        case 1:
+            return tableView.estimatedSectionFooterHeight
+        default: return 0
+        }
+    }
+    
+    
+    
+    /* MARK: - Delegate */
+    
+    /// Ação de quando clica em uma célula
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) -> Void {
+        // guard let protocol = self.nomeProtocol else {return}
+                
+        tableView.deselectRow(at: indexPath, animated: true)
+        tableView.reloadInputViews()
     }
     
     

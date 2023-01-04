@@ -9,6 +9,7 @@ import class UIKit.NSLayoutConstraint
 
 /// Elementos de UI da tela de histórico
 class HistoricView: UIView, ViewCode, ViewHasTable {
+    
     /* MARK: - Atributos */
 
     /* Protocolo */
