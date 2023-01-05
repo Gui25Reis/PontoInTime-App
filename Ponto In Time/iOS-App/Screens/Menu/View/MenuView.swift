@@ -112,7 +112,7 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     internal func setupFonts() {
         let newDayBtSize = self.getEquivalent(18)
         
-        self.newDayButton.setupText(with: FontInfo(
+        self.newDayButton.setupFont(with: FontInfo(
             fontSize: newDayBtSize, weight: .bold
         ))
         

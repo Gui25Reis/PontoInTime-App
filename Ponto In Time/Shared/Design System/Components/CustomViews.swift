@@ -63,6 +63,7 @@ struct CustomViews {
     static func newTextField() -> UITextField {
         let txt = UITextField()
         txt.translatesAutoresizingMaskIntoConstraints = false
+        txt.returnKeyType = .done
         
         return txt
     }

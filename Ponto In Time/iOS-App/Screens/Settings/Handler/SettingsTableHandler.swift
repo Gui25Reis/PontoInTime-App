@@ -72,6 +72,16 @@ class SettingsTableHandler: NSObject, TableHandler {
     }
     
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            return 44
+        default:
+            return tableView.estimatedRowHeight
+        }
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.getDataCount(for: section)
     }
@@ -91,6 +101,9 @@ class SettingsTableHandler: NSObject, TableHandler {
             
             var tableData = TableData()
             tableData.primaryText = data.primaryText
+            tableData.secondaryText = "8daslfjkhajhnfgsdghsdfgfsdgdfsnhhh"
+            tableData.leftIcon = UIImage(.calendar)
+            tableData.rightIcon = .contextMenu
             tableData.isEditable = true
             
             cell?.tableData = tableData
@@ -191,9 +204,10 @@ class SettingsTableHandler: NSObject, TableHandler {
     
     /// Ação de quando clica em uma célula
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) -> Void {
-        // guard let protocol = self.nomeProtocol else {return}
-                
-        tableView.deselectRow(at: indexPath, animated: true)
+        let cell = tableView.cellForRow(at: indexPath) as? TableCell
+        cell?.setFocusOnTextField()
+        
+        tableView.deselectRow(at: indexPath, animated: false)
         tableView.reloadInputViews()
     }
     

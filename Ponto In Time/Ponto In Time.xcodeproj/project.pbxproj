@@ -16,6 +16,8 @@
 		220020E62965917A007BB4FC /* TimerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020E52965917A007BB4FC /* TimerCell.swift */; };
 		220020E82965F110007BB4FC /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020E72965F110007BB4FC /* TableCell.swift */; };
 		220020EA2965FB7A007BB4FC /* UIView+removeAllSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020E92965FB7A007BB4FC /* UIView+removeAllSubviews.swift */; };
+		220020EC2966736D007BB4FC /* UITextField+FontInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020EB2966736C007BB4FC /* UITextField+FontInfo.swift */; };
+		220020EE2966896F007BB4FC /* TableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020ED2966896F007BB4FC /* TableData.swift */; };
 		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
 		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
 		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
@@ -110,6 +112,8 @@
 		220020E52965917A007BB4FC /* TimerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCell.swift; sourceTree = "<group>"; };
 		220020E72965F110007BB4FC /* TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
 		220020E92965FB7A007BB4FC /* UIView+removeAllSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+removeAllSubviews.swift"; sourceTree = "<group>"; };
+		220020EB2966736C007BB4FC /* UITextField+FontInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+FontInfo.swift"; sourceTree = "<group>"; };
+		220020ED2966896F007BB4FC /* TableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableData.swift; sourceTree = "<group>"; };
 		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
 		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
 		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
@@ -528,6 +532,7 @@
 				2283DCFF28FE6596008EE94F /* UIFont+setupFont.swift */,
 				2283DCFD28FE6596008EE94F /* UILabel+FontInfo.swift */,
 				2283DD0028FE6596008EE94F /* UIButton+FontInfo.swift */,
+				220020EB2966736C007BB4FC /* UITextField+FontInfo.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -679,6 +684,7 @@
 				2283DD2D28FF3B5C008EE94F /* ActionType.swift */,
 				2283DD4E28FFB109008EE94F /* TableCellData.swift */,
 				2283DD5028FFB17A008EE94F /* TableCellAction.swift */,
+				220020ED2966896F007BB4FC /* TableData.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -959,12 +965,14 @@
 				2283DD3B28FF7BF5008EE94F /* HistoricController.swift in Sources */,
 				2283DCE528FE52DA008EE94F /* IconInfo.swift in Sources */,
 				22EE795129024CB8006E3085 /* FilesCDManager.swift in Sources */,
+				220020EC2966736D007BB4FC /* UITextField+FontInfo.swift in Sources */,
 				2246BEA82900C3F6001FE2C6 /* PointInfoView.swift in Sources */,
 				22EE792E29010F9A006E3085 /* DBFiles.swift in Sources */,
 				2283DCB028FE4F90008EE94F /* AppDelegate.swift in Sources */,
 				2283DD2228FE86A4008EE94F /* MenuView.swift in Sources */,
 				2283DCBA28FE4F90008EE94F /* mainDataBase.xcdatamodeld in Sources */,
 				2283DCEE28FE64CD008EE94F /* Dimension.swift in Sources */,
+				220020EE2966896F007BB4FC /* TableData.swift in Sources */,
 				2283DD1F28FE867F008EE94F /* MenuController.swift in Sources */,
 				22EE793029010F9A006E3085 /* DBPointType.swift in Sources */,
 				2254D4E82905849900ED18D5 /* PointInfoProtocol.swift in Sources */,
