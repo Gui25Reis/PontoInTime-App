@@ -12,7 +12,7 @@ class HistoricController: UIViewController, ControllerActions {
     /* View */
 
     /// View principal que a classe vai controlar
-    private let myView = HistoricView()
+    private let myView = ViewWithTable()
     
     
     /* Delegate & Data Sources */

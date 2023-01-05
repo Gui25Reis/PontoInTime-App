@@ -5,10 +5,20 @@ import Foundation
 
 
 extension Date {
+    /* MARK: - Atributos */
+    
+    /// Singleton: fuso horário do Brasil
+    static var brazilTimeZone: TimeZone? {
+        return TimeZone(abbreviation: "GMT-3")
+    }
+    
+    
+    
+    /* MARK: - Métodos */
     
     /// Adiciona a diferença de horas do fuso horário
     /// - Returns: data com o fuso horário local
-    internal func getTimeZoneDifference() -> Date {
+    public func getTimeZoneDifference() -> Date {
         let currentTimeZoneId = TimeZone.autoupdatingCurrent.identifier
         let timezone = TimeZone(identifier: currentTimeZoneId)
         

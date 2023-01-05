@@ -23,14 +23,9 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     /* Protocolos */
     
     // ViewHasTable
-    
-    /// Tabela com as informações do ponto do dia
-    internal var mainTable: CustomTable = CustomTable(style: .complete)
-    
+    internal var mainTable: CustomTable = CustomTable()
     
     // ViewCode
-    
-    /// Constraints dinâmicas que mudam de acordo com o tamanho da tela
     internal var dynamicConstraints: [NSLayoutConstraint] = []
 
     
@@ -39,11 +34,10 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     
     init() {
         super.init(frame: .zero)
-        
         self.createView()
     }
     
-    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     
     
@@ -79,7 +73,6 @@ class MenuView: UIView, ViewHasTable, ViewCode {
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-	      
         self.dynamicCall()
     }
     

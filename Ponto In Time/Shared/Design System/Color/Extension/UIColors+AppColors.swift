@@ -12,4 +12,3 @@ extension UIColor {
         self.init(named: appColor.colorName)
     }
 }
-

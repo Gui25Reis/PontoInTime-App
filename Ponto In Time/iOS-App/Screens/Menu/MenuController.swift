@@ -23,7 +23,7 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     
     /* Handlers */
     
-    /// Delegate da tabela
+    /// Handler da tabela
     private let infosHandler = InfoMenuTableHandler()
     
     

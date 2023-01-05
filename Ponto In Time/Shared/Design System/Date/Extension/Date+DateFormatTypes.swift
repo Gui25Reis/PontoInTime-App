@@ -1,30 +1,20 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
+import class Foundation.DateFormatter
+
 import struct Foundation.Date
 import struct Foundation.TimeZone
 
-import class Foundation.DateFormatter
-
-
 
 extension Date {
-    
-    /* MARK: - Atributos */
-    
-    /// Singleton: fuso horário do Brasil
-    static var brazilTimeZone: TimeZone? {
-        return TimeZone(abbreviation: "GMT-3")
-    }
-    
-    
     
     /* MARK: - Métodos */
     
     /// Cria um formato de data
     /// - Parameter formatType: tipo do formato
     /// - Returns: string da data formatada
-    internal func getDateFormatted(with formatType: DateFormatTypes) -> String {
+    public func getDateFormatted(with formatType: DateFormatTypes) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = formatType.format
         dateFormatter.timeZone = Self.brazilTimeZone

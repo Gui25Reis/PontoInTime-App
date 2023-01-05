@@ -1,8 +1,8 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 
-/// Os tipos que estão de acordo com esse protocolos são controllers que possuem uma view
-/// com view code.
+/// Os tipos que estão de acordo com esse protocolo são controllers que possuem uma view
+/// que está de acrodo com o protocolo `view code.
 protocol ControllerActions {
         
     /// Definindo as ações dos botões

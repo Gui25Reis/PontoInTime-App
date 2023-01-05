@@ -3,6 +3,7 @@
 /* Bibliotecas necessárias: */
 import UIKit
 
+
 /// Elemento de UI da célula das tabelas da tela de menu inicial
 class TimerCell: UITableViewCell, CustomCell, ViewCode {
     
@@ -17,12 +18,10 @@ class TimerCell: UITableViewCell, CustomCell, ViewCode {
     /* Protocolo */
     
     // CustomCell
-    
     static let identifier = "IdTimerCell"
     
     
     // ViewCode
-    
     internal var dynamicConstraints: [NSLayoutConstraint] = []
 
     
@@ -53,7 +52,6 @@ class TimerCell: UITableViewCell, CustomCell, ViewCode {
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
         self.dynamicCall()
     }
     

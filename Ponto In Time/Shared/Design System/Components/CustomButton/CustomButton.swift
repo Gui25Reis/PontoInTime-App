@@ -22,13 +22,11 @@ class CustomButton: UIButton {
     
     // Quando possui um menu deixa ele como prioridade de ação
     override var menu: UIMenu? {
-        didSet {
-            self.showsMenuAsPrimaryAction = true
-        }
+        didSet { self.showsMenuAsPrimaryAction = true }
     }
     
     
-    // Muda a posição que o UIMenu vai ser apresentado
+    // Muda a posição que o UIMenu vai ser apresentado (para o canto direito)
     override func menuAttachmentPoint(for configuration: UIContextMenuConfiguration) -> CGPoint {
         let original = super.menuAttachmentPoint(for: configuration)
         return CGPoint(x: self.frame.maxX, y: original.y)
@@ -49,30 +47,21 @@ class CustomButton: UIButton {
     
     /// Cor principal do botão
     public var mainColor: UIColor? {
-        didSet {
-            self.setupColor()
-        }
+        didSet { self.setupColor() }
     }
     
     
     /// Texto do botão
     public var text: String? {
-        didSet {
-            guard let text else { return }
-            
-            var str = text
-            if hasIcon { str = "  " + str }
-            
-            self.setTitle(str, for: .normal)
-        }
+        didSet { self.setupText() }
     }
     
     
-    /// Define a curvatura das bordas do botào
+    /// Define a curvatura das bordas do botão
     public var corner: CGFloat = 0 {
         didSet {
             self.layer.masksToBounds = true
-            self.layer.cornerRadius = corner
+            self.layer.cornerRadius = self.corner
         }
     }
     
@@ -80,10 +69,7 @@ class CustomButton: UIButton {
     /* Variáveis computáveis */
     
     /// Boleano que indica se possui um ícone
-    public var hasIcon: Bool {
-        guard let imageView else { return false }
-        return imageView.hasImage
-    }
+    public var hasIcon: Bool { self.imageView?.hasImage ?? false}
         
     
     /* IconInfo */
@@ -112,5 +98,16 @@ class CustomButton: UIButton {
         self.backgroundColor = color.withAlphaComponent(0.2)
         self.setTitleColor(color, for: .normal)
         self.tintColor = color
+    }
+    
+    
+    /// Configura o texto do botão
+    private func setupText() {
+        guard let text = self.text else { return }
+        
+        var str = text
+        if self.hasIcon { str = "  " + str }
+        
+        self.setTitle(str, for: .normal)
     }
 }

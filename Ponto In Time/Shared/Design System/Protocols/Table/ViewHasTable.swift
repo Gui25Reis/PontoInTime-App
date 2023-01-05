@@ -11,16 +11,16 @@ protocol ViewHasTable {
 
 extension ViewHasTable {
     
-    /// Define o delegate e data source da collection
-    internal func reloadTableData() {
+    /// Define o delegate e data source da tabela
+    public func reloadTableData() {
         self.mainTable.reloadData()
         self.mainTable.reloadInputViews()
     }
     
     
-    /// Configura quem vai lidar com o delegate e data source da table
-    /// - Parameter handler: handler da table
-    internal func setTableHandler(with handler: TableHandler) {
+    /// Configura quem vai lidar com o delegate e data source da tabela
+    /// - Parameter handler: handler da tabela
+    public func setTableHandler(with handler: TableHandler) {
         self.mainTable.delegate = handler
         self.mainTable.dataSource = handler
     }

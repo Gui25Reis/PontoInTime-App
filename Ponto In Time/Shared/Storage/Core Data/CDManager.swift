@@ -1,8 +1,16 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import CoreData
-import UIKit
+import class CoreData.NSManagedObjectContext
+import class CoreData.NSPersistentContainer
+
+import class Foundation.NSError
+import class Foundation.NSObject
+import struct Foundation.Date
+import struct Foundation.UUID
+
+import class UIKit.UIAlertAction
+import class UIKit.UIAlertController
 
 
 /// Core Data Manager: classe principal que lida com o core data

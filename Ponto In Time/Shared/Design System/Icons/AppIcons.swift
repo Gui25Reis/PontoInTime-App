@@ -22,8 +22,6 @@ enum AppIcons: CustomStringConvertible {
     
     
     
-    
-    
     /* Botões */
     
     /// Símbolo - 􀣌

@@ -1,7 +1,7 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import class CoreData.NSPredicate
+import class Foundation.NSPredicate
 
 
 /// Lida com os tipos de pontos salvos no core data

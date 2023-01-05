@@ -1,8 +1,5 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
-/* Bibliotecas necessárias: */
-import CoreData
-
 
 /// Lida com os dados de ajustes salvos no core data
 internal class SettingsCDManager {

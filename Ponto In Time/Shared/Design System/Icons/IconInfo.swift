@@ -1,8 +1,8 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import struct CoreGraphics.CGFloat
 import class UIKit.UIImage
+import struct CoreGraphics.CGFloat
 
 
 /// Configurações do ícone de um botão (UIButton)

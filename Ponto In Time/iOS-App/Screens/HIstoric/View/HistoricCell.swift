@@ -49,9 +49,9 @@ class HistoricCell: GeneralTableCell, CustomCell {
         let fontSize = self.dateLabel.font.pointSize
         
         self.dateLabel.setupTextWithIcon(
-            text: FontInfo(text: data.primaryText, fontSize: fontSize, weight: .medium),
-            icon: IconInfo(icon: .calendar, size: fontSize)
+            text: data.primaryText, icon: IconInfo(icon: .calendar, size: fontSize)
         )
+        self.dateLabel.setupFont(with: FontInfo(fontSize: fontSize, weight: .medium))
         
         if let timeWork = data.secondaryText {
             self.workTimeLabel.text = "Tempo de trabalho: \(timeWork)"

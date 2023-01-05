@@ -1,7 +1,8 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import CoreData
+import class Foundation.NSPredicate
+import struct Foundation.UUID
 
 
 /// Lida com os dados de um dia salvos no core data

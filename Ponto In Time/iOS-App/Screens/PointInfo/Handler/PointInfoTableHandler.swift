@@ -42,7 +42,7 @@ class PointInfoTableHandler: NSObject,TableHandler {
     
     /* MARK: - Encapsulamento */
     
-    /// Diz se os dados são inicial
+    /// Boleano que diz se os dados são inicial
     public var isInitialData = true
     
     /// Dados base da tabela
@@ -155,7 +155,6 @@ class PointInfoTableHandler: NSObject,TableHandler {
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.reloadInputViews()
     }
-    
     
     
     

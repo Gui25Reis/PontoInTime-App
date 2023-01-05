@@ -1,7 +1,13 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import class UIKit.UIDatePicker
+import class UIKit.UIImageView
+import class UIKit.UILabel
+import class UIKit.UISwitch
+import class UIKit.UIView
+import class UIKit.UITextField
+import enum UIKit.NSTextAlignment
 
 
 /// Componentes de UI já padronizados de acordo com o projeto.

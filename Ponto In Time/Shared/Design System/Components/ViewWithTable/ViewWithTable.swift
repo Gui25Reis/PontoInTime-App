@@ -7,15 +7,15 @@ import class UIKit.UIView
 import class UIKit.NSLayoutConstraint
 
 
-/// Elementos de UI da tela de histórico
-class HistoricView: UIView, ViewCode, ViewHasTable {
+/// Elemento de UI das telas que possuem apenas uma table
+class ViewWithTable: UIView, ViewCode, ViewHasTable {
     
     /* MARK: - Atributos */
 
     /* Protocolo */
     
     // ViewHasTable
-    internal var mainTable: CustomTable = CustomTable(style: .justTable)
+    internal var mainTable: CustomTable = CustomTable()
 
     
     // ViewCode

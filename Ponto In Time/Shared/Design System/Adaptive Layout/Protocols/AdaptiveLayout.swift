@@ -5,8 +5,6 @@ import struct CoreGraphics.CGSize
 import struct CoreGraphics.CGFloat
 
 
-/// Tipo com métodos para definir o layout adaptativo
-///
 /// Os tipos que conformam com esse protocolo faz com que o layout adaptativo
 /// seja possível e simplificado.
 protocol AdaptiveLayout {

@@ -9,13 +9,13 @@ import class UIKit.NSLayoutConstraint
 ///
 /// Há duas função para serem chamadas em momentos diferentes:
 /// - `createView`: no inicializador da estrutura
-/// - `dynamicCall`: na funçào `layoutSubviews
+/// - `dynamicCall`: na função `layoutSubviews
 protocol ViewCode {
     
     /* MARK: - Atributos */
     
     /// Constraints dinâmicas que mudam de acordo com o tamanho da tela
-    var dynamicConstraints: [NSLayoutConstraint] {get set}
+    var dynamicConstraints: [NSLayoutConstraint] { get set }
         
     
     
@@ -29,12 +29,16 @@ protocol ViewCode {
     func setupView()
     
     
-    /// Personalização da UI
-    func setupUI()
-    
-    
     /// Define os textos que são estáticos (os textos em si que vão sempre ser o mesmo)
     func setupStaticTexts()
+    
+    
+    /// Define as constraints que NÃO dependem do tamanho da tela, que nunca vão mudar.
+    func setupStaticConstraints()
+    
+    
+    /// Personalização da UI
+    func setupUI()
     
     
     /// Define as fontes e ícones
@@ -43,10 +47,6 @@ protocol ViewCode {
     
     /// Define as constraints que dependem do tamanho da tela
     func setupDynamicConstraints()
-    
-    
-    /// Define as constraints que NÃO dependem do tamanho da tela, que nunca vão mudar.
-    func setupStaticConstraints()
 }
 
 

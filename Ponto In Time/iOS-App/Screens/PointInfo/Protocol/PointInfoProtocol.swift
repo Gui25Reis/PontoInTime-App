@@ -9,7 +9,7 @@ import class UIKit.NSObject
 /// infomações de um ponto
 protocol PointInfoProtocol: NSObject {
     
-    /// Cria o context menu de acrodo com a célula
+    /// Cria o context menu de acordo com a célula
     /// - Parameters:
     ///   - cell: célula que vai ser atribuida
     func createMenu(for cell: PointInfoCell)

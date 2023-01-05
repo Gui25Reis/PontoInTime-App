@@ -4,12 +4,12 @@
 import UIKit
 
 
-/// Lida (handler) com a tabela da tla de menu
+/// Lida (handler) com a tabela da tela de menu
 class InfoMenuTableHandler: NSObject, TableHandler {
     
     /* MARK: - Atributos */
     
-    /// Se é apenas uma atualização de um dado específico
+    /// Boleano que indica se é apenas uma atualização de um dado específico
     private lazy var isUniqueUpdate = false
     
     /// Dados usados no data source referente as informações do dia
@@ -39,14 +39,10 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     }
     
     /// Index da célula de adicionar
-    public var actionIndex: Int {
-        return self.pointsData.count-1 + 1
-    }
+    public var actionIndex: Int { return self.pointsData.count-1 + 1 }
     
     /// Index da célula de finalizar
-    public var destructiveIndex: Int {
-        return self.pointsData.count-1 + 2
-    }
+    public var destructiveIndex: Int { return self.pointsData.count-1 + 2 }
     
     
     /* Métodos */
@@ -56,10 +52,8 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     public func updatePointsData(with points: [ManagedPoint]) {
         self.pointsData = points.map() { item in
             TableCellData(
-                primaryText: item.pointType.title,
-                secondaryText: item.time,
-                image: StatusView.getImage(for: item.status),
-                rightIcon: .chevron
+                primaryText: item.pointType.title, secondaryText: item.time,
+                image: StatusView.getImage(for: item.status), rightIcon: .chevron
             )
         }
         
@@ -179,7 +173,6 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     }
     
     
-    
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 2:
@@ -212,17 +205,17 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     
     /// Configura os dados da tabela
     private func setupDatas() {
-        if let data = self.mainData {
-            let calendarIcon = UIImage(.calendar)?.withTintColor(.label)
-            
-            self.infosData = [
-                TableCellData(primaryText: "Data", secondaryText: "\(data.date)", image: calendarIcon),
-                TableCellData(primaryText: "Entrada", secondaryText: "\(data.startTime)", rightIcon: .chevron),
-                TableCellData(primaryText: "Saída", secondaryText: "\(data.endTime)", rightIcon: .chevron)
-            ]
-            
-            self.updatePointsData(with: data.points)
-        }
+        guard let data = self.mainData else { return }
+        
+        let calendarIcon = UIImage(.calendar)?.withTintColor(.label)
+        
+        self.infosData = [
+            TableCellData(primaryText: "Data", secondaryText: "\(data.date)", image: calendarIcon),
+            TableCellData(primaryText: "Entrada", secondaryText: "\(data.startTime)", rightIcon: .chevron),
+            TableCellData(primaryText: "Saída", secondaryText: "\(data.endTime)", rightIcon: .chevron)
+        ]
+        
+        self.updatePointsData(with: data.points)
     }
     
     
@@ -230,17 +223,13 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     /// - Parameter time: horário que vai ser formatado
     /// - Returns: string com o horário
     private func getHMFormat(for time: String?) -> String {
-        if let time {
-            if time.count >= 5 {
-                return time[0..<5]
-            }
-        }
-        return ""
+        guard let time, time.count >= 5 else { return "" }
+        return time[0..<5]
     }
     
     
     /// Lida com a ação de quando a célula é selecionada
-    /// - Parameter indePath: posiçào da célula
+    /// - Parameter indePath: posição da célula
     private func cellSelected(at indePath: IndexPath) {
         let row = indePath.row
         

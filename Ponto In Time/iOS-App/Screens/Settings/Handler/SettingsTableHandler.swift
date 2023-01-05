@@ -56,9 +56,7 @@ class SettingsTableHandler: NSObject, TableHandler {
     
     /// Dados usados dos ajustes
     public var mainData: SettingsData? {
-        didSet {
-            self.setupDatas()
-        }
+        didSet { self.setupDatas() }
     }
     
     
@@ -127,8 +125,7 @@ class SettingsTableHandler: NSObject, TableHandler {
             data.action = .action
             cell.tableData = data
         
-        default:
-            break
+        default: break
         }
         return cell
     }
@@ -136,6 +133,8 @@ class SettingsTableHandler: NSObject, TableHandler {
     
     
     /* MARK: Header & Footer */
+    
+    // Header
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
@@ -156,6 +155,8 @@ class SettingsTableHandler: NSObject, TableHandler {
         }
     }
     
+    
+    // Footer
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {

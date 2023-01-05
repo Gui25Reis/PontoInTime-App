@@ -4,9 +4,7 @@
 import UIKit
 
 
-/// Uma view que possui uma label dentro
-///
-/// Esse componente é usado principalemente pra criar uma label em que o texto não fique grudada na borda
+/// Componente que lida com o faot de copiar o texto. Todas as ações e UI que sào necessárias estão nessa classe
 class CopyWarning: ViewLabel {
     
     /* MARK: - Encapsulamento */
@@ -37,7 +35,7 @@ class CopyWarning: ViewLabel {
     }
     
     
-    /* MARK: - Protoolo (Override) */
+    /* MARK: - Override */
     
     internal override func setupView() {
         self.isHidden = true
@@ -59,7 +57,7 @@ class CopyWarning: ViewLabel {
     
     
     
-    /* MARK: - Protoolo (Override) */
+    /* MARK: - Configurações */
     
     /// Adiciona e posiciona a view na superview
     /// - Parameter view: superview

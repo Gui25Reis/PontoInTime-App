@@ -7,11 +7,8 @@ import UIKit
 extension UILabel {
     
     /// Configura a fonte e texto da label a partir da configuração passada
-    /// - Parameter config: Modelo de informações do texto e fonte
+    /// - Parameter config: Modelo de informações da fonte
     internal func setupFont(with config: FontInfo) {
-        if let text = config.text {
-            self.text = text
-        }
         self.font = UIFont.setupFont(with: config)
     }
     
@@ -20,10 +17,10 @@ extension UILabel {
     /// - Parameters:
     ///   - text: informações do texto
     ///   - icon: informações do ícone
-    internal func setupTextWithIcon(text: FontInfo, icon: IconInfo) {
+    internal func setupTextWithIcon(text: String, icon: IconInfo) {
         // Texto
         let space = " "
-        let textString = NSAttributedString(string: "\(space)\(text.text ?? "")")
+        let textString = NSAttributedString(string: "\(space)\(text)")
         
         // Ícone
         let imageString = NSTextAttachment()
@@ -34,6 +31,5 @@ extension UILabel {
         
         // Atribuindo configurações na label
         self.attributedText = finalString
-        self.setupFont(with: FontInfo(fontSize: text.fontSize, weight: text.weight))
     }
 }

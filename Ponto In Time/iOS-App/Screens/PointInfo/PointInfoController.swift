@@ -18,7 +18,7 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     /* View */
 
     /// View principal que a classe vai controlar
-    private let myView = PointInfoView()
+    private let myView = ViewWithTable()
     
     
     /* Delegate & Data Sources */

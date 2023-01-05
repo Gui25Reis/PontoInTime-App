@@ -6,9 +6,7 @@ extension String {
     /* MARK: - Atributos */
     
     /// Tamanho da string
-    var length: Int {
-        return count
-    }
+    var length: Int { return self.count }
     
     
     

@@ -20,7 +20,7 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol 
     /* View */
 
     /// View principal que a classe vai controlar
-    private let myView = SettingsView()
+    private let myView = ViewWithTable()
     
     
     /* Delegate & Data Sources */

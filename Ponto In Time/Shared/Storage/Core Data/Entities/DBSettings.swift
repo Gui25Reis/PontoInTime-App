@@ -1,7 +1,8 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import CoreData
+import class CoreData.NSFetchRequest
+import class CoreData.NSManagedObject
 
 
 @objc(DBSettings)

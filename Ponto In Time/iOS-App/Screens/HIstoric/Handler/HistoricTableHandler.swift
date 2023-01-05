@@ -4,6 +4,7 @@
 import UIKit
 
 
+/// Lida (handler) com a tabela da tela de histórico
 class HistoricTableHandler: NSObject, TableHandler {
     
     /* MARK: - Atributos */

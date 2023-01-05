@@ -2,7 +2,6 @@
 
 /* Bibliotecas necessárias: */
 import class Foundation.NSCoder
-
 import class UIKit.NSLayoutConstraint
 import class UIKit.UIView
 import class UIKit.UILabel
@@ -12,13 +11,14 @@ import struct CoreGraphics.CGFloat
 
 /// Uma view que possui uma label dentro
 ///
-/// Esse componente é usado principalemente pra criar uma label em que o texto não fique grudada na borda
+/// Esse componente é usado principalmente pra criar uma label em que o texto não fique grudada na borda
 class ViewLabel: UIView, ViewCode {
     
     /* MARK: - Atributos */
 
     // Views
     
+    /// Label do componente
     public lazy var label: UILabel = {
         let lbl = CustomViews.newLabel()
         lbl.textAlignment = .center
@@ -48,7 +48,6 @@ class ViewLabel: UIView, ViewCode {
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
         self.dynamicCall()
     }
     

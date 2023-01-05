@@ -32,7 +32,7 @@ enum Screens {
             return CGSize(width: 390, height: 844)
         case .iPhone8:
             return CGSize(width: 375, height: 667)
-        case .view, .custom:
+        default:
             return CGSize()
         }
     }

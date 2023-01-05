@@ -10,7 +10,7 @@ extension UIFont {
     /// - Parameter config: modelo de informações para configuração da fonte.
     /// - Returns: fonte configurada de acordo com o modelo passado.
     ///
-    /// Existe uma fonte que está sendo usada para o projeto: `SF Pro Rounded`
+    /// Existe uma fonte que está sendo usada para o projeto: `SF Display Rounded`
     static func setupFont(with config: FontInfo) -> UIFont {
         let systemFont: UIFont = .systemFont(ofSize: config.fontSize, weight: config.weight)
         

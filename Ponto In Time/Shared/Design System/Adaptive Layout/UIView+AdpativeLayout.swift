@@ -47,18 +47,21 @@ extension UIView: AdaptiveLayout {
     }
     
     
-    
     internal func getScreenDimension(for info: SizeInfo) -> CGFloat {
         let screenSize: CGSize = {
             switch info.screenType == .custom {
-            case true: return info.screenSize
-            case false: return self.getScreenSize(from: info.screenType)
+            case true:
+                return info.screenSize
+            case false:
+                return self.getScreenSize(from: info.screenType)
             }
         }()
         
         switch info.dimension {
-        case .width: return screenSize.width
-        case .height: return screenSize.height
+        case .width:
+            return screenSize.width
+        case .height:
+            return screenSize.height
         }
     }
 }

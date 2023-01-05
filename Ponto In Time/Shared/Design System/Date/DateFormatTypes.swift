@@ -2,7 +2,7 @@
 
 
 /// Tipode de formatação de data
-enum DateFormatTypes {
+public enum DateFormatTypes {
     
     /* MARK: - Casos */
     

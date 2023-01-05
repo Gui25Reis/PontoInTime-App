@@ -4,7 +4,7 @@
 import UIKit
 
 
-/// Célula geral de uma table que utiliza os componentes nativos de uma célula
+/// Célula costumizada de uma tabela que imita o memso comportamento de uma célula padrão iOS
 class TableCell: UITableViewCell, ViewCode, CustomCell {
     
     /* MARK: - Atributos */
@@ -12,7 +12,7 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     /* Views */
     
     /// Texto principal (titulo) - texto da esquerda
-    public let primaryLabel: UILabel = {
+    private let primaryLabel: UILabel = {
         let lbl = CustomViews.newLabel(align: .left)
         lbl.textColor = .label
         lbl.sizeToFit()
@@ -36,14 +36,10 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     private let rightIcon = CustomViews.newImage()
     
     /// Switch da célula
-    private let switchButton: UISwitch = {
-        let but = CustomViews.newSwitch()
-        but.isOn = true
-        return but
-    }()
+    private let switchButton: UISwitch = CustomViews.newSwitch()
     
-    /// Botào usado para mostra o menu de açòes
-    private let mainButton = CustomButton()
+    /// Botão usado para mostra o menu de ações
+    private let menuButton = CustomButton()
     
     
     /* Protocolos */
@@ -72,11 +68,11 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     
     // Espaçamentos
     
-    /// Espaço lateral usado dentro da célula
+    /// Espaço lateral (das bordas)
     public var lateralSpace: CGFloat = 16
     
-    /// Espaço lateral menor usado na célula entre os elementos
-    public var smallLateralSpace: CGFloat { return self.lateralSpace/2 }
+    /// Espaço entre os elementos
+    public var betweenSpace: CGFloat { return self.lateralSpace/2 }
     
     
     // Dados
@@ -88,7 +84,6 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     
     /// Boleano que indica se possui dados na célula
     public var hasData: Bool { return self.tableData != nil }
-    
     
     /// Estado do switch
     public var switchStatus = false {
@@ -103,8 +98,8 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
         self.contentView.removeAllChildren()
         NSLayoutConstraint.deactivate(self.dynamicConstraints)
         self.dynamicConstraints.removeAll()
-        self.tableData = nil
         
+        self.tableData = nil
         self.primaryLabel.textColor = .label
     }
     
@@ -132,6 +127,7 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     }
     
     
+    
     /* MARK: - Protocolo */
 
     // View Code
@@ -149,7 +145,7 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
             self.check(data: data.secondaryText, for: self.secondaryText)
         }
         
-        self.check(data: data.menu, for: self.mainButton)
+        self.check(data: data.menu, for: self.menuButton)
     }
     
     
@@ -167,8 +163,8 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
         self.dynamicConstraints += self.setupLeftComponents()
         self.dynamicConstraints += self.setupRightComponents()
         
-        if self.mainButton.hasSuperview {
-            let buttonContraints = self.mainButton.strechToBounds(of: self.contentView)
+        if self.menuButton.hasSuperview {
+            let buttonContraints = self.menuButton.strechToBounds(of: self.contentView)
             self.dynamicConstraints += buttonContraints
         }
         
@@ -213,7 +209,7 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
         self.leftIcon.image = data.leftIcon
         
         self.setupRightIcon(for: data.rightIcon)
-        self.mainButton.menu = data.menu
+        self.menuButton.menu = data.menu
         
         self.secondaryText.isUserInteractionEnabled = data.isEditable
         
@@ -235,7 +231,7 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     }
     
     
-    /// Configura a imagem da direita da célula de acordo com a configuração passada
+    /// Configura a imagem da direita da célula de acordo com o itpo de ícone da tabela
     /// - Parameter icon: tipo de ícone
     private func setupRightIcon(for icon: TableIcon?) {
         guard let icon else { return }
@@ -307,7 +303,7 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
         var constraints: [NSLayoutConstraint] = []
         
         let lateral = self.lateralSpace
-        let space = self.smallLateralSpace
+        let space = self.betweenSpace
         
         if self.tableData?.hasSwitch == true {
             constraints += [
