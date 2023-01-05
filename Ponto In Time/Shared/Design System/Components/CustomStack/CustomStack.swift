@@ -84,6 +84,7 @@ class CustomStack: UIStackView {
             
             return spaceToDivide / (totalViewsInStack + 1)
         }
+        
         return 0
     }
 }

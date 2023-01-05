@@ -14,6 +14,8 @@
 		220020E2296564EF007BB4FC /* PointInfoTableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020E1296564EF007BB4FC /* PointInfoTableHandler.swift */; };
 		220020E429656BA5007BB4FC /* HistoricTableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020E329656BA5007BB4FC /* HistoricTableHandler.swift */; };
 		220020E62965917A007BB4FC /* TimerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020E52965917A007BB4FC /* TimerCell.swift */; };
+		220020E82965F110007BB4FC /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020E72965F110007BB4FC /* TableCell.swift */; };
+		220020EA2965FB7A007BB4FC /* UIView+removeAllSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020E92965FB7A007BB4FC /* UIView+removeAllSubviews.swift */; };
 		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
 		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
 		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
@@ -106,6 +108,8 @@
 		220020E1296564EF007BB4FC /* PointInfoTableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoTableHandler.swift; sourceTree = "<group>"; };
 		220020E329656BA5007BB4FC /* HistoricTableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricTableHandler.swift; sourceTree = "<group>"; };
 		220020E52965917A007BB4FC /* TimerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCell.swift; sourceTree = "<group>"; };
+		220020E72965F110007BB4FC /* TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
+		220020E92965FB7A007BB4FC /* UIView+removeAllSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+removeAllSubviews.swift"; sourceTree = "<group>"; };
 		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
 		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
 		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
@@ -447,8 +451,9 @@
 			isa = PBXGroup;
 			children = (
 				221689612907A25900D1B208 /* String+subscripts.swift */,
-				220020DD29655C3D007BB4FC /* UIView+strechToBounds.swift */,
 				220020DB29655A26007BB4FC /* UIView+hasSuperview.swift */,
+				220020E92965FB7A007BB4FC /* UIView+removeAllSubviews.swift */,
+				220020DD29655C3D007BB4FC /* UIView+strechToBounds.swift */,
 				2283DCD628FE5297008EE94F /* UIViewController+setupTab.swift */,
 				220020DF29655DE6007BB4FC /* UIImageView+hasImage.swift */,
 			);
@@ -663,6 +668,7 @@
 			isa = PBXGroup;
 			children = (
 				2283DD4B28FFB088008EE94F /* GeneralTableCell.swift */,
+				220020E72965F110007BB4FC /* TableCell.swift */,
 			);
 			path = GeneralCell;
 			sourceTree = "<group>";
@@ -884,6 +890,7 @@
 				22EE7935290110CB006E3085 /* ManagedSettings.swift in Sources */,
 				2283DD2528FEA4FD008EE94F /* MenuCell.swift in Sources */,
 				22EE796A2904AA3D006E3085 /* DateFormatTypes.swift in Sources */,
+				220020E82965F110007BB4FC /* TableCell.swift in Sources */,
 				22EE79672904A82D006E3085 /* ActionSetup.swift in Sources */,
 				22EE796029041146006E3085 /* CustomButton.swift in Sources */,
 				22EE794029011390006E3085 /* CoreDataProperties.swift in Sources */,
@@ -919,6 +926,7 @@
 				2283DCF028FE64CD008EE94F /* Screens.swift in Sources */,
 				221A510D295BBCA5009BEEA9 /* ControllerActions.swift in Sources */,
 				2283DCEF28FE64CD008EE94F /* ScreenInfo.swift in Sources */,
+				220020EA2965FB7A007BB4FC /* UIView+removeAllSubviews.swift in Sources */,
 				2283DD3028FF4858008EE94F /* CustomTable.swift in Sources */,
 				2283DD3E28FF7C08008EE94F /* HistoricView.swift in Sources */,
 				221A5109295BBC9A009BEEA9 /* TableHandler.swift in Sources */,

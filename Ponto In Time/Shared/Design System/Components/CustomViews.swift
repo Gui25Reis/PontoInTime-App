@@ -57,4 +57,13 @@ struct CustomViews {
         
         return date
     }
+    
+    
+    /// Cria um text field de data de acordo com a padronização do projeto
+    static func newTextField() -> UITextField {
+        let txt = UITextField()
+        txt.translatesAutoresizingMaskIntoConstraints = false
+        
+        return txt
+    }
  }

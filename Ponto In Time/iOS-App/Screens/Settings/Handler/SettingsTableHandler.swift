@@ -26,6 +26,11 @@ class SettingsTableHandler: NSObject, TableHandler {
     /// Diz se está compartilhando os dados
     private var isSharing: Bool = false
     
+    /// Index da célula de adicionar
+    public var actionIndex: Int {
+        return self.pointData.count
+    }
+    
         
     
     /* MARK: - Protocolo */
@@ -42,6 +47,7 @@ class SettingsTableHandler: NSObject, TableHandler {
     
     func registerCell(in table: CustomTable) {
         table.registerCell(for: SettingsCell.self)
+        table.registerCell(for: TableCell.self)
     }
     
     
@@ -72,18 +78,32 @@ class SettingsTableHandler: NSObject, TableHandler {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
-            return UITableViewCell()
-        }
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
+//            return UITableViewCell()
+//        }
         
         switch indexPath.section {
         
         case 0: // infos gerais
+            let cell = tableView.dequeueReusableCell(withIdentifier: TableCell.identifier, for: indexPath) as? TableCell
+            
             let data = self.infoData[indexPath.row]
-            cell.setupCellData(with: data)
+            
+            var tableData = TableData()
+            tableData.primaryText = data.primaryText
+            tableData.isEditable = true
+            
+            cell?.tableData = tableData
+            return cell ?? UITableViewCell()
+            
+            //cell.setupCellData(with: data)
             
     
         case 1: // compartilhamento
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
+                return UITableViewCell()
+            }
+            
             let data = self.shareData[indexPath.row]
             cell.setupCellData(with: data)
             
@@ -91,9 +111,15 @@ class SettingsTableHandler: NSObject, TableHandler {
                 cell.updateSwitchVisibility(for: true)
                 cell.updateSwitchStatus(for: self.isSharing)
             }
+            
+            return cell
     
             
         case 2: // pontos
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
+                return UITableViewCell()
+            }
+            
             if indexPath.row < self.pointData.count {
                 let data = self.pointData[indexPath.row]
                 
@@ -109,11 +135,13 @@ class SettingsTableHandler: NSObject, TableHandler {
             cell.setupCellAction(with: TableCellAction(
                 actionType: .action, actionTitle: "Novo"
             ))
+            
+            return cell
         
         default:
             break
         }
-        return cell
+        return UITableViewCell()
     }
     
     
@@ -138,7 +166,6 @@ class SettingsTableHandler: NSObject, TableHandler {
         default: return 0
         }
     }
-    
     
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {

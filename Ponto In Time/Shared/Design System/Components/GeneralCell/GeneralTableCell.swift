@@ -125,3 +125,7 @@ class GeneralTableCell: UITableViewCell, CustomTableCell {
         self.accessoryView = view
     }
 }
+
+
+
+
