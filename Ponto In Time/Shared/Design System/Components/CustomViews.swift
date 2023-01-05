@@ -32,6 +32,7 @@ struct CustomViews {
         let imgV = UIImageView()
         imgV.translatesAutoresizingMaskIntoConstraints = false
         imgV.clipsToBounds = true
+        imgV.contentMode = .scaleAspectFit
         
         return imgV
     }

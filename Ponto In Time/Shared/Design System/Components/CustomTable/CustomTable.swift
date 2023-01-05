@@ -7,7 +7,6 @@ import class UIKit.UITableView
 import struct CoreGraphics.CGRect
 
 
-
 /// Table costumizada
 class CustomTable: UITableView {
     
@@ -17,7 +16,6 @@ class CustomTable: UITableView {
         super.init(frame: .zero, style: .insetGrouped)
         
         self.setupView(with: style)
-        //self.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

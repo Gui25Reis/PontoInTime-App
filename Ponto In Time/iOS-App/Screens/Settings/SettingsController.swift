@@ -1,11 +1,19 @@
 /* Gui Reis    -    gui.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
+
 import class UIKit.UIViewController
+
+import class Foundation.NSObject
+
+protocol SettingsProtocol: NSObject {
+    
+    func copyAction(with text: String)
+}
 
 
 /// Controller responsável pela tela de ajustes
-class SettingsController: UIViewController, ControllerActions {
+class SettingsController: UIViewController, ControllerActions, SettingsProtocol {
     
     /* MARK: - Atributos */
 
@@ -44,7 +52,17 @@ class SettingsController: UIViewController, ControllerActions {
     
 
     /* MARK: - Protocolos */
+    
+    // Settings protocol
+    
+    internal func copyAction(with text: String) {
+        let copyWarning = CopyWarning()
+        copyWarning.copyHandler(textToCopy: text)
+    }
 
+    
+    // Controller Actions
+    
     internal func setupNavigation() {
         self.title = "Ajustes".localized()
         self.navigationItem.largeTitleDisplayMode = .never
@@ -52,6 +70,7 @@ class SettingsController: UIViewController, ControllerActions {
     
     
     internal func setupDelegates() {
+        self.settingsHandler.settingProtocol = self
         self.settingsHandler.link(with: self.myView)
     }
     

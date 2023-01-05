@@ -12,10 +12,10 @@ class SettingsTableHandler: NSObject, TableHandler {
     /* Dados */
     
     /// Dados usados no data source referente as informações das informações gerais
-    private lazy var infoData: [TableCellData] = []
+    private lazy var infoData: [TableData] = []
     
     /// Dados usados no data source referente as informações de compartilhamento
-    private lazy var shareData: [TableCellData] = []
+    private lazy var shareData: [TableData] = []
     
     /// Dados usados no data source referente aos tipos de pontos
     private lazy var pointData: [ManagedPointType] = []
@@ -27,9 +27,10 @@ class SettingsTableHandler: NSObject, TableHandler {
     private var isSharing: Bool = false
     
     /// Index da célula de adicionar
-    public var actionIndex: Int {
-        return self.pointData.count
-    }
+    public var actionIndex: Int { return self.pointData.count }
+    
+    /// Protocolo de comunicação com a controller da tabela
+    public weak var settingProtocol: SettingsProtocol?
     
         
     
@@ -46,7 +47,6 @@ class SettingsTableHandler: NSObject, TableHandler {
     
     
     func registerCell(in table: CustomTable) {
-        table.registerCell(for: SettingsCell.self)
         table.registerCell(for: TableCell.self)
     }
     
@@ -73,12 +73,7 @@ class SettingsTableHandler: NSObject, TableHandler {
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            return 44
-        default:
-            return tableView.estimatedRowHeight
-        }
+        return 44
     }
     
     
@@ -88,73 +83,54 @@ class SettingsTableHandler: NSObject, TableHandler {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
-//            return UITableViewCell()
-//        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableCell.identifier, for: indexPath) as? TableCell
+        else { return UITableViewCell() }
         
         switch indexPath.section {
         
         case 0: // infos gerais
-            let cell = tableView.dequeueReusableCell(withIdentifier: TableCell.identifier, for: indexPath) as? TableCell
+            var data = self.infoData[indexPath.row]
+            data.isEditable = true
             
-            let data = self.infoData[indexPath.row]
-            
-            var tableData = TableData()
-            tableData.primaryText = data.primaryText
-            tableData.secondaryText = "8daslfjkhajhnfgsdghsdfgfsdgdfsnhhh"
-            tableData.leftIcon = UIImage(.calendar)
-            tableData.rightIcon = .contextMenu
-            tableData.isEditable = true
-            
-            cell?.tableData = tableData
-            return cell ?? UITableViewCell()
-            
-            //cell.setupCellData(with: data)
-            
+            cell.tableData = data
     
         case 1: // compartilhamento
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
-                return UITableViewCell()
+            var data = self.shareData[indexPath.row]
+            
+            switch indexPath.row {
+            case 0: // id
+                data.menu = self.createCopyMenu()
+                
+            case 1: // switch
+                data.hasSwitch = true
+                cell.switchStatus = self.isSharing
+                
+            default: break
             }
             
-            let data = self.shareData[indexPath.row]
-            cell.setupCellData(with: data)
-            
-            if indexPath.row == 1 {
-                cell.updateSwitchVisibility(for: true)
-                cell.updateSwitchStatus(for: self.isSharing)
-            }
-            
-            return cell
-    
+            cell.tableData = data
             
         case 2: // pontos
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.identifier, for: indexPath) as? SettingsCell else {
-                return UITableViewCell()
-            }
-            
             if indexPath.row < self.pointData.count {
                 let data = self.pointData[indexPath.row]
                 
-                var cellData = TableCellData(primaryText: data.title)
+                var cellData = TableData(primaryText: data.title)
                 if !data.isDefault {
                     cellData.rightIcon = .chevron
                 }
-                cell.setupCellData(with: cellData)
                 
+                cell.tableData = cellData
                 return cell
             }
             
-            cell.setupCellAction(with: TableCellAction(
-                actionType: .action, actionTitle: "Novo"
-            ))
-            
-            return cell
+            var data = TableData(primaryText: "Novo")
+            data.action = .action
+            cell.tableData = data
         
         default:
             break
         }
-        return UITableViewCell()
+        return cell
     }
     
     
@@ -219,16 +195,30 @@ class SettingsTableHandler: NSObject, TableHandler {
     private func setupDatas() {
         if let settings = self.mainData?.settingsData {
             self.infoData = [
-                TableCellData(primaryText: "Horas de trabalho", secondaryText: settings.timeWork)
+                TableData(primaryText: "Horas de trabalho", secondaryText: settings.timeWork)
             ]
             
             self.shareData = [
-                TableCellData(primaryText: "Seu ID", secondaryText: settings.sharingID),
-                TableCellData(primaryText: "Compartilhar saída")
+                TableData(primaryText: "Seu ID", secondaryText: settings.sharingID),
+                TableData(primaryText: "Compartilhar saída")
             ]
             self.isSharing = settings.isSharing
         }
         
         self.pointData = self.mainData?.pointTypeData ?? []
+    }
+    
+    
+    /// Cria o context menu para a célula de mostrar os estados disponiveis
+    /// - Parameter cell: célula que vai ser atribuida o menu
+    private func createCopyMenu() -> UIMenu {
+        let idCode = self.mainData?.settingsData?.sharingID ?? ""
+        
+        let action = UIAction(title: "Copiar ID") { _ in
+            self.settingProtocol?.copyAction(with: idCode)
+        }
+        
+        let menu = UIMenu(children: [action])
+        return menu
     }
 }

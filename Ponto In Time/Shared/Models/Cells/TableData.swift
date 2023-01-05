@@ -35,11 +35,66 @@ struct TableData {
     public var action: ActionType?
     
     
+    
+    /* MARK: - Construtores */
+    
     init() {
         self.primaryText = nil
         self.secondaryText = nil
         self.leftIcon = nil
         self.rightIcon = nil
+        self.isEditable = false
+        self.hasSwitch = false
+        self.menu = nil
+        self.action = nil
+    }
+    
+    
+    init(primaryText: String, secondaryText: String, image: UIImage? = nil, rightIcon: TableIcon? = nil) {
+        self.primaryText = primaryText
+        self.secondaryText = secondaryText
+        self.leftIcon = image
+        self.rightIcon = rightIcon
+        
+        self.isEditable = false
+        self.hasSwitch = false
+        self.menu = nil
+        self.action = nil
+    }
+    
+    
+    init(primaryText: String, rightIcon: TableIcon) {
+        self.primaryText = primaryText
+        self.secondaryText = nil
+        self.leftIcon = nil
+        self.rightIcon = rightIcon
+        
+        self.isEditable = false
+        self.hasSwitch = false
+        self.menu = nil
+        self.action = nil
+    }
+    
+    
+    init(primaryText: String, secondaryText: String, rightIcon: TableIcon) {
+        self.primaryText = primaryText
+        self.secondaryText = secondaryText
+        self.leftIcon = nil
+        self.rightIcon = rightIcon
+        
+        self.isEditable = false
+        self.hasSwitch = false
+        self.menu = nil
+        self.action = nil
+    }
+    
+    
+    init(primaryText: String, secondaryText: String? = nil, image: UIImage? = nil, rightIcon: TableIcon? = nil) {
+        self.primaryText = primaryText
+        self.secondaryText = secondaryText
+        self.leftIcon = nil
+        self.rightIcon = rightIcon
+        
         self.isEditable = false
         self.hasSwitch = false
         self.menu = nil

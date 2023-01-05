@@ -12,8 +12,9 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     /* Views */
     
     /// Texto principal (titulo) - texto da esquerda
-    private let primaryLabel: UILabel = {
+    public let primaryLabel: UILabel = {
         let lbl = CustomViews.newLabel(align: .left)
+        lbl.textColor = .label
         lbl.sizeToFit()
         return lbl
     }()
@@ -38,7 +39,6 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     private let switchButton: UISwitch = {
         let but = CustomViews.newSwitch()
         but.isOn = true
-        
         return but
     }()
     
@@ -90,13 +90,22 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     public var hasData: Bool { return self.tableData != nil }
     
     
+    /// Estado do switch
+    public var switchStatus = false {
+        didSet { self.switchButton.isOn = self.switchStatus }
+    }
+    
+    
     /* Métodos */
     
     /// Limpa as configurações da célula
     public func clearCell() {
+        self.contentView.removeAllChildren()
         NSLayoutConstraint.deactivate(self.dynamicConstraints)
         self.dynamicConstraints.removeAll()
         self.tableData = nil
+        
+        self.primaryLabel.textColor = .label
     }
     
     
@@ -125,6 +134,8 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     
     /* MARK: - Protocolo */
 
+    // View Code
+    
     internal func setupHierarchy() {
         guard let data = self.tableData else { return }
         
@@ -144,11 +155,6 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     
     internal func setupView() {
         self.backgroundColor = UIColor(.tableColor)
-        
-        self.primaryLabel.textColor = .label
-        
-        self.leftIcon.contentMode = .scaleAspectFit
-        self.rightIcon.contentMode = .scaleAspectFit
     }
     
 

@@ -18,6 +18,8 @@
 		220020EA2965FB7A007BB4FC /* UIView+removeAllSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020E92965FB7A007BB4FC /* UIView+removeAllSubviews.swift */; };
 		220020EC2966736D007BB4FC /* UITextField+FontInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020EB2966736C007BB4FC /* UITextField+FontInfo.swift */; };
 		220020EE2966896F007BB4FC /* TableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020ED2966896F007BB4FC /* TableData.swift */; };
+		220020F12966B90A007BB4FC /* CopyWarning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020F02966B90A007BB4FC /* CopyWarning.swift */; };
+		220020F42966BA3B007BB4FC /* ViewLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020F32966BA3B007BB4FC /* ViewLabel.swift */; };
 		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
 		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
 		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
@@ -114,6 +116,8 @@
 		220020E92965FB7A007BB4FC /* UIView+removeAllSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+removeAllSubviews.swift"; sourceTree = "<group>"; };
 		220020EB2966736C007BB4FC /* UITextField+FontInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+FontInfo.swift"; sourceTree = "<group>"; };
 		220020ED2966896F007BB4FC /* TableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableData.swift; sourceTree = "<group>"; };
+		220020F02966B90A007BB4FC /* CopyWarning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyWarning.swift; sourceTree = "<group>"; };
+		220020F32966BA3B007BB4FC /* ViewLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLabel.swift; sourceTree = "<group>"; };
 		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
 		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
 		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
@@ -217,6 +221,22 @@
 				220020D9296556C4007BB4FC /* InfoMenuTableHandler.swift */,
 			);
 			path = Handler;
+			sourceTree = "<group>";
+		};
+		220020EF2966B8EB007BB4FC /* Copy Warning */ = {
+			isa = PBXGroup;
+			children = (
+				220020F02966B90A007BB4FC /* CopyWarning.swift */,
+			);
+			path = "Copy Warning";
+			sourceTree = "<group>";
+		};
+		220020F22966BA27007BB4FC /* ViewLabel */ = {
+			isa = PBXGroup;
+			children = (
+				220020F32966BA3B007BB4FC /* ViewLabel.swift */,
+			);
+			path = ViewLabel;
 			sourceTree = "<group>";
 		};
 		2216895D290795D200D1B208 /* Protocol */ = {
@@ -540,6 +560,8 @@
 		2283DD0728FE68F4008EE94F /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				220020F22966BA27007BB4FC /* ViewLabel */,
+				220020EF2966B8EB007BB4FC /* Copy Warning */,
 				2283DD4A28FFB066008EE94F /* GeneralCell */,
 				2283DD4228FF906C008EE94F /* CustomStack */,
 				2283DD3128FF6F40008EE94F /* CustomTable */,
@@ -889,6 +911,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2283DD5F28FFBE70008EE94F /* SettingsCell.swift in Sources */,
+				220020F42966BA3B007BB4FC /* ViewLabel.swift in Sources */,
 				2283DD0128FE6597008EE94F /* UILabel+FontInfo.swift in Sources */,
 				22EE793729011174006E3085 /* ManagedDayWork.swift in Sources */,
 				22EE793129010F9A006E3085 /* DBPoint.swift in Sources */,
@@ -906,6 +929,7 @@
 				22EE7958290255EC006E3085 /* TableIcon.swift in Sources */,
 				2254D4E529056D8B00ED18D5 /* MenuControllerProtocol.swift in Sources */,
 				220020E2296564EF007BB4FC /* PointInfoTableHandler.swift in Sources */,
+				220020F12966B90A007BB4FC /* CopyWarning.swift in Sources */,
 				2283DD0928FE6916008EE94F /* StatusView.swift in Sources */,
 				2283DCD928FE5297008EE94F /* UIViewController+setupTab.swift in Sources */,
 				220020E62965917A007BB4FC /* TimerCell.swift in Sources */,
