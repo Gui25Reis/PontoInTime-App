@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DBDayWork" representedClassName="DBDayWork" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="String"/>
+        <attribute name="endTime" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="startTime" optional="YES" attributeType="String"/>
+        <relationship name="points" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DBPoint" inverseName="dayWork" inverseEntity="DBPoint"/>
+    </entity>
+    <entity name="DBFiles" representedClassName="DBFiles" syncable="YES">
+        <attribute name="link" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="point" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DBPoint" inverseName="files" inverseEntity="DBPoint"/>
+    </entity>
+    <entity name="DBPoint" representedClassName="DBPoint" syncable="YES">
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="time" optional="YES" attributeType="String"/>
+        <relationship name="dayWork" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DBDayWork" inverseName="points" inverseEntity="DBDayWork"/>
+        <relationship name="files" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DBFiles" inverseName="point" inverseEntity="DBFiles"/>
+        <relationship name="pointType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DBPointType" inverseName="points" inverseEntity="DBPointType"/>
+    </entity>
+    <entity name="DBPointType" representedClassName="DBPointType" syncable="YES">
+        <attribute name="isDefault" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="points" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DBPoint" inverseName="pointType" inverseEntity="DBPoint"/>
+    </entity>
+    <entity name="DBSettings" representedClassName="DBSettings" syncable="YES">
+        <attribute name="isSharing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="sharingID" optional="YES" attributeType="String"/>
+        <attribute name="timeWork" optional="YES" attributeType="String"/>
+    </entity>
 </model>

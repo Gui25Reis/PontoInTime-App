@@ -1,4 +1,4 @@
-/* Gui Reis    -    guis.reis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 
 /// Ícones usados no projeto
@@ -13,6 +13,12 @@ enum AppIcons: CustomStringConvertible {
     
     /// Símbolo - 􀆏
     case options
+    
+    /// Símbolo - 􀈑
+    case delete
+    
+    /// Símbolo -
+    case chevron
     
     
     
@@ -43,6 +49,8 @@ enum AppIcons: CustomStringConvertible {
         switch self {
         case .calendar: return "calendar"
         case .options: return "chevron.up.chevron.down"
+        case .delete: return "trash"
+        case .chevron: return "chevron.right"
             
         case .settings: return "gearshape.fill"
         case .add: return "plus.circle.fill"

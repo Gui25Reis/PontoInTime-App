@@ -1,7 +1,6 @@
-/* Gui Reis    -    guis.reis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import CoreData
 import UIKit
 
 

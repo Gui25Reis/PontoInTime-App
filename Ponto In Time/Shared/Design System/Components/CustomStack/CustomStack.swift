@@ -1,4 +1,4 @@
-/* Gui Reis    -    guis.reis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
@@ -11,21 +11,21 @@ import UIKit
 /// que a stack
 class CustomStack: UIStackView {
     
-    /* MARK:  Atributos */
+    /* MARK: - Atributos */
     
-    /// Deixa a dimensão das views igual a da stack
+    /// Dimensão das views que vão ser iguais da stack
     private var sameDimensionValue: Dimension
     
     
     
-    /* MARK:  Construtor */
+    /* MARK: - Construtor */
     
     /// Cria uma stack com a distribuição igual para centralizada
     /// - Parameters:
     ///   - axis: direção que os elementos vão ficar
     ///   - sameDimension: dimensão que vai ser igual a da stack
     ///
-    /// A dismensão padrão é a `width`.
+    /// A dimensão padrão é a `width`.
     init(axis: NSLayoutConstraint.Axis, sameDimension: Dimension = .width) {
         self.sameDimensionValue = sameDimension
         
@@ -41,7 +41,7 @@ class CustomStack: UIStackView {
     
     
     
-    /* MARK:  Override */
+    /* MARK: - Override */
     
     override func addArrangedSubview(_ view: UIView) {
         super.addArrangedSubview(view)
@@ -56,7 +56,7 @@ class CustomStack: UIStackView {
     
     
     
-    /* MARK:  Configurações */
+    /* MARK: - Encapsulamento */
     
     /// Pega o espaçamento entre os elementos
     /// - Parameter space: tamanho dos elementos adicionados
@@ -64,6 +64,8 @@ class CustomStack: UIStackView {
     ///
     /// Essa função só faz sentido para caso os elementos que foram adicionados na
     /// stack view forem do mesmo tamanho.
+    ///
+    /// Esse método auxilia para deixar de acordo com as aconstrais que forem adicionadas.
     public func getEqualSpace(for space: CGFloat) -> CGFloat {
         var superViewValue: CGFloat? = nil
         
@@ -84,6 +86,7 @@ class CustomStack: UIStackView {
             
             return spaceToDivide / (totalViewsInStack + 1)
         }
+        
         return 0
     }
 }

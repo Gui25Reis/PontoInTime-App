@@ -1,84 +1,71 @@
-/* Gui Reis    -    guis.reis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
 
 
 /// Elementos de UI da tela de menu
-class MenuView: UIView {
+class MenuView: UIView, ViewHasTable, ViewCode {
     
     /* MARK: - Atributos */
 
     // Views
     
     /// Botão de criar um novo dia
-    private lazy var newDayButton: UIButton = {
-        let bt = CustomViews.newButton()
-        bt.backgroundColor = .systemBlue.withAlphaComponent(0.2)
-        
+    private lazy var newDayButton: CustomButton = {
+        let bt = CustomButton()
+        bt.mainColor = .systemBlue
         return bt
     }()
     
-    /// Mostra o timer
-    private lazy var timerLabel: UILabel = CustomViews.newLabel()
-    
-    /// Tabela com as informações do ponto do dia
-    public lazy var infoTable: CustomTable = {
-        let table = CustomTable(style: .justTable)
-        table.setTableTag(for: 0)
-        return table
-    }()
-    
-    /// Tabela com os pontos feitos durante o dia
-    public lazy var pointsTable: CustomTable = {
-        let table = CustomTable(style: .withHeader)
-        table.isCustomHeight = true
-        table.setTableTag(for: 1)
-        
-        table.setHeaderTitle(for: "Pontos do dia")
-        return table
-    }()
     
     
-    // Outros
+    /* Protocolos */
     
-    /// Constraints dinâmicas que mudam de acordo com o tamanho da tela
-    private var dynamicConstraints: [NSLayoutConstraint] = []
+    // ViewHasTable
+    internal var mainTable: CustomTable = CustomTable()
+    
+    // ViewCode
+    internal var dynamicConstraints: [NSLayoutConstraint] = []
 
     
-    // UI
-    
-    /// Altura do último compontente da view
-    private var lastComponentHeight: CGFloat = 0 {
-        didSet {
-            var maxSpace = self.frame.size.height - self.safeAreaInsets.bottom
-            maxSpace -= self.pointsTable.frame.origin.y
-            
-            let status = self.lastComponentHeight > maxSpace
-            self.pointsTable.updateScrollStatus(for: status)
-        }
-    }
-
-
     
     /* MARK: - Construtor */
     
     init() {
         super.init(frame: .zero)
-        
-        self.setupViews()
-        self.registerCell()
-        
-        self.newDayButton.isHidden = true
+        self.createView()
     }
     
-    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     
     
     /* MARK: - Encapsulamento */
-
-
+    
+    /// Avisa se tem dados na view
+    public var hasData = false {
+        didSet {
+            self.setupHierarchy()
+            self.layoutSubviews()
+        }
+    }
+    
+    
+    /// Atualiza o texto do timer
+    /// - Parameter text: novo texto do timer
+    public func updateTimerText(for text: String) {
+        let cell = self.mainTable.cellForRow(at: IndexPath(row: 0, section: 0)) as? TimerCell
+        cell?.setupTimer(to: text)
+    }
+        
+    
+    /* Ações de botões */
+    
+    /// Define a ação do botão de criar um novo dia
+    public func setNewDayAction(target: Any?, action: Selector) -> Void {
+        self.newDayButton.addTarget(target, action: action, for: .touchDown)
+    }
     
     
 
@@ -86,110 +73,78 @@ class MenuView: UIView {
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-	      
-        self.setupUI()
-        self.setupStaticTexts()
-        self.setupDynamicConstraints()
+        self.dynamicCall()
     }
     
     
     
-    /* MARK: - Configurações */
+    /* MARK: - Protocolo */
     
-    /* Table */
+    /* ViewCode */
     
-    /// Registra as células nas collections/table
-    private func registerCell() {
-        self.infoTable.registerCell(for: MenuCell.self)
-        self.pointsTable.registerCell(for: MenuCell.self)
-    }
-    
-
-    
-    /* Geral */
-    
-    /// Adiciona os elementos (Views) na tela
-    private func setupViews() {
-        self.addSubview(self.newDayButton)
-        
-        self.addSubview(self.timerLabel)
-        self.addSubview(self.infoTable)
-        self.addSubview(self.pointsTable)
+    internal func setupHierarchy() {
+        switch self.hasData {
+        case true:
+            self.addSubview(self.mainTable)
+            self.newDayButton.removeFromSuperview()
+            
+        case false:
+            self.addSubview(self.newDayButton)
+            self.mainTable.removeFromSuperview()
+        }
     }
     
     
-    /// Personalização da UI
-    private func setupUI() {
+    internal func setupView() {
         self.backgroundColor = .systemGray6
         
-        self.newDayButton.layer.cornerRadius = self.getEquivalent(10)
+        self.newDayButton.corner = 10
     }
     
     
-    /// Define os textos que são estáticos (os textos em si que vão sempre ser o mesmo)
-    private func setupStaticTexts() {		
-        /* Labels */
-        self.timerLabel.setupText(with: FontInfo(
-            text: "03:46:21", fontSize: self.getEquivalent(70), weight: .light
-        ))
-        
-
-        /* Botões */
-        
+    internal func setupFonts() {
         let newDayBtSize = self.getEquivalent(18)
         
-        self.newDayButton.setupText(with: FontInfo(
-            text: "  Novo dia" , fontSize: newDayBtSize, weight: .bold
+        self.newDayButton.setupFont(with: FontInfo(
+            fontSize: newDayBtSize, weight: .bold
         ))
         
         self.newDayButton.setupIcon(with: IconInfo(icon: .add, size: newDayBtSize))
     }
+    
+    
+    internal func setupStaticTexts() {
+        self.newDayButton.text = "Novo dia"
+    }
 	  
     
-    /// Define as constraints que dependem do tamanho da tela
-    private func setupDynamicConstraints() { 
-        let lateral: CGFloat = 16
-        let bottomGap: CGFloat = 5
-        
-        // Botão
-        let butBetween: CGFloat = 20
-        
-        let btHeight = self.getEquivalent(44)
-        
-        // Content
-        let lblBetween: CGFloat = 40
-        
-        let lblHeight: CGFloat = self.getEquivalent(75)
-
-       
+    internal func setupDynamicConstraints() {
         NSLayoutConstraint.deactivate(self.dynamicConstraints)
-    
-        self.dynamicConstraints = [
-            self.newDayButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: butBetween),
-            self.newDayButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-            self.newDayButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
-            self.newDayButton.heightAnchor.constraint(equalToConstant: btHeight),
+        self.dynamicConstraints.removeAll()
+        
+        if self.newDayButton.hasSuperview {
+            let lateral: CGFloat = 16
+            let btBetween: CGFloat = 20
+            let btHeight = self.getEquivalent(44)
             
-            
-            self.timerLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: lblBetween),
-            self.timerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-            self.timerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
-            self.timerLabel.heightAnchor.constraint(equalToConstant: lblHeight),
-            
-            
-            self.infoTable.topAnchor.constraint(equalTo: self.timerLabel.bottomAnchor, constant: lblBetween),
-            self.infoTable.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-            self.infoTable.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
-            
-            
-            self.pointsTable.topAnchor.constraint(equalTo: self.infoTable.bottomAnchor, constant: lblBetween),
-            self.pointsTable.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
-            self.pointsTable.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
-            self.pointsTable.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -bottomGap)
-        ]
+            self.dynamicConstraints += [
+                self.newDayButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: btBetween),
+                self.newDayButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lateral),
+                self.newDayButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -lateral),
+                self.newDayButton.heightAnchor.constraint(equalToConstant: btHeight),
+            ]
+        }
+        
+        if self.mainTable.hasSuperview {
+            let constraintsStreched = self.mainTable.strechToBounds(of: self)
+            self.dynamicConstraints += constraintsStreched
+        }
         
         NSLayoutConstraint.activate(self.dynamicConstraints)
-        
-        self.lastComponentHeight = self.pointsTable.getTableHeight()
     }
+    
+    
+    internal func setupStaticConstraints() {}
+    
+    internal func setupUI() {}
 }

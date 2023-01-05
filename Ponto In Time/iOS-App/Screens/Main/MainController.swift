@@ -1,7 +1,10 @@
-/* Gui Reis    -    guis.reis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import class UIKit.UIColor
+import class UIKit.UINavigationController
+import class UIKit.UITabBarController
+import class UIKit.UIViewController
 
 
 /// Controller principal usada para a criação da tab bar
@@ -55,7 +58,7 @@ class MainController: UITabBarController {
     }
     
     
-    /// Cria uma navigation controller para um controller
+    /// Cria uma navigation controller para uma view controller
     /// - Parameter vc: controller que vai receber a navigation contgroller
     /// - Returns: nav controller
     private func getNavigation(for vc: UIViewController) -> UINavigationController {

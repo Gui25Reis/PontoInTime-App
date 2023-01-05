@@ -1,7 +1,7 @@
-/* Gui Reis    -    guis.reis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import class UIKit.UIColor
 
 
 extension UIColor {
@@ -12,4 +12,3 @@ extension UIColor {
         self.init(named: appColor.colorName)
     }
 }
-

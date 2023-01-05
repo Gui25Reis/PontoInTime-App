@@ -1,4 +1,4 @@
-/* Gui Reis    -    guis.reis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import class UIKit.UIColor
@@ -8,6 +8,7 @@ import class UIKit.UIColor
 enum ActionType {
     
     /* MARK: - Casos */
+    
     /// Uma ação convencional
     case action
     

@@ -1,24 +1,24 @@
-/* Gui Reis    -    guis.reis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import class UIKit.UIViewController
 
 
 /// Controller responsável pela tela de histórico
-class HistoricController: UIViewController {
+class HistoricController: UIViewController, ControllerActions {
     
     /* MARK: - Atributos */
 
     /* View */
 
     /// View principal que a classe vai controlar
-    private let myView = HistoricView()
+    private let myView = ViewWithTable()
     
     
     /* Delegate & Data Sources */
     
     /// Data source da tabela de histórico
-    private let historicDataSource = HistoricDataSource()
+    private let historicHandler = HistoricTableHandler()
 
 
 		
@@ -32,15 +32,31 @@ class HistoricController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setupDelegates()
+        self.setupController()
+        self.setupTableData(with: nil)
     }
 
     
     
-    /* MARK: - Configurações */
+    /* MARK: - Protocolos */
 
-    /// Definindo os delegates, data sources e protocolos
-    private func setupDelegates() {
-        self.myView.historicTable.setDataSource(with: self.historicDataSource)
+    internal func setupDelegates() {
+        self.historicHandler.link(with: self.myView)
+    }
+    
+    
+    internal func setupButtonsAction() {}
+    
+    internal func setupNavigation() {}
+    
+    
+    
+    /* MARK: - Configurações */
+    
+    /// Define os dados da tabela
+    /// - Parameter data: dados que a tabela vai receber
+    private func setupTableData(with data: ManagedDayWork?) {
+        self.historicHandler.mainData = data
+        self.myView.reloadTableData()
     }
 }

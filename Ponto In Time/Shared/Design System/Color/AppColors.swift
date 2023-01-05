@@ -1,4 +1,4 @@
-/* Gui Reis    -    guis.reis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 
 /// Casos de uso das cores usadas no projeto
@@ -20,6 +20,9 @@ enum AppColors {
     /// Cor das safe areas
     case safeAreaColor
     
+    /// Cor das tabelas
+    case tableColor
+    
     
     
     /* MARK: - Nome das cores */
@@ -29,7 +32,9 @@ enum AppColors {
         switch self {
         case .startStatus: return "blue_92B1CE"
         case .endStatus: return "green_A9CE92"
+            
         case .safeAreaColor: return "safeAreaColor"
+        case .tableColor: return "tableColor"
         }
     }
 }

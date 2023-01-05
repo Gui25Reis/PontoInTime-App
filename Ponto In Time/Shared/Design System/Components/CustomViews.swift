@@ -1,7 +1,13 @@
-/* Gui Reis    -    guis.reis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import class UIKit.UIDatePicker
+import class UIKit.UIImageView
+import class UIKit.UILabel
+import class UIKit.UISwitch
+import class UIKit.UIView
+import class UIKit.UITextField
+import enum UIKit.NSTextAlignment
 
 
 /// Componentes de UI já padronizados de acordo com o projeto.
@@ -25,25 +31,14 @@ struct CustomViews {
         
         return view
     }
-    
-    
-    /// Cria um botão de acordo com a padronização do projeto
-    static func newButton() -> UIButton {
-        let but = UIButton()
-        but.translatesAutoresizingMaskIntoConstraints = false
-        but.layer.masksToBounds = true
-        
-        but.setTitleColor(.systemBlue, for: .normal)
 
-        return but
-    }
-    
-    
+        
     /// Cria uma imagem (view) de acordo com a padronização do projeto
     static func newImage() -> UIImageView {
         let imgV = UIImageView()
         imgV.translatesAutoresizingMaskIntoConstraints = false
         imgV.clipsToBounds = true
+        imgV.contentMode = .scaleAspectFit
         
         return imgV
     }
@@ -68,5 +63,15 @@ struct CustomViews {
         date.locale = .current
         
         return date
+    }
+    
+    
+    /// Cria um text field de data de acordo com a padronização do projeto
+    static func newTextField() -> UITextField {
+        let txt = UITextField()
+        txt.translatesAutoresizingMaskIntoConstraints = false
+        txt.returnKeyType = .done
+        
+        return txt
     }
  }
