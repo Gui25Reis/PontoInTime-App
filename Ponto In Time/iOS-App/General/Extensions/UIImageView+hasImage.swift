@@ -1,7 +1,6 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import class UIKit.UIImage
 import class UIKit.UIImageView
 
 

@@ -75,7 +75,6 @@
 		2283DD5528FFB824008EE94F /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5428FFB824008EE94F /* String+Localized.swift */; };
 		2283DD5928FFBE44008EE94F /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5828FFBE44008EE94F /* SettingsController.swift */; };
 		2283DD5C28FFBE5C008EE94F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5B28FFBE5C008EE94F /* SettingsView.swift */; };
-		2283DD5F28FFBE70008EE94F /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD5E28FFBE70008EE94F /* SettingsCell.swift */; };
 		2283DD6228FFBEE0008EE94F /* SettingsTableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DD6128FFBEE0008EE94F /* SettingsTableHandler.swift */; };
 		22EE792D29010F9A006E3085 /* DBDayWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE792829010F99006E3085 /* DBDayWork.swift */; };
 		22EE792E29010F9A006E3085 /* DBFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EE792929010F9A006E3085 /* DBFiles.swift */; };
@@ -175,7 +174,6 @@
 		2283DD5428FFB824008EE94F /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		2283DD5828FFBE44008EE94F /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		2283DD5B28FFBE5C008EE94F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		2283DD5E28FFBE70008EE94F /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		2283DD6128FFBEE0008EE94F /* SettingsTableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableHandler.swift; sourceTree = "<group>"; };
 		22EE792829010F99006E3085 /* DBDayWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBDayWork.swift; sourceTree = "<group>"; };
 		22EE792929010F9A006E3085 /* DBFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBFiles.swift; sourceTree = "<group>"; };
@@ -732,18 +730,9 @@
 		2283DD5A28FFBE49008EE94F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2283DD5D28FFBE60008EE94F /* Cell */,
 				2283DD5B28FFBE5C008EE94F /* SettingsView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		2283DD5D28FFBE60008EE94F /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				2283DD5E28FFBE70008EE94F /* SettingsCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		2283DD6028FFBEBA008EE94F /* Handler */ = {
@@ -910,7 +899,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2283DD5F28FFBE70008EE94F /* SettingsCell.swift in Sources */,
 				220020F42966BA3B007BB4FC /* ViewLabel.swift in Sources */,
 				2283DD0128FE6597008EE94F /* UILabel+FontInfo.swift in Sources */,
 				22EE793729011174006E3085 /* ManagedDayWork.swift in Sources */,

@@ -1,4 +1,4 @@
-/* Macro - Grupo 05 */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
@@ -44,11 +44,9 @@ class HistoricTableHandler: NSObject, TableHandler {
     }
     
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.data.count
     }
-    
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -75,12 +73,11 @@ class HistoricTableHandler: NSObject, TableHandler {
     
     /// Configura os dados da tabela
     private func setupDatas() {
-        // if let data = self.mainData {
-            self.data = [
-                TableCellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
-                TableCellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
-                TableCellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron)
-            ]
-        // }
+//        guard let data = self.mainData else { return }
+        self.data = [
+            TableCellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
+            TableCellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
+            TableCellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron)
+        ]
     }
 }
