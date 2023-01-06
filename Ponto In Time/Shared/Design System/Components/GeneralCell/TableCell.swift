@@ -12,7 +12,7 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     /* Views */
     
     /// Texto principal (titulo) - texto da esquerda
-    private let primaryLabel: UILabel = {
+    internal lazy var primaryLabel: UILabel = {
         let lbl = CustomViews.newLabel(align: .left)
         lbl.textColor = .label
         lbl.sizeToFit()
@@ -20,7 +20,7 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     }()
     
     /// Texto secundário (descrição) - texto da direita
-    private let secondaryText: UITextField = {
+    internal lazy var secondaryText: UITextField = {
         let txt = CustomViews.newTextField()
         txt.textColor = .secondaryLabel
         txt.textAlignment = .right
@@ -30,16 +30,16 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     }()
     
     /// Imagem que acompanha o texto principal
-    private let leftIcon = CustomViews.newImage()
+    internal lazy var leftIcon = CustomViews.newImage()
     
     /// Imagem que acompanha o texto secundário
-    private let rightIcon = CustomViews.newImage()
+    internal lazy var rightIcon = CustomViews.newImage()
     
     /// Switch da célula
-    private let switchButton: UISwitch = CustomViews.newSwitch()
+    internal lazy var switchButton: UISwitch = CustomViews.newSwitch()
     
     /// Botão usado para mostra o menu de ações
-    private let menuButton = CustomButton()
+    internal lazy var menuButton = CustomButton()
     
     
     /* Protocolos */
@@ -74,7 +74,7 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     /// Espaço entre os elementos
     public var betweenSpace: CGFloat { return self.lateralSpace/2 }
     
-    
+        
     // Dados
     
     /// Dados da tabela
@@ -203,7 +203,7 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     
     /// Configrua os dados da célula
     /// - Parameter data: dados da célula
-    private func setupData(with data: TableData) {
+    internal func setupData(with data: TableData) {
         self.primaryLabel.text = data.primaryText
         self.secondaryText.text = data.secondaryText
         self.leftIcon.image = data.leftIcon
@@ -233,7 +233,7 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     
     /// Configura a imagem da direita da célula de acordo com o itpo de ícone da tabela
     /// - Parameter icon: tipo de ícone
-    private func setupRightIcon(for icon: TableIcon?) {
+    internal func setupRightIcon(for icon: TableIcon?) {
         guard let icon else { return }
         
         var image: UIImage? = nil
@@ -299,7 +299,6 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     /// Cria as contraints para os componentes do lado direito da célula
     /// - Returns: constraints dos componentes
     private func setupRightComponents() -> [NSLayoutConstraint] {
-        
         var constraints: [NSLayoutConstraint] = []
         
         let lateral = self.lateralSpace

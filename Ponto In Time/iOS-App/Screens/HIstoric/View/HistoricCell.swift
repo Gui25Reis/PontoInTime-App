@@ -1,11 +1,13 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import UIKit
+import struct CoreGraphics.CGFloat
+import class UIKit.UILabel
+import class UIKit.NSLayoutConstraint
 
 
 /// Elemento de UI da célula das tabelas da tela de menu inicial
-class HistoricCell: GeneralTableCell, CustomCell {
+class HistoricCell: TableCell {
     
     /* MARK: - Atributos */
     
@@ -20,36 +22,31 @@ class HistoricCell: GeneralTableCell, CustomCell {
     /// Mostra a quantidade de horas trabalhadas
     private let workTimeLabel: UILabel = {
         let lbl = CustomViews.newLabel(align: .left)
-        lbl.textColor = .systemGray
+        lbl.textColor = .secondaryLabel
         return lbl
     }()
    
     
     // Outros
-
-    /// Constraints que vão mudar de acordo com o tamanho da tela
-    private var dynamicConstraints: [NSLayoutConstraint] = []
     
     /// Diz se as view ja foram adicionadas
     private var hasViews = false
     
     
-    /* MARK: - Protocolo */
-    
-    /// Identificador da célula
-    static let identifier = "IdHistoricCell"
-    
-    
     
     /* MARK: - Override */
-        
-    override func setupCellData(with data: TableCellData) {
+    
+    internal override func setupHierarchy() {}
+    
+    
+    internal override func setupData(with data: TableData) {
         self.setupViews()
         
         let fontSize = self.dateLabel.font.pointSize
         
         self.dateLabel.setupTextWithIcon(
-            text: data.primaryText, icon: IconInfo(icon: .calendar, size: fontSize)
+            text: data.primaryText ?? "",
+            icon: IconInfo(icon: .calendar, size: fontSize)
         )
         self.dateLabel.setupFont(with: FontInfo(fontSize: fontSize, weight: .medium))
         
@@ -57,43 +54,14 @@ class HistoricCell: GeneralTableCell, CustomCell {
             self.workTimeLabel.text = "Tempo de trabalho: \(timeWork)"
         }
         
-        self.accessoryType = .disclosureIndicator
+        self.setupRightIcon(for: data.rightIcon)
     }
     
     
-
-    /* MARK: - Ciclo de Vida */
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    internal override func setupFonts() {
+        super.setupFonts()
+        guard self.hasViews else { return }
         
-        if self.hasViews {
-            self.setupStaticTexts()
-            self.setupDynamicConstraints()
-        }
-    }
-    
-    
-    
-    /* MARK: - Configurações */
-    
-    /// Adiciona os elementos (Views) na tela
-    private func setupViews() {
-        if !self.hasViews {
-            self.hasViews.toggle()
-            
-            self.contentView.addSubview(self.stackView)
-            
-            self.stackView.addArrangedSubview(self.dateLabel)
-            self.stackView.addArrangedSubview(self.workTimeLabel)
-            
-            self.layoutSubviews()
-        }
-    }
-        
-    
-    /// Define os textos que são estáticos (os textos em si que vão sempre ser o mesmo)
-    private func setupStaticTexts(with dateText: String? = nil) {
         let fontSize: CGFloat = self.superview?.getEquivalent(18) ?? 18
         
         self.dateLabel.setupFont(with: FontInfo(
@@ -106,28 +74,45 @@ class HistoricCell: GeneralTableCell, CustomCell {
     }
 	  
     
-    /// Define as constraints que dependem do tamanho da tela
-    private func setupDynamicConstraints() {
+    internal override func setupDynamicConstraints() {
+        super.setupDynamicConstraints()
+        guard self.hasViews else { return }
+        
         // Espaçamentos
-        let lateral: CGFloat = self.superview?.getEquivalent(16) ?? 16
         let lblHeight: CGFloat = self.superview?.getEquivalent(20) ?? 20
         let between: CGFloat = self.stackView.getEqualSpace(for: lblHeight)
         
-        
+        var constraints = self.dynamicConstraints
         NSLayoutConstraint.deactivate(self.dynamicConstraints)
-    
-        self.dynamicConstraints = [
+        
+        constraints += [
             self.stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: between),
-            self.stackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: lateral),
-            self.stackView.trailingAnchor.constraint(equalTo: self.contentView.safeAreaLayoutGuide.trailingAnchor),
+            self.stackView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: self.lateralSpace),
             self.stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -between),
             
             
             self.dateLabel.heightAnchor.constraint(equalToConstant: lblHeight),
-            
             self.workTimeLabel.heightAnchor.constraint(equalToConstant: lblHeight),
         ]
         
+        self.dynamicConstraints = constraints
         NSLayoutConstraint.activate(self.dynamicConstraints)
+    }
+    
+    
+    
+    /* MARK: - Configurações */
+    
+    /// Adiciona os elementos (Views) na tela
+    private func setupViews() {
+        guard !self.hasViews else { return }
+        
+        self.hasViews.toggle()
+        
+        self.contentView.addSubview(self.stackView)
+        self.contentView.addSubview(self.rightIcon)
+        
+        self.stackView.addArrangedSubview(self.dateLabel)
+        self.stackView.addArrangedSubview(self.workTimeLabel)
     }
 }
