@@ -17,8 +17,8 @@ class PointInfoTableHandler: NSObject,TableHandler {
     private lazy var infoTitles: [String] = []
     
     /// Dados usados no data source referente aos arquivos
-    private lazy var fileData: [TableCellData] = [
-        TableCellData(primaryText: "Anexo_16102022-9_41"),
+    private lazy var fileData: [TableData] = [
+        TableData(primaryText: "Anexo_16102022-9_41"),
     ]
     
     
@@ -34,7 +34,8 @@ class PointInfoTableHandler: NSObject,TableHandler {
     }
     
     
-    internal func registerCell(in table: CustomTable) {
+    func registerCell(in table: CustomTable) {
+        table.registerCell(for: TableCell.self)
         table.registerCell(for: PointInfoCell.self)
     }
     
@@ -59,6 +60,11 @@ class PointInfoTableHandler: NSObject,TableHandler {
     
     /* MARK: - Data Source */
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.defaultRowHeight
+    }
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -70,59 +76,60 @@ class PointInfoTableHandler: NSObject,TableHandler {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PointInfoCell.identifier, for: indexPath) as? PointInfoCell
-        else { return UITableViewCell()}
-        
+        var mainCell: UITableViewCell? = UITableViewCell()
         let row = indexPath.row
-        cell.tag = row
     
         switch indexPath.section {
         case 0: // Infos
             let title = self.infoTitles[row]
             
-            var cellData = TableCellData(primaryText: title)
+            var cellData = TableData(primaryText: title)
             
             switch row {
             case 0: // Título
+                let cell = tableView.dequeueReusableCell(withIdentifier: TableCell.identifier, for: indexPath) as? TableCell
                 cellData.secondaryText = self.mainData?.pointType.title ?? "Nenhum"
-                cell.setupCellData(with: cellData)
                 
                 if !self.isInitialData {
                     cellData.rightIcon = .contextMenu
-                    cell.setupCellData(with: cellData)
                     
-                    self.pointInfoProtocol?.createMenu(for: cell)
+                    let menu = self.pointInfoProtocol?.createMenu(for: row)
+                    cellData.menu = menu
                 }
                 
-                return cell
+                cell?.tableData = cellData
+                mainCell = cell
                 
             case 1: // Status
-                cell.setupCellData(with: cellData)
+                let cell = tableView.dequeueReusableCell(withIdentifier: PointInfoCell.identifier, for: indexPath) as? PointInfoCell
+                cellData.secondaryText = ""
                 
                 if !self.isInitialData {
                     cellData.rightIcon = .contextMenu
-                    cell.setupCellData(with: cellData)
                     
-                    self.pointInfoProtocol?.createMenu(for: cell)
+                    let menu = self.pointInfoProtocol?.createMenu(for: row)
+                    cellData.menu = menu
                 }
-                cell.statusCell = StatusView.getCase(for: self.mainData?.status ?? "")
                 
-                return cell
+                cell?.tableData = cellData
+                cell?.statusCell = StatusView.getCase(for: self.mainData?.status ?? "")
+                mainCell = cell
                 
             case 2: // Picker
-                cell.setupCellData(with: cellData)
+                let cell = tableView.dequeueReusableCell(withIdentifier: TableCell.identifier, for: indexPath) as? TableCell
+                cellData.hasPicker = true
                 
-                let time = cell.setTimerAction(
-                    target: self, action: #selector(self.hourPickerAction(sender:))
-                )
+                cell?.setTimerAction(target: self, action: #selector(self.hourPickerAction(sender:)))
+                let time = cell?.datePicker.getDate(withFormat: .hm) ?? ""
+                                     
                 self.pointInfoProtocol?.updateTimeFromPicker(for: time)
                 
-                cell.isTimePicker = true
                 if let time = self.mainData?.time {
-                    cell.setTimerPicker(time: time)
+                    cell?.setTimerPicker(time: time)
                 }
                 
-                return cell
+                cell?.tableData = cellData
+                mainCell = cell
                 
             default:
                 break
@@ -130,21 +137,24 @@ class PointInfoTableHandler: NSObject,TableHandler {
 
         
         case 1: // Arquivos
+            let cell = tableView.dequeueReusableCell(withIdentifier: TableCell.identifier, for: indexPath) as? TableCell
+            
+            var data = TableData()
             if row < self.fileData.count {
-                let data = self.fileData[row]
-                cell.setupCellData(with: data)
-                return cell
+                data = self.fileData[row]
+            } else {
+                data.primaryText = "Adicionar arquivo"
+                data.action = .action
             }
             
-            cell.setupCellAction(with: TableCellAction(
-                actionType: .action, actionTitle: "Adicionar arquivo"
-            ))
-        
+            cell?.tableData = data
+            mainCell = cell
+            
         default:
             break
         }
-                
-        return cell
+        
+        return mainCell ?? UITableViewCell()
     }
     
     
@@ -167,7 +177,7 @@ class PointInfoTableHandler: NSObject,TableHandler {
         self.infoTitles = ["Título", "Estado", "Horário"]
         
         self.fileData = data.files.map { item in
-            TableCellData(primaryText: item.name, image: UIImage(named: item.link))
+            TableData(primaryText: item.name, image: UIImage(named: item.link))
         }
     }
     

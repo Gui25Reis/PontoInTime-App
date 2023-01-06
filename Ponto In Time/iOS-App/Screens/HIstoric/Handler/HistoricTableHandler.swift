@@ -10,7 +10,7 @@ class HistoricTableHandler: NSObject, TableHandler {
     /* MARK: - Atributos */
 
     /// Dados usados no data source referente as informações do histórico
-    private lazy var data: [TableCellData] = []
+    private lazy var data: [TableData] = []
     
     
         
@@ -54,7 +54,7 @@ class HistoricTableHandler: NSObject, TableHandler {
         let cell = tableView.dequeueReusableCell(withIdentifier: HistoricCell.identifier, for: indexPath) as? HistoricCell
         
         let data = self.data[indexPath.row]
-        cell?.setupCellData(with: data)
+        cell?.tableData = data
         
         return cell ?? UITableViewCell()
     }
@@ -76,9 +76,9 @@ class HistoricTableHandler: NSObject, TableHandler {
     private func setupDatas() {
 //        guard let data = self.mainData else { return }
         self.data = [
-            TableCellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
-            TableCellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
-            TableCellData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron)
+            TableData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
+            TableData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron),
+            TableData(primaryText: "16.10.2022", secondaryText: "7h 57min", rightIcon: .chevron)
         ]
     }
 }

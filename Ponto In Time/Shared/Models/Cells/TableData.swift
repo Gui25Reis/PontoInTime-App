@@ -28,6 +28,9 @@ struct TableData {
     /// Boleano que indica se possui uma switch
     public var hasSwitch: Bool
     
+    /// Boleano que indica se possui um picker de data/hora
+    public var hasPicker: Bool
+    
     /// Menu de ações
     public var menu: UIMenu?
     
@@ -45,6 +48,7 @@ struct TableData {
         self.rightIcon = nil
         self.isEditable = false
         self.hasSwitch = false
+        self.hasPicker = false
         self.menu = nil
         self.action = nil
     }
@@ -58,6 +62,7 @@ struct TableData {
         
         self.isEditable = false
         self.hasSwitch = false
+        self.hasPicker = false
         self.menu = nil
         self.action = nil
     }
@@ -71,6 +76,7 @@ struct TableData {
         
         self.isEditable = false
         self.hasSwitch = false
+        self.hasPicker = false
         self.menu = nil
         self.action = nil
     }
@@ -84,6 +90,7 @@ struct TableData {
         
         self.isEditable = false
         self.hasSwitch = false
+        self.hasPicker = false
         self.menu = nil
         self.action = nil
     }
@@ -97,6 +104,7 @@ struct TableData {
         
         self.isEditable = false
         self.hasSwitch = false
+        self.hasPicker = false
         self.menu = nil
         self.action = nil
     }

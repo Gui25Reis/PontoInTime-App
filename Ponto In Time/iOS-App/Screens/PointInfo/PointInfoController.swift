@@ -118,13 +118,14 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     /* Point Info Protocol */
     
-    internal func createMenu(for cell: PointInfoCell) {
-        switch cell.tag {
+    internal func createMenu(for row: Int) -> UIMenu? {
+        switch row {
         case 0:
-            self.createPointsTypeMenu(for: cell)
+            return self.createPointsTypeMenu()
         case 1:
-            self.createStatusViewMenu(for: cell)
-        default: break
+            return self.createStatusViewMenu()
+        default:
+            return nil
         }
     }
     
@@ -219,45 +220,29 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     /// Cria o context menu para a célula de mostrar os pontos disponiveis
     /// - Parameter cell: célula que vai ser atribuida o menu
-    private func createPointsTypeMenu(for cell: PointInfoCell) {
-        let group = DispatchGroup()
-        var pointsType = CDManager.shared.getAllPointType() { _ in }
+    private func createPointsTypeMenu() -> UIMenu {
+        let pointsType = [
+            ManagedPointType(title: "Trabalho", isDefault: true),
+            ManagedPointType(title: "Almoço", isDefault: true),
+            ManagedPointType(title: "Test", isDefault: false)
+        ]
 
-        if pointsType == nil {
-            group.enter()
-            _ = CDManager.shared.getAllPointType() { result in
-                defer {group.leave()}
-                
-                switch result {
-                case .success(let data):
-                    pointsType = data
-                case .failure(let error):
-                    print(error.developerWarning)
-                }
+        var actions: [UIAction] = []
+        for item in pointsType {
+            let action = UIAction(title: item.title) {_ in
+                self.updateData(at: 0, newData: item.title)
             }
+            actions.append(action)
         }
 
-        group.notify(queue: .main) {
-            if let pointsType {
-                var actions: [UIAction] = []
-
-                for item in pointsType {
-                    let action = UIAction(title: item.title) {_ in
-                        self.updateData(at: 0, newData: item.title)
-                    }
-                    actions.append(action)
-                }
-
-                let menu = UIMenu(title: "Pontos", children: actions)
-                cell.setMenuCell(for: menu)
-            }
-        }
+        let menu = UIMenu(title: "Pontos", children: actions)
+        return menu
     }
     
     
     /// Cria o context menu para a célula de mostrar os estados disponiveis
     /// - Parameter cell: célula que vai ser atribuida o menu
-    private func createStatusViewMenu(for cell: PointInfoCell) {
+    private func createStatusViewMenu() -> UIMenu {
         var actions: [UIAction] = []
         for item in StatusViewStyle.allCases {
             let action = UIAction(
@@ -271,6 +256,6 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         }
         
         let menu = UIMenu(title: "Tipos", children: actions)
-        cell.setMenuCell(for: menu)
+        return menu
     }
 }
