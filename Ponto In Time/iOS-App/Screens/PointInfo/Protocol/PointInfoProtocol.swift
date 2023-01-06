@@ -1,8 +1,9 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import struct UIKit.IndexPath
-import class UIKit.NSObject
+import struct Foundation.IndexPath
+import class Foundation.NSObject
+import class UIKit.UIMenu
 
 
 /// Os tipos que estão de acordo com esse protocolo são controllers da tela de
@@ -12,7 +13,7 @@ protocol PointInfoProtocol: NSObject {
     /// Cria o context menu de acordo com a célula
     /// - Parameters:
     ///   - cell: célula que vai ser atribuida
-    func createMenu(for cell: PointInfoCell)
+    func createMenu(for row: Int) -> UIMenu?
     
     
     /// Atualiza a hora que o picker foi definido

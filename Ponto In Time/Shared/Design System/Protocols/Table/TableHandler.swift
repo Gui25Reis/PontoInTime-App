@@ -3,7 +3,7 @@
 /* Bibliotecas necessárias: */
 import protocol UIKit.UITableViewDelegate
 import protocol UIKit.UITableViewDataSource
-
+import UIKit
 
 /// Os tipos que estão de acordo com esse protocolo lidam com o funcionamento de uma table,
 /// tanto o delegate quanto o data source dela
@@ -33,7 +33,6 @@ extension TableHandler {
     /// Essa função também faz o registro da célula
     func link(with view: ViewHasTable) {
         self.registerCell(in: view.mainTable)
-        
         view.mainTable.setupTableHadler(with: self)
     }
 }

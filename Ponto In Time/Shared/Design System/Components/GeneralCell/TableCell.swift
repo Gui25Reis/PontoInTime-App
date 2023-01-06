@@ -19,7 +19,15 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
         return lbl
     }()
     
-    /// Texto secundário (descrição) - texto da direita
+    /// Texto secundário (descrição) - texto da direita (apenas visualização)
+    internal lazy var secondaryLabel: UILabel = {
+        let lbl = CustomViews.newLabel(align: .right)
+        lbl.textColor = .secondaryLabel
+        lbl.adjustsFontSizeToFitWidth = true
+        return lbl
+    }()
+    
+    /// Texto secundário (descrição) - texto da direita (edição)
     internal lazy var secondaryText: UITextField = {
         let txt = CustomViews.newTextField()
         txt.textColor = .secondaryLabel
@@ -37,6 +45,9 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     
     /// Switch da célula
     internal lazy var switchButton: UISwitch = CustomViews.newSwitch()
+    
+    /// Date picker da célula
+    internal lazy var datePicker = CustomViews.newDataPicker(mode: .time)
     
     /// Botão usado para mostra o menu de ações
     internal lazy var menuButton = CustomButton()
@@ -113,6 +124,22 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     }
     
     
+    // Picker
+    
+    /// Define a hora que vai aparecer no timer
+    /// - Parameter time: hora
+    public func setTimerPicker(time: String) {
+        guard let date = Date.getDate(with: time, formatType: .hm) else { return }
+        self.datePicker.date = date
+    }
+    
+    
+    /// Define a ação picker
+    public func setTimerAction(target: Any?, action: Selector) {
+        self.datePicker.addTarget(target, action: action, for: .valueChanged)
+    }
+    
+    
     
     /* MARK: - Ciclo de Vida */
     
@@ -140,9 +167,17 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
         
         if data.hasSwitch {
             self.check(data: "", for: self.switchButton)
+        } else if data.hasPicker {
+            self.check(data: "", for: self.datePicker)
         } else {
             self.check(data: data.rightIcon, for: self.rightIcon)
-            self.check(data: data.secondaryText, for: self.secondaryText)
+            
+            if data.isEditable {
+                self.check(data: data.secondaryText, for: self.secondaryText)
+            } else {
+                self.check(data: data.secondaryText, for: self.secondaryLabel)
+            }
+            
         }
         
         self.check(data: data.menu, for: self.menuButton)
@@ -153,10 +188,18 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
         self.backgroundColor = UIColor(.tableColor)
     }
     
-
-    internal func setupDynamicConstraints() {
-        guard self.hasData else { return }
+    
+    internal func setupFonts() {
+        let font = FontInfo(fontSize: 18, weight: .regular)
+        let secondFont = FontInfo(fontSize: 17, weight: .regular)
         
+        self.primaryLabel.setupFont(with: font)
+        self.secondaryText.setupFont(with: font)
+        self.secondaryLabel.setupFont(with: secondFont)
+    }
+    
+    
+    internal func setupStaticConstraints() {
         NSLayoutConstraint.deactivate(self.dynamicConstraints)
         self.dynamicConstraints.removeAll()
         
@@ -172,19 +215,11 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     }
     
     
-    internal func setupFonts() {
-        let font = FontInfo(fontSize: 18, weight: .regular)
-        
-        self.primaryLabel.setupFont(with: font)
-        self.secondaryText.setupFont(with: font)
-    }
-    
-    
-    internal func setupStaticConstraints() {}
-    
     internal func setupUI() {}
     
     internal func setupStaticTexts() {}
+    
+    internal func setupDynamicConstraints() {}
     
     
     
@@ -205,10 +240,12 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     /// - Parameter data: dados da célula
     internal func setupData(with data: TableData) {
         self.primaryLabel.text = data.primaryText
-        self.secondaryText.text = data.secondaryText
         self.leftIcon.image = data.leftIcon
         
+        self.secondaryLabel.text = data.secondaryText
+        self.secondaryText.text = data.secondaryText
         self.setupRightIcon(for: data.rightIcon)
+        
         self.menuButton.menu = data.menu
         
         self.secondaryText.isUserInteractionEnabled = data.isEditable
@@ -310,41 +347,55 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
                 self.switchButton.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -lateral),
             ]
             return constraints
-            
+        }
+        
+        if self.tableData?.hasPicker == true {
+            constraints += [
+                self.datePicker.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
+                self.datePicker.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -lateral),
+            ]
+            return constraints
         }
         
         if self.rightIcon.hasSuperview {
+            let width = CGFloat(self.rightIcon.image?.size.width ?? 0)
             constraints += [
                 self.rightIcon.topAnchor.constraint(equalTo: self.contentView.topAnchor),
                 self.rightIcon.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
                 self.rightIcon.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -lateral),
+                self.rightIcon.widthAnchor.constraint(equalToConstant: width)
             ]
         }
         
-        if self.secondaryText.hasSuperview {
+        if self.secondaryText.hasSuperview || self.secondaryLabel.hasSuperview{
+            var rightText: UIView = self.secondaryLabel
+            if self.tableData?.isEditable == true {
+                rightText = self.secondaryText
+            }
+            
             constraints += [
-                self.secondaryText.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-                self.secondaryText.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+                rightText.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+                rightText.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
             ]
             
             if self.primaryLabel.hasSuperview {
                 constraints += [
-                    self.secondaryText.leftAnchor.constraint(equalTo: self.primaryLabel.rightAnchor, constant: space),
+                    rightText.leadingAnchor.constraint(equalTo: self.primaryLabel.trailingAnchor, constant: space),
                 ]
             } else {
                 constraints += [
-                    self.secondaryText.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: lateral),
+                    rightText.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: lateral),
                 ]
             }
             
             
             if self.rightIcon.hasSuperview {
                 constraints += [
-                    self.secondaryText.rightAnchor.constraint(equalTo: self.rightIcon.leftAnchor, constant: -space),
+                    rightText.trailingAnchor.constraint(equalTo: self.rightIcon.leadingAnchor, constant: -space),
                 ]
             } else {
                 constraints += [
-                    self.secondaryText.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -lateral),
+                    rightText.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -lateral),
                 ]
             }
         }

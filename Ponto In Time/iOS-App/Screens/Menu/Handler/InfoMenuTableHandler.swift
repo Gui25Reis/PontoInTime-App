@@ -13,10 +13,10 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     private lazy var isUniqueUpdate = false
     
     /// Dados usados no data source referente as informações do dia
-    private lazy var infosData: [TableCellData] = []
+    private lazy var infosData: [TableData] = []
     
     /// Dados usados no data source referente aos pontosmac
-    private lazy var pointsData: [TableCellData] = []
+    private lazy var pointsData: [TableData] = []
     
     
     
@@ -51,7 +51,7 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     /// - Parameter points: ponto
     public func updatePointsData(with points: [ManagedPoint]) {
         self.pointsData = points.map() { item in
-            TableCellData(
+            TableData(
                 primaryText: item.pointType.title, secondaryText: item.time,
                 image: StatusView.getImage(for: item.status), rightIcon: .chevron
             )
@@ -69,8 +69,8 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     
     
     func registerCell(in table: CustomTable) {
+        table.registerCell(for: TableCell.self)
         table.registerCell(for: TimerCell.self)
-        table.registerCell(for: MenuCell.self)
     }
     
     
@@ -85,7 +85,7 @@ class InfoMenuTableHandler: NSObject, TableHandler {
             return tableView.superview?.getEquivalent(75) ?? 75
             
         default:
-            return tableView.estimatedRowHeight
+            return tableView.defaultRowHeight
         }
     }
     
@@ -118,40 +118,41 @@ class InfoMenuTableHandler: NSObject, TableHandler {
             mainCell = cell
             
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.identifier, for: indexPath) as? MenuCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: TableCell.identifier, for: indexPath) as? TableCell
     
             var data = self.infosData[indexPath.row]
             if data.primaryText == "Data" {
-                data.image = UIImage(.calendar)?.withTintColor(.label)
+                data.leftIcon = UIImage(.calendar)?.withTintColor(.label)
             } else {
                 data.secondaryText = self.getHMFormat(for: data.secondaryText)
             }
             
-            cell?.setupCellData(with: data)
+            cell?.tableData = data
             mainCell = cell
             
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.identifier, for: indexPath) as? MenuCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: TableCell.identifier, for: indexPath) as? TableCell
             
             if indexPath.row < self.pointsData.count {
                 var data = self.pointsData[indexPath.row]
                 data.secondaryText = self.getHMFormat(for: data.secondaryText)
                 
-                cell?.setupCellData(with: data)
+                cell?.tableData = data
                 mainCell = cell
                 break
             }
             
+            var data = TableData()
             if indexPath.row == self.actionIndex {
-                cell?.setupCellAction(with: TableCellAction(
-                    actionType: .action, actionTitle: "Bater novo ponto"
-                ))
+                data.primaryText = "Bater novo ponto"
+                data.action = .action
+                
             } else {
-                cell?.setupCellAction(with: TableCellAction(
-                    actionType: .destructive, actionTitle: "Finalizar o dia"
-                ))
+                data.primaryText = "Finalizar o dia"
+                data.action = .destructive
             }
             
+            cell?.tableData = data
             mainCell = cell
             
         default: break
@@ -210,9 +211,9 @@ class InfoMenuTableHandler: NSObject, TableHandler {
         let calendarIcon = UIImage(.calendar)?.withTintColor(.label)
         
         self.infosData = [
-            TableCellData(primaryText: "Data", secondaryText: "\(data.date)", image: calendarIcon),
-            TableCellData(primaryText: "Entrada", secondaryText: "\(data.startTime)", rightIcon: .chevron),
-            TableCellData(primaryText: "Saída", secondaryText: "\(data.endTime)", rightIcon: .chevron)
+            TableData(primaryText: "Data", secondaryText: "\(data.date)", image: calendarIcon),
+            TableData(primaryText: "Entrada", secondaryText: "\(data.startTime)", rightIcon: .chevron),
+            TableData(primaryText: "Saída", secondaryText: "\(data.endTime)", rightIcon: .chevron)
         ]
         
         self.updatePointsData(with: data.points)

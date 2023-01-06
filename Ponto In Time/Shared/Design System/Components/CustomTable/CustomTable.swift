@@ -3,6 +3,14 @@
 /* Bibliotecas necessárias: */
 import class Foundation.NSCoder
 import class UIKit.UITableView
+import struct CoreGraphics.CGFloat
+
+
+extension UITableView {
+    
+    /// Valor padrão da altura de uma linha
+    var defaultRowHeight: CGFloat { return 44 }
+}
 
 
 /// Table costumizada

@@ -22,6 +22,7 @@
 		220020F42966BA3B007BB4FC /* ViewLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020F32966BA3B007BB4FC /* ViewLabel.swift */; };
 		220020F629676E31007BB4FC /* UIImage+IconInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020F529676E31007BB4FC /* UIImage+IconInfo.swift */; };
 		220020F929677603007BB4FC /* ViewWithTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020F829677603007BB4FC /* ViewWithTable.swift */; };
+		220020FB2968233B007BB4FC /* UIDatePicker+getDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020FA2968233B007BB4FC /* UIDatePicker+getDate.swift */; };
 		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
 		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
 		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
@@ -117,6 +118,7 @@
 		220020F32966BA3B007BB4FC /* ViewLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLabel.swift; sourceTree = "<group>"; };
 		220020F529676E31007BB4FC /* UIImage+IconInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+IconInfo.swift"; sourceTree = "<group>"; };
 		220020F829677603007BB4FC /* ViewWithTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithTable.swift; sourceTree = "<group>"; };
+		220020FA2968233B007BB4FC /* UIDatePicker+getDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+getDate.swift"; sourceTree = "<group>"; };
 		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
 		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
 		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
@@ -468,6 +470,7 @@
 			isa = PBXGroup;
 			children = (
 				221689612907A25900D1B208 /* String+subscripts.swift */,
+				220020FA2968233B007BB4FC /* UIDatePicker+getDate.swift */,
 				220020DF29655DE6007BB4FC /* UIImageView+hasImage.swift */,
 				220020DB29655A26007BB4FC /* UIView+hasSuperview.swift */,
 				220020E92965FB7A007BB4FC /* UIView+removeAllSubviews.swift */,
@@ -949,6 +952,7 @@
 				2283DCF228FE64CD008EE94F /* UIView+AdpativeLayout.swift in Sources */,
 				2283DD4428FF9086008EE94F /* CustomStack.swift in Sources */,
 				220020F929677603007BB4FC /* ViewWithTable.swift in Sources */,
+				220020FB2968233B007BB4FC /* UIDatePicker+getDate.swift in Sources */,
 				220020E429656BA5007BB4FC /* HistoricTableHandler.swift in Sources */,
 				2283DD5128FFB17A008EE94F /* TableCellAction.swift in Sources */,
 				2283DD3B28FF7BF5008EE94F /* HistoricController.swift in Sources */,
