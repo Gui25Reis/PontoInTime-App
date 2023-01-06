@@ -23,6 +23,7 @@
 		220020F629676E31007BB4FC /* UIImage+IconInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020F529676E31007BB4FC /* UIImage+IconInfo.swift */; };
 		220020F929677603007BB4FC /* ViewWithTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020F829677603007BB4FC /* ViewWithTable.swift */; };
 		220020FB2968233B007BB4FC /* UIDatePicker+getDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020FA2968233B007BB4FC /* UIDatePicker+getDate.swift */; };
+		220020FD2968695B007BB4FC /* UIViewController+showWarningPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020FC2968695B007BB4FC /* UIViewController+showWarningPopUp.swift */; };
 		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
 		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
 		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
@@ -114,6 +115,7 @@
 		220020F529676E31007BB4FC /* UIImage+IconInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+IconInfo.swift"; sourceTree = "<group>"; };
 		220020F829677603007BB4FC /* ViewWithTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithTable.swift; sourceTree = "<group>"; };
 		220020FA2968233B007BB4FC /* UIDatePicker+getDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+getDate.swift"; sourceTree = "<group>"; };
+		220020FC2968695B007BB4FC /* UIViewController+showWarningPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+showWarningPopUp.swift"; sourceTree = "<group>"; };
 		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
 		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
 		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 				220020E92965FB7A007BB4FC /* UIView+removeAllSubviews.swift */,
 				220020DD29655C3D007BB4FC /* UIView+strechToBounds.swift */,
 				2283DCD628FE5297008EE94F /* UIViewController+setupTab.swift */,
+				220020FC2968695B007BB4FC /* UIViewController+showWarningPopUp.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -871,6 +874,7 @@
 				2283DD2E28FF3B5C008EE94F /* ActionType.swift in Sources */,
 				22EE793D2901131B006E3085 /* ManagedFiles.swift in Sources */,
 				220020DA296556C4007BB4FC /* InfoMenuTableHandler.swift in Sources */,
+				220020FD2968695B007BB4FC /* UIViewController+showWarningPopUp.swift in Sources */,
 				22EE7958290255EC006E3085 /* TableIcon.swift in Sources */,
 				2254D4E529056D8B00ED18D5 /* MenuControllerProtocol.swift in Sources */,
 				220020E2296564EF007BB4FC /* PointInfoTableHandler.swift in Sources */,

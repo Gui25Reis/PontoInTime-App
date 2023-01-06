@@ -184,43 +184,31 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     
     /// Verifica se possui já possui dado do dia
     private func checkForTodayData() {
-        CDManager.shared.getTodayDayWorkData() { result in
-            switch result {
-            case .success(let data):
-                self.setupDayWork(with: data)
-                self.hasData = true
-            case .failure(let error):
-                self.hasData = false
-                print(error.developerWarning)
-                self.showWarningPopUp(with: error)
-            }
+        let (data, error) = CDManager.shared.getTodayDayWorkData()
+        
+        if let data {
+            self.setupDayWork(with: data)
+            self.hasData = true
+            return
         }
-    }
-    
-    
-    /// Mostra o pop up em casos de erro
-    /// - Parameter error: erro pra ser mostrado
-    private func showWarningPopUp(with error: ErrorCDHandler) {
-        let alert = CDManager.createPopUpError(error: error)
-        self.present(alert, animated: true)
+        
+        if let error {
+            self.hasData = false
+            self.showWarningPopUp(with: error)
+        }
     }
     
     
     /// Pega as informações necessárias para criar um novo dia
     /// - Parameter point: ponto inicial
     private func createDay(with point: ManagedPoint) {
-        CDManager.shared.getSettingsData() { result in
-            switch result {
-            case .success(let data):
-                if let settingTimeWork = data.settingsData?.timeWork {
-                    if let timeWork = Int(settingTimeWork) {
-                        self.createDayWork(point: point, timeWork: timeWork)
-                    }
-                }
-                
-            case .failure(let error):
-                print(error.developerWarning)
-                self.showWarningPopUp(with: error)
+        let (data, error) = CDManager.shared.getSettingsData()
+        
+        guard let data else { return self.showWarningPopUp(with: error) }
+        
+        if let settingTimeWork = data.settingsData?.timeWork {
+            if let timeWork = Int(settingTimeWork) {
+                self.createDayWork(point: point, timeWork: timeWork)
             }
         }
     }
@@ -277,18 +265,13 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     private func saveIntoCoreData(data: Any) {
         if let point = data as? ManagedPoint, let id = self.infosHandler.mainData?.id {
             CDManager.shared.addNewPoint(in: id, point: point) { error in
-                if let error {
-                    self.showWarningPopUp(with: error)
-                    print(error.developerWarning)
-                }
+                self.showWarningPopUp(with: error)
             }
         } else
             
         if let dayWork = data as? ManagedDayWork {
             CDManager.shared.createNewDayWork(with: dayWork) { error in
-                if let error {
-                    print(error.developerWarning)
-                }
+                self.showWarningPopUp(with: error)
             }
         }
     }

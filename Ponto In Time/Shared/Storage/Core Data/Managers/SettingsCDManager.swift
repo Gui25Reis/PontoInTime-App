@@ -20,32 +20,33 @@ internal class SettingsCDManager {
     /* MARK: - Métodos (Públicos) */
     
     /// Pega os dados de configuração
-    /// - Parameter completionHandler: em caso de sucesso retorna as configurações
-    public func getSettingsData(_ completionHandler: @escaping (Result<ManagedSettings, ErrorCDHandler>) -> Void) {
-        guard let coreDataProperties else { return completionHandler(.failure(.protocolNotSetted)) }
+    /// - Returns:
+    public func getSettingsData() -> (data: ManagedSettings?, error: ErrorCDHandler?) {
+        guard let coreDataProperties else { return (data: nil, error: .protocolNotSetted) }
             
-        // Pega os dados do core data
         let fetch = DBSettings.fetchRequest()
         fetch.fetchLimit = 1
-
-        if let dataFiltered = try? coreDataProperties.mainContext.fetch(fetch) {
-            if dataFiltered.isEmpty {
-                if let initialData = self.setupInitialData() {
-                    completionHandler(.success(initialData))
-                } else {
-                    return completionHandler(.failure(.protocolNotSetted))
-                }
-                
-                if let error = try? coreDataProperties.saveContext() {
-                    return completionHandler(.failure(error))
-                }
-                return
-            }
-            
-            let data = self.transformToModel(entity: dataFiltered[0])
-            return completionHandler(.success(data))
+        
+        guard let dataFiltered = try? coreDataProperties.mainContext.fetch(fetch) else {
+            return (data: nil, error: .fetchError)
         }
-        return completionHandler(.failure(.fetchError))
+        
+        guard dataFiltered.isEmpty else {
+            let data = self.transformToModel(entity: dataFiltered[0])
+            return (data: data, error: nil)
+        }
+        
+        var data: ManagedSettings? = nil
+        if let initialData = self.setupInitialData() {
+            data = initialData
+        } else {
+            return (data: nil, error: .protocolNotSetted)
+        }
+        
+        if let error = try? coreDataProperties.saveContext() {
+            return (data: nil, error: error)
+        }
+        return (data: data, error: nil)
     }
     
     
@@ -59,17 +60,15 @@ internal class SettingsCDManager {
         let fetch = DBSettings.fetchRequest()
         fetch.fetchLimit = 1
 
-        if let settings = try? coreDataProperties.mainContext.fetch(fetch).first {
-            settings.isSharing = data.isSharing
-            settings.sharingID = data.sharingID
-            settings.timeWork = data.timeWork
-            
-            if let error = try? coreDataProperties.saveContext() {
-                return completionHandler(error)
-            }
-            return completionHandler(nil)
-        }
-        return completionHandler(.fetchError)
+        guard let settings = try? coreDataProperties.mainContext.fetch(fetch).first
+        else { return completionHandler(.fetchError) }
+        
+        settings.isSharing = data.isSharing
+        settings.sharingID = data.sharingID
+        settings.timeWork = data.timeWork
+        
+        let result = try? coreDataProperties.saveContext()
+        return completionHandler(result)
     }
     
     

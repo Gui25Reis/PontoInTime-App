@@ -83,14 +83,10 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol 
     
     /// Definindo os delegates, data sources e protocolos
     private func setupDataSourceData() {
-        CDManager.shared.getSettingsData() { result in
-            switch result {
-            case .success(let data):
-                self.updateTableData(for: data)
-            case .failure(let error):
-                print(error.developerWarning)
-            }
-        }
+        let (data, _) = CDManager.shared.getSettingsData()
+        
+        guard let data else { return }
+        self.updateTableData(for: data)
     }
     
     
