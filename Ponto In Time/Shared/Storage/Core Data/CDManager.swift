@@ -75,6 +75,7 @@ class CDManager: NSObject, CoreDataProperties {
     }
     
     
+    
     /* MARK: - Encapsulamento */
     
     /* MARK: Ajustes */
@@ -99,7 +100,6 @@ class CDManager: NSObject, CoreDataProperties {
         
         self.settingsManager.cache = data
         return (data: data, error: nil)
-        
     }
     
     

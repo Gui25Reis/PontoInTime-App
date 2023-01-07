@@ -63,11 +63,10 @@ internal class SettingsCDManager {
         guard let settings = try? coreDataProperties.mainContext.fetch(fetch).first
         else { return completionHandler(.fetchError) }
         
-        settings.isSharing = data.isSharing
-        settings.sharingID = data.sharingID
-        settings.timeWork = data.timeWork
+        self.populate(entity: settings, data: data)
         
         let result = try? coreDataProperties.saveContext()
+        self.cache?.settingsData = data
         return completionHandler(result)
     }
     
@@ -85,9 +84,7 @@ internal class SettingsCDManager {
         )
         
         let newData = DBSettings(context: coreDataProperties.mainContext)
-        newData.timeWork = initialData.timeWork
-        newData.isSharing = initialData.isSharing
-        newData.sharingID = initialData.sharingID
+        self.populate(entity: newData, data: initialData)
         
         return initialData
     }
@@ -102,5 +99,16 @@ internal class SettingsCDManager {
             sharingID: entity.sharingID,
             isSharing: entity.isSharing
         )
+    }
+    
+    
+    /// Popla a entidade do core data com os dados do modelo
+    /// - Parameters:
+    ///   - entity: entidade do core data
+    ///   - data: modelo de dados da entidade
+    private func populate(entity: DBSettings, data: ManagedSettings) {
+        entity.timeWork = data.timeWork
+        entity.isSharing = data.isSharing
+        entity.sharingID = data.sharingID
     }
 }

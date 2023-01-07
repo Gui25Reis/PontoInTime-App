@@ -37,18 +37,6 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     
     
     
-    /* MARK: - Construtor */
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-        
-        self.checkForTodayData()
-    }
-    
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    
-
-		
     /* MARK: - Ciclo de Vida */
     
     override func loadView() {
@@ -60,6 +48,7 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
         super.viewDidLoad()
         
         self.setupController()
+        self.checkForTodayData()
     }
     
 
@@ -129,6 +118,7 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
         
         let actualTime = self.dateManager.getActualCountdown()
         self.myView.updateTimerText(for: actualTime)
+        print("Entrei = \(actualTime)")
         
         if actualTime == "00:00:00" {
             self.dateManager.stopTimer()
@@ -184,7 +174,7 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     
     /// Verifica se possui já possui dado do dia
     private func checkForTodayData() {
-        let (data, error) = CDManager.shared.getTodayDayWorkData()
+        let (data, _) = CDManager.shared.getTodayDayWorkData()
         
         if let data {
             self.setupDayWork(with: data)
@@ -192,10 +182,8 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
             return
         }
         
-        if let error {
-            self.hasData = false
-            self.showWarningPopUp(with: error)
-        }
+        self.hasData = false
+        // self.showWarningPopUp(with: error)
     }
     
     
@@ -206,11 +194,8 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
         
         guard let data else { return self.showWarningPopUp(with: error) }
         
-        if let settingTimeWork = data.settingsData?.timeWork {
-            if let timeWork = Int(settingTimeWork) {
-                self.createDayWork(point: point, timeWork: timeWork)
-            }
-        }
+        guard let timeWork = Int(data.settingsData?.timeWork ?? "") else { return }
+        self.createDayWork(point: point, timeWork: timeWork)
     }
     
     
@@ -263,6 +248,7 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     /// Salva um dado no core data
     /// - Parameter data: dado que vai ser salvo
     private func saveIntoCoreData(data: Any) {
+        return
         if let point = data as? ManagedPoint, let id = self.infosHandler.mainData?.id {
             CDManager.shared.addNewPoint(in: id, point: point) { error in
                 self.showWarningPopUp(with: error)

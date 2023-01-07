@@ -67,7 +67,9 @@ class PointTypeCDManager {
     
     
     /* MARK: - Configurações */
-
+    
+    /// Configura os dados iniciais
+    /// - Returns: dados iniciais
     private func setupInitialData() -> [ManagedPointType]? {
         let initialData = [
             ManagedPointType(title: "Trabalho", isDefault: true),
