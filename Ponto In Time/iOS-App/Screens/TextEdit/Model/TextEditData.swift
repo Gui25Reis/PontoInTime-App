@@ -7,10 +7,10 @@ struct TextEditData {
     /* MARK: - Atributos */
     
     /// Título da tela
-    let title: String
+    let title: String?
     
     /// Dado que vai ser editado
-    let defaultData: String
+    let defaultData: String?
     
     /// Boleano que indica se o valor é boleano ou não
     let isNumeric: Bool
@@ -25,7 +25,7 @@ struct TextEditData {
     
     /* MARK: - Construtor */
     
-    init(title: String, defaultData: String, isNumeric: Bool, maxDataLenght: Int? = nil, rangeAllowed: LimitValues? = nil) {
+    init(title: String?, defaultData: String?, isNumeric: Bool, maxDataLenght: Int? = nil, rangeAllowed: LimitValues? = nil) {
         self.title = title
         self.defaultData = defaultData
         self.isNumeric = isNumeric

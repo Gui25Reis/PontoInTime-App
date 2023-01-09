@@ -23,7 +23,9 @@ struct TableData {
     public var rightIcon: TableIcon?
     
     /// Boleano que indica se a célula é editável
-    public var isEditable: Bool
+    public var isEditable: Bool {
+        didSet { self.setupEditCell() }
+    }
     
     /// Boleano que indica se possui uma switch
     public var hasSwitch: Bool
@@ -107,5 +109,15 @@ struct TableData {
         self.hasPicker = false
         self.menu = nil
         self.action = nil
+    }
+    
+    
+    
+    /* MARK: - Configurações */
+    
+    /// Configuração de quando é uma célula editável
+    private mutating func setupEditCell() {
+        guard isEditable else { return }
+        self.rightIcon = .chevron
     }
 }

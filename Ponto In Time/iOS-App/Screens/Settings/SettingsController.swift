@@ -1,19 +1,11 @@
 /* Gui Reis    -    gui.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-
 import class UIKit.UIViewController
-
-import class Foundation.NSObject
-
-protocol SettingsProtocol: NSObject {
-    
-    func copyAction(with text: String)
-}
 
 
 /// Controller responsável pela tela de ajustes
-class SettingsController: UIViewController, ControllerActions, SettingsProtocol {
+class SettingsController: UIViewController, ControllerActions, SettingsProtocol, TextEditProtocol {
     
     /* MARK: - Atributos */
 
@@ -59,7 +51,22 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol 
         let copyWarning = CopyWarning()
         copyWarning.copyHandler(textToCopy: text)
     }
+    
+    
+    internal func openTextEditPage(for data: TextEditData) {
+        let vc = TextEditController(data: data, delegate: self)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    
+    // TextEditProtocol
+    
+    internal func saveDataEdited(with data: String) {
+        
+    }
 
+    
     
     // Controller Actions
     
