@@ -28,7 +28,7 @@ public enum ErrorCDHandler: Error, ErrorWarnings {
     
     /* MARK: - Variáveis */
     
-    var userWarning: String {
+    public var userWarning: String {
         switch self {
         case .dataNotFound:
             return "Não existe esse dado."
@@ -44,7 +44,7 @@ public enum ErrorCDHandler: Error, ErrorWarnings {
     }
 
     
-    var developerWarning: String {
+    public var developerWarning: String {
         switch self {
         case .dataNotFound:
             return "Não existe esse dado no Core Data."
