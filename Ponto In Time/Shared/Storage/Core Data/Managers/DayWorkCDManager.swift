@@ -34,27 +34,24 @@ internal class DayWorkCDManager {
     }
     
     
-    
     /// Pega dados de um dia específico
     /// - Parameters:
     ///   - date: dia
     ///   - completionHandler: em caso de sucesso retorna as informações
-    public func getData(for date: String, _ completionHandler: @escaping (Result<ManagedDayWork, ErrorCDHandler>) -> Void) {
-        guard let coreDataProperties else { return completionHandler(.failure(.protocolNotSetted)) }
+    public func getData(for date: String) -> (data: ManagedDayWork?, error: ErrorCDHandler?) {
+        guard let coreDataProperties else { return (data: nil, error: .protocolNotSetted) }
         
         let fetch = DBDayWork.fetchRequest()
         fetch.predicate = NSPredicate(format: "%K == '\(date)'", #keyPath(DBDayWork.date))
         fetch.fetchLimit = 1
         
-        if let data = try? coreDataProperties.mainContext.fetch(fetch) {
-            if data.isEmpty {
-                return completionHandler(.failure(.dataNotFound))
-            }
-            
-            let managedData = self.transformToModel(entity: data[0])
-            return completionHandler(.success(managedData))
-        }
-        return completionHandler(.failure(.fetchError))
+        guard let data = try? coreDataProperties.mainContext.fetch(fetch)
+        else { return (data: nil, error: .fetchError) }
+        
+        if data.isEmpty { return (data: nil, error: .dataNotFound) }
+        
+        let managedData = self.transformToModel(entity: data[0])
+        return (data: managedData, error: nil)
     }
     
     
@@ -81,10 +78,8 @@ internal class DayWorkCDManager {
         }
         
         // Tenta salvar
-        if let error = try? coreDataProperties.saveContext() {
-            return completionHandler(error)
-        }
-        return completionHandler(nil)
+        let result = try? coreDataProperties.saveContext()
+        return completionHandler(result)
     }
     
     

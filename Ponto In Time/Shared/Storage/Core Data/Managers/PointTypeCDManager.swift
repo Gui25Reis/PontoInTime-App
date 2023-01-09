@@ -18,33 +18,29 @@ class PointTypeCDManager {
     
     /// Pega os dados de configuração
     /// - Parameter completionHandler: em caso de sucesso retorna as configurações
-    public func getAllData(_ completionHandler: @escaping (Result<[ManagedPointType], ErrorCDHandler>) -> Void) {
-        guard let coreDataProperties else { return completionHandler(.failure(.protocolNotSetted)) }
+    public func getAllData() -> (data: [ManagedPointType]?, error: ErrorCDHandler?) {
+        guard let coreDataProperties else { return (data: nil, error: .protocolNotSetted) }
             
         let fetch = DBPointType.fetchRequest()
 
-        if let data = try? coreDataProperties.mainContext.fetch(fetch) {
-            if data.isEmpty {
-                if let initialData = self.setupInitialData() {
-                    completionHandler(.success(initialData))
-                } else {
-                    return completionHandler(.failure(.protocolNotSetted))
-                }
-                
-                if let error = try? coreDataProperties.saveContext() {
-                    return completionHandler(.failure(error))
-                }
-                return
-            }
-            
+        guard let data = try? coreDataProperties.mainContext.fetch(fetch)
+        else { return (data: nil, error: .fetchError) }
+        
+        guard data.isEmpty else {
             var allData = data.map { Self.transformToModel(entity: $0) }
             allData.sort { $0.isDefault && !$1.isDefault }
-            
-            return completionHandler(.success(allData))
+                
+            return (data: allData, error: nil)
         }
-        return completionHandler(.failure(.fetchError))
+        
+        guard let initialData = self.setupInitialData()
+        else { return (data: nil, error: .protocolNotSetted) }
+        
+        if let error = try? coreDataProperties.saveContext() {
+            return (data: nil, error: error)
+        }
+        return (data: initialData, error: nil)
     }
-    
     
     
     /// Cria um dado (caso não exista) a partir das informações passadas
@@ -71,7 +67,9 @@ class PointTypeCDManager {
     
     
     /* MARK: - Configurações */
-
+    
+    /// Configura os dados iniciais
+    /// - Returns: dados iniciais
     private func setupInitialData() -> [ManagedPointType]? {
         let initialData = [
             ManagedPointType(title: "Trabalho", isDefault: true),
@@ -79,15 +77,13 @@ class PointTypeCDManager {
             ManagedPointType(title: "Test", isDefault: false)
         ]
         
-        if let coreDataProperties {
-            for data in initialData {
-                let newData = DBPointType(context: coreDataProperties.mainContext)
-                newData.title = data.title
-                newData.isDefault = data.isDefault
-            }
-            return initialData
+        guard let coreDataProperties else { return nil }
+        for data in initialData {
+            let newData = DBPointType(context: coreDataProperties.mainContext)
+            newData.title = data.title
+            newData.isDefault = data.isDefault
         }
-        return nil
+        return initialData
     }
     
     

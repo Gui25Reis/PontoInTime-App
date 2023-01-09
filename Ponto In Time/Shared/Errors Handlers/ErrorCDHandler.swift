@@ -5,7 +5,7 @@ import struct Foundation.URLError
 
 
 /// Erros que podem acontecer durante o uso do Core Data.
-enum ErrorCDHandler: Error, ErrorWarnings {
+public enum ErrorCDHandler: Error, ErrorWarnings {
     
     /* MARK: - Casos */
     

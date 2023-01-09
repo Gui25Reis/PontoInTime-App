@@ -77,13 +77,12 @@ class DateManager {
     
     /// Inicia o timer
     public func startTimer() {
-        if let timerAction {
-            self.timer = Timer.scheduledTimer(
-                timeInterval: 1,
-                target: timerAction.target, selector: timerAction.action,
-                userInfo: nil, repeats: true
-            )
-        }
+        guard let timerAction else { return }
+        self.timer = Timer.scheduledTimer(
+            timeInterval: 1,
+            target: timerAction.target, selector: timerAction.action,
+            userInfo: nil, repeats: true
+        )
     }
     
     

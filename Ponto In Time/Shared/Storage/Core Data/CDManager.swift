@@ -37,10 +37,9 @@ class CDManager: NSObject, CoreDataProperties {
     
     /* MARK: - Construtor */
     
-    /// Restringe o uso da classe para o singleton
-    override private init() {
+    // Restringe o uso da classe para o singleton
+    private override init() {
         super.init()
-        
         self.setupProtocols()
     }
     
@@ -66,15 +65,15 @@ class CDManager: NSObject, CoreDataProperties {
     
     
     internal func saveContext() throws -> ErrorCDHandler? {
-        if self.mainContext.hasChanges {
-            do {
-                try self.mainContext.save()
-            } catch {
-                throw ErrorCDHandler.saveError
-            }
+        guard self.mainContext.hasChanges else { return nil }
+        do {
+            try self.mainContext.save()
+            return nil
+        } catch {
+            throw ErrorCDHandler.saveError
         }
-        return nil
     }
+    
     
     
     /* MARK: - Encapsulamento */
@@ -83,38 +82,24 @@ class CDManager: NSObject, CoreDataProperties {
     
     /// Retorna os dados de ajustes
     /// - Parameter completionHandler: em caso de sucesso retorna os dados
-    public func getSettingsData(_ completionHandler: @escaping (Result<SettingsData, ErrorCDHandler>) -> Void) {
-        if let cache = self.settingsManager.cache {
-            return completionHandler(.success(cache))
-        }
+    public func getSettingsData() -> (data: SettingsData?, error: ErrorCDHandler?) {
+        if let cache = self.settingsManager.cache { return (data: cache, error: nil) }
         
-        self.mainContext.perform {
-            var settingsData = SettingsData()
-            
-            // Tipos de pontos
-            self.pointTypeManager.getAllData() { result in
-                switch result {
-                case .success(let data):
-                    settingsData.pointTypeData = data
-                case .failure(let failure):
-                    completionHandler(.failure(failure))
-                }
-            }
-            
-            // Dados de configuração
-            self.settingsManager.getSettingsData() { result in
-                switch result {
-                case .success(let data):
-                    settingsData.settingsData = data
-                case .failure(let failure):
-                    completionHandler(.failure(failure))
-                }
-            }
-            
-            completionHandler(.success(settingsData))
-            self.settingsManager.cache = settingsData
-            return
-        }
+        // Pegando os dados
+        let (pointsData, pointsError) = self.pointTypeManager.getAllData()
+        guard let pointsData else { return (data: nil, error: pointsError) }
+        
+        let (settingsData, settingsError) = self.settingsManager.getSettingsData()
+        guard let settingsData else { return (data: nil, error: settingsError) }
+        
+        // Criando resultado
+        let data = SettingsData(
+            settingsData: settingsData,
+            pointTypeData: pointsData
+        )
+        
+        self.settingsManager.cache = data
+        return (data: data, error: nil)
     }
     
     
@@ -124,18 +109,11 @@ class CDManager: NSObject, CoreDataProperties {
     /// - Parameter completionHandler: em caso de sucesso retorna o dado do dia
     ///
     /// Caso não encontre o dado do dia vai ser gerado um erro de `dataNotFound`.
-    public func getTodayDayWorkData(_ completionHandler: @escaping (Result<ManagedDayWork, ErrorCDHandler>) -> Void) {
-        self.mainContext.perform {
-            let today = Date().getDateFormatted(with: .dma)
-            self.dayWorkManager.getData(for: today) { result in
-                switch result {
-                case .success(let success):
-                    completionHandler(.success(success))
-                case .failure(let failure):
-                    completionHandler(.failure(failure))
-                }
-            }
-        }
+    public func getTodayDayWorkData() -> (data: ManagedDayWork?, error: ErrorCDHandler?) {
+        let today = Date().getDateFormatted(with: .dma)
+        
+        let (data, error) = self.dayWorkManager.getData(for: today)
+        return (data: data, error: error)
     }
     
     
@@ -175,7 +153,7 @@ class CDManager: NSObject, CoreDataProperties {
     ///   - completionHandler: gera um erro caso tenha algum problema no processo
     public func addNewPoint(in dataID: UUID, point: ManagedPoint, _ completionHandler: @escaping (_ error: ErrorCDHandler?) -> Void) {
         self.mainContext.perform {
-            self.dayWorkManager.addNewPoint(in: dataID, point: point){ error in
+            self.dayWorkManager.addNewPoint(in: dataID, point: point) { error in
                 return completionHandler(error)
             }
         }
@@ -187,26 +165,13 @@ class CDManager: NSObject, CoreDataProperties {
     
     /// Retorna todos os tipos de pontos que existem
     /// - Parameter completionHandler: em caso de sucesso retorna o dado do dia
-    public func getAllPointType(_ completionHandler: @escaping (Result<[ManagedPointType], ErrorCDHandler>) -> Void) -> [ManagedPointType]? {
+    public func getAllPointType() -> [ManagedPointType]? {
+        if let cache = self.settingsManager.cache?.pointTypeData { return cache }
         
-        if let cache = self.settingsManager.cache?.pointTypeData {
-            return cache
-        }
+        let (data, _) = self.pointTypeManager.getAllData()
+        self.settingsManager.cache?.pointTypeData = data
         
-        self.mainContext.perform {
-            self.pointTypeManager.getAllData() { result in
-                switch result {
-                case .success(let data):
-                    self.settingsManager.cache?.pointTypeData = data
-                    completionHandler(.success(data))
-
-                case .failure(let error):
-                    completionHandler(.failure(error))
-                }
-            }
-        }
-        
-        return nil
+        return data
     }
     
     
@@ -239,6 +204,7 @@ class CDManager: NSObject, CoreDataProperties {
         let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(cancel)
         
+        print(error.developerWarning)
         return alert
     }
 }
