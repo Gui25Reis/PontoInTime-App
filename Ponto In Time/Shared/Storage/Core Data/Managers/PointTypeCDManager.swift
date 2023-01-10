@@ -110,8 +110,7 @@ class PointTypeCDManager {
     private func setupInitialData() -> [ManagedPointType]? {
         let initialData = [
             ManagedPointType(title: "Trabalho", isDefault: true),
-            ManagedPointType(title: "Almoço", isDefault: true),
-            ManagedPointType(title: "Test", isDefault: false)
+            ManagedPointType(title: "Almoço", isDefault: true)
         ]
         
         guard let coreDataProperties else { return nil }
@@ -122,7 +121,6 @@ class PointTypeCDManager {
         }
         return initialData
     }
-    
     
     
     /// Transforma a entidade do core date para o modelo (struct)

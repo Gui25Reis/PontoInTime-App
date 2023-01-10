@@ -18,26 +18,22 @@ internal class DayWorkCDManager {
     /* MARK: - Métodos (Públicos) */
     
     /// Pega os dados de configuração
-    /// - Parameter completionHandler: em caso de sucesso retorna as configurações
-    public func getAllData(_ completionHandler: @escaping (Result<[ManagedDayWork], ErrorCDHandler>) -> Void) {
-        guard let coreDataProperties else { return completionHandler(.failure(.protocolNotSetted)) }
-                
+    /// - Parameter handler: em caso de sucesso retorna as configurações
+    public func getAllData(_ handler: @escaping (Result<[ManagedDayWork], ErrorCDHandler>) -> Void) {
         let fetch = DBDayWork.fetchRequest()
 
-        if let data = try? coreDataProperties.mainContext.fetch(fetch) {
-            let allData = data.map { item in
-                self.transformToModel(entity: item)
-            }
-            return completionHandler(.success(allData))
-        }
-        return completionHandler(.failure(.fetchError))
+        guard let data = try? self.coreDataProperties?.mainContext.fetch(fetch)
+        else { return handler(.failure(.fetchError)) }
+        
+        let allData = data.map { self.transformToModel(entity: $0) }
+        return handler(.success(allData))
     }
     
     
     /// Pega dados de um dia específico
     /// - Parameters:
     ///   - date: dia
-    ///   - completionHandler: em caso de sucesso retorna as informações
+    ///   - handler: em caso de sucesso retorna as informações
     public func getData(for date: String) -> (data: ManagedDayWork?, error: ErrorCDHandler?) {
         guard let coreDataProperties else { return (data: nil, error: .protocolNotSetted) }
         
@@ -58,9 +54,9 @@ internal class DayWorkCDManager {
     /// Adiciona um novo dado
     /// - Parameters:
     ///   - data: dado que vai ser adionado
-    ///   - completionHandler: gera um erro caso tenha algum problema no processo
-    public func createData(with data: ManagedDayWork, _ completionHandler: @escaping (_ error: ErrorCDHandler?) -> Void) {
-        guard let coreDataProperties else { return completionHandler(.protocolNotSetted) }
+    ///   - handler: gera um erro caso tenha algum problema no processo
+    public func createData(with data: ManagedDayWork, _ handler: @escaping (_ error: ErrorCDHandler?) -> Void) {
+        guard let coreDataProperties else { return handler(.protocolNotSetted) }
         
         let newData = DBDayWork(context: coreDataProperties.mainContext)
         newData.id = UUID()
@@ -79,7 +75,7 @@ internal class DayWorkCDManager {
         
         // Tenta salvar
         let result = try? coreDataProperties.saveContext()
-        return completionHandler(result)
+        return handler(result)
     }
     
     
@@ -87,31 +83,28 @@ internal class DayWorkCDManager {
     /// - Parameters:
     ///   - dataID: id do dia (que vai ser adicionado)
     ///   - point: ponto que vai ser adicionado
-    ///   - completionHandler: gera um erro caso tenha algum problema no processo
-    public func addNewPoint(in dataID: UUID, point: ManagedPoint, _ completionHandler: @escaping (_ error: ErrorCDHandler?) -> Void) {
-        guard let coreDataProperties else { return completionHandler(.protocolNotSetted) }
+    ///   - handler: gera um erro caso tenha algum problema no processo
+    public func addNewPoint(in dataID: UUID, point: ManagedPoint, _ handler: @escaping (_ error: ErrorCDHandler?) -> Void) {
+        guard let coreDataProperties else { return handler(.protocolNotSetted) }
         
         let fetch = DBDayWork.fetchRequest()
         fetch.predicate = NSPredicate(format: "%K == '\(dataID)'", #keyPath(DBDayWork.id))
         fetch.fetchLimit = 1
         
-        if let data = try? coreDataProperties.mainContext.fetch(fetch) {
-            if let firstData = data.first {
-                let pointManager = PointCDManager()
-                pointManager.coreDataProperties = self.coreDataProperties
-                
-                if let pointCreated = pointManager.createIfNeeded(with: point) {
-                    firstData.addToPoints(pointCreated)
-                }
-                
-                if let error = try? coreDataProperties.saveContext() {
-                    return completionHandler(error)
-                }
-                return completionHandler(nil)
-            }
-            return completionHandler(.dataNotFound)
+        guard let data = try? coreDataProperties.mainContext.fetch(fetch)
+        else { return handler(.fetchError) }
+        
+        guard let firstData = data.first else { return handler(.dataNotFound) }
+        
+        let pointManager = PointCDManager()
+        pointManager.coreDataProperties = self.coreDataProperties
+        
+        if let pointCreated = pointManager.createIfNeeded(with: point) {
+            firstData.addToPoints(pointCreated)
         }
-        return completionHandler(.fetchError)
+        
+        let save = try? coreDataProperties.saveContext()
+        handler(save)
     }
     
     
