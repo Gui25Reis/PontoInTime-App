@@ -63,8 +63,7 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol,
         var needToUpdate = false
         switch section {
         case 0:
-            guard data.hasChanges else { break }
-            needToUpdate = true
+            needToUpdate = self.updateSettingData(with: data)
             
         case 2:
             needToUpdate = self.handlerPointsData(with: data)
@@ -114,6 +113,22 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol,
         self.settingsHandler.mainData = data
         self.myView.reloadTableData()
     }
+    
+    
+    /// Atualiza um dado das configurações
+    /// - Parameter data: dados editados
+    /// - Returns: boleano que indica se deu tudo certo no final
+    private func updateSettingData(with data: DataEdited) -> Bool {
+        guard data.hasChanges, let newValue = data.newData
+        else { return false }
+        
+        guard let error = CDManager.shared.updateWorkHour(with: newValue)
+        else { return true }
+        
+        self.showWarningPopUp(with: error)
+        return false
+    }
+    
     
     
     /// Lida com os dados dos pontos

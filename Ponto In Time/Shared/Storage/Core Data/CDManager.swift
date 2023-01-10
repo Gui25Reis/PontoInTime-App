@@ -100,6 +100,18 @@ class CDManager: NSObject, CoreDataProperties {
     }
     
     
+    /// Atualiza o valor da horas de trabalho
+    /// - Parameter data: novo dado
+    /// - Returns: possível erro
+    public func updateWorkHour(with data: String) -> ErrorCDHandler? {
+        guard var settings = self.settingsManager.cache else { return .dataNotFound }
+        settings.timeWork = data
+        
+        let update = self.settingsManager.updateSettings(with: settings)
+        return update
+    }
+    
+    
     /* MARK: Dias trabalhados */
     
     /// Retorna os dados do dia
@@ -116,14 +128,14 @@ class CDManager: NSObject, CoreDataProperties {
     
     /// Retorna todos os dias criados
     /// - Parameter completionHandler: em caso de sucesso retorna os dados
-    public func getAllDayWorkData(_ completionHandler: @escaping (Result<[ManagedDayWork], ErrorCDHandler>) -> Void) {
+    public func getAllDayWorkData(_ handler: @escaping (Result<[ManagedDayWork], ErrorCDHandler>) -> Void) {
         self.mainContext.perform {
             self.dayWorkManager.getAllData() { result in
                 switch result {
                 case .success(let success):
-                    completionHandler(.success(success))
+                    handler(.success(success))
                 case .failure(let failure):
-                    completionHandler(.failure(failure))
+                    handler(.failure(failure))
                 }
             }
         }
@@ -134,10 +146,10 @@ class CDManager: NSObject, CoreDataProperties {
     /// - Parameters:
     ///   - data: dados do dia
     ///   - completionHandler: gera um erro caso tenha algum problema no processo
-    public func createNewDayWork(with data: ManagedDayWork, _ completionHandler: @escaping (_ error: ErrorCDHandler?) -> Void) {
+    public func createNewDayWork(with data: ManagedDayWork, _ handler: @escaping (_ error: ErrorCDHandler?) -> Void) {
         self.mainContext.perform {
             self.dayWorkManager.createData(with: data) { error in
-                return completionHandler(error)
+                return handler(error)
             }
         }
     }
@@ -148,10 +160,10 @@ class CDManager: NSObject, CoreDataProperties {
     ///   - dataID: id do dia (que vai ser adicionado)
     ///   - point: ponto que vai ser adicionado
     ///   - completionHandler: gera um erro caso tenha algum problema no processo
-    public func addNewPoint(in dataID: UUID, point: ManagedPoint, _ completionHandler: @escaping (_ error: ErrorCDHandler?) -> Void) {
+    public func addNewPoint(in dataID: UUID, point: ManagedPoint, _ handler: @escaping (_ error: ErrorCDHandler?) -> Void) {
         self.mainContext.perform {
             self.dayWorkManager.addNewPoint(in: dataID, point: point) { error in
-                return completionHandler(error)
+                return handler(error)
             }
         }
     }

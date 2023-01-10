@@ -6,6 +6,17 @@ internal class SettingsCDManager {
     
     /* MARK: - Atributos */
     
+    /// Todos os dados
+    private var allData: [DBSettings]? {
+        let fetch = DBSettings.fetchRequest()
+        fetch.fetchLimit = 1
+
+        return try? self.coreDataProperties?.mainContext.fetch(fetch)
+    }
+    
+    /// Dados de configuração
+    public var cache: ManagedSettings? = nil
+    
     /// Protocolo do core data
     public weak var coreDataProperties: CoreDataProperties?
 
@@ -16,31 +27,25 @@ internal class SettingsCDManager {
     /// Pega os dados de configuração
     /// - Returns:
     public func getSettingsData() -> (data: ManagedSettings?, error: ErrorCDHandler?) {
-        guard let coreDataProperties else { return (data: nil, error: .protocolNotSetted) }
-            
-        let fetch = DBSettings.fetchRequest()
-        fetch.fetchLimit = 1
+        if let cache { return (data: cache, error: nil) }
         
-        guard let dataFiltered = try? coreDataProperties.mainContext.fetch(fetch) else {
-            return (data: nil, error: .fetchError)
-        }
+        guard let allData else { return (data: nil, error: .fetchError) }
         
-        guard dataFiltered.isEmpty else {
-            let data = self.transformToModel(entity: dataFiltered[0])
+        guard allData.isEmpty else {
+            let data = self.transformToModel(entity: allData[0])
+            self.cache = data
             return (data: data, error: nil)
         }
         
-        var data: ManagedSettings? = nil
-        if let initialData = self.setupInitialData() {
-            data = initialData
-        } else {
-            return (data: nil, error: .protocolNotSetted)
-        }
+        guard let initialData = self.setupInitialData()
+        else { return (data: nil, error: .protocolNotSetted) }
         
-        if let error = try? coreDataProperties.saveContext() {
-            return (data: nil, error: error)
-        }
-        return (data: data, error: nil)
+        let save = try? self.coreDataProperties?.saveContext()
+        
+        guard save == nil else { return (data: nil, error: save) }
+        self.cache = initialData
+        
+        return (data: initialData, error: nil)
     }
     
     
@@ -48,21 +53,17 @@ internal class SettingsCDManager {
     /// - Parameters:
     ///   - data: novo conjunto de dados
     ///   - completionHandler: gera um erro caso tenha algum problema no processo
-    public func updateSettings(with data: ManagedSettings, _ completionHandler: @escaping (_ error: ErrorCDHandler?) -> Void) {
-        guard let coreDataProperties else { return completionHandler(.protocolNotSetted) }
-        
-        let fetch = DBSettings.fetchRequest()
-        fetch.fetchLimit = 1
-
-        guard let settings = try? coreDataProperties.mainContext.fetch(fetch).first
-        else { return completionHandler(.fetchError) }
+    public func updateSettings(with data: ManagedSettings) -> ErrorCDHandler? {
+        guard let settings = self.allData?.first else { return .fetchError }
         
         self.populate(entity: settings, data: data)
         
-        let result = try? coreDataProperties.saveContext()
-        return completionHandler(result)
+        let save = try? self.coreDataProperties?.saveContext()
+        guard save == nil else { return save }
+        
+        self.cache = data
+        return nil
     }
-    
     
     
     /* MARK: - Configurações */
