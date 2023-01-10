@@ -9,6 +9,9 @@ public enum ErrorTextEdit: Error, ErrorWarnings {
     
     /* MARK: - Casos */
     
+    /// String vazia
+    case dataIsEmpty
+    
     /// Caracteres especiais não são permitidos
     case symbolsNotAllowed
     
@@ -30,6 +33,8 @@ public enum ErrorTextEdit: Error, ErrorWarnings {
             return "O valor digitado não é numérico"
         case .rangeError(let range):
             return "O valor digitado não é permitido. Digite um número entre \(range.min) e \(range.max)"
+        case .dataIsEmpty:
+            return "O campo não pode ficar vazio."
         }
     }
 
@@ -42,6 +47,8 @@ public enum ErrorTextEdit: Error, ErrorWarnings {
             return "O valor não é um número"
         case .rangeError(let range):
             return "O valor não está dentro do intervalo [\(range.min)...\(range.max)]"
+        case .dataIsEmpty:
+            return "A string está vazia"
         }
     }
 }

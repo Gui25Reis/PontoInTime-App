@@ -196,6 +196,8 @@ class SettingsTableHandler: NSObject, TableHandler {
             let newData = TextEditData(
                 title: "Pontos", isNumeric: false, maxDataLenght: 15
             )
+            
+            self.cellEditedPosition = indexPath
             self.settingProtocol?.openTextEditPage(for: newData)
         } else {
             self.openEditText(at: indexPath, with: data)

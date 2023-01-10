@@ -83,8 +83,6 @@ class CDManager: NSObject, CoreDataProperties {
     /// Retorna os dados de ajustes
     /// - Parameter completionHandler: em caso de sucesso retorna os dados
     public func getSettingsData() -> (data: SettingsData?, error: ErrorCDHandler?) {
-        if let cache = self.settingsManager.cache { return (data: cache, error: nil) }
-        
         // Pegando os dados
         let (pointsData, pointsError) = self.pointTypeManager.getAllData()
         guard let pointsData else { return (data: nil, error: pointsError) }
@@ -98,7 +96,6 @@ class CDManager: NSObject, CoreDataProperties {
             pointTypeData: pointsData
         )
         
-        self.settingsManager.cache = data
         return (data: data, error: nil)
     }
     
@@ -166,12 +163,46 @@ class CDManager: NSObject, CoreDataProperties {
     /// Retorna todos os tipos de pontos que existem
     /// - Parameter completionHandler: em caso de sucesso retorna o dado do dia
     public func getAllPointType() -> [ManagedPointType]? {
-        if let cache = self.settingsManager.cache?.pointTypeData { return cache }
-        
         let (data, _) = self.pointTypeManager.getAllData()
-        self.settingsManager.cache?.pointTypeData = data
         
         return data
+    }
+    
+    
+    /// Adiciona um novo tipo de ponto
+    /// - Parameter name: nome do ponto
+    /// - Returns: um eror caso tenha
+    public func addNewPointType(name: String) -> ErrorCDHandler? {
+        let data = ManagedPointType(title: name)
+        
+        let (_, error) = self.pointTypeManager.createIfNeeded(with: data)
+        return error
+    }
+    
+    
+    /// Atualiza um tipo de ponto
+    /// - Parameter data: dados
+    /// - Returns: um error caso tenha
+    public func updatePointType(with data: DataEdited) -> ErrorCDHandler? {
+        guard let oldData = data.oldData, let newData = data.newData
+        else { return .dataNotFound }
+        
+        let old = ManagedPointType(title: oldData)
+        let new = ManagedPointType(title: newData)
+        
+        let update = self.pointTypeManager.update(oldData: old, newData: new)
+        return update
+    }
+    
+    
+    /// Deleta um ponto
+    /// - Parameter name: nome do ponto
+    /// - Returns: um error caso tenha
+    public func deletePointType(at data: String) -> ErrorCDHandler? {
+        let managed = ManagedPointType(title: data)
+        
+        let delete = self.pointTypeManager.delete(with: managed)
+        return delete
     }
     
     

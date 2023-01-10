@@ -103,15 +103,14 @@ class TextEditController: UIViewController, ControllerActions, ViewHasTextField 
         self.title = self.data.title
         self.navigationItem.largeTitleDisplayMode = .never
         
-        if self.data.isDeletable {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-                title: "Deletar",
-                style: .plain,
-                target: self,
-                action: #selector(self.deleteAction)
-            )
-            self.navigationItem.rightBarButtonItem?.tintColor = .systemRed
-        }
+        guard self.data.isDeletable else { return }
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Deletar",
+            style: .plain,
+            target: self,
+            action: #selector(self.deleteAction)
+        )
+        self.navigationItem.rightBarButtonItem?.tintColor = .systemRed
     }
     
     
@@ -172,6 +171,11 @@ class TextEditController: UIViewController, ControllerActions, ViewHasTextField 
         } else {
             guard textEdited.isAlphabetic else {
                 self.showPopUp(for: .symbolsNotAllowed)
+                return false
+            }
+            
+            guard !textEdited.isEmpty else {
+                self.showPopUp(for: .dataIsEmpty)
                 return false
             }
         }

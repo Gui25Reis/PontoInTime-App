@@ -23,6 +23,9 @@ public enum ErrorCDHandler: Error, ErrorWarnings {
     
     /// Erro na hora de deletar
     case deleteError
+    
+    /// Dado já existe
+    case dataAlreadyExists
 
     
     
@@ -40,6 +43,8 @@ public enum ErrorCDHandler: Error, ErrorWarnings {
             return "Parece que deu um errinho aqui na hora de salvar"
         case .deleteError:
             return "Ixi, não deu pra deletar"
+        case .dataAlreadyExists:
+            return "Esse dado já existe."
         }
     }
 
@@ -56,6 +61,8 @@ public enum ErrorCDHandler: Error, ErrorWarnings {
             return "Erro na hora de salvar"
         case .deleteError:
             return "Erro na hora de delatar os dados"
+        case .dataAlreadyExists:
+            return "Esse dado já existe."
         }
     }
 }

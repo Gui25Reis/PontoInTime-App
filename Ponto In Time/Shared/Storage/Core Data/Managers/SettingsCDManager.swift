@@ -6,12 +6,6 @@ internal class SettingsCDManager {
     
     /* MARK: - Atributos */
     
-    /// Valores que já foram pedidos
-    public var cache: SettingsData?
-    
-    
-    /* Protocolo */
-
     /// Protocolo do core data
     public weak var coreDataProperties: CoreDataProperties?
 
@@ -66,7 +60,6 @@ internal class SettingsCDManager {
         self.populate(entity: settings, data: data)
         
         let result = try? coreDataProperties.saveContext()
-        self.cache?.settingsData = data
         return completionHandler(result)
     }
     

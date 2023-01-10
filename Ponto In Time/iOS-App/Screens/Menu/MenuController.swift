@@ -118,7 +118,6 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
         
         let actualTime = self.dateManager.getActualCountdown()
         self.myView.updateTimerText(for: actualTime)
-        print("Entrei = \(actualTime)")
         
         if actualTime == "00:00:00" {
             self.dateManager.stopTimer()

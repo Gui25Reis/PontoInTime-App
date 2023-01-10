@@ -36,12 +36,7 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol,
         self.setupDataSourceData()
     }
     
-    
-    override func viewDidAppear(_ animated: Bool) {
-        self.myView.reloadTableData()
-    }
-    
-    
+        
 
     /* MARK: - Protocolos */
     
@@ -121,20 +116,33 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol,
     }
     
     
-    
+    /// Lida com os dados dos pontos
+    /// - Parameter data: dados
+    /// - Returns: boleano que indica se deu tudo certo no final
     private func handlerPointsData(with data: DataEdited) -> Bool {
         if data.hasDeleted {
-            print("Dado foi deletado")
+            guard let name = data.oldData else { return false }
+            if let error = CDManager.shared.deletePointType(at: name) {
+                self.showWarningPopUp(with: error)
+                return false
+            }
             return true
         }
         
         if data.isAdding {
-            print("Dado está sendo adicionado")
+            guard let name = data.newData else { return false }
+            if let error = CDManager.shared.addNewPointType(name: name) {
+                self.showWarningPopUp(with: error)
+                return false
+            }
             return true
         }
         
         if data.hasChanges {
-            print("Existem alterações")
+            if let error = CDManager.shared.updatePointType(with: data) {
+                self.showWarningPopUp(with: error)
+                return false
+            }
             return true
         }
         return false
