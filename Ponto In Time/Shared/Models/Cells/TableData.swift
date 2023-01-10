@@ -40,6 +40,11 @@ struct TableData {
     public var action: ActionType?
     
     
+    /// Boleano que indica se possui uma ação
+    public var hasAction: Bool {
+        return self.action != nil
+    }
+    
     
     /* MARK: - Construtores */
     

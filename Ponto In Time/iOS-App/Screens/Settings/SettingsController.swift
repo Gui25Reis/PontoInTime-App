@@ -59,11 +59,27 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol,
     }
     
     
-    
     // TextEditProtocol
     
-    internal func saveDataEdited(with data: String) {
+    internal func dataEditHandler(data: DataEdited) {
+        guard let section = self.settingsHandler.cellEditedPosition?.section else { return }
+        self.settingsHandler.cellEditedPosition = nil
         
+        var needToUpdate = false
+        switch section {
+        case 0:
+            guard data.hasChanges else { break }
+            needToUpdate = true
+            
+        case 2:
+            needToUpdate = self.handlerPointsData(with: data)
+            
+        default:
+            return
+        }
+        
+        guard needToUpdate else { return }
+        self.setupDataSourceData()
     }
 
     
@@ -102,5 +118,25 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol,
     private func updateTableData(for data: SettingsData) {
         self.settingsHandler.mainData = data
         self.myView.reloadTableData()
+    }
+    
+    
+    
+    private func handlerPointsData(with data: DataEdited) -> Bool {
+        if data.hasDeleted {
+            print("Dado foi deletado")
+            return true
+        }
+        
+        if data.isAdding {
+            print("Dado está sendo adicionado")
+            return true
+        }
+        
+        if data.hasChanges {
+            print("Existem alterações")
+            return true
+        }
+        return false
     }
 }

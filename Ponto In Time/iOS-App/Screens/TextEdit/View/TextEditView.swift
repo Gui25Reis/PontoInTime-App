@@ -58,13 +58,18 @@ class TextEditView: UIView, ViewCode {
     /// - Parameter data: dados iniciais
     public func setupView(for data: TextEditData) {
         self.textField.text = data.defaultData
-        self.textField.becomeFirstResponder()
         
         if data.isNumeric {
             self.textField.keyboardType = .numbersAndPunctuation
         } else {
             self.textField.keyboardType = .default
         }
+    }
+    
+    
+    /// Mostra o teclado na tela
+    public func showKeyboard() {
+        self.textField.becomeFirstResponder()
     }
     
     

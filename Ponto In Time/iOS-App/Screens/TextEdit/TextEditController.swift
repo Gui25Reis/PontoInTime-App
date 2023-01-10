@@ -1,9 +1,7 @@
 /* Gui Reis    -    gui.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import class Foundation.NSCoder
-import class UIKit.UITextField
-import class UIKit.UIViewController
+import UIKit
 
 
 /// Controller responsável pela tela de edição de um texto/dado
@@ -30,6 +28,9 @@ class TextEditController: UIViewController, ControllerActions, ViewHasTextField 
     
     /// Dados que a controller vai usar
     private var data: TextEditData
+    
+    /// Valor boleano que diz se o dado está sendo excluindo
+    private var isDeleting = false
     
     
     
@@ -61,10 +62,27 @@ class TextEditController: UIViewController, ControllerActions, ViewHasTextField 
     }
     
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.myView.showKeyboard()
+    }
+    
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        guard !self.isDeleting else { return }
         self.returnTextEdited()
+    }
+    
+    
+    
+    /* MARK: - Ações */
+    
+    @objc private func deleteAction() {
+        let alert = self.createDeleteAlert()
+        self.present(alert, animated: true)
     }
     
     
@@ -84,6 +102,16 @@ class TextEditController: UIViewController, ControllerActions, ViewHasTextField 
     internal func setupNavigation() {
         self.title = self.data.title
         self.navigationItem.largeTitleDisplayMode = .never
+        
+        if self.data.isDeletable {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+                title: "Deletar",
+                style: .plain,
+                target: self,
+                action: #selector(self.deleteAction)
+            )
+            self.navigationItem.rightBarButtonItem?.tintColor = .systemRed
+        }
     }
     
     
@@ -113,8 +141,12 @@ class TextEditController: UIViewController, ControllerActions, ViewHasTextField 
     private func returnTextEdited() {
         guard self.isDataValidated() else { return }
         
-        let textEdited = self.myView.textEdited
-        self.textEditDelegate.saveDataEdited(with: textEdited)
+        let dataEdited = DataEdited(
+            oldData: self.data.defaultData?.capitalized,
+            newData: self.myView.textEdited
+        )
+        
+        self.textEditDelegate.dataEditHandler(data: dataEdited)
     }
     
     
@@ -152,5 +184,33 @@ class TextEditController: UIViewController, ControllerActions, ViewHasTextField 
     /// - Parameter error: erro
     private func showPopUp(for error: ErrorTextEdit) {
         self.showWarningPopUp(with: error)
+    }
+    
+    
+    /* Deletar */
+    
+    /// Faz a deleção dos dados
+    private func deleteHandler() {
+        let dataEdit = DataEdited(oldData: self.data.defaultData ?? "", hasDeleted: true)
+        self.textEditDelegate.dataEditHandler(data: dataEdit)
+        
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
+    /// Cria o pop up de alerta para deleção de um dado
+    private func createDeleteAlert() -> UIAlertController {
+        let alert = UIAlertController(
+            title: "Atenção",
+            message: "Tem certeza que deseja excluir?",
+            preferredStyle: .alert
+        )
+        
+        let delete = UIAlertAction(title: "Excluir", style: .destructive) { _ in self.deleteHandler() }
+        let cancel = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
+        alert.addAction(delete)
+        alert.addAction(cancel)
+        
+        return alert
     }
 }

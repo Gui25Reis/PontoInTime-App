@@ -7,5 +7,5 @@ protocol TextEditProtocol {
     
     /// Salva o valor que foi editado
     /// - Parameter data: dado editado
-    func saveDataEdited(with data: String)
+    func dataEditHandler(data: DataEdited)
 }

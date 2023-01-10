@@ -183,7 +183,6 @@ class SettingsTableHandler: NSObject, TableHandler {
     
     /* MARK: - Delegate */
     
-    /// Ação de quando clica em uma célula
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) -> Void {
         tableView.deselectRow(at: indexPath, animated: false)
         tableView.reloadInputViews()
@@ -193,7 +192,14 @@ class SettingsTableHandler: NSObject, TableHandler {
             let data = cell.tableData
         else { return }
         
-        self.openEditText(at: indexPath, with: data)
+        if data.hasAction {
+            let newData = TextEditData(
+                title: "Pontos", isNumeric: false, maxDataLenght: 15
+            )
+            self.settingProtocol?.openTextEditPage(for: newData)
+        } else {
+            self.openEditText(at: indexPath, with: data)
+        }
     }
     
     
@@ -241,7 +247,7 @@ class SettingsTableHandler: NSObject, TableHandler {
         
         let section = indexPath.section
         switch section  {
-        case 0:
+        case 0: // horas de trabalho
             guard tableData.isEditable else { return }
             data = TextEditData(
                 title: tableData.primaryText, defaultData: tableData.secondaryText,
@@ -249,7 +255,7 @@ class SettingsTableHandler: NSObject, TableHandler {
                 rangeAllowed: LimitValues(min: 2, max: 16)
             )
         
-        case 2:
+        case 2: // pontos
             let row = indexPath.row
             let point = self.pointData[row]
             
@@ -257,7 +263,7 @@ class SettingsTableHandler: NSObject, TableHandler {
             
             data = TextEditData(
                 title: "Pontos", defaultData: tableData.primaryText,
-                isNumeric: false, maxDataLenght: 15
+                isNumeric: false, maxDataLenght: 15, isDeletable: true
             )
         
         default:

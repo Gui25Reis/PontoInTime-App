@@ -35,6 +35,7 @@
 		22002114296C7F7D007BB4FC /* ErrorTextEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002113296C7F7D007BB4FC /* ErrorTextEdit.swift */; };
 		22002116296C8B05007BB4FC /* LimitValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002115296C8B05007BB4FC /* LimitValues.swift */; };
 		22002119296CC17F007BB4FC /* SettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002118296CC17F007BB4FC /* SettingsProtocol.swift */; };
+		2200211B296D04F8007BB4FC /* DataEdited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200211A296D04F8007BB4FC /* DataEdited.swift */; };
 		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
 		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
 		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
@@ -138,6 +139,7 @@
 		22002113296C7F7D007BB4FC /* ErrorTextEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextEdit.swift; sourceTree = "<group>"; };
 		22002115296C8B05007BB4FC /* LimitValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitValues.swift; sourceTree = "<group>"; };
 		22002118296CC17F007BB4FC /* SettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProtocol.swift; sourceTree = "<group>"; };
+		2200211A296D04F8007BB4FC /* DataEdited.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEdited.swift; sourceTree = "<group>"; };
 		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
 		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
 		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 		22002109296C0D45007BB4FC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2200211A296D04F8007BB4FC /* DataEdited.swift */,
 				2200210A296C0D50007BB4FC /* TextEditData.swift */,
 			);
 			path = Model;
@@ -974,6 +977,7 @@
 				2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */,
 				221A5112295BBCDA009BEEA9 /* CustomCell.swift in Sources */,
 				221A510B295BBC9F009BEEA9 /* ViewCode.swift in Sources */,
+				2200211B296D04F8007BB4FC /* DataEdited.swift in Sources */,
 				2283DCF328FE64CD008EE94F /* AdaptiveLayout.swift in Sources */,
 				2200210E296C78AF007BB4FC /* TextEditProtocol.swift in Sources */,
 				22EE795529024D1B006E3085 /* PointCDManager.swift in Sources */,
