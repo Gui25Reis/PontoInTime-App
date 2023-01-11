@@ -48,8 +48,16 @@ class SettingsTableHandler: NSObject, TableHandler {
     
     /* MARK: - Encapsulamento */
     
+    // Protocolos
+    
     /// Protocolo de comunicação com a controller da tabela
     public weak var settingProtocol: SettingsProtocol?
+    
+    /// Protocolo para mostrar o popup
+    public weak var alertHandler: AlertHandler?
+    
+    
+    // Geral
     
     /// Dados usados dos ajustes
     public var mainData: SettingsData? {
@@ -101,7 +109,8 @@ class SettingsTableHandler: NSObject, TableHandler {
             
             switch row {
             case 0: // id
-                data.menu = self.createCopyMenu()
+                // data.menu = self.createCopyMenu()
+                break
                 
             case 1: // switch
                 data.hasSwitch = true
@@ -186,6 +195,12 @@ class SettingsTableHandler: NSObject, TableHandler {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) -> Void {
         tableView.deselectRow(at: indexPath, animated: false)
         tableView.reloadInputViews()
+        
+        if indexPath.section == 1 {
+            let alert = self.createInactiveWarning()
+            self.alertHandler?.showAlert(alert)
+            return
+        }
         
         guard
             let cell = tableView.cellForRow(at: indexPath) as? TableCell,
@@ -275,5 +290,20 @@ class SettingsTableHandler: NSObject, TableHandler {
         guard let data else { return }
         self.cellEditedPosition = indexPath
         self.settingProtocol?.openTextEditPage(for: data)
+    }
+    
+    
+    /// Cria o pop up de aviso de componente inativo
+    private func createInactiveWarning() -> UIAlertController {
+        let alert = UIAlertController(
+            title: "Aviso",
+            message: "Essa funcionalidade ainda está sendo testada. Logo logo vai estar disponível!",
+            preferredStyle: .alert
+        )
+        
+        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        
+        return alert
     }
 }

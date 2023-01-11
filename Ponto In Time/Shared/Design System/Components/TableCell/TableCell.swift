@@ -207,6 +207,9 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
         self.setupData(with: data)
         self.createView()
         self.dynamicCall()
+        
+        /* TODO: Desabilitando a interação (MVP: não tem feature de compartilhar) */
+        self.switchButton.isUserInteractionEnabled = false
     }
     
     

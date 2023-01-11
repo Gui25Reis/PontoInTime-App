@@ -87,6 +87,7 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol,
     
     
     internal func setupDelegates() {
+        self.settingsHandler.alertHandler = self
         self.settingsHandler.settingProtocol = self
         self.settingsHandler.link(with: self.myView)
     }

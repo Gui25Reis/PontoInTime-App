@@ -36,6 +36,8 @@
 		22002116296C8B05007BB4FC /* LimitValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002115296C8B05007BB4FC /* LimitValues.swift */; };
 		22002119296CC17F007BB4FC /* SettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002118296CC17F007BB4FC /* SettingsProtocol.swift */; };
 		2200211B296D04F8007BB4FC /* DataEdited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200211A296D04F8007BB4FC /* DataEdited.swift */; };
+		2200211D296E517D007BB4FC /* AlertHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200211C296E517D007BB4FC /* AlertHandler.swift */; };
+		2200211F296E52BB007BB4FC /* UIViewController+ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200211E296E52BB007BB4FC /* UIViewController+ActionHandler.swift */; };
 		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
 		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
 		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
@@ -140,6 +142,8 @@
 		22002115296C8B05007BB4FC /* LimitValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitValues.swift; sourceTree = "<group>"; };
 		22002118296CC17F007BB4FC /* SettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProtocol.swift; sourceTree = "<group>"; };
 		2200211A296D04F8007BB4FC /* DataEdited.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEdited.swift; sourceTree = "<group>"; };
+		2200211C296E517D007BB4FC /* AlertHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHandler.swift; sourceTree = "<group>"; };
+		2200211E296E52BB007BB4FC /* UIViewController+ActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ActionHandler.swift"; sourceTree = "<group>"; };
 		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
 		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
 		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
@@ -311,6 +315,35 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		22002120296E5353007BB4FC /* String */ = {
+			isa = PBXGroup;
+			children = (
+				22002111296C7EEB007BB4FC /* String+validations.swift */,
+				221689612907A25900D1B208 /* String+subscripts.swift */,
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
+		22002121296E535B007BB4FC /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				220020DB29655A26007BB4FC /* UIView+hasSuperview.swift */,
+				220020E92965FB7A007BB4FC /* UIView+removeAllSubviews.swift */,
+				220020DD29655C3D007BB4FC /* UIView+strechToBounds.swift */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		22002122296E5369007BB4FC /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2283DCD628FE5297008EE94F /* UIViewController+setupTab.swift */,
+				220020FC2968695B007BB4FC /* UIViewController+showWarningPopUp.swift */,
+				2200211E296E52BB007BB4FC /* UIViewController+ActionHandler.swift */,
+			);
+			path = UIViewController;
+			sourceTree = "<group>";
+		};
 		2216895D290795D200D1B208 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +372,7 @@
 				221A510A295BBC9F009BEEA9 /* ViewCode.swift */,
 				221A5110295BBCDA009BEEA9 /* CustomCell.swift */,
 				2200210F296C7CAC007BB4FC /* ViewHasTextField.swift */,
+				2200211C296E517D007BB4FC /* AlertHandler.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -530,15 +564,11 @@
 		2283DCD428FE5287008EE94F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				22002111296C7EEB007BB4FC /* String+validations.swift */,
-				221689612907A25900D1B208 /* String+subscripts.swift */,
+				22002120296E5353007BB4FC /* String */,
+				22002121296E535B007BB4FC /* UIView */,
+				22002122296E5369007BB4FC /* UIViewController */,
 				220020FA2968233B007BB4FC /* UIDatePicker+getDate.swift */,
 				220020DF29655DE6007BB4FC /* UIImageView+hasImage.swift */,
-				220020DB29655A26007BB4FC /* UIView+hasSuperview.swift */,
-				220020E92965FB7A007BB4FC /* UIView+removeAllSubviews.swift */,
-				220020DD29655C3D007BB4FC /* UIView+strechToBounds.swift */,
-				2283DCD628FE5297008EE94F /* UIViewController+setupTab.swift */,
-				220020FC2968695B007BB4FC /* UIViewController+showWarningPopUp.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -982,6 +1012,7 @@
 				2200210E296C78AF007BB4FC /* TextEditProtocol.swift in Sources */,
 				22EE795529024D1B006E3085 /* PointCDManager.swift in Sources */,
 				2283DCE328FE52DA008EE94F /* UIImage+AppIcons.swift in Sources */,
+				2200211D296E517D007BB4FC /* AlertHandler.swift in Sources */,
 				22EE794F29022722006E3085 /* DayWorkCDManager.swift in Sources */,
 				22EE796C2904AA7D006E3085 /* Date+DateFormatTypes.swift in Sources */,
 				220020DC29655A26007BB4FC /* UIView+hasSuperview.swift in Sources */,
@@ -1025,6 +1056,7 @@
 				220020E429656BA5007BB4FC /* HistoricTableHandler.swift in Sources */,
 				2283DD3B28FF7BF5008EE94F /* HistoricController.swift in Sources */,
 				22002112296C7EEB007BB4FC /* String+validations.swift in Sources */,
+				2200211F296E52BB007BB4FC /* UIViewController+ActionHandler.swift in Sources */,
 				2283DCE528FE52DA008EE94F /* IconInfo.swift in Sources */,
 				22EE795129024CB8006E3085 /* FilesCDManager.swift in Sources */,
 				220020EC2966736D007BB4FC /* UITextField+FontInfo.swift in Sources */,
