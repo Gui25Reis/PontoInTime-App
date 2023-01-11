@@ -38,6 +38,8 @@
 		2200211B296D04F8007BB4FC /* DataEdited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200211A296D04F8007BB4FC /* DataEdited.swift */; };
 		2200211D296E517D007BB4FC /* AlertHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200211C296E517D007BB4FC /* AlertHandler.swift */; };
 		2200211F296E52BB007BB4FC /* UIViewController+ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200211E296E52BB007BB4FC /* UIViewController+ActionHandler.swift */; };
+		22002124296E5906007BB4FC /* UIImage+LocalImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002123296E5906007BB4FC /* UIImage+LocalImages.swift */; };
+		22002127296F55A7007BB4FC /* DocumentsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002126296F55A7007BB4FC /* DocumentsHandler.swift */; };
 		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
 		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
 		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
@@ -144,6 +146,8 @@
 		2200211A296D04F8007BB4FC /* DataEdited.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEdited.swift; sourceTree = "<group>"; };
 		2200211C296E517D007BB4FC /* AlertHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHandler.swift; sourceTree = "<group>"; };
 		2200211E296E52BB007BB4FC /* UIViewController+ActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ActionHandler.swift"; sourceTree = "<group>"; };
+		22002123296E5906007BB4FC /* UIImage+LocalImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+LocalImages.swift"; sourceTree = "<group>"; };
+		22002126296F55A7007BB4FC /* DocumentsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsHandler.swift; sourceTree = "<group>"; };
 		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
 		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
 		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
@@ -342,6 +346,14 @@
 				2200211E296E52BB007BB4FC /* UIViewController+ActionHandler.swift */,
 			);
 			path = UIViewController;
+			sourceTree = "<group>";
+		};
+		22002125296F5589007BB4FC /* DocumentsHandler */ = {
+			isa = PBXGroup;
+			children = (
+				22002126296F55A7007BB4FC /* DocumentsHandler.swift */,
+			);
+			path = DocumentsHandler;
 			sourceTree = "<group>";
 		};
 		2216895D290795D200D1B208 /* Protocol */ = {
@@ -569,6 +581,7 @@
 				22002122296E5369007BB4FC /* UIViewController */,
 				220020FA2968233B007BB4FC /* UIDatePicker+getDate.swift */,
 				220020DF29655DE6007BB4FC /* UIImageView+hasImage.swift */,
+				22002123296E5906007BB4FC /* UIImage+LocalImages.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -650,6 +663,7 @@
 		2283DD0728FE68F4008EE94F /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				22002125296F5589007BB4FC /* DocumentsHandler */,
 				220020EF2966B8EB007BB4FC /* Copy Warning */,
 				2283DD0A28FE6B10008EE94F /* StatusView */,
 				2283DD4A28FFB066008EE94F /* TableCell */,
@@ -1024,6 +1038,7 @@
 				22002100296BF521007BB4FC /* TextEditController.swift in Sources */,
 				2283DCEF28FE64CD008EE94F /* ScreenInfo.swift in Sources */,
 				220020EA2965FB7A007BB4FC /* UIView+removeAllSubviews.swift in Sources */,
+				22002127296F55A7007BB4FC /* DocumentsHandler.swift in Sources */,
 				22002106296BFC02007BB4FC /* CustomTextField.swift in Sources */,
 				2283DD3028FF4858008EE94F /* CustomTable.swift in Sources */,
 				221A5109295BBC9A009BEEA9 /* TableHandler.swift in Sources */,
@@ -1059,6 +1074,7 @@
 				2200211F296E52BB007BB4FC /* UIViewController+ActionHandler.swift in Sources */,
 				2283DCE528FE52DA008EE94F /* IconInfo.swift in Sources */,
 				22EE795129024CB8006E3085 /* FilesCDManager.swift in Sources */,
+				22002124296E5906007BB4FC /* UIImage+LocalImages.swift in Sources */,
 				220020EC2966736D007BB4FC /* UITextField+FontInfo.swift in Sources */,
 				22EE792E29010F9A006E3085 /* DBFiles.swift in Sources */,
 				2283DCB028FE4F90008EE94F /* AppDelegate.swift in Sources */,
