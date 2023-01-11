@@ -26,17 +26,7 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
         lbl.adjustsFontSizeToFitWidth = true
         return lbl
     }()
-    
-    /// Texto secundário (descrição) - texto da direita (edição)
-    internal lazy var secondaryText: UITextField = {
-        let txt = CustomViews.newTextField()
-        txt.textColor = .secondaryLabel
-        txt.textAlignment = .right
-        txt.adjustsFontSizeToFitWidth = true
-        txt.isUserInteractionEnabled = false
-        return txt
-    }()
-    
+        
     /// Imagem que acompanha o texto principal
     internal lazy var leftIcon = CustomViews.newImage()
     
@@ -115,15 +105,6 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
     }
     
     
-    /// Artiva (deixa focado) o text field
-    public func setFocusOnTextField() {
-        guard let data = self.tableData else { return }
-        
-        guard data.isEditable && data.menu == nil else { return }
-        self.secondaryText.becomeFirstResponder()
-    }
-    
-    
     // Picker
     
     /// Define a hora que vai aparecer no timer
@@ -171,13 +152,7 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
             self.check(data: "", for: self.datePicker)
         } else {
             self.check(data: data.rightIcon, for: self.rightIcon)
-            
-            if data.isEditable {
-                self.check(data: data.secondaryText, for: self.secondaryText)
-            } else {
-                self.check(data: data.secondaryText, for: self.secondaryLabel)
-            }
-            
+            self.check(data: data.secondaryText, for: self.secondaryLabel)
         }
         
         self.check(data: data.menu, for: self.menuButton)
@@ -194,7 +169,6 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
         let secondFont = FontInfo(fontSize: 17, weight: .regular)
         
         self.primaryLabel.setupFont(with: font)
-        self.secondaryText.setupFont(with: font)
         self.secondaryLabel.setupFont(with: secondFont)
     }
     
@@ -233,6 +207,9 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
         self.setupData(with: data)
         self.createView()
         self.dynamicCall()
+        
+        /* TODO: Desabilitando a interação (MVP: não tem feature de compartilhar) */
+        self.switchButton.isUserInteractionEnabled = false
     }
     
     
@@ -243,12 +220,9 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
         self.leftIcon.image = data.leftIcon
         
         self.secondaryLabel.text = data.secondaryText
-        self.secondaryText.text = data.secondaryText
         self.setupRightIcon(for: data.rightIcon)
         
         self.menuButton.menu = data.menu
-        
-        self.secondaryText.isUserInteractionEnabled = data.isEditable
         
         if let action = data.action {
             self.primaryLabel.textColor = action.color
@@ -367,11 +341,8 @@ class TableCell: UITableViewCell, ViewCode, CustomCell {
             ]
         }
         
-        if self.secondaryText.hasSuperview || self.secondaryLabel.hasSuperview{
-            var rightText: UIView = self.secondaryLabel
-            if self.tableData?.isEditable == true {
-                rightText = self.secondaryText
-            }
+        if self.secondaryLabel.hasSuperview{
+            let rightText: UIView = self.secondaryLabel
             
             constraints += [
                 rightText.topAnchor.constraint(equalTo: self.contentView.topAnchor),

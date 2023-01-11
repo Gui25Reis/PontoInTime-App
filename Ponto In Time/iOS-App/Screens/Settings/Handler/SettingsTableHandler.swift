@@ -26,13 +26,7 @@ class SettingsTableHandler: NSObject, TableHandler {
     /// Diz se está compartilhando os dados
     private var isSharing: Bool = false
     
-    /// Index da célula de adicionar
-    public var actionIndex: Int { return self.pointData.count }
     
-    /// Protocolo de comunicação com a controller da tabela
-    public weak var settingProtocol: SettingsProtocol?
-    
-        
     
     /* MARK: - Protocolo */
 
@@ -54,10 +48,27 @@ class SettingsTableHandler: NSObject, TableHandler {
     
     /* MARK: - Encapsulamento */
     
+    // Protocolos
+    
+    /// Protocolo de comunicação com a controller da tabela
+    public weak var settingProtocol: SettingsProtocol?
+    
+    /// Protocolo para mostrar o popup
+    public weak var alertHandler: AlertHandler?
+    
+    
+    // Geral
+    
     /// Dados usados dos ajustes
     public var mainData: SettingsData? {
         didSet { self.setupDatas() }
     }
+    
+    /// Index da célula de adicionar
+    public var actionIndex: Int { return self.pointData.count }
+    
+    /// Seção que foi editada
+    public var cellEditedPosition: IndexPath?
     
     
     
@@ -84,20 +95,22 @@ class SettingsTableHandler: NSObject, TableHandler {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableCell.identifier, for: indexPath) as? TableCell
         else { return UITableViewCell() }
         
+        let row = indexPath.row
         switch indexPath.section {
         
         case 0: // infos gerais
-            var data = self.infoData[indexPath.row]
+            var data = self.infoData[row]
             data.isEditable = true
             
             cell.tableData = data
     
         case 1: // compartilhamento
-            var data = self.shareData[indexPath.row]
+            var data = self.shareData[row]
             
-            switch indexPath.row {
+            switch row {
             case 0: // id
-                data.menu = self.createCopyMenu()
+                // data.menu = self.createCopyMenu()
+                break
                 
             case 1: // switch
                 data.hasSwitch = true
@@ -109,8 +122,8 @@ class SettingsTableHandler: NSObject, TableHandler {
             cell.tableData = data
             
         case 2: // pontos
-            if indexPath.row < self.pointData.count {
-                let data = self.pointData[indexPath.row]
+            if row < self.pointData.count {
+                let data = self.pointData[row]
                 
                 var cellData = TableData(primaryText: data.title)
                 if !data.isDefault {
@@ -179,13 +192,31 @@ class SettingsTableHandler: NSObject, TableHandler {
     
     /* MARK: - Delegate */
     
-    /// Ação de quando clica em uma célula
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) -> Void {
-        let cell = tableView.cellForRow(at: indexPath) as? TableCell
-        cell?.setFocusOnTextField()
-        
         tableView.deselectRow(at: indexPath, animated: false)
         tableView.reloadInputViews()
+        
+        if indexPath.section == 1 {
+            let alert = self.createInactiveWarning()
+            self.alertHandler?.showAlert(alert)
+            return
+        }
+        
+        guard
+            let cell = tableView.cellForRow(at: indexPath) as? TableCell,
+            let data = cell.tableData
+        else { return }
+        
+        if data.hasAction {
+            let newData = TextEditData(
+                title: "Pontos", isNumeric: false, maxDataLenght: 15
+            )
+            
+            self.cellEditedPosition = indexPath
+            self.settingProtocol?.openTextEditPage(for: newData)
+        } else {
+            self.openEditText(at: indexPath, with: data)
+        }
     }
     
     
@@ -221,5 +252,58 @@ class SettingsTableHandler: NSObject, TableHandler {
         
         let menu = UIMenu(children: [action])
         return menu
+    }
+    
+    
+    /// Abre uma página para poder editar 
+    /// - Parameters:
+    ///   - indexPath: posição da célula
+    ///   - tableData: dado da célula
+    private func openEditText(at indexPath: IndexPath, with tableData: TableData) {
+        var data: TextEditData? = nil
+        
+        let section = indexPath.section
+        switch section  {
+        case 0: // horas de trabalho
+            guard tableData.isEditable else { return }
+            data = TextEditData(
+                title: tableData.primaryText, defaultData: tableData.secondaryText,
+                isNumeric: true, maxDataLenght: 2,
+                rangeAllowed: LimitValues(min: 2, max: 16)
+            )
+        
+        case 2: // pontos
+            let row = indexPath.row
+            let point = self.pointData[row]
+            
+            guard !point.isDefault else { return }
+            
+            data = TextEditData(
+                title: "Pontos", defaultData: tableData.primaryText,
+                isNumeric: false, maxDataLenght: 15, isDeletable: true
+            )
+        
+        default:
+            return
+        }
+        
+        guard let data else { return }
+        self.cellEditedPosition = indexPath
+        self.settingProtocol?.openTextEditPage(for: data)
+    }
+    
+    
+    /// Cria o pop up de aviso de componente inativo
+    private func createInactiveWarning() -> UIAlertController {
+        let alert = UIAlertController(
+            title: "Aviso",
+            message: "Essa funcionalidade ainda está sendo testada. Logo logo vai estar disponível!",
+            preferredStyle: .alert
+        )
+        
+        let cancel = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        
+        return alert
     }
 }

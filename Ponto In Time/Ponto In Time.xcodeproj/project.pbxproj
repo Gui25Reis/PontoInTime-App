@@ -24,6 +24,20 @@
 		220020F929677603007BB4FC /* ViewWithTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020F829677603007BB4FC /* ViewWithTable.swift */; };
 		220020FB2968233B007BB4FC /* UIDatePicker+getDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020FA2968233B007BB4FC /* UIDatePicker+getDate.swift */; };
 		220020FD2968695B007BB4FC /* UIViewController+showWarningPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020FC2968695B007BB4FC /* UIViewController+showWarningPopUp.swift */; };
+		22002100296BF521007BB4FC /* TextEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220020FF296BF521007BB4FC /* TextEditController.swift */; };
+		22002103296BF5FB007BB4FC /* TextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002102296BF5FB007BB4FC /* TextEditView.swift */; };
+		22002106296BFC02007BB4FC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002105296BFC02007BB4FC /* CustomTextField.swift */; };
+		22002108296C08A4007BB4FC /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002107296C08A4007BB4FC /* TextFieldDelegate.swift */; };
+		2200210B296C0D50007BB4FC /* TextEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200210A296C0D50007BB4FC /* TextEditData.swift */; };
+		2200210E296C78AF007BB4FC /* TextEditProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200210D296C78AF007BB4FC /* TextEditProtocol.swift */; };
+		22002110296C7CAC007BB4FC /* ViewHasTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200210F296C7CAC007BB4FC /* ViewHasTextField.swift */; };
+		22002112296C7EEB007BB4FC /* String+validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002111296C7EEB007BB4FC /* String+validations.swift */; };
+		22002114296C7F7D007BB4FC /* ErrorTextEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002113296C7F7D007BB4FC /* ErrorTextEdit.swift */; };
+		22002116296C8B05007BB4FC /* LimitValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002115296C8B05007BB4FC /* LimitValues.swift */; };
+		22002119296CC17F007BB4FC /* SettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002118296CC17F007BB4FC /* SettingsProtocol.swift */; };
+		2200211B296D04F8007BB4FC /* DataEdited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200211A296D04F8007BB4FC /* DataEdited.swift */; };
+		2200211D296E517D007BB4FC /* AlertHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200211C296E517D007BB4FC /* AlertHandler.swift */; };
+		2200211F296E52BB007BB4FC /* UIViewController+ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200211E296E52BB007BB4FC /* UIViewController+ActionHandler.swift */; };
 		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
 		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
 		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
@@ -116,6 +130,20 @@
 		220020F829677603007BB4FC /* ViewWithTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithTable.swift; sourceTree = "<group>"; };
 		220020FA2968233B007BB4FC /* UIDatePicker+getDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+getDate.swift"; sourceTree = "<group>"; };
 		220020FC2968695B007BB4FC /* UIViewController+showWarningPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+showWarningPopUp.swift"; sourceTree = "<group>"; };
+		220020FF296BF521007BB4FC /* TextEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditController.swift; sourceTree = "<group>"; };
+		22002102296BF5FB007BB4FC /* TextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditView.swift; sourceTree = "<group>"; };
+		22002105296BFC02007BB4FC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		22002107296C08A4007BB4FC /* TextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
+		2200210A296C0D50007BB4FC /* TextEditData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditData.swift; sourceTree = "<group>"; };
+		2200210D296C78AF007BB4FC /* TextEditProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditProtocol.swift; sourceTree = "<group>"; };
+		2200210F296C7CAC007BB4FC /* ViewHasTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHasTextField.swift; sourceTree = "<group>"; };
+		22002111296C7EEB007BB4FC /* String+validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+validations.swift"; sourceTree = "<group>"; };
+		22002113296C7F7D007BB4FC /* ErrorTextEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextEdit.swift; sourceTree = "<group>"; };
+		22002115296C8B05007BB4FC /* LimitValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitValues.swift; sourceTree = "<group>"; };
+		22002118296CC17F007BB4FC /* SettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProtocol.swift; sourceTree = "<group>"; };
+		2200211A296D04F8007BB4FC /* DataEdited.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEdited.swift; sourceTree = "<group>"; };
+		2200211C296E517D007BB4FC /* AlertHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHandler.swift; sourceTree = "<group>"; };
+		2200211E296E52BB007BB4FC /* UIViewController+ActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ActionHandler.swift"; sourceTree = "<group>"; };
 		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
 		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
 		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
@@ -235,6 +263,87 @@
 			path = ViewWithTable;
 			sourceTree = "<group>";
 		};
+		220020FE296BF502007BB4FC /* TextEdit */ = {
+			isa = PBXGroup;
+			children = (
+				2200210C296C78A0007BB4FC /* Protocol */,
+				22002109296C0D45007BB4FC /* Model */,
+				22002101296BF5C8007BB4FC /* View */,
+				220020FF296BF521007BB4FC /* TextEditController.swift */,
+			);
+			path = TextEdit;
+			sourceTree = "<group>";
+		};
+		22002101296BF5C8007BB4FC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				22002102296BF5FB007BB4FC /* TextEditView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		22002104296BFBCE007BB4FC /* CustomTextField */ = {
+			isa = PBXGroup;
+			children = (
+				22002105296BFC02007BB4FC /* CustomTextField.swift */,
+			);
+			path = CustomTextField;
+			sourceTree = "<group>";
+		};
+		22002109296C0D45007BB4FC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2200211A296D04F8007BB4FC /* DataEdited.swift */,
+				2200210A296C0D50007BB4FC /* TextEditData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2200210C296C78A0007BB4FC /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				2200210D296C78AF007BB4FC /* TextEditProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		22002117296CC173007BB4FC /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				22002118296CC17F007BB4FC /* SettingsProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		22002120296E5353007BB4FC /* String */ = {
+			isa = PBXGroup;
+			children = (
+				22002111296C7EEB007BB4FC /* String+validations.swift */,
+				221689612907A25900D1B208 /* String+subscripts.swift */,
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
+		22002121296E535B007BB4FC /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				220020DB29655A26007BB4FC /* UIView+hasSuperview.swift */,
+				220020E92965FB7A007BB4FC /* UIView+removeAllSubviews.swift */,
+				220020DD29655C3D007BB4FC /* UIView+strechToBounds.swift */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		22002122296E5369007BB4FC /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2283DCD628FE5297008EE94F /* UIViewController+setupTab.swift */,
+				220020FC2968695B007BB4FC /* UIViewController+showWarningPopUp.swift */,
+				2200211E296E52BB007BB4FC /* UIViewController+ActionHandler.swift */,
+			);
+			path = UIViewController;
+			sourceTree = "<group>";
+		};
 		2216895D290795D200D1B208 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +371,8 @@
 				221A510C295BBCA5009BEEA9 /* ControllerActions.swift */,
 				221A510A295BBC9F009BEEA9 /* ViewCode.swift */,
 				221A5110295BBCDA009BEEA9 /* CustomCell.swift */,
+				2200210F296C7CAC007BB4FC /* ViewHasTextField.swift */,
+				2200211C296E517D007BB4FC /* AlertHandler.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -363,6 +474,7 @@
 			isa = PBXGroup;
 			children = (
 				2283DCCA28FE4FC0008EE94F /* System */,
+				22002107296C08A4007BB4FC /* TextFieldDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -384,6 +496,7 @@
 				2283DD3928FF7BB9008EE94F /* HIstoric */,
 				2283DD5728FFBE2F008EE94F /* Settings */,
 				2246BEA32900C3C1001FE2C6 /* PointInfo */,
+				220020FE296BF502007BB4FC /* TextEdit */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -451,14 +564,11 @@
 		2283DCD428FE5287008EE94F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				221689612907A25900D1B208 /* String+subscripts.swift */,
+				22002120296E5353007BB4FC /* String */,
+				22002121296E535B007BB4FC /* UIView */,
+				22002122296E5369007BB4FC /* UIViewController */,
 				220020FA2968233B007BB4FC /* UIDatePicker+getDate.swift */,
 				220020DF29655DE6007BB4FC /* UIImageView+hasImage.swift */,
-				220020DB29655A26007BB4FC /* UIView+hasSuperview.swift */,
-				220020E92965FB7A007BB4FC /* UIView+removeAllSubviews.swift */,
-				220020DD29655C3D007BB4FC /* UIView+strechToBounds.swift */,
-				2283DCD628FE5297008EE94F /* UIViewController+setupTab.swift */,
-				220020FC2968695B007BB4FC /* UIViewController+showWarningPopUp.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -540,14 +650,15 @@
 		2283DD0728FE68F4008EE94F /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				220020F7296775EF007BB4FC /* ViewWithTable */,
-				220020F22966BA27007BB4FC /* ViewLabel */,
 				220020EF2966B8EB007BB4FC /* Copy Warning */,
+				2283DD0A28FE6B10008EE94F /* StatusView */,
 				2283DD4A28FFB066008EE94F /* TableCell */,
+				220020F22966BA27007BB4FC /* ViewLabel */,
+				220020F7296775EF007BB4FC /* ViewWithTable */,
 				2283DD4228FF906C008EE94F /* CustomStack */,
 				2283DD3128FF6F40008EE94F /* CustomTable */,
 				22EE795E2904112B006E3085 /* CustomButton */,
-				2283DD0A28FE6B10008EE94F /* StatusView */,
+				22002104296BFBCE007BB4FC /* CustomTextField */,
 				2283DCF928FE6563008EE94F /* CustomViews.swift */,
 			);
 			path = Components;
@@ -615,6 +726,7 @@
 				22EE796129046590006E3085 /* SettingsData.swift */,
 				22EE79662904A82D006E3085 /* ActionSetup.swift */,
 				2283DCE828FE64CC008EE94F /* Dimension.swift */,
+				22002115296C8B05007BB4FC /* LimitValues.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -690,6 +802,7 @@
 		2283DD5728FFBE2F008EE94F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				22002117296CC173007BB4FC /* Protocol */,
 				2283DD6028FFBEBA008EE94F /* Handler */,
 				2283DD5828FFBE44008EE94F /* SettingsController.swift */,
 			);
@@ -729,6 +842,7 @@
 			children = (
 				2216895D290795D200D1B208 /* Protocol */,
 				22EE7942290113BF006E3085 /* ErrorCDHandler.swift */,
+				22002113296C7F7D007BB4FC /* ErrorTextEdit.swift */,
 			);
 			path = "Errors Handlers";
 			sourceTree = "<group>";
@@ -867,6 +981,7 @@
 				22EE7935290110CB006E3085 /* ManagedSettings.swift in Sources */,
 				22EE796A2904AA3D006E3085 /* DateFormatTypes.swift in Sources */,
 				220020E82965F110007BB4FC /* TableCell.swift in Sources */,
+				22002119296CC17F007BB4FC /* SettingsProtocol.swift in Sources */,
 				220020F629676E31007BB4FC /* UIImage+IconInfo.swift in Sources */,
 				22EE79672904A82D006E3085 /* ActionSetup.swift in Sources */,
 				22EE796029041146006E3085 /* CustomButton.swift in Sources */,
@@ -881,6 +996,7 @@
 				220020F12966B90A007BB4FC /* CopyWarning.swift in Sources */,
 				2283DD0928FE6916008EE94F /* StatusView.swift in Sources */,
 				2283DCD928FE5297008EE94F /* UIViewController+setupTab.swift in Sources */,
+				2200210B296C0D50007BB4FC /* TextEditData.swift in Sources */,
 				220020E62965917A007BB4FC /* TimerCell.swift in Sources */,
 				22EE796229046590006E3085 /* SettingsData.swift in Sources */,
 				2283DD0C28FE6B23008EE94F /* StatusViewStyle.swift in Sources */,
@@ -891,18 +1007,24 @@
 				2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */,
 				221A5112295BBCDA009BEEA9 /* CustomCell.swift in Sources */,
 				221A510B295BBC9F009BEEA9 /* ViewCode.swift in Sources */,
+				2200211B296D04F8007BB4FC /* DataEdited.swift in Sources */,
 				2283DCF328FE64CD008EE94F /* AdaptiveLayout.swift in Sources */,
+				2200210E296C78AF007BB4FC /* TextEditProtocol.swift in Sources */,
 				22EE795529024D1B006E3085 /* PointCDManager.swift in Sources */,
 				2283DCE328FE52DA008EE94F /* UIImage+AppIcons.swift in Sources */,
+				2200211D296E517D007BB4FC /* AlertHandler.swift in Sources */,
 				22EE794F29022722006E3085 /* DayWorkCDManager.swift in Sources */,
 				22EE796C2904AA7D006E3085 /* Date+DateFormatTypes.swift in Sources */,
 				220020DC29655A26007BB4FC /* UIView+hasSuperview.swift in Sources */,
+				22002108296C08A4007BB4FC /* TextFieldDelegate.swift in Sources */,
 				2283DD5928FFBE44008EE94F /* SettingsController.swift in Sources */,
 				2283DCFA28FE6563008EE94F /* CustomViews.swift in Sources */,
 				2283DCF028FE64CD008EE94F /* Screens.swift in Sources */,
 				221A510D295BBCA5009BEEA9 /* ControllerActions.swift in Sources */,
+				22002100296BF521007BB4FC /* TextEditController.swift in Sources */,
 				2283DCEF28FE64CD008EE94F /* ScreenInfo.swift in Sources */,
 				220020EA2965FB7A007BB4FC /* UIView+removeAllSubviews.swift in Sources */,
+				22002106296BFC02007BB4FC /* CustomTextField.swift in Sources */,
 				2283DD3028FF4858008EE94F /* CustomTable.swift in Sources */,
 				221A5109295BBC9A009BEEA9 /* TableHandler.swift in Sources */,
 				2283DD0428FE6597008EE94F /* UIButton+FontInfo.swift in Sources */,
@@ -913,6 +1035,7 @@
 				2246BEAA2900C83C001FE2C6 /* PointInfoCell.swift in Sources */,
 				2283DD5528FFB824008EE94F /* String+Localized.swift in Sources */,
 				22EE793929011223006E3085 /* ManagedPoint.swift in Sources */,
+				22002110296C7CAC007BB4FC /* ViewHasTextField.swift in Sources */,
 				2254D4E229056D2B00ED18D5 /* ViewHasTable.swift in Sources */,
 				220020E029655DE6007BB4FC /* UIImageView+hasImage.swift in Sources */,
 				2283DD0328FE6597008EE94F /* UIFont+setupFont.swift in Sources */,
@@ -929,8 +1052,11 @@
 				2283DD4428FF9086008EE94F /* CustomStack.swift in Sources */,
 				220020F929677603007BB4FC /* ViewWithTable.swift in Sources */,
 				220020FB2968233B007BB4FC /* UIDatePicker+getDate.swift in Sources */,
+				22002114296C7F7D007BB4FC /* ErrorTextEdit.swift in Sources */,
 				220020E429656BA5007BB4FC /* HistoricTableHandler.swift in Sources */,
 				2283DD3B28FF7BF5008EE94F /* HistoricController.swift in Sources */,
+				22002112296C7EEB007BB4FC /* String+validations.swift in Sources */,
+				2200211F296E52BB007BB4FC /* UIViewController+ActionHandler.swift in Sources */,
 				2283DCE528FE52DA008EE94F /* IconInfo.swift in Sources */,
 				22EE795129024CB8006E3085 /* FilesCDManager.swift in Sources */,
 				220020EC2966736D007BB4FC /* UITextField+FontInfo.swift in Sources */,
@@ -941,6 +1067,8 @@
 				2283DCEE28FE64CD008EE94F /* Dimension.swift in Sources */,
 				220020EE2966896F007BB4FC /* TableData.swift in Sources */,
 				2283DD1F28FE867F008EE94F /* MenuController.swift in Sources */,
+				22002103296BF5FB007BB4FC /* TextEditView.swift in Sources */,
+				22002116296C8B05007BB4FC /* LimitValues.swift in Sources */,
 				22EE793029010F9A006E3085 /* DBPointType.swift in Sources */,
 				2254D4E82905849900ED18D5 /* PointInfoProtocol.swift in Sources */,
 				22EE7943290113BF006E3085 /* ErrorCDHandler.swift in Sources */,

@@ -83,8 +83,6 @@ class CDManager: NSObject, CoreDataProperties {
     /// Retorna os dados de ajustes
     /// - Parameter completionHandler: em caso de sucesso retorna os dados
     public func getSettingsData() -> (data: SettingsData?, error: ErrorCDHandler?) {
-        if let cache = self.settingsManager.cache { return (data: cache, error: nil) }
-        
         // Pegando os dados
         let (pointsData, pointsError) = self.pointTypeManager.getAllData()
         guard let pointsData else { return (data: nil, error: pointsError) }
@@ -98,8 +96,19 @@ class CDManager: NSObject, CoreDataProperties {
             pointTypeData: pointsData
         )
         
-        self.settingsManager.cache = data
         return (data: data, error: nil)
+    }
+    
+    
+    /// Atualiza o valor da horas de trabalho
+    /// - Parameter data: novo dado
+    /// - Returns: possível erro
+    public func updateWorkHour(with data: String) -> ErrorCDHandler? {
+        guard var settings = self.settingsManager.cache else { return .dataNotFound }
+        settings.timeWork = data
+        
+        let update = self.settingsManager.updateSettings(with: settings)
+        return update
     }
     
     
@@ -119,14 +128,14 @@ class CDManager: NSObject, CoreDataProperties {
     
     /// Retorna todos os dias criados
     /// - Parameter completionHandler: em caso de sucesso retorna os dados
-    public func getAllDayWorkData(_ completionHandler: @escaping (Result<[ManagedDayWork], ErrorCDHandler>) -> Void) {
+    public func getAllDayWorkData(_ handler: @escaping (Result<[ManagedDayWork], ErrorCDHandler>) -> Void) {
         self.mainContext.perform {
             self.dayWorkManager.getAllData() { result in
                 switch result {
                 case .success(let success):
-                    completionHandler(.success(success))
+                    handler(.success(success))
                 case .failure(let failure):
-                    completionHandler(.failure(failure))
+                    handler(.failure(failure))
                 }
             }
         }
@@ -137,10 +146,10 @@ class CDManager: NSObject, CoreDataProperties {
     /// - Parameters:
     ///   - data: dados do dia
     ///   - completionHandler: gera um erro caso tenha algum problema no processo
-    public func createNewDayWork(with data: ManagedDayWork, _ completionHandler: @escaping (_ error: ErrorCDHandler?) -> Void) {
+    public func createNewDayWork(with data: ManagedDayWork, _ handler: @escaping (_ error: ErrorCDHandler?) -> Void) {
         self.mainContext.perform {
             self.dayWorkManager.createData(with: data) { error in
-                return completionHandler(error)
+                return handler(error)
             }
         }
     }
@@ -151,10 +160,10 @@ class CDManager: NSObject, CoreDataProperties {
     ///   - dataID: id do dia (que vai ser adicionado)
     ///   - point: ponto que vai ser adicionado
     ///   - completionHandler: gera um erro caso tenha algum problema no processo
-    public func addNewPoint(in dataID: UUID, point: ManagedPoint, _ completionHandler: @escaping (_ error: ErrorCDHandler?) -> Void) {
+    public func addNewPoint(in dataID: UUID, point: ManagedPoint, _ handler: @escaping (_ error: ErrorCDHandler?) -> Void) {
         self.mainContext.perform {
             self.dayWorkManager.addNewPoint(in: dataID, point: point) { error in
-                return completionHandler(error)
+                return handler(error)
             }
         }
     }
@@ -166,12 +175,49 @@ class CDManager: NSObject, CoreDataProperties {
     /// Retorna todos os tipos de pontos que existem
     /// - Parameter completionHandler: em caso de sucesso retorna o dado do dia
     public func getAllPointType() -> [ManagedPointType]? {
-        if let cache = self.settingsManager.cache?.pointTypeData { return cache }
-        
         let (data, _) = self.pointTypeManager.getAllData()
-        self.settingsManager.cache?.pointTypeData = data
         
         return data
+    }
+    
+    
+    /// Adiciona um novo tipo de ponto
+    /// - Parameter name: nome do ponto
+    /// - Returns: um eror caso tenha
+    public func addNewPointType(name: String) -> ErrorCDHandler? {
+        let data = ManagedPointType(title: name)
+        
+        let (_, error) = self.pointTypeManager.createIfNeeded(with: data)
+        if let error { return error }
+        
+        let save = try? self.saveContext()
+        return save
+    }
+    
+    
+    /// Atualiza um tipo de ponto
+    /// - Parameter data: dados
+    /// - Returns: um error caso tenha
+    public func updatePointType(with data: DataEdited) -> ErrorCDHandler? {
+        guard let oldData = data.oldData, let newData = data.newData
+        else { return .dataNotFound }
+        
+        let old = ManagedPointType(title: oldData)
+        let new = ManagedPointType(title: newData)
+        
+        let update = self.pointTypeManager.update(oldData: old, newData: new)
+        return update
+    }
+    
+    
+    /// Deleta um tipo de ponto
+    /// - Parameter name: nome do ponto
+    /// - Returns: um error caso tenha
+    public func deletePointType(at data: String) -> ErrorCDHandler? {
+        let managed = ManagedPointType(title: data)
+        
+        let delete = self.pointTypeManager.delete(with: managed)
+        return delete
     }
     
     

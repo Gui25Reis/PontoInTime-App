@@ -29,9 +29,9 @@ class PointCDManager {
         // Tipo do ponto
         let pointTypeManager = PointTypeCDManager()
         pointTypeManager.coreDataProperties = self.coreDataProperties
-        if let pointType = pointTypeManager.createIfNeeded(with: data.pointType) {
-            newData.pointType = pointType
-        }
+        
+        let (point, _) = pointTypeManager.createIfNeeded(with: data.pointType)
+        if let point { newData.pointType = point }
         
         // Arquivos
         let filesManager = FilesCDManager()

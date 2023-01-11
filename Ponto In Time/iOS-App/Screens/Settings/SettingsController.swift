@@ -1,19 +1,11 @@
 /* Gui Reis    -    gui.reis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-
 import class UIKit.UIViewController
-
-import class Foundation.NSObject
-
-protocol SettingsProtocol: NSObject {
-    
-    func copyAction(with text: String)
-}
 
 
 /// Controller responsável pela tela de ajustes
-class SettingsController: UIViewController, ControllerActions, SettingsProtocol {
+class SettingsController: UIViewController, ControllerActions, SettingsProtocol, TextEditProtocol {
     
     /* MARK: - Atributos */
 
@@ -44,12 +36,7 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol 
         self.setupDataSourceData()
     }
     
-    
-    override func viewDidAppear(_ animated: Bool) {
-        self.myView.reloadTableData()
-    }
-    
-    
+        
 
     /* MARK: - Protocolos */
     
@@ -59,7 +46,37 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol 
         let copyWarning = CopyWarning()
         copyWarning.copyHandler(textToCopy: text)
     }
+    
+    
+    internal func openTextEditPage(for data: TextEditData) {
+        let vc = TextEditController(data: data, delegate: self)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    // TextEditProtocol
+    
+    internal func dataEditHandler(data: DataEdited) {
+        guard let section = self.settingsHandler.cellEditedPosition?.section else { return }
+        self.settingsHandler.cellEditedPosition = nil
+        
+        var needToUpdate = false
+        switch section {
+        case 0:
+            needToUpdate = self.updateSettingData(with: data)
+            
+        case 2:
+            needToUpdate = self.handlerPointsData(with: data)
+            
+        default:
+            return
+        }
+        
+        guard needToUpdate else { return }
+        self.setupDataSourceData()
+    }
 
+    
     
     // Controller Actions
     
@@ -70,6 +87,7 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol 
     
     
     internal func setupDelegates() {
+        self.settingsHandler.alertHandler = self
         self.settingsHandler.settingProtocol = self
         self.settingsHandler.link(with: self.myView)
     }
@@ -95,5 +113,54 @@ class SettingsController: UIViewController, ControllerActions, SettingsProtocol 
     private func updateTableData(for data: SettingsData) {
         self.settingsHandler.mainData = data
         self.myView.reloadTableData()
+    }
+    
+    
+    /// Atualiza um dado das configurações
+    /// - Parameter data: dados editados
+    /// - Returns: boleano que indica se deu tudo certo no final
+    private func updateSettingData(with data: DataEdited) -> Bool {
+        guard data.hasChanges, let newValue = data.newData
+        else { return false }
+        
+        guard let error = CDManager.shared.updateWorkHour(with: newValue)
+        else { return true }
+        
+        self.showWarningPopUp(with: error)
+        return false
+    }
+    
+    
+    
+    /// Lida com os dados dos pontos
+    /// - Parameter data: dados
+    /// - Returns: boleano que indica se deu tudo certo no final
+    private func handlerPointsData(with data: DataEdited) -> Bool {
+        if data.hasDeleted {
+            guard let name = data.oldData else { return false }
+            if let error = CDManager.shared.deletePointType(at: name) {
+                self.showWarningPopUp(with: error)
+                return false
+            }
+            return true
+        }
+        
+        if data.isAdding {
+            guard let name = data.newData else { return false }
+            if let error = CDManager.shared.addNewPointType(name: name) {
+                self.showWarningPopUp(with: error)
+                return false
+            }
+            return true
+        }
+        
+        if data.hasChanges {
+            if let error = CDManager.shared.updatePointType(with: data) {
+                self.showWarningPopUp(with: error)
+                return false
+            }
+            return true
+        }
+        return false
     }
 }

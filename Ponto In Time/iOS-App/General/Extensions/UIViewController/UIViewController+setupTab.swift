@@ -1,8 +1,8 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import class UIKit.UIViewController
 import class UIKit.UIImage
+import class UIKit.UIViewController
 
 
 extension UIViewController {

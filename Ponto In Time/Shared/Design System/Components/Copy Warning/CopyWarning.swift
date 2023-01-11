@@ -4,7 +4,7 @@
 import UIKit
 
 
-/// Componente que lida com o faot de copiar o texto. Todas as ações e UI que sào necessárias estão nessa classe
+/// Componente que lida com a ação de copiar um texto. Todas as ações e UI que são necessárias estão nessa classe.
 class CopyWarning: ViewLabel {
     
     /* MARK: - Encapsulamento */

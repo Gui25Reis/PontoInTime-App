@@ -46,35 +46,71 @@ class PointTypeCDManager {
     /// Cria um dado (caso não exista) a partir das informações passadas
     /// - Parameter data: informações do novo dado
     /// - Returns: modelo do dado
-    public func createIfNeeded(with data: ManagedPointType) -> DBPointType? {
-        guard let coreDataProperties else { return nil }
-        
-        let fetch = DBPointType.fetchRequest()
-        fetch.predicate = NSPredicate(format: "%K == '\(data.title)'", #keyPath(DBPointType.title))
-        fetch.fetchLimit = 1
-        
-        if let data = try? coreDataProperties.mainContext.fetch(fetch).first {
-            return data
+    public func createIfNeeded(with data: ManagedPointType) -> (data: DBPointType?, error: ErrorCDHandler?) {
+        if let oldData = self.check(data: data) {
+            return (data: oldData, error: .dataAlreadyExists)
         }
+        
+        guard let coreDataProperties else { return (data: nil, error: .protocolNotSetted) }
         
         let newData = DBPointType(context: coreDataProperties.mainContext)
         newData.title = data.title
         newData.isDefault = data.isDefault
         
-        return newData
+        return (data: newData, error: nil)
+    }
+    
+    
+    /// Atualiza um dado
+    /// - Parameter data: dado que vai ser atualizado
+    /// - Returns: possível erro
+    public func update(oldData: ManagedPointType, newData: ManagedPointType) -> ErrorCDHandler? {
+        guard let point = self.check(data: oldData) else { return .dataNotFound }
+        
+        point.title = newData.title
+        // point.isDefault = newData.isDefault
+        
+        guard let coreDataProperties else { return .protocolNotSetted }
+        return try? coreDataProperties.saveContext()
+    }
+    
+    
+    /// Deleta um ponto
+    /// - Parameter data: dado que vai ser deletado
+    /// - Returns: possível erro
+    public func delete(with data: ManagedPointType) -> ErrorCDHandler? {
+        guard let point = self.check(data: data) else { return .dataNotFound }
+        
+        guard let coreDataProperties else { return .protocolNotSetted }
+        coreDataProperties.mainContext.delete(point)
+        
+        return try? coreDataProperties.saveContext()
     }
 
     
     
     /* MARK: - Configurações */
     
+    /// Cria um dado (caso não exista) a partir das informações passadas
+    /// - Parameter data: informações do novo dado
+    /// - Returns: modelo do dado
+    public func check(data: ManagedPointType) -> DBPointType? {
+        guard let coreDataProperties else { return nil }
+        
+        let fetch = DBPointType.fetchRequest()
+        fetch.predicate = NSPredicate(format: "%K == '\(data.title)'", #keyPath(DBPointType.title))
+        fetch.fetchLimit = 1
+        
+        return try? coreDataProperties.mainContext.fetch(fetch).first
+    }
+    
+    
     /// Configura os dados iniciais
     /// - Returns: dados iniciais
     private func setupInitialData() -> [ManagedPointType]? {
         let initialData = [
             ManagedPointType(title: "Trabalho", isDefault: true),
-            ManagedPointType(title: "Almoço", isDefault: true),
-            ManagedPointType(title: "Test", isDefault: false)
+            ManagedPointType(title: "Almoço", isDefault: true)
         ]
         
         guard let coreDataProperties else { return nil }
@@ -85,7 +121,6 @@ class PointTypeCDManager {
         }
         return initialData
     }
-    
     
     
     /// Transforma a entidade do core date para o modelo (struct)

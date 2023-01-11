@@ -3,7 +3,7 @@
 
 /// Informações dos ajustes
 struct ManagedSettings {
-    let timeWork: String
-    let sharingID: String
-    let isSharing: Bool
+    var timeWork: String
+    var sharingID: String
+    var isSharing: Bool
 }
