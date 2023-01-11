@@ -40,6 +40,8 @@
 		2200211F296E52BB007BB4FC /* UIViewController+ActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200211E296E52BB007BB4FC /* UIViewController+ActionHandler.swift */; };
 		22002124296E5906007BB4FC /* UIImage+LocalImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002123296E5906007BB4FC /* UIImage+LocalImages.swift */; };
 		22002127296F55A7007BB4FC /* DocumentsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002126296F55A7007BB4FC /* DocumentsHandler.swift */; };
+		22002129296F7A85007BB4FC /* PickerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22002128296F7A85007BB4FC /* PickerType.swift */; };
+		2200212B296F7AA9007BB4FC /* DocumentsHandlerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200212A296F7AA9007BB4FC /* DocumentsHandlerDelegate.swift */; };
 		2216895F290795ED00D1B208 /* ErrorWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216895E290795ED00D1B208 /* ErrorWarnings.swift */; };
 		221689622907A25900D1B208 /* String+subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689612907A25900D1B208 /* String+subscripts.swift */; };
 		221689642907A3BB00D1B208 /* Date+TimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221689632907A3BB00D1B208 /* Date+TimeZone.swift */; };
@@ -148,6 +150,8 @@
 		2200211E296E52BB007BB4FC /* UIViewController+ActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ActionHandler.swift"; sourceTree = "<group>"; };
 		22002123296E5906007BB4FC /* UIImage+LocalImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+LocalImages.swift"; sourceTree = "<group>"; };
 		22002126296F55A7007BB4FC /* DocumentsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsHandler.swift; sourceTree = "<group>"; };
+		22002128296F7A85007BB4FC /* PickerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerType.swift; sourceTree = "<group>"; };
+		2200212A296F7AA9007BB4FC /* DocumentsHandlerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsHandlerDelegate.swift; sourceTree = "<group>"; };
 		2216895E290795ED00D1B208 /* ErrorWarnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWarnings.swift; sourceTree = "<group>"; };
 		221689612907A25900D1B208 /* String+subscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscripts.swift"; sourceTree = "<group>"; };
 		221689632907A3BB00D1B208 /* Date+TimeZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeZone.swift"; sourceTree = "<group>"; };
@@ -351,9 +355,19 @@
 		22002125296F5589007BB4FC /* DocumentsHandler */ = {
 			isa = PBXGroup;
 			children = (
+				2200212C296F7ADD007BB4FC /* Model */,
 				22002126296F55A7007BB4FC /* DocumentsHandler.swift */,
+				2200212A296F7AA9007BB4FC /* DocumentsHandlerDelegate.swift */,
 			);
 			path = DocumentsHandler;
+			sourceTree = "<group>";
+		};
+		2200212C296F7ADD007BB4FC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				22002128296F7A85007BB4FC /* PickerType.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		2216895D290795D200D1B208 /* Protocol */ = {
@@ -992,6 +1006,7 @@
 				22EE793729011174006E3085 /* ManagedDayWork.swift in Sources */,
 				22EE793129010F9A006E3085 /* DBPoint.swift in Sources */,
 				220020DE29655C3D007BB4FC /* UIView+strechToBounds.swift in Sources */,
+				22002129296F7A85007BB4FC /* PickerType.swift in Sources */,
 				22EE7935290110CB006E3085 /* ManagedSettings.swift in Sources */,
 				22EE796A2904AA3D006E3085 /* DateFormatTypes.swift in Sources */,
 				220020E82965F110007BB4FC /* TableCell.swift in Sources */,
@@ -1022,6 +1037,7 @@
 				221A5112295BBCDA009BEEA9 /* CustomCell.swift in Sources */,
 				221A510B295BBC9F009BEEA9 /* ViewCode.swift in Sources */,
 				2200211B296D04F8007BB4FC /* DataEdited.swift in Sources */,
+				2200212B296F7AA9007BB4FC /* DocumentsHandlerDelegate.swift in Sources */,
 				2283DCF328FE64CD008EE94F /* AdaptiveLayout.swift in Sources */,
 				2200210E296C78AF007BB4FC /* TextEditProtocol.swift in Sources */,
 				22EE795529024D1B006E3085 /* PointCDManager.swift in Sources */,
