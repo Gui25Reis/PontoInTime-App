@@ -188,7 +188,10 @@ class CDManager: NSObject, CoreDataProperties {
         let data = ManagedPointType(title: name)
         
         let (_, error) = self.pointTypeManager.createIfNeeded(with: data)
-        return error
+        if let error { return error }
+        
+        let save = try? self.saveContext()
+        return save
     }
     
     
@@ -207,7 +210,7 @@ class CDManager: NSObject, CoreDataProperties {
     }
     
     
-    /// Deleta um ponto
+    /// Deleta um tipo de ponto
     /// - Parameter name: nome do ponto
     /// - Returns: um error caso tenha
     public func deletePointType(at data: String) -> ErrorCDHandler? {

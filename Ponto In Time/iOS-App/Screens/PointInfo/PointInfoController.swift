@@ -171,7 +171,7 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         guard var data = self.pointInfoHanlder.mainData else { return }
         
         if index == 0 {
-            data.pointType = ManagedPointType(title: newData, isDefault: false)
+            data.pointType = ManagedPointType(title: newData)
         } else {
             data.status = newData
         }
@@ -221,11 +221,7 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     /// Cria o context menu para a célula de mostrar os pontos disponiveis
     /// - Parameter cell: célula que vai ser atribuida o menu
     private func createPointsTypeMenu() -> UIMenu {
-        let pointsType = [
-            ManagedPointType(title: "Trabalho", isDefault: true),
-            ManagedPointType(title: "Almoço", isDefault: true),
-            ManagedPointType(title: "Test", isDefault: false)
-        ]
+        let pointsType = CDManager.shared.getAllPointType() ?? []
 
         var actions: [UIAction] = []
         for item in pointsType {
