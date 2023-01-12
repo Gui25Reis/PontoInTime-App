@@ -13,8 +13,8 @@ class DocumentsHandler: NSObject, PHPickerViewControllerDelegate, UIImagePickerC
     
     /// Nome do arquivo (para salvar)
     private var fileName: String {
-        var date = Date().getDateFormatted(with: .asset)
-        let name = "PointInTime-\(date)"
+        let date = Date().getDateFormatted(with: .asset)
+        let name = "PointInTime_\(date)"
         return name
     }
     
