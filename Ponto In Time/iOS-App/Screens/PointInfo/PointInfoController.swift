@@ -106,7 +106,7 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     internal func setupDelegates() {
         self.documentsHandler.delegate = self
         
-        self.pointInfoHanlder.pointInfoProtocol = self
+        self.pointInfoHanlder.delegate = self
         self.pointInfoHanlder.link(with: self.myView)
     }
     
@@ -114,17 +114,19 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     internal func setupButtonsAction() {}
     
     
+    
     /* Point Info Protocol */
     
-    internal func createMenu(for row: Int) -> UIMenu? {
-        switch row {
-        case 0:
-            return self.createPointsTypeMenu()
-        case 1:
-            return self.createStatusViewMenu()
-        default:
-            return nil
+    internal func updateMenuData(at index: Int, data: String) {
+        guard var tableData = self.pointInfoHanlder.mainData else { return }
+        
+        if index == 0 {
+            tableData.pointType = ManagedPointType(title: data)
+        } else {
+            tableData.status = data
         }
+        
+        self.setupTableData(with: tableData)
     }
     
     
@@ -139,19 +141,28 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     }
     
     
+    internal func openShareMenu(_ menu: UIActivityViewController) {
+        self.present(menu, animated: true)
+    }
+    
+    
+    internal func deleteFileAction() {
+        let alert = self.createDeleteAlert()
+        self.showAlert(alert)
+    }
+    
+    
+    
     /* DocumentsHandlerDelegate */
     
     internal func documentSelected(_ document: ManagedFiles?, image: UIImage?) {
-        guard
-            let document, var tableData = self.pointInfoHanlder.mainData
-        else {
-            print("Não deu certo")
-            return
-        }
+        guard let document, var tableData = self.pointInfoHanlder.mainData
+        else { print("Não deu certo"); return }
         
         tableData.files.append(document)
         self.setupTableData(with: tableData)
     }
+    
     
     
     /* MARK: - Ações de Botões */
@@ -181,23 +192,15 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     }
     
     
-    /// Ação do context menu: atualiza o dado selecionado
-    /// - Parameters:
-    ///   - index: index da opção
-    ///   - newData: novo dado
-    private func updateData(at index: Int, newData: String) {
-        guard var data = self.pointInfoHanlder.mainData else { return }
-        
-        if index == 0 {
-            data.pointType = ManagedPointType(title: newData)
-        } else {
-            data.status = newData
-        }
-        
-        self.setupTableData(with: data)
+    /// Abre um dos tipos de seleçào de arquivos
+    /// - Parameter type: tipo de seleção de arquivo
+    private func showPicker(for type: PickerType) {
+        let picker = self.documentsHandler.createPicker(for: type)
+        guard let picker else { return }
+        self.present(picker, animated: true)
     }
     
-    
+
     
     /* MARK: - Configurações */
 
@@ -210,15 +213,13 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         }
         
         var initialData = ManagedPoint(
-            status: "Entrada",
-            time: "",
-            files: [],
+            status: "Entrada", time: "", files: [],
             pointType: ManagedPointType(title: "Trabalho", isDefault: true)
         )
         
         if self.isNewPoint {
             self.isFirstPoint = false
-            initialData.pointType = ManagedPointType(title: "Nenhum", isDefault: false)
+            initialData.pointType = ManagedPointType(title: "Nenhum")
         }
         
         self.setupTableData(with: initialData)
@@ -234,81 +235,53 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     }
     
     
-    /* Context Menu */
-    
-    /// Cria o context menu para a célula de mostrar os pontos disponiveis
-    /// - Parameter cell: célula que vai ser atribuida o menu
-    private func createPointsTypeMenu() -> UIMenu {
-        let pointsType = CDManager.shared.getAllPointType() ?? []
 
-        var actions: [UIAction] = []
-        for item in pointsType {
-            let action = UIAction(title: item.title) {_ in
-                self.updateData(at: 0, newData: item.title)
-            }
-            actions.append(action)
-        }
-
-        let menu = UIMenu(title: "Pontos", children: actions)
-        return menu
-    }
+    /* MARK: - Criação (Alertas) */
     
-    
-    /// Cria o context menu para a célula de mostrar os estados disponiveis
-    /// - Parameter cell: célula que vai ser atribuida o menu
-    private func createStatusViewMenu() -> UIMenu {
-        var actions: [UIAction] = []
-        for item in StatusViewStyle.allCases {
-            let action = UIAction(
-                title: item.word,
-                image: StatusView.getImage(for: item)
-            ) {_ in
-                self.updateData(at: 1, newData: item.word)
-            }
-            
-            actions.append(action)
-        }
-        
-        let menu = UIMenu(title: "Tipos", children: actions)
-        return menu
-    }
-    
-    
-    
+    /// Cria o menu de opções para adiocnar um novo arquivo
+    /// - Returns: menu de opções
     private func createPickersMenu() -> UIAlertController {
         let menu = UIAlertController(
             title: "Opções", message: "Escolha uma forma para selecionar o arquivo",
             preferredStyle: .actionSheet
         )
         
-        
         // Botões
-        
-        let camera = UIAlertAction(title: "Tirar foto", style: .default) { _ in
+        menu.addAction(UIAlertAction(title: "Tirar foto", style: .default) { _ in
             self.showPicker(for: .camera)
-        }
-        menu.addAction(camera)
+        })
         
-        let album = UIAlertAction(title: "Escolher foto", style: .default) { _ in
+        menu.addAction(UIAlertAction(title: "Escolher foto", style: .default) { _ in
             self.showPicker(for: .photos)
-        }
-        menu.addAction(album)
+        })
         
-        let file = UIAlertAction(title: "Escolher documento", style: .default) { _ in
+        menu.addAction(UIAlertAction(title: "Escolher documento", style: .default) { _ in
             self.showPicker(for: .files)
-        }
-        menu.addAction(file)
+        })
+
         
-        
-        let cancel = UIAlertAction(title: "Cancelar", style: .destructive, handler: nil)
+        let cancel = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
+        cancel.setValue(UIColor.systemRed, forKey: "titleTextColor")
         menu.addAction(cancel)
         
         return menu
     }
     
     
-    private func showPicker(for type: PickerType) {
-        guard let picker = self.documentsHandler.createPicker(for: type) else { return }
-        self.present(picker, animated: true)
+    /// Cria o aviso de deletar o arquivo
+    /// - Returns: Aviso
+    private func createDeleteAlert() -> UIAlertController {
+        let menu = UIAlertController(
+            title: "Tem certeza?",
+            message: "Tem certeza que deseja exluir o arquivo? Talvez ele não esteja salvo no seu dispositivo.",
+            preferredStyle: .alert
+        )
+        
+        menu.addAction(UIAlertAction(title: "Excluir", style: .destructive) { _ in
+            
+        })
+        
+        menu.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        return menu
     }
 }

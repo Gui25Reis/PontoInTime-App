@@ -53,16 +53,10 @@ class DocumentsHandler: NSObject, PHPickerViewControllerDelegate, UIImagePickerC
     /* MARK: (Documentos) UIDocumentPickerDelegate */
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        var data: ManagedFiles? = nil
         guard let url = urls.first else { return self.dismissPicker(controller, isDataNil: true) }
         
-        let fileName = self.fileName
         let image = self.getPDFThumbnail(for: url)
-        
-        UIImage.saveOnDisk(image: image, with: fileName)
-        
-        data = ManagedFiles(link: fileName, name: fileName)
-        self.delegate?.documentSelected(data, image: image)
+        self.sendData(with: image)
     }
     
     
@@ -106,13 +100,7 @@ class DocumentsHandler: NSObject, PHPickerViewControllerDelegate, UIImagePickerC
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         let image = info[.originalImage] as? UIImage
-        let link = info[.imageURL] as? String ?? ""
-        
-        let fileName = self.fileName
-        UIImage.saveOnDisk(image: image, with: fileName)
-        
-        let data = ManagedFiles(link: fileName, name: fileName)
-        self.delegate?.documentSelected(data, image: image)
+        self.sendData(with: image)
         
         self.dismissPicker(picker)
     }
@@ -171,8 +159,6 @@ class DocumentsHandler: NSObject, PHPickerViewControllerDelegate, UIImagePickerC
         
         if let pdf = UTType(filenameExtension: "pdf") {
             filesToChoose.append(pdf)
-        } else {
-            print("O tipo PDF não rolou")
         }
         
         let picker = UIDocumentPickerViewController(forOpeningContentTypes: filesToChoose, asCopy: true)
@@ -202,10 +188,27 @@ class DocumentsHandler: NSObject, PHPickerViewControllerDelegate, UIImagePickerC
     }
     
     
+    /// Pega uma imagem de preview do pdf usando uma das páginas
+    /// - Parameters:
+    ///   - documentUrl: link do documento (local)
+    ///   - pageIndex: página de referência do PDF (por padrão é a primeira)
+    /// - Returns: preview do pdf
     private func getPDFThumbnail(for documentUrl: URL, atPage pageIndex: Int = 0) -> UIImage? {
-        guard let pdf = PDFDocument(url: documentUrl)?.page(at: pageIndex) else { print("Nào carregou");return nil }
-        let size = CGSize(width: 32, height: 45)
+        guard let pdf = PDFDocument(url: documentUrl)?.page(at: pageIndex) else { return nil }
+        let size = CGSize(width: 32*15, height: 45*15)
         let image = pdf.thumbnail(of: size, for: .trimBox)
         return image
+    }
+    
+    
+    /// Envia os dados para o delegate
+    /// - Parameter image: imagem
+    private func sendData(with image: UIImage?) {
+        guard let image else { self.delegate?.documentSelected(nil, image: nil); return }
+        let fileName = self.fileName
+        UIImage.saveOnDisk(image: image, with: fileName)
+        
+        let data = ManagedFiles(link: fileName, name: fileName)
+        self.delegate?.documentSelected(data, image: image)
     }
 }

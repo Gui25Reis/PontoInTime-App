@@ -3,6 +3,10 @@
 
 /// Informações sobre um arquivo
 struct ManagedFiles {
+    
+    /// Local do arquivo
     let link: String
+    
+    /// Nome do arquivo
     let name: String
 }

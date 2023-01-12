@@ -5,6 +5,7 @@ import Foundation
 
 
 extension Date {
+    
     /* MARK: - Atributos */
     
     /// Singleton: fuso horário do Brasil

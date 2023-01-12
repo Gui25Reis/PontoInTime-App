@@ -17,8 +17,20 @@ enum AppIcons: CustomStringConvertible {
     /// Símbolo - 􀈑
     case delete
     
-    /// Símbolo -
+    /// Símbolo - 􀆊
     case chevron
+    
+    /// Símbolo - 􀉁
+    case copy
+    
+    /// Símbolo - 􀈕
+    case files
+    
+    /// Símbolo - 􀈄
+    case saveToPhotos
+    
+    /// Símbolo - 􀈂
+    case share
     
     
     
@@ -51,6 +63,10 @@ enum AppIcons: CustomStringConvertible {
         case .options: return "chevron.up.chevron.down"
         case .delete: return "trash"
         case .chevron: return "chevron.right"
+        case .copy: return "doc.on.doc"
+        case .files: return "folder"
+        case .saveToPhotos: return "square.and.arrow.down"
+        case .share: return "square.and.arrow.up"
             
         case .settings: return "gearshape.fill"
         case .add: return "plus.circle.fill"
