@@ -21,6 +21,9 @@ public enum DateFormatTypes {
     /// Dia + hora + minuto
     case complete
     
+    /// Para colocar no nome de um asset
+    case asset
+    
     
     
     /* MARK: - Variáveis */
@@ -38,6 +41,8 @@ public enum DateFormatTypes {
             return "dd-MM-yy'T'HH:mm:ssZ"
         case .complete:
             return "dd/MM/yy-HH:mm"
+        case .asset:
+            return "yyyyMMdd-HHmmss"
         }
     }
 }

@@ -1,17 +1,11 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import class Foundation.NSCoder
-import class Foundation.DispatchGroup
-
-import class UIKit.UIAction
-import class UIKit.UIBarButtonItem
-import class UIKit.UIMenu
-import class UIKit.UIViewController
+import UIKit
 
 
 /// Controller responsável pela tela de informações de um ponto
-class PointInfoController: UIViewController, ControllerActions, PointInfoProtocol {
+class PointInfoController: UIViewController, ControllerActions, PointInfoProtocol, DocumentsHandlerDelegate {
     
     /* MARK: - Atributos */
 
@@ -28,6 +22,9 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     /// Handler da tabela de informações de um ponto
     private let pointInfoHanlder = PointInfoTableHandler()
+    
+    /// Handler dos pickers de documentos
+    private let documentsHandler = DocumentsHandler()
     
     
     
@@ -87,27 +84,28 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         self.navigationItem.largeTitleDisplayMode = .never
         self.title = "Informações do ponto".localized()
         
-        if self.isFirstPoint || self.isNewPoint {
-            self.title = "Novo ponto".localized()
-            
-            let leftBut = UIBarButtonItem(
-                title: "Cancelar", style: .plain,
-                target: self, action: #selector(self.dismissAction)
-            )
-            leftBut.tintColor = .systemRed
-            
-            self.navigationItem.leftBarButtonItem = leftBut
-            
-            
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-                title: "Salvar", style: .plain,
-                target: self, action: #selector(self.saveAction)
-            )
-        }
+        guard self.isFirstPoint || self.isNewPoint else { return }
+        self.title = "Novo ponto".localized()
+        
+        let leftBut = UIBarButtonItem(
+            title: "Cancelar", style: .plain,
+            target: self, action: #selector(self.dismissAction)
+        )
+        leftBut.tintColor = .systemRed
+        
+        self.navigationItem.leftBarButtonItem = leftBut
+        
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Salvar", style: .plain,
+            target: self, action: #selector(self.saveAction)
+        )
     }
     
     
     internal func setupDelegates() {
+        self.documentsHandler.delegate = self
+        
         self.pointInfoHanlder.pointInfoProtocol = self
         self.pointInfoHanlder.link(with: self.myView)
     }
@@ -134,6 +132,26 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         self.pickerHour = time
     }
     
+    
+    internal func openFilePickerSelection() {
+        let menu = self.createPickersMenu()
+        self.showAlert(menu)
+    }
+    
+    
+    /* DocumentsHandlerDelegate */
+    
+    internal func documentSelected(_ document: ManagedFiles?, image: UIImage?) {
+        guard
+            let document, var tableData = self.pointInfoHanlder.mainData
+        else {
+            print("Não deu certo")
+            return
+        }
+        
+        tableData.files.append(document)
+        self.setupTableData(with: tableData)
+    }
     
     
     /* MARK: - Ações de Botões */
@@ -253,5 +271,44 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         
         let menu = UIMenu(title: "Tipos", children: actions)
         return menu
+    }
+    
+    
+    
+    private func createPickersMenu() -> UIAlertController {
+        let menu = UIAlertController(
+            title: "Opções", message: "Escolha uma forma para selecionar o arquivo",
+            preferredStyle: .actionSheet
+        )
+        
+        
+        // Botões
+        
+        let camera = UIAlertAction(title: "Tirar foto", style: .default) { _ in
+            self.showPicker(for: .camera)
+        }
+        menu.addAction(camera)
+        
+        let album = UIAlertAction(title: "Escolher foto", style: .default) { _ in
+            self.showPicker(for: .photos)
+        }
+        menu.addAction(album)
+        
+        let file = UIAlertAction(title: "Escolher documento", style: .default) { _ in
+            self.showPicker(for: .files)
+        }
+        menu.addAction(file)
+        
+        
+        let cancel = UIAlertAction(title: "Cancelar", style: .destructive, handler: nil)
+        menu.addAction(cancel)
+        
+        return menu
+    }
+    
+    
+    private func showPicker(for type: PickerType) {
+        guard let picker = self.documentsHandler.createPicker(for: type) else { return }
+        self.present(picker, animated: true)
     }
 }

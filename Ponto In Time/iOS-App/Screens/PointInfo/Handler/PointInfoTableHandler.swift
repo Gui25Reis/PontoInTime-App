@@ -5,7 +5,7 @@ import UIKit
 
 
 /// Lida (handler) com a tabela de informações de um ponto
-class PointInfoTableHandler: NSObject,TableHandler {
+class PointInfoTableHandler: NSObject, TableHandler {
     
     /* MARK: - Atributos */
     
@@ -17,9 +17,7 @@ class PointInfoTableHandler: NSObject,TableHandler {
     private lazy var infoTitles: [String] = []
     
     /// Dados usados no data source referente aos arquivos
-    private lazy var fileData: [TableData] = [
-        TableData(primaryText: "Anexo_16102022-9_41"),
-    ]
+    private lazy var fileData: [TableData] = []
     
     
     
@@ -140,11 +138,11 @@ class PointInfoTableHandler: NSObject,TableHandler {
             let cell = tableView.dequeueReusableCell(withIdentifier: TableCell.identifier, for: indexPath) as? TableCell
             
             var data = TableData()
-            if row < self.fileData.count {
-                data = self.fileData[row]
-            } else {
+            if row == self.actionIndex {
                 data.primaryText = "Adicionar arquivo"
                 data.action = .action
+            } else {
+                data = self.fileData[row]
             }
             
             cell?.tableData = data
@@ -164,6 +162,10 @@ class PointInfoTableHandler: NSObject,TableHandler {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) -> Void {
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.reloadInputViews()
+        
+        if indexPath.row == self.actionIndex {
+            self.pointInfoProtocol?.openFilePickerSelection()
+        }
     }
     
     
@@ -176,8 +178,8 @@ class PointInfoTableHandler: NSObject,TableHandler {
         
         self.infoTitles = ["Título", "Estado", "Horário"]
         
-        self.fileData = data.files.map { item in
-            TableData(primaryText: item.name, image: UIImage(named: item.link))
+        self.fileData = data.files.map {
+            TableData(primaryText: $0.name, image: UIImage.loadFromDisk(imageName: $0.link))
         }
     }
     

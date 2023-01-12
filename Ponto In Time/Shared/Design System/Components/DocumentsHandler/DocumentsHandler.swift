@@ -3,6 +3,7 @@
 /* Bibliotecas necessárias: */
 import UIKit
 import PhotosUI
+import PDFKit
 
 
 /// Classe que lida com a seleção de arquivos
@@ -12,8 +13,8 @@ class DocumentsHandler: NSObject, PHPickerViewControllerDelegate, UIImagePickerC
     
     /// Nome do arquivo (para salvar)
     private var fileName: String {
-        let date = Date().getDateFormatted(with: .complete)
-        let name = "PointInTime_\(date)"
+        var date = Date().getDateFormatted(with: .asset)
+        let name = "PointInTime-\(date)"
         return name
     }
     
@@ -53,12 +54,14 @@ class DocumentsHandler: NSObject, PHPickerViewControllerDelegate, UIImagePickerC
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         var data: ManagedFiles? = nil
-        guard let url = urls.first else { self.delegate?.documentSelected(data, image: nil); return }
+        guard let url = urls.first else { return self.dismissPicker(controller, isDataNil: true) }
         
-        let link = "\(url)"
-        let image = UIImage(named: link)
+        let fileName = self.fileName
+        let image = self.getPDFThumbnail(for: url)
         
-        data = ManagedFiles(link: link, name: self.fileName)
+        UIImage.saveOnDisk(image: image, with: fileName)
+        
+        data = ManagedFiles(link: fileName, name: fileName)
         self.delegate?.documentSelected(data, image: image)
     }
     
@@ -72,22 +75,31 @@ class DocumentsHandler: NSObject, PHPickerViewControllerDelegate, UIImagePickerC
     /* MARK: (Álbum de fotos) PHPickerViewControllerDelegate */
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        guard let asset = results.first?.itemProvider, asset.canLoadObject(ofClass: UIImage.self)
+        else { return self.dismissPicker(picker, isDataNil: true) }
+        
         var data: ManagedFiles? = nil
         var image: UIImage? = nil
         
-        if !results.isEmpty {
-            if let asset = results.first?.assetIdentifier {
-                data = ManagedFiles(link: asset, name: self.fileName)
-                image = UIImage.loadFromDisk(imageName: asset)
-            }
+        let group = DispatchGroup()
+        group.enter()
+        asset.loadObject(ofClass: UIImage.self) { image, _ in
+            defer { group.leave() }
+            guard let image = image as? UIImage else { return }
+            
+            let fileName = self.fileName
+            data = ManagedFiles(link: fileName, name: fileName)
+            UIImage.saveOnDisk(image: image, with: fileName)
         }
         
-        self.delegate?.documentSelected(data, image: image)
-        
+        group.notify(queue: .main) {
+            image = UIImage.loadFromDisk(imageName: data!.link)
+            self.delegate?.documentSelected(data, image: image)
+        }
         self.dismissPicker(picker, delay: 0.3)
     }
     
-    
+
     
     /* MARK: (Câmera) UIImagePickerControllerDelegate */
     
@@ -96,7 +108,10 @@ class DocumentsHandler: NSObject, PHPickerViewControllerDelegate, UIImagePickerC
         let image = info[.originalImage] as? UIImage
         let link = info[.imageURL] as? String ?? ""
         
-        let data = ManagedFiles(link: link, name: self.fileName)
+        let fileName = self.fileName
+        UIImage.saveOnDisk(image: image, with: fileName)
+        
+        let data = ManagedFiles(link: fileName, name: fileName)
         self.delegate?.documentSelected(data, image: image)
         
         self.dismissPicker(picker)
@@ -137,7 +152,7 @@ class DocumentsHandler: NSObject, PHPickerViewControllerDelegate, UIImagePickerC
             filesToChoose += [.screenshots]
         }
         
-        var configs = PHPickerConfiguration()
+        var configs = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
         configs.selectionLimit = 1
         configs.filter = .any(of: filesToChoose)
         
@@ -160,8 +175,9 @@ class DocumentsHandler: NSObject, PHPickerViewControllerDelegate, UIImagePickerC
             print("O tipo PDF não rolou")
         }
         
-        let picker = UIDocumentPickerViewController(forOpeningContentTypes: filesToChoose)
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: filesToChoose, asCopy: true)
         picker.delegate = self
+        picker.shouldShowFileExtensions = true
         return picker
     }
     
@@ -183,5 +199,13 @@ class DocumentsHandler: NSObject, PHPickerViewControllerDelegate, UIImagePickerC
             picker.dismiss(animated: true)
             picker.navigationController?.popViewController(animated: true)
         }
+    }
+    
+    
+    private func getPDFThumbnail(for documentUrl: URL, atPage pageIndex: Int = 0) -> UIImage? {
+        guard let pdf = PDFDocument(url: documentUrl)?.page(at: pageIndex) else { print("Nào carregou");return nil }
+        let size = CGSize(width: 32, height: 45)
+        let image = pdf.thumbnail(of: size, for: .trimBox)
+        return image
     }
 }

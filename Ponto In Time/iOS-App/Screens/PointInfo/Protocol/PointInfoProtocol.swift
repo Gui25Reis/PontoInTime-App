@@ -6,8 +6,7 @@ import class Foundation.NSObject
 import class UIKit.UIMenu
 
 
-/// Os tipos que estão de acordo com esse protocolo são controllers da tela de
-/// infomações de um ponto
+/// Os tipos que estão de acordo com esse protocolo são controllers da tela de infomações de um ponto
 protocol PointInfoProtocol: NSObject {
     
     /// Cria o context menu de acordo com a célula
@@ -19,4 +18,8 @@ protocol PointInfoProtocol: NSObject {
     /// Atualiza a hora que o picker foi definido
     /// - Parameter time: hora do picker
     func updateTimeFromPicker(for time: String)
+    
+    
+    /// Abre o menu de seleção para escolher a imagem
+    func openFilePickerSelection()
 }

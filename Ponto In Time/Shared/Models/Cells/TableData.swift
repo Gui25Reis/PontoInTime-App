@@ -106,7 +106,7 @@ struct TableData {
     init(primaryText: String, secondaryText: String? = nil, image: UIImage? = nil, rightIcon: TableIcon? = nil) {
         self.primaryText = primaryText
         self.secondaryText = secondaryText
-        self.leftIcon = nil
+        self.leftIcon = image
         self.rightIcon = rightIcon
         
         self.isEditable = false
