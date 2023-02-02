@@ -44,25 +44,25 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     /* Infos Alterações */
     
     /// Index dos arquivos que precisam ser salvos no Core Data
-    private var filesToSave: [ManagedFiles] = [] {
+    private var filesToAdd: [ManagedFiles] = [] {
         didSet {
-            print("\nAdicionados: \(filesToSave)")
-            print("Deletados: \(filesDeleted)")
+            print("\nAdicionados: \(filesToAdd)")
+            print("Deletados: \(filesToDelete)")
         }
     }
     
     /// Arquivos que foram deletados
-    private var filesDeleted: [ManagedFiles] = [] {
+    private var filesToDelete: [ManagedFiles] = [] {
         didSet {
-            print("\nAdicionados: \(filesToSave)")
-            print("Deletados: \(filesDeleted)")
+            print("\nAdicionados: \(filesToAdd)")
+            print("Deletados: \(filesToDelete)")
         }
     }
     
     /// Ponto sem alteração
     private var originalPoint: ManagedPoint?
-
-        
+    
+    
     
     /* MARK: - Construtor */
     
@@ -185,7 +185,7 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         guard let document, var tableData = self.pointInfoHanlder.mainData
         else { print("Não deu certo"); return }
         
-        self.filesToSave.append(document)
+        self.filesToAdd.append(document)
         tableData.files.append(document)
         
         self.setupTableData(with: tableData)
@@ -237,28 +237,20 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         let data = tableData.files.remove(at: row)
         
         var needsToDelete = true
-        for index in 0..<self.filesToSave.count {
-            guard self.filesToSave[index].name == file.name else { continue }
+        for index in 0..<self.filesToAdd.count {
+            guard self.filesToAdd[index].name == file.name else { continue }
             
-            self.filesToSave.remove(at: index)
+            self.filesToAdd.remove(at: index)
             needsToDelete = false
             break
         }
         
-        if needsToDelete { self.filesDeleted.append(data) }
+        if needsToDelete { self.filesToDelete.append(data) }
         
         self.setupTableData(with: tableData)
     }
     
     
-    private func updateChangesOnCoreData() {
-        let files = Array(self.filesDeleted)
-        
-        let delete = CDManager.shared.deleteFiles(files)
-        self.showWarningPopUp(with: delete)
-    }
-    
-
     
     /* MARK: - Configurações */
 
@@ -343,5 +335,29 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         
         menu.addActions([delete, cancel])
         return menu
+    }
+    
+    
+    
+    /* MARK: - Core Data */
+    
+    private func updateChangesOnCoreData() {
+        if self.hasChangesForCoreData() {
+            
+        }
+        
+        if !self.filesToDelete.isEmpty {
+            let delete = CDManager.shared.deleteFiles(self.filesToDelete)
+            self.showWarningPopUp(with: delete)
+        }
+    }
+    
+    
+    private func hasChangesForCoreData() -> Bool {
+        guard let old = self.originalPoint, let new = self.pointInfoHanlder.mainData
+        else { return false }
+        
+        let check = !(old == new) || !self.filesToAdd.isEmpty
+        return check
     }
 }
