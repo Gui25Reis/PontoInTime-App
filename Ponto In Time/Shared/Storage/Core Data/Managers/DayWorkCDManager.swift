@@ -59,7 +59,7 @@ internal class DayWorkCDManager {
         guard let coreDataProperties else { return handler(.protocolNotSetted) }
         
         let newData = DBDayWork(context: coreDataProperties.mainContext)
-        newData.id = UUID()
+        newData.id = data.id
         newData.date = data.date
         newData.startTime = data.startTime
         newData.endTime = data.endTime

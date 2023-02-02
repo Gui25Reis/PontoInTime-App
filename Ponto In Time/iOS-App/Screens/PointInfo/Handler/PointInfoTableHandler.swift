@@ -185,7 +185,10 @@ class PointInfoTableHandler: NSObject, TableHandler {
         guard self.tableView(tableView, canEditRowAt: indexPath) else { return nil }
         
         let delete = UIContextualAction(style: .destructive, title: "Remover") { _, _, handler in
-            self.delegate?.deleteFileAction()
+            let row = indexPath.row
+            guard let file = self.mainData?.files[row] else { return handler(false) }
+            
+            self.delegate?.deleteFileAction(file: file, at: row)
             handler(self.delegate != nil)
         }
         
@@ -284,7 +287,10 @@ class PointInfoTableHandler: NSObject, TableHandler {
     /// - Parameter indexPath: posição da célua (arquivo)
     /// - Returns: context menu
     private func createFileMenu(for indexPath: IndexPath) -> UIMenu? {
-        guard let image = self.fileData[indexPath.row].leftIcon else { return nil }
+        let row = indexPath.row
+        guard
+            let file = self.mainData?.files[row], let image = self.fileData[row].leftIcon
+        else { return nil }
         
         var actions: [UIAction] = []
         
@@ -302,7 +308,7 @@ class PointInfoTableHandler: NSObject, TableHandler {
         
         
         let delete = UIAction(title: "Deletar", image: UIImage(.delete), attributes: .destructive) {_ in
-            self.delegate?.deleteFileAction()
+            self.delegate?.deleteFileAction(file: file, at: row)
         }
         delete.image?.withTintColor(.systemRed)
         actions.append(delete)

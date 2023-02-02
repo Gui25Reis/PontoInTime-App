@@ -44,4 +44,22 @@ extension UIImage {
         let image = UIImage(contentsOfFile: file)
         return image
     }
+    
+    
+    /// Deleta uma imagem que foi salva no disco
+    /// - Parameter imageName: nome da imagem
+    /// - Returns: boleano que indica se foi apagado de fato
+    static func deleteFromDisk(imageName: String) -> Bool {
+        let fileUrl = try? FileManager.default.url(
+            for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false
+        ).deletingPathExtension()
+        
+        let filePath = fileUrl?.appendingPathComponent(imageName, isDirectory: false).path
+        
+        guard let filePath, FileManager.default.fileExists(atPath: filePath) else { return false }
+        
+        let delete: ()? = try? FileManager.default.removeItem(atPath: filePath)
+        print("\nDeletando: \(delete != nil)")
+        return delete != nil
+    }
 }

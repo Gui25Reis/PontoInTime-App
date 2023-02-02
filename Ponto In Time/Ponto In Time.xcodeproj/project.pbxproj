@@ -49,6 +49,7 @@
 		221A510B295BBC9F009BEEA9 /* ViewCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A510A295BBC9F009BEEA9 /* ViewCode.swift */; };
 		221A510D295BBCA5009BEEA9 /* ControllerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A510C295BBCA5009BEEA9 /* ControllerActions.swift */; };
 		221A5112295BBCDA009BEEA9 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A5110295BBCDA009BEEA9 /* CustomCell.swift */; };
+		2241E6A8298BB48B0043C311 /* UIAlertController+addActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2241E6A7298BB48B0043C311 /* UIAlertController+addActions.swift */; };
 		2246BEA52900C3DD001FE2C6 /* PointInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEA42900C3DD001FE2C6 /* PointInfoController.swift */; };
 		2246BEAA2900C83C001FE2C6 /* PointInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEA92900C83C001FE2C6 /* PointInfoCell.swift */; };
 		2254D4E229056D2B00ED18D5 /* ViewHasTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254D4E129056D2B00ED18D5 /* ViewHasTable.swift */; };
@@ -159,6 +160,7 @@
 		221A510A295BBC9F009BEEA9 /* ViewCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewCode.swift; sourceTree = "<group>"; };
 		221A510C295BBCA5009BEEA9 /* ControllerActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerActions.swift; sourceTree = "<group>"; };
 		221A5110295BBCDA009BEEA9 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		2241E6A7298BB48B0043C311 /* UIAlertController+addActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+addActions.swift"; sourceTree = "<group>"; };
 		2246BEA42900C3DD001FE2C6 /* PointInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoController.swift; sourceTree = "<group>"; };
 		2246BEA92900C83C001FE2C6 /* PointInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoCell.swift; sourceTree = "<group>"; };
 		2254D4E129056D2B00ED18D5 /* ViewHasTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHasTable.swift; sourceTree = "<group>"; };
@@ -596,6 +598,7 @@
 				220020FA2968233B007BB4FC /* UIDatePicker+getDate.swift */,
 				220020DF29655DE6007BB4FC /* UIImageView+hasImage.swift */,
 				22002123296E5906007BB4FC /* UIImage+LocalImages.swift */,
+				2241E6A7298BB48B0043C311 /* UIAlertController+addActions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1095,6 +1098,7 @@
 				22EE792E29010F9A006E3085 /* DBFiles.swift in Sources */,
 				2283DCB028FE4F90008EE94F /* AppDelegate.swift in Sources */,
 				2283DD2228FE86A4008EE94F /* MenuView.swift in Sources */,
+				2241E6A8298BB48B0043C311 /* UIAlertController+addActions.swift in Sources */,
 				2283DCBA28FE4F90008EE94F /* mainDataBase.xcdatamodeld in Sources */,
 				2283DCEE28FE64CD008EE94F /* Dimension.swift in Sources */,
 				220020EE2966896F007BB4FC /* TableData.swift in Sources */,

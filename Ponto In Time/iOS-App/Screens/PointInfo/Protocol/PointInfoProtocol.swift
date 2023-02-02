@@ -20,7 +20,10 @@ protocol PointInfoProtocol: NSObject {
     
     
     /// Ação de deletar um arquivo
-    func deleteFileAction()
+    /// - Parameters:
+    ///   - file: dados do arquivo
+    ///   - row: posição do arquivo
+    func deleteFileAction(file: ManagedFiles, at row: Int)
     
     
     /// Ação de mostrar a tela de compartilhar

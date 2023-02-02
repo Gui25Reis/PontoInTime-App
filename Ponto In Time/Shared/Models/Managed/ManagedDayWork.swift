@@ -9,7 +9,7 @@ struct ManagedDayWork {
     
     /* MARK: - Atributos */
     
-    let id: UUID?
+    let id: UUID
     let date: String
     var startTime: String
     var endTime: String
@@ -19,8 +19,9 @@ struct ManagedDayWork {
     
     /* MARK: - Construtor */
     
+    // Cria para mandar para o Core Data
     init(date: String, startTime: String, endTime: String, points: [ManagedPoint]) {
-        self.id = nil
+        self.id = UUID()
         self.date = date
         self.startTime = startTime
         self.endTime = endTime
@@ -28,6 +29,7 @@ struct ManagedDayWork {
     }
     
     
+    // Vem do Core Data
     init(id: UUID, date: String, startTime: String, endTime: String, points: [ManagedPoint]) {
         self.id = id
         self.date = date

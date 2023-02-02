@@ -41,11 +41,35 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     
     
+    /* Infos Alterações */
+    
+    /// Index dos arquivos que precisam ser salvos no Core Data
+    private var filesToSave: [ManagedFiles] = [] {
+        didSet {
+            print("\nAdicionados: \(filesToSave)")
+            print("Deletados: \(filesDeleted)")
+        }
+    }
+    
+    /// Arquivos que foram deletados
+    private var filesDeleted: [ManagedFiles] = [] {
+        didSet {
+            print("\nAdicionados: \(filesToSave)")
+            print("Deletados: \(filesDeleted)")
+        }
+    }
+    
+    /// Ponto sem alteração
+    private var originalPoint: ManagedPoint?
+
+        
+    
     /* MARK: - Construtor */
     
     init(with data: ManagedPoint? = nil) {
         super.init(nibName: nil, bundle: nil)
         
+        self.originalPoint = data
         self.setupCell(for: data)
     }
     
@@ -146,8 +170,10 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     }
     
     
-    internal func deleteFileAction() {
-        let alert = self.createDeleteAlert()
+    internal func deleteFileAction(file: ManagedFiles, at row: Int) {
+        let alert = self.createDeleteAlert() {
+            self.deleteAction(file: file, at: row)
+        }
         self.showAlert(alert)
     }
     
@@ -159,7 +185,9 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         guard let document, var tableData = self.pointInfoHanlder.mainData
         else { print("Não deu certo"); return }
         
+        self.filesToSave.append(document)
         tableData.files.append(document)
+        
         self.setupTableData(with: tableData)
     }
     
@@ -176,28 +204,58 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     /// Ação do botão de salvar: salva os dados e fecha a janela
     @objc private func saveAction() {
-        if let data = self.pointInfoHanlder.mainData {
-            var updateData = data
-            updateData.time = self.pickerHour
-            
-            if self.isFirstPoint {
-                self.menuControllerProtocol?.setupInitalData(with: updateData)
-            } else
+        guard var data = self.pointInfoHanlder.mainData else { return self.dismissAction() }
+        
+        data.time = self.pickerHour
+        
+        if self.isFirstPoint {
+            self.menuControllerProtocol?.setupInitalData(with: data)
+        } else
 
-            if self.isNewPoint {
-                self.menuControllerProtocol?.addNewPoint(with: updateData)
-            }
+        if self.isNewPoint {
+            self.menuControllerProtocol?.addNewPoint(with: data)
         }
+        
         self.dismissAction()
     }
     
     
-    /// Abre um dos tipos de seleçào de arquivos
+    /// Abre um dos tipos de seleção de arquivos
     /// - Parameter type: tipo de seleção de arquivo
     private func showPicker(for type: PickerType) {
         let picker = self.documentsHandler.createPicker(for: type)
         guard let picker else { return }
         self.present(picker, animated: true)
+    }
+    
+    
+    /// Deleta um arquivo
+    /// - Parameter file: arquivo que vai ser deletado
+    private func deleteAction(file: ManagedFiles, at row: Int) {
+        guard var tableData = self.pointInfoHanlder.mainData else { return self.myView.reloadTableData() }
+        
+        let data = tableData.files.remove(at: row)
+        
+        var needsToDelete = true
+        for index in 0..<self.filesToSave.count {
+            guard self.filesToSave[index].name == file.name else { continue }
+            
+            self.filesToSave.remove(at: index)
+            needsToDelete = false
+            break
+        }
+        
+        if needsToDelete { self.filesDeleted.append(data) }
+        
+        self.setupTableData(with: tableData)
+    }
+    
+    
+    private func updateChangesOnCoreData() {
+        let files = Array(self.filesDeleted)
+        
+        let delete = CDManager.shared.deleteFiles(files)
+        self.showWarningPopUp(with: delete)
     }
     
 
@@ -246,42 +304,44 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
             preferredStyle: .actionSheet
         )
         
-        // Botões
-        menu.addAction(UIAlertAction(title: "Tirar foto", style: .default) { _ in
-            self.showPicker(for: .camera)
-        })
-        
-        menu.addAction(UIAlertAction(title: "Escolher foto", style: .default) { _ in
-            self.showPicker(for: .photos)
-        })
-        
-        menu.addAction(UIAlertAction(title: "Escolher documento", style: .default) { _ in
-            self.showPicker(for: .files)
-        })
-
+        let camera = self.createPickersMenuButton(title: "Tirar foto", type: .camera)
+        let photos = self.createPickersMenuButton(title: "Escolher foto", type: .photos)
+        let files = self.createPickersMenuButton(title: "Escolher documento", type: .files)
         
         let cancel = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
         cancel.setValue(UIColor.systemRed, forKey: "titleTextColor")
-        menu.addAction(cancel)
+        
+        let actions = [camera, photos, files, cancel]
+        menu.addActions(actions)
         
         return menu
     }
     
     
+    /// Cria um botão de ação do picker de adioncar um arquivo
+    /// - Parameters:
+    ///   - title: título do botão
+    ///   - type: tipo de ação
+    /// - Returns: botão de ação
+    private func createPickersMenuButton(title: String, type: PickerType) -> UIAlertAction {
+        return UIAlertAction(title: title, style: .default) { _ in self.showPicker(for: type)}
+    }
+    
+    
     /// Cria o aviso de deletar o arquivo
-    /// - Returns: Aviso
-    private func createDeleteAlert() -> UIAlertController {
+    /// - Parameter action: ação do botão de deletar
+    /// - Returns: pop up de aviso
+    private func createDeleteAlert(deleteAction action: @escaping () -> Void) -> UIAlertController {
         let menu = UIAlertController(
             title: "Tem certeza?",
             message: "Tem certeza que deseja exluir o arquivo? Talvez ele não esteja salvo no seu dispositivo.",
             preferredStyle: .alert
         )
         
-        menu.addAction(UIAlertAction(title: "Excluir", style: .destructive) { _ in
-            
-        })
+        let delete = UIAlertAction(title: "Excluir", style: .destructive) { _ in action() }
+        let cancel = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
         
-        menu.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        menu.addActions([delete, cancel])
         return menu
     }
 }

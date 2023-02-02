@@ -1,5 +1,7 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
+import struct Foundation.UUID
+
 
 /// Lida com os pontos salvos no core data
 class PointCDManager {

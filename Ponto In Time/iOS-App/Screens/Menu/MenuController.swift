@@ -247,7 +247,7 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     /// Salva um dado no core data
     /// - Parameter data: dado que vai ser salvo
     private func saveIntoCoreData(data: Any) {
-        return
+//        return
         if let point = data as? ManagedPoint, let id = self.infosHandler.mainData?.id {
             CDManager.shared.addNewPoint(in: id, point: point) { error in
                 self.showWarningPopUp(with: error)

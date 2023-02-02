@@ -1,16 +1,8 @@
 /* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-import class CoreData.NSManagedObjectContext
-import class CoreData.NSPersistentContainer
-
-import class Foundation.NSError
-import class Foundation.NSObject
-import struct Foundation.Date
-import struct Foundation.UUID
-
-import class UIKit.UIAlertAction
-import class UIKit.UIAlertController
+import CoreData
+import UIKit
 
 
 /// Core Data Manager: classe principal que lida com o core data
@@ -32,6 +24,9 @@ class CDManager: NSObject, CoreDataProperties {
     
     /// Lida com os dados dos tipos de pontos
     private lazy var pointTypeManager = PointTypeCDManager()
+    
+    /// Lida com os arquivos
+    private lazy var fileManager = FilesCDManager()
     
     
     
@@ -65,7 +60,7 @@ class CDManager: NSObject, CoreDataProperties {
     
     
     internal func saveContext() throws -> ErrorCDHandler? {
-        guard self.mainContext.hasChanges else { return nil }
+        guard self.mainContext.hasChanges else { print("Não teve mudanças"); return nil }
         do {
             try self.mainContext.save()
             return nil
@@ -222,6 +217,26 @@ class CDManager: NSObject, CoreDataProperties {
     
     
     
+    /* MARK: Arquivos */
+    
+    /// Deleta uma arquivo co dore data e do dispositivo
+    /// - Parameter file: dados do arquivo
+    /// - Returns: um error caso tenha
+    public func deleteFiles(_ files: [ManagedFiles]) -> ErrorCDHandler? {
+        let delete = self.fileManager.deleteFiles(with: files)
+        
+        var error: ErrorCDHandler? = nil
+        files.forEach() {
+            let deleteFromDisk = UIImage.deleteFromDisk(imageName: $0.link)
+            if !deleteFromDisk { error = .deleteError }
+        }
+        
+        guard let error else { return delete }
+        return error
+    }
+
+    
+    
     /* MARK: - Configurações */
     
     /// Configura os protocolos dos atributos
@@ -229,6 +244,7 @@ class CDManager: NSObject, CoreDataProperties {
         self.settingsManager.coreDataProperties = self
         self.dayWorkManager.coreDataProperties = self
         self.pointTypeManager.coreDataProperties = self
+        self.fileManager.coreDataProperties = self
     }
     
     

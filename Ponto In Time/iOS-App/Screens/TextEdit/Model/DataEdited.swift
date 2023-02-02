@@ -1,7 +1,7 @@
 /* Gui Reis    -    gui.reis25@gmail.com */
 
 
-/// Modelo de dados usado para mostrar o que foi feito na tela de ediçào/altera;çào de
+/// Modelo de dados usado para mostrar o que foi feito na tela de edição/alteração de
 /// um texto (tela de textEdit)
 struct DataEdited {
     

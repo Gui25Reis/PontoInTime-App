@@ -34,7 +34,7 @@ class DocumentsHandler: NSObject, PHPickerViewControllerDelegate, UIImagePickerC
     
     /// Cria a controller responsável pelo tipo da seleção
     /// - Parameter type: tipo de seleção
-    /// - Returns: controller da tela (caso nào tenha erros)
+    /// - Returns: controller da tela (caso não tenha erros)
     public func createPicker(for type: PickerType) -> UIViewController? {
         switch type {
         case .camera:
