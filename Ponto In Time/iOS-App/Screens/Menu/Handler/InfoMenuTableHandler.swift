@@ -15,7 +15,7 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     /// Dados usados no data source referente as informações do dia
     private lazy var infosData: [TableData] = []
     
-    /// Dados usados no data source referente aos pontosmac
+    /// Dados usados no data source referente aos pontos
     private lazy var pointsData: [TableData] = []
     
     
@@ -24,8 +24,11 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     
     /* Variáveis computáveis */
     
-    /// Protocolo de comunicação com a tela de menu
-    public var menuControllerProtocol: MenuControllerProtocol?
+    /// Protocolo de comunicação com a tela que mostra as informações de um dia de trabalho
+    public weak var dayWorkInfoDelegate: ViewWithDayWorkInfoDelegate?
+    
+    /// Protocolo de comunicação que apresenta um alerta
+    public weak var alertHandler: AlertHandler?
     
     /// Dado que a tabela vai consumir
     public var mainData: ManagedDayWork? {
@@ -69,6 +72,16 @@ class InfoMenuTableHandler: NSObject, TableHandler {
         guard let index = self.pointSelectedIndex else { return }
         self.mainData?.points[index] = data
         self.pointSelectedIndex = nil
+    }
+    
+    
+    /// Deleta o último ponto selecionado
+    public func deleteLastPointSelected() -> ManagedPoint? {
+        guard let index = self.pointSelectedIndex else { return nil }
+        let point = self.mainData?.points.remove(at: index)
+        
+        self.pointSelectedIndex = nil
+        return point
     }
     
     
@@ -212,6 +225,30 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     }
     
     
+    // Define se é possível configurar uma ação na célula (swipe)
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let isSectionAlowed = indexPath.section == 2
+        let isCellAction = indexPath.row == self.actionIndex || indexPath.row == self.destructiveIndex
+        return isSectionAlowed && !isCellAction
+    }
+    
+    
+    // Define a ação de swipe na célula (lado direito)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard self.tableView(tableView, canEditRowAt: indexPath) else { return nil }
+        
+        let delete = UIContextualAction(style: .destructive, title: "Remover") { _, _, handler in
+            self.pointSelectedIndex = indexPath.row
+            self.deletePointAction()
+            handler(true)
+        }
+        
+        let swipeAction = UISwipeActionsConfiguration(actions: [delete])
+        swipeAction.performsFirstActionWithFullSwipe = false
+        return swipeAction
+    }
+    
+    
 
     /* MARK: - Configurações */
     
@@ -249,13 +286,13 @@ class InfoMenuTableHandler: NSObject, TableHandler {
         case 2: // Pontos
             if row < self.actionIndex {
                 let data = self.mainData?.points[row]
-                self.menuControllerProtocol?.showPointInfos(for: data)
+                self.dayWorkInfoDelegate?.showPointInfos(for: data)
                 self.pointSelectedIndex = row
                 return
             }
             
             if row == self.actionIndex {
-                self.menuControllerProtocol?.showPointInfos(for: nil)
+                self.dayWorkInfoDelegate?.showPointInfos(for: nil)
                 return
             }
             
@@ -263,5 +300,16 @@ class InfoMenuTableHandler: NSObject, TableHandler {
             
         default: break
         }
+    }
+    
+    
+    /* MARK: - Ações de Botões */
+    
+    private func deletePointAction() {
+        let message = "Tem certeza que deseja deletar o ponto?"
+        let alert = UIAlertController.createDeleteAlert(message: message) {
+            self.dayWorkInfoDelegate?.deletePointSelected()
+        }
+        self.alertHandler?.showAlert(alert)
     }
 }

@@ -18,7 +18,7 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     /* Delegate & Data Sources */
     
     /// Protocolo de comunicação com a tela de menu
-    public weak var menuControllerProtocol: MenuControllerProtocol?
+    public weak var menuControllerProtocol: ViewWithDayWorkInfoDelegate?
     
     /// Handler da tabela de informações de um ponto
     private let pointInfoHanlder = PointInfoTableHandler()
@@ -105,6 +105,14 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         self.navigationItem.largeTitleDisplayMode = .never
         self.title = "Informações do ponto".localized()
         
+        let rightBut = UIBarButtonItem(
+            title: "Deletar", style: .plain,
+            target: self, action: #selector(self.deletePointAction)
+        )
+        rightBut.tintColor = .systemRed
+        
+        self.navigationItem.rightBarButtonItem = rightBut
+        
         guard self.isFirstPoint || self.isNewPoint else { return }
         self.title = "Novo ponto".localized()
         
@@ -168,8 +176,9 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     
     internal func deleteFileAction(file: ManagedFiles, at row: Int) {
-        let alert = self.createDeleteAlert() {
-            self.deleteAction(file: file, at: row)
+        let message = "Tem certeza que deseja exluir o arquivo? Talvez ele não esteja salvo no seu dispositivo."
+        let alert = UIAlertController.createDeleteAlert(message: message) {
+            self.deleteFile(file, at: row)
         }
         self.showAlert(alert)
     }
@@ -227,9 +236,8 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     /// Deleta um arquivo
     /// - Parameter file: arquivo que vai ser deletado
-    private func deleteAction(file: ManagedFiles, at row: Int) {
+    private func deleteFile(_ file: ManagedFiles, at row: Int) {
         guard var tableData = self.pointInfoHanlder.mainData else { return self.myView.reloadTableData() }
-        
         let data = tableData.files.remove(at: row)
         
         var needsToDelete = true
@@ -240,10 +248,20 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
             needsToDelete = false
             break
         }
-        
         if needsToDelete { self.filesToDelete.append(data) }
         
         self.setupTableData(with: tableData)
+    }
+    
+    
+    /// Ação do botào de deletar um ponto
+    @objc private func deletePointAction() {
+        let message = "Tem certeza que deseja deletar o ponto?"
+        let alert = UIAlertController.createDeleteAlert(message: message) {
+            self.menuControllerProtocol?.deletePointSelected()
+            self.dismissAction()
+        }
+        self.showAlert(alert)
     }
     
     
@@ -313,24 +331,6 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     /// - Returns: botão de ação
     private func createPickersMenuButton(title: String, type: PickerType) -> UIAlertAction {
         return UIAlertAction(title: title, style: .default) { _ in self.showPicker(for: type) }
-    }
-    
-    
-    /// Cria o aviso de deletar o arquivo
-    /// - Parameter action: ação do botão de deletar
-    /// - Returns: pop up de aviso
-    private func createDeleteAlert(deleteAction action: @escaping () -> Void) -> UIAlertController {
-        let menu = UIAlertController(
-            title: "Tem certeza?",
-            message: "Tem certeza que deseja exluir o arquivo? Talvez ele não esteja salvo no seu dispositivo.",
-            preferredStyle: .alert
-        )
-        
-        let delete = UIAlertAction(title: "Excluir", style: .destructive) { _ in action() }
-        let cancel = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
-        
-        menu.addActions([delete, cancel])
-        return menu
     }
     
     

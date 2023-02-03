@@ -11,7 +11,7 @@ import class UIKit.UIViewController
 
 
 /// Controller responsável pela primeira tela da aplicação
-class MenuController: UIViewController, ControllerActions, MenuControllerProtocol {
+class MenuController: UIViewController, ControllerActions, ViewWithDayWorkInfoDelegate {
     
     /* MARK: - Atributos */
 
@@ -24,7 +24,7 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     /* Handlers */
     
     /// Handler da tabela
-    private let infosHandler = InfoMenuTableHandler()
+    private let tableInfosHandler = InfoMenuTableHandler()
     
     
     /* Outros */
@@ -72,8 +72,9 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     
     
     internal func setupDelegates() {
-        self.infosHandler.menuControllerProtocol = self
-        self.infosHandler.link(with: self.myView)
+        self.tableInfosHandler.alertHandler = self
+        self.tableInfosHandler.dayWorkInfoDelegate = self
+        self.tableInfosHandler.link(with: self.myView)
     }
     
     
@@ -96,12 +97,18 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     }
     
     
-    internal func updatePointChanged(newPoint: ManagedPoint?) {
-        print("entrei")
-        guard let newPoint else { return }
-        print("Recebi os dados")
-        self.infosHandler.updatePoint(with: newPoint)
+    internal func updatePointChanged(newPoint: ManagedPoint) {
+        self.tableInfosHandler.updatePoint(with: newPoint)
         self.myView.reloadTableData()
+    }
+    
+    
+    internal func deletePointSelected() {
+        guard let point = self.tableInfosHandler.deleteLastPointSelected() else { return }
+        self.myView.reloadTableData()
+        
+        let error = CDManager.shared.deletePoint(point)
+        self.showWarningPopUp(with: error)
     }
     
     
@@ -142,15 +149,12 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     ///   - data: dado que a tela vai receber
     ///   - isNewData: caso seja para adicionar um novo dado
     private func openPointInfoPage(with data: ManagedPoint?, isNewData: Bool = false) {
-        var vc: PointInfoController
-        if isNewData {
-            vc = PointInfoController(isNewData: true)
-        } else {
-            vc = PointInfoController(with: data)
-        }
+        var vc = PointInfoController(with: data)
+        if isNewData { vc = PointInfoController(isNewData: true) }
         
         vc.menuControllerProtocol = self
-        if data == nil {            
+        
+        if data == nil {
             let navBar = UINavigationController(rootViewController: vc)
             self.navigationController?.present(navBar, animated: true)
         } else {
@@ -164,7 +168,7 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     /// Define os dados da tabela
     /// - Parameter data: dados que a tabela vai receber
     private func setupTableData(with data: ManagedDayWork) {
-        self.infosHandler.mainData = data
+        self.tableInfosHandler.mainData = data
         self.myView.reloadTableData()
     }
     
@@ -172,10 +176,10 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     /// Atualiza o dado de pontos da tabela
     /// - Parameter data: pontos que vão ser adicionados
     private func updateTableData(with data: ManagedPoint) {
-        var existData = self.infosHandler.mainData?.points ?? []
+        var existData = self.tableInfosHandler.mainData?.points ?? []
         existData.append(data)
         
-        self.infosHandler.updatePointsData(with: existData)
+        self.tableInfosHandler.updatePointsData(with: existData)
         self.myView.reloadTableData()
     }
     
@@ -257,7 +261,7 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     /// - Parameter data: dado que vai ser salvo
     private func saveIntoCoreData(data: Any) {
 //        return
-        if let point = data as? ManagedPoint, let id = self.infosHandler.mainData?.id {
+        if let point = data as? ManagedPoint, let id = self.tableInfosHandler.mainData?.id {
             CDManager.shared.addNewPoint(in: id, point: point) { error in
                 self.showWarningPopUp(with: error)
             }

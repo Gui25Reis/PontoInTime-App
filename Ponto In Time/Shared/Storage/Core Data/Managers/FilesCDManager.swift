@@ -24,7 +24,6 @@ class FilesCDManager {
         coreDataProperties.mainContext.delete(file)
         
         let save = try? coreDataProperties.saveContext()
-        print("Salvando \(save)")
         return save
     }
     
@@ -40,7 +39,6 @@ class FilesCDManager {
         newData.link = data.link
         newData.name = data.name
         
-        print("Criando arquivo \(newData.link)")
         return newData
     }
     

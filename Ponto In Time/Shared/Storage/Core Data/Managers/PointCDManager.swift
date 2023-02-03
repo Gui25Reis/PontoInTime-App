@@ -17,6 +17,21 @@ class PointCDManager {
     
     /* MARK: - Métodos (Públicos) */
     
+    /// Deleta um ponto
+    /// - Parameter data: dado que vai ser deletado
+    /// - Returns: possível erro
+    public func deletePoint(id: UUID) -> ErrorCDHandler? {
+        guard let point = self.check(id) else { return .dataNotFound }
+        
+        guard let coreDataProperties else { return .protocolNotSetted }
+        coreDataProperties.mainContext.delete(point)
+        
+        let save = try? coreDataProperties.saveContext()
+        return save
+    }
+    
+    
+    
     public func updateData(at id: UUID, newData: ManagedPoint, files: [ManagedFiles]?) -> ErrorCDHandler? {
         guard let oldData = self.check(id) else { return .dataNotFound }
         

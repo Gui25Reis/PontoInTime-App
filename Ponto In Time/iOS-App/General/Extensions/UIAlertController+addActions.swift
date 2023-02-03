@@ -12,4 +12,20 @@ extension UIAlertController {
     public func addActions(_ actions: [UIAlertAction]) {
         actions.forEach() { self.addAction($0) }
     }
+    
+    
+    /// Cria o aviso de deletar o arquivo
+    /// - Parameter action: ação do botão de deletar
+    /// - Returns: pop up de aviso
+    static func createDeleteAlert(title: String? = nil, message: String, deleteAction action: @escaping () -> Void) -> UIAlertController {
+        let menu = UIAlertController(
+            title: title ?? "Tem certeza?", message: message, preferredStyle: .alert
+        )
+        
+        let delete = UIAlertAction(title: "Excluir", style: .destructive) { _ in action() }
+        let cancel = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
+        
+        menu.addActions([delete, cancel])
+        return menu
+    }
 }

@@ -178,6 +178,13 @@ class CDManager: NSObject, CoreDataProperties {
     
     
     
+    public func deletePoint(_ point: ManagedPoint) -> ErrorCDHandler? {
+        let error = self.pointManager.deletePoint(id: point.uuid)
+        return error
+    }
+    
+    
+    
     /* MARK: Tipos de pontos */
     
     /// Retorna todos os tipos de pontos que existem

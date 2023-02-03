@@ -53,7 +53,7 @@
 		2246BEA52900C3DD001FE2C6 /* PointInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEA42900C3DD001FE2C6 /* PointInfoController.swift */; };
 		2246BEAA2900C83C001FE2C6 /* PointInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2246BEA92900C83C001FE2C6 /* PointInfoCell.swift */; };
 		2254D4E229056D2B00ED18D5 /* ViewHasTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254D4E129056D2B00ED18D5 /* ViewHasTable.swift */; };
-		2254D4E529056D8B00ED18D5 /* MenuControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254D4E429056D8B00ED18D5 /* MenuControllerProtocol.swift */; };
+		2254D4E529056D8B00ED18D5 /* ViewWithDayWorkInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254D4E429056D8B00ED18D5 /* ViewWithDayWorkInfoDelegate.swift */; };
 		2254D4E82905849900ED18D5 /* PointInfoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254D4E72905849900ED18D5 /* PointInfoProtocol.swift */; };
 		2283DCB028FE4F90008EE94F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCAF28FE4F90008EE94F /* AppDelegate.swift */; };
 		2283DCB228FE4F90008EE94F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283DCB128FE4F90008EE94F /* SceneDelegate.swift */; };
@@ -164,7 +164,7 @@
 		2246BEA42900C3DD001FE2C6 /* PointInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoController.swift; sourceTree = "<group>"; };
 		2246BEA92900C83C001FE2C6 /* PointInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoCell.swift; sourceTree = "<group>"; };
 		2254D4E129056D2B00ED18D5 /* ViewHasTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHasTable.swift; sourceTree = "<group>"; };
-		2254D4E429056D8B00ED18D5 /* MenuControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuControllerProtocol.swift; sourceTree = "<group>"; };
+		2254D4E429056D8B00ED18D5 /* ViewWithDayWorkInfoDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithDayWorkInfoDelegate.swift; sourceTree = "<group>"; };
 		2254D4E72905849900ED18D5 /* PointInfoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointInfoProtocol.swift; sourceTree = "<group>"; };
 		2283DCAC28FE4F90008EE94F /* Ponto In Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ponto In Time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2283DCAF28FE4F90008EE94F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -436,7 +436,7 @@
 		2254D4E329056D7400ED18D5 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				2254D4E429056D8B00ED18D5 /* MenuControllerProtocol.swift */,
+				2254D4E429056D8B00ED18D5 /* ViewWithDayWorkInfoDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1023,7 +1023,7 @@
 				220020DA296556C4007BB4FC /* InfoMenuTableHandler.swift in Sources */,
 				220020FD2968695B007BB4FC /* UIViewController+showWarningPopUp.swift in Sources */,
 				22EE7958290255EC006E3085 /* TableIcon.swift in Sources */,
-				2254D4E529056D8B00ED18D5 /* MenuControllerProtocol.swift in Sources */,
+				2254D4E529056D8B00ED18D5 /* ViewWithDayWorkInfoDelegate.swift in Sources */,
 				220020E2296564EF007BB4FC /* PointInfoTableHandler.swift in Sources */,
 				220020F12966B90A007BB4FC /* CopyWarning.swift in Sources */,
 				2283DD0928FE6916008EE94F /* StatusView.swift in Sources */,
