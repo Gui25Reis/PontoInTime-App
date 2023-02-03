@@ -66,6 +66,7 @@ internal class SettingsCDManager {
     }
     
     
+    
     /* MARK: - Configurações */
     
     /// Configura os dados inciais do app

@@ -4,6 +4,7 @@
 import class CoreData.NSFetchRequest
 import class CoreData.NSManagedObject
 import class Foundation.NSSet
+import struct Foundation.UUID
 
 
 @objc(DBPoint)
@@ -11,6 +12,7 @@ public class DBPoint: NSManagedObject, Identifiable {
     
     /* MARK: - Atributos */
     
+    @NSManaged public var uuid: UUID
     @NSManaged public var status: String
     @NSManaged public var time: String
     @NSManaged public var files: NSSet?

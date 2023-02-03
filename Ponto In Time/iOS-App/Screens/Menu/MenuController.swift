@@ -96,6 +96,15 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
     }
     
     
+    internal func updatePointChanged(newPoint: ManagedPoint?) {
+        print("entrei")
+        guard let newPoint else { return }
+        print("Recebi os dados")
+        self.infosHandler.updatePoint(with: newPoint)
+        self.myView.reloadTableData()
+    }
+    
+    
 
     /* MARK: - Ações de botões */
     
@@ -140,8 +149,8 @@ class MenuController: UIViewController, ControllerActions, MenuControllerProtoco
             vc = PointInfoController(with: data)
         }
         
-        if data == nil {
-            vc.menuControllerProtocol = self
+        vc.menuControllerProtocol = self
+        if data == nil {            
             let navBar = UINavigationController(rootViewController: vc)
             self.navigationController?.present(navBar, animated: true)
         } else {

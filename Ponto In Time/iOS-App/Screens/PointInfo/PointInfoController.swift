@@ -43,23 +43,13 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     /* Infos Alterações */
     
-    /// Index dos arquivos que precisam ser salvos no Core Data
-    private var filesToAdd: [ManagedFiles] = [] {
-        didSet {
-            print("\nAdicionados: \(filesToAdd)")
-            print("Deletados: \(filesToDelete)")
-        }
-    }
+    /// Arquivos que forma adicionados
+    private var filesToAdd: [ManagedFiles] = []
     
     /// Arquivos que foram deletados
-    private var filesToDelete: [ManagedFiles] = [] {
-        didSet {
-            print("\nAdicionados: \(filesToAdd)")
-            print("Deletados: \(filesToDelete)")
-        }
-    }
+    private var filesToDelete: [ManagedFiles] = []
     
-    /// Ponto sem alteração
+    /// Infos do ponto sem alteração
     private var originalPoint: ManagedPoint?
     
     
@@ -96,6 +86,13 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         super.viewDidLoad()
 
         self.setupController()
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.updateChangesOnCoreData()
     }
     
     
@@ -182,8 +179,7 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     /* DocumentsHandlerDelegate */
     
     internal func documentSelected(_ document: ManagedFiles?, image: UIImage?) {
-        guard let document, var tableData = self.pointInfoHanlder.mainData
-        else { print("Não deu certo"); return }
+        guard let document, var tableData = self.pointInfoHanlder.mainData else { return }
         
         self.filesToAdd.append(document)
         tableData.files.append(document)
@@ -316,7 +312,7 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     ///   - type: tipo de ação
     /// - Returns: botão de ação
     private func createPickersMenuButton(title: String, type: PickerType) -> UIAlertAction {
-        return UIAlertAction(title: title, style: .default) { _ in self.showPicker(for: type)}
+        return UIAlertAction(title: title, style: .default) { _ in self.showPicker(for: type) }
     }
     
     
@@ -341,23 +337,47 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     /* MARK: - Core Data */
     
+    /// Atualiza os core data caso tenha tido alguma mudança
     private func updateChangesOnCoreData() {
-        if self.hasChangesForCoreData() {
-            
-        }
+        guard let newData = self.pointInfoHanlder.mainData else { return }
         
-        if !self.filesToDelete.isEmpty {
-            let delete = CDManager.shared.deleteFiles(self.filesToDelete)
-            self.showWarningPopUp(with: delete)
-        }
+        var hasChenges = false
+        hasChenges = self.checkForInfosChanged()
+        hasChenges = self.checkForFilesDeleted()
+        
+        guard hasChenges else { return }
+        self.menuControllerProtocol?.updatePointChanged(newPoint: newData)
     }
     
     
-    private func hasChangesForCoreData() -> Bool {
+    
+    /// Verifica se algum arquivo foi adicionado ou se alguma informação do ponto foi modificada
+    /// - Returns: boleano que indica que tem alterações
+    private func checkForInfosChanged() -> Bool {
         guard let old = self.originalPoint, let new = self.pointInfoHanlder.mainData
         else { return false }
+                
+        let hasChanges = !(old == new) || !self.filesToAdd.isEmpty
         
-        let check = !(old == new) || !self.filesToAdd.isEmpty
-        return check
+        if hasChanges {
+            let error = CDManager.shared.updatePoint(
+                id: old.uuid, newData: new, filesToAdd: self.filesToAdd
+            )
+            self.showWarningPopUp(with: error)
+        }
+        return hasChanges
+    }
+    
+    
+    /// Verifica se algum arquivo foi deletado
+    /// - Returns: boleano que indica que tem alterações
+    private func checkForFilesDeleted() -> Bool {
+        let hasChanges = !self.filesToDelete.isEmpty
+        
+        if hasChanges {
+            let error = CDManager.shared.deleteFiles(self.filesToDelete)
+            self.showWarningPopUp(with: error)
+        }
+        return hasChanges
     }
 }

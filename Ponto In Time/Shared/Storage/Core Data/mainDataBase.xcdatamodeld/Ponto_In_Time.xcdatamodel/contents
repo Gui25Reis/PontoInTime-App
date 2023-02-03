@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="DBDayWork" representedClassName="DBDayWork" syncable="YES">
         <attribute name="date" optional="YES" attributeType="String"/>
         <attribute name="endTime" optional="YES" attributeType="String"/>
@@ -15,6 +15,7 @@
     <entity name="DBPoint" representedClassName="DBPoint" syncable="YES">
         <attribute name="status" optional="YES" attributeType="String"/>
         <attribute name="time" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="dayWork" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DBDayWork" inverseName="points" inverseEntity="DBDayWork"/>
         <relationship name="files" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DBFiles" inverseName="point" inverseEntity="DBFiles"/>
         <relationship name="pointType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DBPointType" inverseName="points" inverseEntity="DBPointType"/>

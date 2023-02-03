@@ -20,4 +20,9 @@ protocol MenuControllerProtocol: NSObject {
     /// Recebe informações de um ponto para abrir a pa;gina dele
     /// - Parameter data: infos de um ponto
     func showPointInfos(for data: ManagedPoint?)
+    
+    
+    /// Atualiza um ponto que recebeu mudanças
+    /// - Parameter newPoint: novo ponto
+    func updatePointChanged(newPoint: ManagedPoint?)
 }

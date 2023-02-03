@@ -25,6 +25,9 @@ class CDManager: NSObject, CoreDataProperties {
     /// Lida com os dados dos tipos de pontos
     private lazy var pointTypeManager = PointTypeCDManager()
     
+    /// Lida com os dados dos tipos de pontos
+    private lazy var pointManager = PointCDManager()
+    
     /// Lida com os arquivos
     private lazy var fileManager = FilesCDManager()
     
@@ -165,6 +168,16 @@ class CDManager: NSObject, CoreDataProperties {
     
     
     
+    public func updatePoint(id: UUID, newData: ManagedPoint, filesToAdd: [ManagedFiles]) -> ErrorCDHandler? {
+        var files: [ManagedFiles]? = filesToAdd
+        if filesToAdd.isEmpty { files = nil }
+        
+        let update = self.pointManager.updateData(at: id, newData: newData, files: files)
+        return update
+    }
+    
+    
+    
     /* MARK: Tipos de pontos */
     
     /// Retorna todos os tipos de pontos que existem
@@ -245,6 +258,7 @@ class CDManager: NSObject, CoreDataProperties {
         self.dayWorkManager.coreDataProperties = self
         self.pointTypeManager.coreDataProperties = self
         self.fileManager.coreDataProperties = self
+        self.pointManager.coreDataProperties = self
     }
     
     

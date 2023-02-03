@@ -44,6 +44,9 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     /// Index da célula de finalizar
     public var destructiveIndex: Int { return self.pointsData.count-1 + 2 }
     
+    /// Index do ponto que foi selecionado
+    public var pointSelectedIndex: Int?
+    
     
     /* Métodos */
     
@@ -59,6 +62,13 @@ class InfoMenuTableHandler: NSObject, TableHandler {
         
         self.isUniqueUpdate = true
         self.mainData?.points = points
+    }
+    
+    
+    public func updatePoint(with data: ManagedPoint) {
+        guard let index = self.pointSelectedIndex else { return }
+        self.mainData?.points[index] = data
+        self.pointSelectedIndex = nil
     }
     
     
@@ -194,6 +204,7 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     
     /// Ação de quando clica em uma célula
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) -> Void {
+        self.pointSelectedIndex = nil
         self.cellSelected(at: indexPath)
                 
         tableView.deselectRow(at: indexPath, animated: true)
@@ -239,6 +250,7 @@ class InfoMenuTableHandler: NSObject, TableHandler {
             if row < self.actionIndex {
                 let data = self.mainData?.points[row]
                 self.menuControllerProtocol?.showPointInfos(for: data)
+                self.pointSelectedIndex = row
                 return
             }
             

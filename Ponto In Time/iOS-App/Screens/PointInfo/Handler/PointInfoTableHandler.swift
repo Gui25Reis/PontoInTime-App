@@ -92,7 +92,7 @@ class PointInfoTableHandler: NSObject, TableHandler {
                 
                 if !self.isInitialData {
                     cellData.rightIcon = .contextMenu
-                    cellData.menu = self.createStatusViewMenu()
+                    cellData.menu = self.createPointsTypeMenu()
                 }
                 
                 cell?.tableData = cellData
@@ -104,7 +104,7 @@ class PointInfoTableHandler: NSObject, TableHandler {
                 
                 if !self.isInitialData {
                     cellData.rightIcon = .contextMenu
-                    cellData.menu = self.createPointsTypeMenu()
+                    cellData.menu = self.createStatusViewMenu()
                 }
                 
                 cell?.tableData = cellData
