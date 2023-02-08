@@ -3,6 +3,19 @@
 /* Bibliotecas necessárias: */
 import UIKit
 
+enum PointInfoType {
+    /// Ponto incial de trabalho
+    case initial
+    
+    /// Ponto fincla de trabalho
+    case final
+    
+    /// Adicionando um novo ponto
+    case new
+    
+    /// Ver/atualizar um ponto qualquer
+    case update
+}
 
 /// Controller responsável pela tela de informações de um ponto
 class PointInfoController: UIViewController, ControllerActions, PointInfoProtocol, DocumentsHandlerDelegate {
@@ -30,11 +43,8 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     /* Outros */
     
-    /// Se o dado apresentado é o primeiro ponto do dia
-    private var isFirstPoint = true
-    
-    /// Se o dado apresentado é um novo dado
-    private var isNewPoint = false
+    /// Tipo de ponto
+    private var pointType: PointInfoType = .initial
     
     /// Hora do picker
     private var pickerHour: String = ""
@@ -56,19 +66,12 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     /* MARK: - Construtor */
     
-    init(with data: ManagedPoint? = nil) {
+    init(type: PointInfoType, data: ManagedPoint? = nil) {
         super.init(nibName: nil, bundle: nil)
         
+        self.pointType = type
         self.originalPoint = data
         self.setupCell(for: data)
-    }
-    
-    
-    init(isNewData: Bool) {
-        super.init(nibName: nil, bundle: nil)
-        
-        self.isNewPoint = isNewData
-        self.setupCell(for: nil)
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -103,32 +106,13 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     internal func setupNavigation() {
         self.navigationItem.largeTitleDisplayMode = .never
-        self.title = "Informações do ponto".localized()
         
-        let rightBut = UIBarButtonItem(
-            title: "Deletar", style: .plain,
-            target: self, action: #selector(self.deletePointAction)
-        )
-        rightBut.tintColor = .systemRed
-        
-        self.navigationItem.rightBarButtonItem = rightBut
-        
-        guard self.isFirstPoint || self.isNewPoint else { return }
-        self.title = "Novo ponto".localized()
-        
-        let leftBut = UIBarButtonItem(
-            title: "Cancelar", style: .plain,
-            target: self, action: #selector(self.dismissAction)
-        )
-        leftBut.tintColor = .systemRed
-        
-        self.navigationItem.leftBarButtonItem = leftBut
-        
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "Salvar", style: .plain,
-            target: self, action: #selector(self.saveAction)
-        )
+        switch self.pointType {
+        case .initial, .final, .new:
+            self.setupNewPointNavigation()
+        default:
+            self.setupDefaultNavigation()
+        }
     }
     
     
@@ -213,12 +197,13 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         
         data.time = self.pickerHour
         
-        if self.isFirstPoint {
+        switch pointType {
+        case .initial:
             self.menuControllerProtocol?.setupInitalData(with: data)
-        } else
-
-        if self.isNewPoint {
+        case .new:
             self.menuControllerProtocol?.addNewPoint(with: data)
+        default:
+            break
         }
         
         self.dismissAction()
@@ -228,8 +213,7 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     /// Abre um dos tipos de seleção de arquivos
     /// - Parameter type: tipo de seleção de arquivo
     private func showPicker(for type: PickerType) {
-        let picker = self.documentsHandler.createPicker(for: type)
-        guard let picker else { return }
+        guard let picker = self.documentsHandler.createPicker(for: type) else { return }
         self.present(picker, animated: true)
     }
     
@@ -237,7 +221,7 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     /// Deleta um arquivo
     /// - Parameter file: arquivo que vai ser deletado
     private func deleteFile(_ file: ManagedFiles, at row: Int) {
-        guard var tableData = self.pointInfoHanlder.mainData else { return self.myView.reloadTableData() }
+        guard var tableData = self.pointInfoHanlder.mainData else { self.myView.reloadTableData(); return }
         let data = tableData.files.remove(at: row)
         
         var needsToDelete = true
@@ -254,7 +238,7 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     }
     
     
-    /// Ação do botào de deletar um ponto
+    /// Ação do botão de deletar um ponto
     @objc private func deletePointAction() {
         let message = "Tem certeza que deseja deletar o ponto?"
         let alert = UIAlertController.createDeleteAlert(message: message) {
@@ -270,22 +254,21 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
 
     /// Mostra as informações do ponto
     private func setupCell(for data: ManagedPoint?) {
-        if let data {
-            self.isFirstPoint = false
-            self.setupTableData(with: data)
-            return
-        }
-        
+        guard let data else { self.createDefaultTableData(); return }
+        self.setupTableData(with: data)
+    }
+    
+    
+    /// Cria os dados inicias para a tabela
+    private func createDefaultTableData() {
         var initialData = ManagedPoint(
             status: "Entrada", time: "", files: [],
             pointType: ManagedPointType(title: "Trabalho", isDefault: true)
         )
         
-        if self.isNewPoint {
-            self.isFirstPoint = false
+        if self.pointType == .initial {
             initialData.pointType = ManagedPointType(title: "Nenhum")
         }
-        
         self.setupTableData(with: initialData)
     }
     
@@ -293,9 +276,43 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     /// Configura os dados da tabela
     /// - Parameter data: dados
     private func setupTableData(with data: ManagedPoint) {
-        self.pointInfoHanlder.isInitialData = self.isFirstPoint
+        self.pointInfoHanlder.isInitialData = self.pointType == .initial
         self.pointInfoHanlder.mainData = data
         self.myView.reloadTableData()
+    }
+    
+    
+    /// Configura a navigation bar quando for uma visualização de um ponto
+    private func setupDefaultNavigation() {
+        self.title = "Informações do ponto".localized()
+        
+        let rightBut = UIBarButtonItem(
+            title: "Deletar", style: .plain,
+            target: self, action: #selector(self.deletePointAction)
+        )
+        rightBut.tintColor = .systemRed
+        
+        self.navigationItem.rightBarButtonItem = rightBut
+    }
+    
+    
+    /// Configura a navigation bar quando for para adiconar um novo ponto
+    private func setupNewPointNavigation() {
+        self.title = "Novo ponto".localized()
+        
+        let leftBut = UIBarButtonItem(
+            title: "Cancelar", style: .plain,
+            target: self, action: #selector(self.dismissAction)
+        )
+        leftBut.tintColor = .systemRed
+        
+        self.navigationItem.leftBarButtonItem = leftBut
+        
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Salvar", style: .plain,
+            target: self, action: #selector(self.saveAction)
+        )
     }
     
     
@@ -339,16 +356,11 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     /// Atualiza os core data caso tenha tido alguma mudança
     private func updateChangesOnCoreData() {
+        guard self.checkForInfosChanged() || self.checkForFilesDeleted() else { return }
+        
         guard let newData = self.pointInfoHanlder.mainData else { return }
-        
-        var hasChenges = false
-        hasChenges = self.checkForInfosChanged()
-        hasChenges = self.checkForFilesDeleted()
-        
-        guard hasChenges else { return }
         self.menuControllerProtocol?.updatePointChanged(newPoint: newData)
     }
-    
     
     
     /// Verifica se algum arquivo foi adicionado ou se alguma informação do ponto foi modificada
@@ -357,27 +369,25 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         guard let old = self.originalPoint, let new = self.pointInfoHanlder.mainData
         else { return false }
                 
-        let hasChanges = !(old == new) || !self.filesToAdd.isEmpty
+        guard !(old == new) || !self.filesToAdd.isEmpty else { return false }
         
-        if hasChanges {
-            let error = CDManager.shared.updatePoint(
-                id: old.uuid, newData: new, filesToAdd: self.filesToAdd
-            )
-            self.showWarningPopUp(with: error)
-        }
-        return hasChanges
+        let error = CDManager.shared.updatePoint(
+            id: old.uuid, newData: new, filesToAdd: self.filesToAdd
+        )
+        self.showWarningPopUp(with: error)
+        
+        return true
     }
     
     
     /// Verifica se algum arquivo foi deletado
     /// - Returns: boleano que indica que tem alterações
     private func checkForFilesDeleted() -> Bool {
-        let hasChanges = !self.filesToDelete.isEmpty
+        guard !self.filesToDelete.isEmpty else { return false }
         
-        if hasChanges {
-            let error = CDManager.shared.deleteFiles(self.filesToDelete)
-            self.showWarningPopUp(with: error)
-        }
-        return hasChanges
+        let error = CDManager.shared.deleteFiles(self.filesToDelete)
+        self.showWarningPopUp(with: error)
+        
+        return true
     }
 }

@@ -32,8 +32,6 @@ class MenuController: UIViewController, ControllerActions, ViewWithDayWorkInfoDe
     /// Lida com as datas
     private let dateManager = DateManager()
     
-    /// Diz se já possui dados na tabela
-    private var hasData: Bool?
     
     
     
@@ -149,9 +147,8 @@ class MenuController: UIViewController, ControllerActions, ViewWithDayWorkInfoDe
     ///   - data: dado que a tela vai receber
     ///   - isNewData: caso seja para adicionar um novo dado
     private func openPointInfoPage(with data: ManagedPoint?, isNewData: Bool = false) {
-        var vc = PointInfoController(with: data)
-        if isNewData { vc = PointInfoController(isNewData: true) }
-        
+        let type: PointInfoType = isNewData ? .initial : .update
+        let vc = PointInfoController(type: type, data: data)
         vc.menuControllerProtocol = self
         
         if data == nil {
@@ -187,15 +184,7 @@ class MenuController: UIViewController, ControllerActions, ViewWithDayWorkInfoDe
     /// Verifica se possui já possui dado do dia
     private func checkForTodayData() {
         let (data, _) = CDManager.shared.getTodayDayWorkData()
-        
-        if let data {
-            self.setupDayWork(with: data)
-            self.hasData = true
-            return
-        }
-        
-        self.hasData = false
-        // self.showWarningPopUp(with: error)
+        if let data { self.setupDayWork(with: data) }
     }
     
     
@@ -204,7 +193,7 @@ class MenuController: UIViewController, ControllerActions, ViewWithDayWorkInfoDe
     private func createDay(with point: ManagedPoint) {
         let (data, error) = CDManager.shared.getSettingsData()
         
-        guard let data else { return self.showWarningPopUp(with: error) }
+        guard let data else { self.showWarningPopUp(with: error); return }
         
         guard let timeWork = Int(data.settingsData?.timeWork ?? "") else { return }
         self.createDayWork(point: point, timeWork: timeWork)

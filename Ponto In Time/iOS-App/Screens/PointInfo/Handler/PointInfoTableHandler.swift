@@ -141,7 +141,7 @@ class PointInfoTableHandler: NSObject, TableHandler {
                 data.action = .action
             } else {
                 data = self.fileData[row]
-                data.menu = self.createFileMenu(for: indexPath)
+                data.menu = self.createFileActionMenu(for: indexPath)
             }
             
             cell?.tableData = data
@@ -219,6 +219,7 @@ class PointInfoTableHandler: NSObject, TableHandler {
     /// Ação do picker de horas
     @objc private func hourPickerAction(sender: UIDatePicker) {
         let time = sender.date.getDateFormatted(with: .hms)
+        print("Tempo: \(time)")
         self.delegate?.updateTimeFromPicker(for: time)
     }
     
@@ -286,7 +287,7 @@ class PointInfoTableHandler: NSObject, TableHandler {
     /// Cria o context menu de opções para lidar com um arquivo
     /// - Parameter indexPath: posição da célua (arquivo)
     /// - Returns: context menu
-    private func createFileMenu(for indexPath: IndexPath) -> UIMenu? {
+    private func createFileActionMenu(for indexPath: IndexPath) -> UIMenu? {
         let row = indexPath.row
         guard
             let file = self.mainData?.files[row], let image = self.fileData[row].leftIcon
