@@ -105,10 +105,8 @@ class TextEditController: UIViewController, ControllerActions, ViewHasTextField 
         
         guard self.data.isDeletable else { return }
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "Deletar",
-            style: .plain,
-            target: self,
-            action: #selector(self.deleteAction)
+            title: "Deletar", style: .plain,
+            target: self, action: #selector(self.deleteAction)
         )
         self.navigationItem.rightBarButtonItem?.tintColor = .systemRed
     }

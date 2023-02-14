@@ -6,7 +6,6 @@ import struct Foundation.Date
 
 import class UIKit.UIBarButtonItem
 import class UIKit.UIImage
-import class UIKit.UINavigationController
 import class UIKit.UIViewController
 
 
@@ -31,7 +30,6 @@ class MenuController: UIViewController, ControllerActions, ViewWithDayWorkInfoDe
     
     /// Lida com as datas
     private let dateManager = DateManager()
-    
     
     
     
@@ -122,7 +120,11 @@ class MenuController: UIViewController, ControllerActions, ViewWithDayWorkInfoDe
     
     /// Ação do botão de abrir a tela de criação de um ponto
     @objc private func createNewWorkPage() {
-        self.openPointInfoPage(with: nil)
+        let vc = PointInfoController(type: .initial, data: nil)
+        vc.menuControllerProtocol = self
+        
+        let navBar = CustomNavigationController(rootViewController: vc)
+        self.navigationController?.present(navBar, animated: true)
     }
     
     
@@ -147,12 +149,12 @@ class MenuController: UIViewController, ControllerActions, ViewWithDayWorkInfoDe
     ///   - data: dado que a tela vai receber
     ///   - isNewData: caso seja para adicionar um novo dado
     private func openPointInfoPage(with data: ManagedPoint?, isNewData: Bool = false) {
-        let type: PointInfoType = isNewData ? .initial : .update
+        let type: PointInfoType = isNewData ? .new : .update
         let vc = PointInfoController(type: type, data: data)
         vc.menuControllerProtocol = self
         
         if data == nil {
-            let navBar = UINavigationController(rootViewController: vc)
+            let navBar = CustomNavigationController(rootViewController: vc)
             self.navigationController?.present(navBar, animated: true)
         } else {
             self.navigationController?.pushViewController(vc, animated: true)

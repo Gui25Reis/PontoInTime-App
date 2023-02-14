@@ -19,6 +19,18 @@ class PointInfoTableHandler: NSObject, TableHandler {
     /// Dados usados no data source referente aos arquivos
     private lazy var fileData: [TableData] = []
     
+    /// Ponto padrão para mostrar
+    private lazy var defaultPoint = "Nenhum"
+    
+    
+    /// Boleano que diz se os dados que foram selecionados são iguais ao ponto inicial
+    private var hasInitialPointValue: Bool {
+        return self.mainData?.pointType?.title == "Trabalho"
+    }
+    
+    /// Tipos de posnto disponíveis
+    private lazy var pointsType = CDManager.shared.getAllPointType()
+    
     
     
     /* MARK: - Protocolo */
@@ -37,12 +49,15 @@ class PointInfoTableHandler: NSObject, TableHandler {
         table.registerCell(for: PointInfoCell.self)
     }
     
-    
+
     
     /* MARK: - Encapsulamento */
     
     /// Boleano que diz se os dados são inicial
-    public var isInitialData = true
+    public var isInitialData = false
+    
+    /// Boleano que diz se é um ponto final de trabalho
+    public var isFinalPoint = false
     
     /// Dados base da tabela
     public var mainData: ManagedPoint? {
@@ -88,13 +103,15 @@ class PointInfoTableHandler: NSObject, TableHandler {
             switch row {
             case 0: // Título
                 let cell = tableView.dequeueReusableCell(withIdentifier: TableCell.identifier, for: indexPath) as? TableCell
-                cellData.secondaryText = self.mainData?.pointType.title ?? "Nenhum"
                 
                 if !self.isInitialData {
                     cellData.rightIcon = .contextMenu
                     cellData.menu = self.createPointsTypeMenu()
+                } else {
+                    self.defaultPoint = "Trabalho"
                 }
                 
+                cellData.secondaryText = self.mainData?.pointType?.title ?? self.defaultPoint
                 cell?.tableData = cellData
                 mainCell = cell
                 
@@ -246,18 +263,45 @@ class PointInfoTableHandler: NSObject, TableHandler {
     }
     
     
+    private func pointsMenuAction(title: String) {
+        if title == "Trabalho" && self.mainData?.status == StatusViewStyle.start.word {
+            self.mainData?.status = StatusViewStyle.end.word
+        }
+        
+        guard let point = self.pointsType?.filter({ $0.title == title }).first else { return }
+        self.mainData?.pointType = point
+        self.delegate?.updateMenuData()
+    }
+    
+    
+    private func statusMenuAction(word: String) {
+        if word == StatusViewStyle.start.word && self.hasInitialPointValue {
+            self.mainData?.pointType = nil
+        }
+        
+        guard let status = StatusViewStyle.allCases.filter({ $0.word == word }).first else { return }
+        
+        self.mainData?.status = status.word
+        self.delegate?.updateMenuData()
+    }
+    
+    
     
     /* MARK: - Criação (Context Menu) */
     
     /// Cria o context menu para a célula de mostrar os pontos disponiveis
     /// - Returns: constext menu
-    private func createPointsTypeMenu() -> UIMenu {
-        let pointsType = CDManager.shared.getAllPointType() ?? []
-
+    private func createPointsTypeMenu() -> UIMenu? {
+        guard var pointsType else { return nil }
+        
+        if self.hasInitialPointValue && self.mainData?.status == StatusViewStyle.start.word {
+            pointsType = pointsType.filter() { $0.title != "Trabalho" }
+        }
+            
         let actions = pointsType.map() {
             let title = $0.title
             let action = UIAction(title: title) {_ in
-                self.delegate?.updateMenuData(at: 0, data: title)
+                self.pointsMenuAction(title: title)
             }
             return action
         }
@@ -270,11 +314,21 @@ class PointInfoTableHandler: NSObject, TableHandler {
     /// Cria o context menu para a célula de mostrar os estados disponiveis
     /// - Returns: constext menu
     private func createStatusViewMenu() -> UIMenu {
-        let actions = StatusViewStyle.allCases.map() {
+        var options = StatusViewStyle.allCases
+        
+        if self.hasInitialPointValue && self.mainData?.status == StatusViewStyle.start.word {
+            options = options.filter() { $0.word != StatusViewStyle.start.word }
+        }
+        
+        if self.isFinalPoint {
+            options = [StatusViewStyle.end]
+        }
+        
+        let actions = options.map() {
             let title = $0.word
             let image = StatusView.getImage(for: $0)
             let action = UIAction(title: title, image: image) {_ in
-                self.delegate?.updateMenuData(at: 1, data: title)
+                self.statusMenuAction(word: title)
             }
             return action
         }

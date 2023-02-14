@@ -2,7 +2,6 @@
 
 /* Bibliotecas necessárias: */
 import class UIKit.UIColor
-import class UIKit.UINavigationController
 import class UIKit.UITabBarController
 import class UIKit.UIViewController
 
@@ -40,7 +39,7 @@ class MainController: UITabBarController {
     
     /// Cria uma navigation controller para a tela 01 (Menu)
     /// - Returns: nav controller
-    private func getMenuNavigation() -> UINavigationController {
+    private func getMenuNavigation() -> CustomNavigationController {
         let vc = MenuController()
         vc.setupTab(text: "Seu dia", icon: .menuPage)
         
@@ -50,7 +49,7 @@ class MainController: UITabBarController {
     
     /// Cria uma navigation controller para a tela 02 (Histórico)
     /// - Returns: nav controller
-    private func getHistoricNavigation() -> UINavigationController {
+    private func getHistoricNavigation() -> CustomNavigationController {
         let vc = HistoricController()
         vc.setupTab(text: "Histórico", icon: .historicPage)
         
@@ -61,8 +60,8 @@ class MainController: UITabBarController {
     /// Cria uma navigation controller para uma view controller
     /// - Parameter vc: controller que vai receber a navigation contgroller
     /// - Returns: nav controller
-    private func getNavigation(for vc: UIViewController) -> UINavigationController {
-        let nav = UINavigationController()
+    private func getNavigation(for vc: UIViewController) -> CustomNavigationController {
+        let nav = CustomNavigationController()
         nav.navigationBar.prefersLargeTitles = true
         nav.pushViewController(vc, animated: true)
         

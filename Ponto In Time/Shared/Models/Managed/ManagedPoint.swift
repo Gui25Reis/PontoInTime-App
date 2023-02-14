@@ -13,7 +13,11 @@ struct ManagedPoint: Equatable {
     var status: String
     var time: String
     var files: [ManagedFiles]
-    var pointType: ManagedPointType
+    var pointType: ManagedPointType?
+    
+    var isInitialWorkPoint: Bool {
+        self.status == StatusViewStyle.start.word && pointType?.title == "Trabalho"
+    }
     
     
     
@@ -44,7 +48,7 @@ struct ManagedPoint: Equatable {
         return (
             lhs.status == rhs.status &&
             lhs.time == rhs.time &&
-            lhs.pointType.title == rhs.pointType.title
+            lhs.pointType?.title == rhs.pointType?.title
         )
     }
 }

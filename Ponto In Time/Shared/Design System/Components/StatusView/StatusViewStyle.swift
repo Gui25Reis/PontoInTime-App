@@ -37,8 +37,8 @@ enum StatusViewStyle: CaseIterable {
     /// Palavra do estado
     var word: String {
         switch self {
-        case .start: return "Entrada".localized()
-        case .end: return "Saída".localized()
+        case .start: return "Entrada"
+        case .end: return "Saída"
         }
     }
 }

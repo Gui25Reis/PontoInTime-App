@@ -31,5 +31,5 @@ protocol PointInfoProtocol: NSObject {
     
     
     /// Ação de mostrar a tela de compartilhar
-    func updateMenuData(at index: Int, data: String)
+    func updateMenuData()
 }

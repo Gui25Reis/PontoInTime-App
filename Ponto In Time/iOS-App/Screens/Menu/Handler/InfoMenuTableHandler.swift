@@ -58,7 +58,7 @@ class InfoMenuTableHandler: NSObject, TableHandler {
     public func updatePointsData(with points: [ManagedPoint]) {
         self.pointsData = points.map() { item in
             TableData(
-                primaryText: item.pointType.title, secondaryText: item.time,
+                primaryText: item.pointType?.title ?? "", secondaryText: item.time,
                 image: StatusView.getImage(for: item.status), rightIcon: .chevron
             )
         }

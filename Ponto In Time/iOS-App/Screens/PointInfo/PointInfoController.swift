@@ -3,19 +3,23 @@
 /* Bibliotecas necessárias: */
 import UIKit
 
-enum PointInfoType {
-    /// Ponto incial de trabalho
-    case initial
+
+class CustomNavigationController: UINavigationController {
     
-    /// Ponto fincla de trabalho
-    case final
+    public var canPop = true
     
-    /// Adicionando um novo ponto
-    case new
+    override func popViewController(animated: Bool) -> UIViewController? {
+        print("Entre no poop")
+        if canPop {
+            return super.popViewController(animated: animated)
+        }
+        return nil
+//        return canPop ? super.popViewController(animated: animated) : nil
+    }
     
-    /// Ver/atualizar um ponto qualquer
-    case update
 }
+
+
 
 /// Controller responsável pela tela de informações de um ponto
 class PointInfoController: UIViewController, ControllerActions, PointInfoProtocol, DocumentsHandlerDelegate {
@@ -62,6 +66,9 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     /// Infos do ponto sem alteração
     private var originalPoint: ManagedPoint?
     
+    /// Boleano que indica que as informações alteradas podem ser salvas
+    private var infosCanSave = false
+    
     
     
     /* MARK: - Construtor */
@@ -95,9 +102,19 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.updateChangesOnCoreData()
+        self.validateChanges()
+        
+        if isMovingFromParent, transitionCoordinator?.isInteractive == false {
+            if !self.infosCanSave {
+                self.showInvalidDataWarning(isLeaving: false)
+            }
+        } else {
+            if !self.infosCanSave {
+                self.showInvalidDataWarning(isLeaving: true)
+            }
+            self.updateChangesOnCoreData()
+        }
     }
-    
     
     
     /* MARK: - Protocolo */
@@ -130,15 +147,8 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     
     /* Point Info Protocol */
     
-    internal func updateMenuData(at index: Int, data: String) {
-        guard var tableData = self.pointInfoHanlder.mainData else { return }
-        
-        if index == 0 {
-            tableData.pointType = ManagedPointType(title: data)
-        } else {
-            tableData.status = data
-        }
-        
+    internal func updateMenuData() {
+        guard let tableData = self.pointInfoHanlder.mainData else { return }
         self.setupTableData(with: tableData)
     }
     
@@ -255,6 +265,10 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     /// Mostra as informações do ponto
     private func setupCell(for data: ManagedPoint?) {
         guard let data else { self.createDefaultTableData(); return }
+        
+        let isInitialPoint = self.originalPoint?.isInitialWorkPoint ?? false
+        self.pointInfoHanlder.isInitialData = isInitialPoint
+        
         self.setupTableData(with: data)
     }
     
@@ -266,9 +280,11 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
             pointType: ManagedPointType(title: "Trabalho", isDefault: true)
         )
         
-        if self.pointType == .initial {
+        if self.pointType == .new {
             initialData.pointType = ManagedPointType(title: "Nenhum")
         }
+        
+        self.pointInfoHanlder.isInitialData = self.pointType == .initial
         self.setupTableData(with: initialData)
     }
     
@@ -276,7 +292,6 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     /// Configura os dados da tabela
     /// - Parameter data: dados
     private func setupTableData(with data: ManagedPoint) {
-        self.pointInfoHanlder.isInitialData = self.pointType == .initial
         self.pointInfoHanlder.mainData = data
         self.myView.reloadTableData()
     }
@@ -368,14 +383,29 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
     private func checkForInfosChanged() -> Bool {
         guard let old = self.originalPoint, let new = self.pointInfoHanlder.mainData
         else { return false }
-                
-        guard !(old == new) || !self.filesToAdd.isEmpty else { return false }
         
+        guard !self.infosCanSave else {
+            guard !self.filesToAdd.isEmpty else { return false }
+            return self.saveInfosChanged(old: old, new: nil)
+        }
+        
+        guard !(old == new) || !self.filesToAdd.isEmpty else { return false }
+        return self.saveInfosChanged(old: old, new: new)
+    }
+    
+    
+    /// Salva as informações no core data
+    /// - Parameters:
+    ///   - old: dados antigos
+    ///   - new: dados novos
+    /// - Returns: boleano true
+    ///
+    /// Caso o parâmetro `new`seja nulo, vai ser salvo apenas os arquivos que foram adicionados.
+    private func saveInfosChanged(old: ManagedPoint, new: ManagedPoint?) -> Bool {
         let error = CDManager.shared.updatePoint(
-            id: old.uuid, newData: new, filesToAdd: self.filesToAdd
+            id: old.uuid, newData: new ?? old, filesToAdd: self.filesToAdd
         )
         self.showWarningPopUp(with: error)
-        
         return true
     }
     
@@ -387,7 +417,40 @@ class PointInfoController: UIViewController, ControllerActions, PointInfoProtoco
         
         let error = CDManager.shared.deleteFiles(self.filesToDelete)
         self.showWarningPopUp(with: error)
-        
         return true
+    }
+    
+    
+    /// Valida as mudanças que foram feitas nas informações de um ponto
+    private func validateChanges() {
+        let verification = self.pointInfoHanlder.mainData?.pointType != nil
+        self.infosCanSave = verification
+        
+        if self.navigationController == nil {
+            print("Nào tem navigation")
+        }
+        if let nav = self.navigationController as? CustomNavigationController {
+            print("canPoo -> \(verification)")
+            nav.canPop = verification
+        }
+    }
+    
+    
+    private func showInvalidDataWarning(isLeaving: Bool) {
+        var alert: UIAlertController
+        
+        if isLeaving {
+            let message = "Alguns dados eram inválidos e não foram salvos."
+            alert = UIAlertController.createSimpleAlert(message: message) {}
+        } else {
+            let message = "Existe dados inválidos que nào vão ser alterados, tem certeza que deseja voltar? Algumas alterações não vão ser salvas."
+            
+            alert = UIAlertController.createDeleteAlert(
+                title: "Dado inválido", message: message, buttonTitle: "Sair") {
+                    self.updateChangesOnCoreData()
+                }
+        }
+        
+        self.showAlert(alert)
     }
 }

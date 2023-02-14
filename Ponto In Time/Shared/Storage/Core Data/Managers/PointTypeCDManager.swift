@@ -46,7 +46,9 @@ class PointTypeCDManager {
     /// Cria um dado (caso não exista) a partir das informações passadas
     /// - Parameter data: informações do novo dado
     /// - Returns: modelo do dado
-    public func createIfNeeded(with data: ManagedPointType) -> (data: DBPointType?, error: ErrorCDHandler?) {
+    public func createIfNeeded(with data: ManagedPointType?) -> (data: DBPointType?, error: ErrorCDHandler?) {
+        guard let data else { return (data: nil, error: .dataNotFound) }
+        
         if let oldData = self.check(data: data) {
             return (data: oldData, error: .dataAlreadyExists)
         }
